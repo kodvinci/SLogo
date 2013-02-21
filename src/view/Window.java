@@ -9,7 +9,11 @@ import java.util.ResourceBundle;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 
-
+/**
+ * 
+ * @author Leonard
+ *
+ */
 public class Window extends JComponent {
 
     public static final int FRAMES_PER_SECOND = 25;

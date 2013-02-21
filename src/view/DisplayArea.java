@@ -7,7 +7,11 @@ import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-
+/**
+ * 
+ * @author Leonard
+ *
+ */
 public class DisplayArea extends Window {
 
     private static final long serialVersionUID = 1L;

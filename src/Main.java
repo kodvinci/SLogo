@@ -5,7 +5,11 @@ import view.CommandArea;
 import view.DisplayArea;
 import view.TurtleArea;
 
-
+/**
+ * 
+ * @author Leonard
+ *
+ */
 public class Main {
 
     public static final Dimension TURTLE_AREA_SIZE = new Dimension(800, 600);

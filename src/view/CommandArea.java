@@ -8,7 +8,11 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
+/**
+ * 
+ * @author Leonard
+ *
+ */
 public class CommandArea extends Window {
 
     private static final long serialVersionUID = 1L;
@@ -42,7 +46,7 @@ public class CommandArea extends Window {
         return result;
     }
 
-    protected JButton makeButton () {
+    private JButton makeButton () {
         JButton result = new JButton(myResources.getString("ActionCommand"));
         // TO_DO : Attach Listeners
         return result;

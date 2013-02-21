@@ -4,7 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-
+/**
+ * 
+ * @author Leonard
+ *
+ */
 public class TurtleArea extends Window {
 
     private static final long serialVersionUID = 1L;
