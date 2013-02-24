@@ -14,6 +14,8 @@ import javax.swing.JTextField;
  *
  */
 public class CommandArea extends Window {
+    
+    public static final Dimension DEFAULT_AREA_SIZE = new Dimension(1000, 50);
 
     private static final long serialVersionUID = 1L;
     private static final int FIELD_SIZE = 30;
@@ -29,7 +31,7 @@ public class CommandArea extends Window {
         pen.fillRect(0, 0, getSize().width, getSize().height);
     }
 
-    public void update (double elapsedTime) {
+    public void update () {
         // update
     }
 
@@ -52,4 +54,5 @@ public class CommandArea extends Window {
         return result;
     }
 
+   
 }
