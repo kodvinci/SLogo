@@ -30,7 +30,8 @@ public class CommandEntities {
         ICommand command = getCommand(commandName);
         command.move(myModel.getTurtle(index), distanceOrAngle);
     }
-
+    
+    
 
 
 

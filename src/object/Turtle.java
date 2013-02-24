@@ -13,6 +13,7 @@ public class Turtle extends Sprite {
     
     private double myAngle;
     
+    private boolean leaveTrail;
     
     public Turtle(Location myLocation, double angle){
         super(TURTLE_IMAGE, myLocation,TURTLE_AREA);
