@@ -27,6 +27,10 @@ public class Turtle extends Sprite {
     public double getMyAngle () {
         return myAngle;
     }
+
+    public void setMyAngle (double myAngle) {
+        this.myAngle = myAngle;
+    }
     
     
     
