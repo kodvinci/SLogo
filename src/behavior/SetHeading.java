@@ -12,7 +12,11 @@ public class SetHeading implements ICommand {
 
     @Override
     public void move (Turtle turtle, double X, double Y) throws Exception {
-        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void move (Turtle turtle) throws Exception {
         
     }
 

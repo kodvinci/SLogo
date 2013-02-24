@@ -20,6 +20,11 @@ public class Forward implements ICommand {
         
     }
 
+    @Override
+    public void move (Turtle turtle) throws Exception {
+        
+    }
+
     
 
 }
