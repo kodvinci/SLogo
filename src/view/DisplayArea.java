@@ -13,6 +13,8 @@ import javax.swing.JTextArea;
  *
  */
 public class DisplayArea extends Window {
+    
+    public static final Dimension DEFAULT_AREA_SIZE = new Dimension(200, 600);
 
     private static final long serialVersionUID = 1L;
     private JTextArea myTextArea;
@@ -34,7 +36,7 @@ public class DisplayArea extends Window {
         pen.fillRect(0, 0, getSize().width, getSize().height);
     }
 
-    public void update (double elapsedTime) {
+    public void update () {
         // update
     }
 

@@ -3,23 +3,38 @@ package utilities;
 import java.util.ArrayList;
 import java.util.List;
 import object.Turtle;
+import view.CommandArea;
+import view.DisplayArea;
+import view.TurtleArea;
 
 public class Model {
 
-    private List<Turtle> myTurtles = new ArrayList<Turtle>();
+    private Turtle myTurtle;
     
-    public void addTurtle(Turtle newTurtle){
-        myTurtles.add(newTurtle);
-    }
-    public void removeTurtle(Turtle removeTurtle){
-        myTurtles.remove(removeTurtle);
-    }
-    public void removeTurtle(int ind){
-        myTurtles.remove(ind);
+    private DisplayArea myDisArea;
+     
+    private CommandArea myComArea;
+    
+    private TurtleArea myTurArea;
+    
+    public Model(){
+        myDisArea = new DisplayArea(DisplayArea.DEFAULT_AREA_SIZE);
+        myComArea = new CommandArea(CommandArea.DEFAULT_AREA_SIZE);
+        myTurArea = new TurtleArea(TurtleArea.DEFAULT_AREA_SIZE);
+        myTurtle = new Turtle();
     }
     
-    public Turtle getTurtle(int ind){
-       return  myTurtles.get(ind);
-    }
     
+    public void update(){
+        
+        myDisArea.update();
+        myComArea.update();
+        myTurArea.update();
+    }
+
+
+
+    public Turtle getMyTurtle () {
+        return myTurtle;
+    }
 }

@@ -40,7 +40,14 @@ public class CommandEntities {
         myModel = model;
     }
     
+    public CommandEntities(){
+        
+    }
 
+    public void setModel(Model model){
+        myModel = model;
+    }
+    
     public void addCommand(String command , ICommand newCommand){
         myCommands.put(command, newCommand);
     }
@@ -67,10 +74,10 @@ public class CommandEntities {
         return myCommands.get(command);
     }
 
-    public void doCommand(int index , String commandName, double distanceOrAngle){
+    public void doCommand(String commandName, double distanceOrAngle){
         ICommand command = getCommand(commandName);
         try {
-            command.move(myModel.getTurtle(index), distanceOrAngle);
+            command.move(myModel.getMyTurtle(), distanceOrAngle);
         }
         catch (Exception e) {
           
@@ -78,10 +85,10 @@ public class CommandEntities {
         }
     }
     
-    public void doCommand(int index , String commandName , double x , double y){
+    public void doCommand(String commandName , double x , double y){
         ICommand command = getCommand(commandName);
         try {
-            command.move(myModel.getTurtle(index), x,y);
+            command.move(myModel.getMyTurtle(), x,y);
         }
         catch (Exception e) {
            
@@ -89,10 +96,10 @@ public class CommandEntities {
         }
     }
     
-    public void doCommand(int index , String commandName){
+    public void doCommand( String commandName){
         ICommand command = getCommand(commandName);
         try {
-            command.move(myModel.getTurtle(index));
+            command.move(myModel.getMyTurtle());
         }
         catch (Exception e) {
             // TODO Auto-generated catch block

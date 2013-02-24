@@ -10,6 +10,8 @@ import java.awt.Graphics;
  *
  */
 public class TurtleArea extends Window {
+    
+    public static final Dimension DEFAULT_AREA_SIZE = new Dimension(800, 600);
 
     private static final long serialVersionUID = 1L;
 
@@ -24,7 +26,7 @@ public class TurtleArea extends Window {
         // TO_DO : first time needs to be special cased
     }
 
-    public void update (double elapsedTime) {
+    public void update () {
         // update
     }
 
