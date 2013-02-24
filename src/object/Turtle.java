@@ -30,6 +30,10 @@ public class Turtle extends Sprite {
         myAngle = 0;
         myTrail = new Trail();
     }
+    
+    public void initialize(){
+        super.setCenter(new Location(0,0));
+    }
 
     public void addTrail(){
         myTrail.addTrail(new Location(this.getX(), this.getY()));
