@@ -8,7 +8,7 @@ public class Forward implements ICommand {
 
  
     @Override
-    public void move (Turtle turtle, double distanceOrAngle) throws Exception {
+    public  void move (Turtle turtle, double distanceOrAngle) throws Exception {
         double angle  = turtle.getMyAngle();
         double newX = turtle.getX() + distanceOrAngle * Math.sin(angle);
         double newY = turtle.getY() + distanceOrAngle * Math.cos(angle);
