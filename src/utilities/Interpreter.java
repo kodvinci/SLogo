@@ -9,7 +9,8 @@ public class Interpreter {
     private CommandEntities myCommands;    
    
     
-    public Interpreter(){
+    public Interpreter(Model model){
+        myCommands = new CommandEntities(model);
         myCommands.initialize();
         
     }
