@@ -69,20 +69,36 @@ public class CommandEntities {
 
     public void doCommand(int index , String commandName, double distanceOrAngle){
         ICommand command = getCommand(commandName);
-        command.move(myModel.getTurtle(index), distanceOrAngle);
+        try {
+            command.move(myModel.getTurtle(index), distanceOrAngle);
+        }
+        catch (Exception e) {
+          
+            e.printStackTrace();
+        }
     }
     
     public void doCommand(int index , String commandName , double x , double y){
         ICommand command = getCommand(commandName);
-        command.move(myModel.getTurtle(index), x,y);
+        try {
+            command.move(myModel.getTurtle(index), x,y);
+        }
+        catch (Exception e) {
+           
+            e.printStackTrace();
+        }
     }
-
-
-
-
-
-
-
+    
+    public void doCommand(int index , String commandName){
+        ICommand command = getCommand(commandName);
+        try {
+            command.move(myModel.getTurtle(index));
+        }
+        catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
 
 }

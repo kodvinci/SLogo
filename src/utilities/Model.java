@@ -18,8 +18,8 @@ public class Model {
         myTurtles.remove(ind);
     }
     
-    public void getTurtle(int ind){
-        myTurtles.get(ind);
+    public Turtle getTurtle(int ind){
+       return  myTurtles.get(ind);
     }
     
 }

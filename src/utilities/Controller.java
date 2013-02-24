@@ -8,8 +8,7 @@ public class Controller {
     private List<Model> myModels;
     
     private Interpreter myInter ;
-    
-    private CommandEntities myCommands;
+   
     
     public Controller(){
         
