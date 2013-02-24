@@ -17,4 +17,10 @@ public class Towards implements ICommand {
         turtle.setMyAngle(Math.atan(deltaX/deltaY));
     }
 
+    @Override
+    public void move (Turtle turtle) throws Exception {
+        
+        
+    }
+
 }

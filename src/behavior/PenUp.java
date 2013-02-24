@@ -2,23 +2,23 @@ package behavior;
 
 import object.Turtle;
 
-
-public class SetXY implements ICommand {
+public class PenUp implements ICommand {
 
     @Override
     public void move (Turtle turtle, double distanceOrAngle) throws Exception {
         
+
     }
 
     @Override
-    public void move (Turtle turtle, double x , double y) throws Exception {
-         turtle.setCenter(x, y);
+    public void move (Turtle turtle, double X, double Y) throws Exception {
+        
+
     }
 
     @Override
     public void move (Turtle turtle) throws Exception {
-        
-        
+        turtle.avoidLeaveTrail();
     }
 
 }
