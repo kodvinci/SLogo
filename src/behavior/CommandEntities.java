@@ -4,6 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import utilities.Model;
 
+/**
+ * 
+ * @author Richard Yang
+ *
+ */
+
 public class CommandEntities {
     
     public static final String FORWARD = "FD";

@@ -2,6 +2,12 @@ package behavior;
 
 import object.Turtle;
 
+/**
+ * 
+ * @author Richard Yang
+ *
+ */
+
 public class PenUp implements ICommand {
 
     @Override

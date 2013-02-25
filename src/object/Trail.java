@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import util.Location;
 
+/**
+ * 
+ * @author Richard Yang
+ *
+ */
+
 public class Trail {
    private List<Location> myTrails;
    

@@ -5,6 +5,12 @@ import util.Location;
 import util.Pixmap;
 import util.Sprite;
 
+/**
+ * 
+ * @author Richard Yang
+ *
+ */
+
 public class Turtle extends Sprite {
 
     private static final Pixmap TURTLE_IMAGE = new Pixmap("turtle.gif");

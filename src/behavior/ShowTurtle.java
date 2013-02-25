@@ -1,6 +1,11 @@
 package behavior;
 
 import object.Turtle;
+/**
+ * 
+ * @author Richard Yang
+ *
+ */
 
 public class ShowTurtle implements ICommand {
 

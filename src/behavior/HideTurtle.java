@@ -2,6 +2,11 @@ package behavior;
 
 import object.Turtle;
 
+/**
+ * 
+ * @author Richard Yang
+ *
+ */
 public class HideTurtle implements ICommand {
 
     @Override

@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 import behavior.CommandEntities;
 
+/**
+ * 
+ * @author Richard Yang
+ *
+ */
 public class Interpreter {
      
     private CommandEntities myCommands;    
-   
     
     public Interpreter(Model model){
         myCommands = new CommandEntities(model);

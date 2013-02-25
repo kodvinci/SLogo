@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import behavior.CommandEntities;
 
+/**
+ * 
+ * @author Richard Yang
+ *
+ */
 public class Controller {
    
     private List<Model> myModels = new ArrayList<Model>();

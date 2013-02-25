@@ -3,7 +3,11 @@ package behavior;
 
 import object.Turtle;
 
-
+/**
+ * 
+ * @author Richard Yang
+ *
+ */
 
 public interface ICommand {
     public abstract void move (Turtle turtle , double distanceOrAngle) throws Exception;

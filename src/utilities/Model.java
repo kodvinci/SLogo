@@ -7,6 +7,11 @@ import view.CommandArea;
 import view.DisplayArea;
 import view.TurtleArea;
 
+/**
+ * 
+ * @author Richard Yang
+ *
+ */
 public class Model {
 
     private Turtle myTurtle;

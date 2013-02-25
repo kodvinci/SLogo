@@ -2,6 +2,12 @@ package behavior;
 
 import object.Turtle;
 
+/**
+ * 
+ * @author Richard Yang
+ *
+ */
+
 public class Right extends Left {
 
     
