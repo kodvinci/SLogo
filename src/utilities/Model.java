@@ -1,7 +1,6 @@
 package utilities;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import object.Turtle;
 import view.CommandArea;
 import view.DisplayArea;

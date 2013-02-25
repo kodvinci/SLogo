@@ -47,7 +47,7 @@ public class CommandEntities {
     }
     
     public CommandEntities(){
-        
+        myModel = new Model();
     }
 
     public void setModel(Model model){
@@ -78,6 +78,10 @@ public class CommandEntities {
     
     public ICommand getCommand(String command){
         return myCommands.get(command);
+    }
+
+    public Model getMyModel () {
+        return myModel;
     }
 
     public void doCommand(String commandName, double distanceOrAngle){
