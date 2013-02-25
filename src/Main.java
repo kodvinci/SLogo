@@ -16,7 +16,7 @@ public class Main {
 
     public static final Dimension TURTLE_AREA_SIZE = new Dimension(800, 500);
     public static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
-    public static final Dimension COMMAND_AREA_SIZE = new Dimension(1000, 30);
+    public static final Dimension COMMAND_AREA_SIZE = new Dimension(1000, 40);
     public static final Dimension SIZE = new Dimension(1100, 700);
     public static final String TITLE = "SLOGO";
 

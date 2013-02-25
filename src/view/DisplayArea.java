@@ -23,7 +23,11 @@ public class DisplayArea extends Window {
 
     public DisplayArea (Dimension size) {
         super(size, "English");
-        makeDisplay();
+        add(makeDisplay());
+        setVisible(true);
+        
+        revalidate();
+
     }
 
     private JComponent makeDisplay () {

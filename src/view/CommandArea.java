@@ -25,7 +25,7 @@ import javax.swing.JTextField;
 public class CommandArea extends Window {
 
     public static final Dimension DEFAULT_AREA_SIZE = new Dimension(500, 50);
-
+    
     private static final long serialVersionUID = 1L;
     private static final int FIELD_SIZE = 30;
     private KeyListener myKeyListener;
@@ -34,13 +34,15 @@ public class CommandArea extends Window {
     private ActionListener myActionListener;
     private MouseListener myMouseListener;
     private MouseMotionListener myMouseMotionListener;
+    private static final Dimension BUTTON_SIZE = new Dimension(70, 30);
 
+    
     public CommandArea (Dimension size) {
         super(size, "English");
-        setLayout(new BorderLayout());
-        add(makeTextField(), BorderLayout.WEST);
+        add(makeTextField());
+        add(makeButton());
+        
         setVisible(true);
-
         revalidate();
 
     }
@@ -161,8 +163,10 @@ public class CommandArea extends Window {
     }
 
     private JButton makeButton () {
+        
         JButton result = new JButton(myResources.getString("ActionCommand"));
-        // TO_DO : Attach Listeners
+        result.setPreferredSize(BUTTON_SIZE);
+        // Attach Listeners
         result.addActionListener(myActionListener);
         result.addKeyListener(myKeyListener);
         result.addMouseListener(myMouseListener);
