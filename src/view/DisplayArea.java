@@ -25,7 +25,7 @@ public class DisplayArea extends Window {
         super(size, "English");
         add(makeDisplay());
         setVisible(true);
-        
+
         revalidate();
 
     }

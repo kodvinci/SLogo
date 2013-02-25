@@ -16,8 +16,11 @@ public class Controller {
     private Interpreter myInter;
 
     public Controller () {
-        new Model();
+        // new Model();
 
     }
 
+    public void getUserInput (String string) {
+
+    }
 }
