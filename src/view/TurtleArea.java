@@ -4,13 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
+
 /**
  * 
  * @author Leonard
- *
+ * 
  */
 public class TurtleArea extends Window {
-    
+
     public static final Dimension DEFAULT_AREA_SIZE = new Dimension(800, 600);
 
     private static final long serialVersionUID = 1L;
@@ -21,7 +22,7 @@ public class TurtleArea extends Window {
 
     @Override
     public void paint (Graphics pen) {
-        pen.setColor(Color.CYAN);
+        pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
         // TO_DO : first time needs to be special cased
     }

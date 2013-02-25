@@ -6,13 +6,12 @@ import object.Turtle;
 /**
  * 
  * @author Richard Yang
- *
+ * 
  */
 public class Back extends Forward {
-   
-    
+
     @Override
-    public void move(Turtle turtle , double distanceOrAngle){
+    public void move (Turtle turtle, double distanceOrAngle) {
         try {
             super.move(turtle, -distanceOrAngle);
         }

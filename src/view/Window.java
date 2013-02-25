@@ -6,15 +6,16 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
-import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.Timer;
+
 
 /**
  * 
  * @author Leonard
- *
+ * 
  */
-public class Window extends JComponent {
+public class Window extends JPanel {
 
     public static final int FRAMES_PER_SECOND = 25;
     public static final int ONE_SECOND = 1000;
@@ -28,17 +29,20 @@ public class Window extends JComponent {
     private Timer myTimer;
 
     public Window (Dimension size, String language) {
+
         setPreferredSize(size);
         setSize(size);
         setFocusable(true);
         requestFocus();
+        setVisible(true);
+
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
 
     }
 
     @Override
     public void paintComponent (Graphics pen) {
-        pen.setColor(Color.GRAY);
+        pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
         // TO_DO : first time needs to be special cased
     }

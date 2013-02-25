@@ -7,13 +7,14 @@ import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+
 /**
  * 
  * @author Leonard
- *
+ * 
  */
 public class DisplayArea extends Window {
-    
+
     public static final Dimension DEFAULT_AREA_SIZE = new Dimension(200, 600);
 
     private static final long serialVersionUID = 1L;
@@ -32,7 +33,7 @@ public class DisplayArea extends Window {
 
     @Override
     public void paint (Graphics pen) {
-        pen.setColor(Color.GRAY);
+        pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
     }
 

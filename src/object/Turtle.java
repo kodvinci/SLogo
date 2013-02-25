@@ -5,66 +5,67 @@ import util.Location;
 import util.Pixmap;
 import util.Sprite;
 
+
 /**
  * 
  * @author Richard Yang
- *
+ * 
  */
 
 public class Turtle extends Sprite {
 
     private static final Pixmap TURTLE_IMAGE = new Pixmap("turtle.gif");
-    
-    private static final Dimension TURTLE_AREA = new Dimension(800,600);
-    
+
+    private static final Dimension TURTLE_AREA = new Dimension(800, 600);
+
     private double myAngle;
-    
+
     private boolean leaveTrail;
-    
+
     private Trail myTrail;
-    
+
     private boolean visible;
-    
-    public Turtle(Location myLocation, double angle){
-        super(TURTLE_IMAGE, myLocation,TURTLE_AREA);
+
+    public Turtle (Location myLocation, double angle) {
+        super(TURTLE_IMAGE, myLocation, TURTLE_AREA);
         myAngle = angle;
         myTrail = new Trail();
     }
-    
-    public Turtle(){
-        super(TURTLE_IMAGE,new Location(0,0),TURTLE_AREA);
+
+    public Turtle () {
+        super(TURTLE_IMAGE, new Location(0, 0), TURTLE_AREA);
         myAngle = 0;
         myTrail = new Trail();
     }
-    
-    public void initialize(){
-        super.setCenter(new Location(0,0));
+
+    public void initialize () {
+        super.setCenter(new Location(0, 0));
     }
 
-    public void addTrail(){
-        myTrail.addTrail(new Location(this.getX(), this.getY()));
+    public void addTrail () {
+        myTrail.addTrail(new Location(getX(), getY()));
     }
-    
-    public void leaveTrail(){
-        leaveTrail = true ;
+
+    public void leaveTrail () {
+        leaveTrail = true;
     }
-    
-    public void avoidLeaveTrail(){
-        leaveTrail = false ;
+
+    public void avoidLeaveTrail () {
+        leaveTrail = false;
     }
-    
-    public void clearTrail(){
+
+    public void clearTrail () {
         myTrail.clearTrail();
     }
-    
-    public void setVisible(){
-        visible = true ;
+
+    public void setVisible () {
+        visible = true;
     }
-    
-    public void setInvisible(){
-        visible = false ;
+
+    public void setInvisible () {
+        visible = false;
     }
-    
+
     public double getMyAngle () {
         return myAngle;
     }
@@ -80,9 +81,5 @@ public class Turtle extends Sprite {
     public boolean isVisible () {
         return visible;
     }
-    
-    
-    
-    
-    
+
 }

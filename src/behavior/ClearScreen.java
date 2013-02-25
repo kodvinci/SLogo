@@ -1,10 +1,12 @@
 package behavior;
 
 import object.Turtle;
+
+
 /**
  * 
  * @author Richard Yang
- *
+ * 
  */
 
 public class ClearScreen implements ICommand {
