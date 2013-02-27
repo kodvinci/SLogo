@@ -35,10 +35,11 @@ public class Model {
     
     public Model (Controller controller) {
         myController = controller;
+        myTurtle = new Turtle();
         myDisArea = new DisplayArea(DisplayArea.DEFAULT_AREA_SIZE);
         myComArea = new CommandArea(CommandArea.DEFAULT_AREA_SIZE, myController);
         myTurArea = new TurtleArea(TurtleArea.DEFAULT_AREA_SIZE, myTurtle);
-        myTurtle = new Turtle();
+        
     }
 
     public void update () {
