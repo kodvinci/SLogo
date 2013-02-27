@@ -18,6 +18,7 @@ public class Controller {
     public Controller () {
         System.out.println("model");
         addModel();
+        myInter = new Interpreter();
         System.out.println("model done");
 
     }
@@ -27,7 +28,7 @@ public class Controller {
       }
     
     public void addModel(){
-        myModels.add(new Model());
+        myModels.add(new Model(this));
     }
     
     public void addModel(Model model){
