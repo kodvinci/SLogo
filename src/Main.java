@@ -1,11 +1,5 @@
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import utilities.Controller;
-import view.CommandArea;
-import view.DisplayArea;
-import view.TurtleArea;
 
 
 /**
@@ -35,26 +29,7 @@ public class Main {
          System.out.println(myControl.getModel(0).getMyTurtle().getY());
          System.out.println(myControl.getModel(0).getMyTurtle().getMyAngle());
 
-//        JFrame myFrame = new JFrame(TITLE);
-//        JPanel myPanel = new JPanel();
-//        myFrame.setContentPane(myPanel);
-//        myFrame.setPreferredSize(SIZE);
-//        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//        // for turtle sprite display
-//        TurtleArea myTurtleArea = new TurtleArea(TURTLE_AREA_SIZE);
-//        myFrame.getContentPane().add(myTurtleArea, BorderLayout.CENTER);
-//
-//        // for turtle status display
-//        DisplayArea myDisplay = new DisplayArea(DISPLAY_AREA_SIZE);
-//        myFrame.getContentPane().add(myDisplay, BorderLayout.EAST);
-//
-//        // for user input display
-//        CommandArea myInput = new CommandArea(COMMAND_AREA_SIZE);
-//        myFrame.getContentPane().add(myInput, BorderLayout.SOUTH);
-//
-//        myFrame.pack();
-//        myFrame.setVisible(true);
+//       
     }
 
 }
