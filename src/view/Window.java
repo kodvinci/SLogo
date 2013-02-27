@@ -8,11 +8,13 @@ import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import object.Turtle;
+import utilities.Controller;
 
 
 /**
  * 
- * @author Leonard
+ * @author Leonard and Alan
  * 
  */
 public class Window extends JPanel {
@@ -27,14 +29,13 @@ public class Window extends JPanel {
 
     private static final long serialVersionUID = 1L;
     private Timer myTimer;
-
+    
     public Window (Dimension size, String language) {
 
         setPreferredSize(size);
         setSize(size);
         setFocusable(true);
         requestFocus();
-
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
 
     }

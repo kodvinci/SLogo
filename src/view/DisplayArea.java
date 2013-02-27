@@ -35,11 +35,11 @@ public class DisplayArea extends Window {
         return new JScrollPane(myTextArea);
     }
 
-    @Override
-    public void paint (Graphics pen) {
-        pen.setColor(Color.WHITE);
-        pen.fillRect(0, 0, getSize().width, getSize().height);
-    }
+//    @Override
+//    public void paint (Graphics pen) {
+//        pen.setColor(Color.WHITE);
+//        pen.fillRect(0, 0, getSize().width, getSize().height);
+//    }
 
     public void update () {
         // update

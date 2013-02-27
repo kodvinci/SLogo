@@ -10,7 +10,7 @@ import utilities.Controller;
 
 /**
  * 
- * @author Leonard
+ * @author Leonard and Alan 
  * 
  */
 public class CommandArea extends Window {
@@ -24,7 +24,7 @@ public class CommandArea extends Window {
     private JTextField myTextField;
     private Controller myController;
 
-    public CommandArea (Dimension size) {
+    public CommandArea (Dimension size, Controller control) {
         super(size, "English");
         makeListeners();
         add(makeTextField());
@@ -34,7 +34,7 @@ public class CommandArea extends Window {
         revalidate();
 
         // place holder
-        myController = new Controller();
+        myController = control;
     }
 
     public void update () {
