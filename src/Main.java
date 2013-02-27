@@ -30,7 +30,7 @@ public class Main {
          Controller myControl = new Controller();
          
          System.out.println(myControl.getMyModels().size());
-         myControl.processUserInput(0,"FD 10 FD 10 BK 10 LT 90 FD 10");
+         myControl.processUserInput(0,"FD 10 FD 10 BK 10 LT 90");
          System.out.println(myControl.getModel(0).getMyTurtle().getX());
          System.out.println(myControl.getModel(0).getMyTurtle().getY());
          System.out.println(myControl.getModel(0).getMyTurtle().getMyAngle());
