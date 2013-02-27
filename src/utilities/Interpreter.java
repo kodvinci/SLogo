@@ -14,7 +14,7 @@ public class Interpreter {
 
     private CommandEntities myCommands;
 
-    public Interpreter (Model model) {
+    public Interpreter () {
         myCommands = new CommandEntities();
         myCommands.initialize();
     }
