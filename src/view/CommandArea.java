@@ -38,7 +38,7 @@ public class CommandArea extends Window {
     }
 
     public void update () {
-        myController.getUserInput(myTextField.getText());
+        myController.processUserInput(0, myTextField.getText());
         myTextField.setText("");
     }
 
