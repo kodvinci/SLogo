@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import object.Turtle;
 
 /**
@@ -16,7 +17,8 @@ public class TurtleArea extends Window {
 
     private static final long serialVersionUID = 1L;
     private Turtle myTurtle; 
-
+    private Graphics2D myPen;
+    
     public TurtleArea (Dimension size, Turtle turtle) {
         super(size, "English");
         myTurtle=turtle;
@@ -25,15 +27,15 @@ public class TurtleArea extends Window {
 
     @Override
     public void paint (Graphics pen) {
+        myPen = (Graphics2D) pen;
         pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
-        pen.setColor(Color.GREEN);
-        pen.fillRect((int)myTurtle.getX(), (int)myTurtle.getY(), (int)myTurtle.getWidth(), (int)myTurtle.getHeight());        
-        // TO_DO : first time needs to be special cased
+        myTurtle.paint((Graphics2D) pen);
     }
 
     public void update () {
         // update
+        myTurtle.paint(myPen);
     }
 
 }

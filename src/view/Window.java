@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
@@ -28,7 +29,7 @@ public class Window extends JPanel {
     public ResourceBundle myResources;
 
     private static final long serialVersionUID = 1L;
-    private Timer myTimer;
+
     
     public Window (Dimension size, String language) {
 
@@ -44,28 +45,10 @@ public class Window extends JPanel {
     public void paintComponent (Graphics pen) {
         pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
-        // TO_DO : first time needs to be special cased
+        
     }
 
-    public void start () {
-        myTimer = new Timer(DEFAULT_DELAY, new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                step();
-            }
-        });
-
-        // TO_DO : call instance of model class here!
-        myTimer.start();
+    public void update (Graphics2D pen, Turtle turtle){
+        turtle.paint(pen);
     }
-
-    public void step () {
-        // TO_DO : call update method of model class here!!
-        repaint();
-    }
-
-    public void stop () {
-        myTimer.stop();
-    }
-
 }
