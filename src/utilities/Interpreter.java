@@ -79,16 +79,16 @@ public class Interpreter {
             }
 
             if (parameterCount == 0) {
-                myCommands.doCommand(model , str[0]);
+                myCommands.doCommand(model , str[0].toUpperCase());
             }
             if (parameterCount == 1) {
                 double parameter = Double.parseDouble(str[1]);
-                myCommands.doCommand(model , str[0], parameter);
+                myCommands.doCommand(model , str[0].toUpperCase(), parameter);
             }
             if (parameterCount == 2) {
                 double paraX = Double.parseDouble(str[1]);
                 double paraY = Double.parseDouble(str[2]);
-                myCommands.doCommand(model , str[0], paraX, paraY);
+                myCommands.doCommand(model , str[0].toUpperCase(), paraX, paraY);
             }
             if (parameterCount > 2) {
                 // throw exception
