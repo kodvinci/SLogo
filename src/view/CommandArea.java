@@ -38,23 +38,15 @@ public class CommandArea extends Window {
         myController = control;
     }
 
-    public void update () {
-       // myController.processUserInput(0, myTextField.getText());
-        //myController.getUserInput(myTextField.getText());
-        
-        myTextField.setText("");
-        
-        //super.update(pen, turtle);
-        
-    }
 
-    public void makeListeners (Graphics pen) {
+    public void makeListeners () {
 
         myActionListener = new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 System.out.println(myTextField.getText());
-                myController.getMyModels().get(0).update(pen);
+                myController.processUserInput(0, myTextField.getText());
+                myTextField.setText("");
             }
         };
 

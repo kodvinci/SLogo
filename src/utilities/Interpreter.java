@@ -107,7 +107,7 @@ public class Interpreter {
         ArrayList<String[]> separatedCommands = split(commands);
 
         for (int i = 0; i < separatedCommands.size(); i++) {
-            // System.out.print(separatedCommands.size());
+            System.out.print(separatedCommands.size());
             translateAndExecute(model , separatedCommands.get(i));
 
         }

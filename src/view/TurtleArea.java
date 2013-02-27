@@ -32,8 +32,8 @@ public class TurtleArea extends Window {
         myTurtle.paint((Graphics2D) pen);
     }
 
-    public void update (Graphics pen) {
-        myTurtle.paint((Graphics2D) pen);
+    public void update () {
+        
         
     }
 

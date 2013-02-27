@@ -43,11 +43,10 @@ public class Model {
         
     }
 
-    public void update (Graphics pen) {
+    public void update () {
 
         myDisArea.update();
-       myComArea.update();
-        myTurArea.update(pen);
+        myTurArea.update();
     }
 
     public Turtle getMyTurtle () {
