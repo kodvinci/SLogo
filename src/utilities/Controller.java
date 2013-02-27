@@ -1,5 +1,6 @@
 package utilities;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import object.Turtle;
@@ -24,11 +25,11 @@ public class Controller {
 
     }
 
-    public void processUserInput (int seq , String string) {
+    public void processUserInput (int seq , String string, Graphics pen) {
         myInter.process(myModels.get(seq),string);
         
         //update Turtle
-        myModels.get(0).update();
+       myModels.get(0).update(pen);
       }
     
     public void addModel(){

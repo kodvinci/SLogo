@@ -28,10 +28,10 @@ public class Main {
          Canvas myView = new Canvas(myController);
          
          System.out.println(myController.getMyModels().size());
-       //  myController.processUserInput(0,"FD 10 FD 10 BK 10 LT 90");
-         System.out.println(myController.getModel(0).getMyTurtle().getX());
-         System.out.println(myController.getModel(0).getMyTurtle().getY());
-         System.out.println(myController.getModel(0).getMyTurtle().getMyAngle());
+         //myController.processUserInput(0,"FD 10 fd 10");
+        //System.out.println(myController.getModel(0).getMyTurtle().getX());
+         //System.out.println(myController.getModel(0).getMyTurtle().getY());
+         //System.out.println(myController.getModel(0).getMyTurtle().getMyAngle());
 
          
          

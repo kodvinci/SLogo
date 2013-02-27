@@ -2,6 +2,7 @@ package utilities;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import object.Turtle;
@@ -42,11 +43,11 @@ public class Model {
         
     }
 
-    public void update () {
+    public void update (Graphics pen) {
 
         myDisArea.update();
-        myComArea.update();
-        myTurArea.update();
+       myComArea.update();
+        myTurArea.update(pen);
     }
 
     public Turtle getMyTurtle () {

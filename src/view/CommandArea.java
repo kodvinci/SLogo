@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -38,7 +39,7 @@ public class CommandArea extends Window {
     }
 
     public void update () {
-        myController.processUserInput(0, myTextField.getText());
+       // myController.processUserInput(0, myTextField.getText());
         //myController.getUserInput(myTextField.getText());
         
         myTextField.setText("");
@@ -47,13 +48,13 @@ public class CommandArea extends Window {
         
     }
 
-    public void makeListeners () {
+    public void makeListeners (Graphics pen) {
 
         myActionListener = new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 System.out.println(myTextField.getText());
-                myController.getMyModels().get(0).update();
+                myController.getMyModels().get(0).update(pen);
             }
         };
 

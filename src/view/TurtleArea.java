@@ -27,15 +27,14 @@ public class TurtleArea extends Window {
 
     @Override
     public void paint (Graphics pen) {
-        myPen = (Graphics2D) pen;
         pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
         myTurtle.paint((Graphics2D) pen);
     }
 
-    public void update () {
-        // update
-        myTurtle.paint(myPen);
+    public void update (Graphics pen) {
+        myTurtle.paint((Graphics2D) pen);
+        
     }
 
 }
