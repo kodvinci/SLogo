@@ -16,7 +16,9 @@ public class Controller {
     private Interpreter myInter;
 
     public Controller () {
-        myModels.add(new Model());
+        System.out.println("model");
+        addModel();
+        System.out.println("model done");
 
     }
 
@@ -40,6 +42,10 @@ public class Controller {
         myModels.remove(model);
     }
    
+    public Model getModel(int seq){
+        return myModels.get(seq);
+    }
+    
     public List<Model> getMyModels () {
         return myModels;
     }
