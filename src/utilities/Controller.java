@@ -16,11 +16,37 @@ public class Controller {
     private Interpreter myInter;
 
     public Controller () {
-        // new Model();
+        myModels.add(new Model());
 
     }
 
-    public void getUserInput (String string) {
-
+    public void processUserInput (int seq , String string) {
+        myInter.process(myModels.get(seq),string);
+      }
+    
+    public void addModel(){
+        myModels.add(new Model());
     }
+    
+    public void addModel(Model model){
+        myModels.add(model);
+    }
+    
+    public void removeModel(int seq){
+        myModels.remove(seq);
+    }
+    
+    public void removeModel(Model model){
+        myModels.remove(model);
+    }
+   
+    public List<Model> getMyModels () {
+        return myModels;
+    }
+
+    public Interpreter getMyInter () {
+        return myInter;
+    }
+    
+    
 }

@@ -15,13 +15,7 @@ public class Interpreter {
     private CommandEntities myCommands;
 
     public Interpreter (Model model) {
-        myCommands = new CommandEntities(model);
-        myCommands.initialize();
-    }
-
-    public Interpreter () {
-        Model myModel = new Model();
-        myCommands = new CommandEntities(myModel);
+        myCommands = new CommandEntities();
         myCommands.initialize();
     }
 
@@ -68,7 +62,7 @@ public class Interpreter {
     }
 
     // have to throw exception
-    public void translateAndExecute (String[] str) {
+    public void translateAndExecute (Model model , String[] str) {
 
         // for(int j =0 ; j<str.length ; j++){
         // System.out.print(str[j]);
@@ -85,16 +79,16 @@ public class Interpreter {
             }
 
             if (parameterCount == 0) {
-                myCommands.doCommand(str[0]);
+                myCommands.doCommand(model , str[0]);
             }
             if (parameterCount == 1) {
                 double parameter = Double.parseDouble(str[1]);
-                myCommands.doCommand(str[0], parameter);
+                myCommands.doCommand(model , str[0], parameter);
             }
             if (parameterCount == 2) {
                 double paraX = Double.parseDouble(str[1]);
                 double paraY = Double.parseDouble(str[2]);
-                myCommands.doCommand(str[0], paraX, paraY);
+                myCommands.doCommand(model , str[0], paraX, paraY);
             }
             if (parameterCount > 2) {
                 // throw exception
@@ -108,13 +102,13 @@ public class Interpreter {
      * @param ind the index of turtle we want to process
      * @param commands input of user
      */
-    public void process (String commands) {
+    public void process (Model model , String commands) {
 
         ArrayList<String[]> separatedCommands = split(commands);
 
         for (int i = 0; i < separatedCommands.size(); i++) {
             // System.out.print(separatedCommands.size());
-            translateAndExecute(separatedCommands.get(i));
+            translateAndExecute(model , separatedCommands.get(i));
 
         }
     }

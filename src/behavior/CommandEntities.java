@@ -39,20 +39,11 @@ public class CommandEntities {
 
     public static final String CLEARSCREEN = "CS";
 
-    private Map<String, ICommand> myCommands = new HashMap<String, ICommand>();
+    private Map<String, ICommand> myCommands ;
 
-    private Model myModel;
-
-    public CommandEntities (Model model) {
-        myModel = model;
-    }
 
     public CommandEntities () {
-        myModel = new Model();
-    }
-
-    public void setModel (Model model) {
-        myModel = model;
+        myCommands = new HashMap<String, ICommand>() ;
     }
 
     public void addCommand (String command, ICommand newCommand) {
@@ -82,14 +73,10 @@ public class CommandEntities {
         return myCommands.get(command);
     }
 
-    public Model getMyModel () {
-        return myModel;
-    }
-
-    public void doCommand (String commandName, double distanceOrAngle) {
+    public void doCommand (Model model , String commandName, double distanceOrAngle) {
         ICommand command = getCommand(commandName);
         try {
-            command.move(myModel.getMyTurtle(), distanceOrAngle);
+            command.move(model.getMyTurtle(), distanceOrAngle);
         }
         catch (Exception e) {
 
@@ -97,10 +84,10 @@ public class CommandEntities {
         }
     }
 
-    public void doCommand (String commandName, double x, double y) {
+    public void doCommand (Model model , String commandName, double x, double y) {
         ICommand command = getCommand(commandName);
         try {
-            command.move(myModel.getMyTurtle(), x, y);
+            command.move(model.getMyTurtle(), x, y);
         }
         catch (Exception e) {
 
@@ -108,10 +95,10 @@ public class CommandEntities {
         }
     }
 
-    public void doCommand (String commandName) {
+    public void doCommand (Model model , String commandName) {
         ICommand command = getCommand(commandName);
         try {
-            command.move(myModel.getMyTurtle());
+            command.move(model.getMyTurtle());
         }
         catch (Exception e) {
             // TODO Auto-generated catch block
