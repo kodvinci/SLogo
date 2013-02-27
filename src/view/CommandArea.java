@@ -40,7 +40,11 @@ public class CommandArea extends Window {
     public void update () {
         myController.processUserInput(0, myTextField.getText());
         //myController.getUserInput(myTextField.getText());
+        
         myTextField.setText("");
+        
+        //super.update(pen, turtle);
+        
     }
 
     public void makeListeners () {
@@ -49,7 +53,7 @@ public class CommandArea extends Window {
             @Override
             public void actionPerformed (ActionEvent e) {
                 System.out.println(myTextField.getText());
-                update();
+                myController.getMyModels().get(0).update();
             }
         };
 

@@ -2,6 +2,7 @@ package utilities;
 
 import java.util.ArrayList;
 import java.util.List;
+import object.Turtle;
 
 
 /**
@@ -25,6 +26,9 @@ public class Controller {
 
     public void processUserInput (int seq , String string) {
         myInter.process(myModels.get(seq),string);
+        
+        //update Turtle
+        myModels.get(0).update();
       }
     
     public void addModel(){
@@ -55,5 +59,7 @@ public class Controller {
         return myInter;
     }
     
-    
+    public Turtle getMyTurtle(){
+        return myModels.get(0).getMyTurtle();
+    }
 }
