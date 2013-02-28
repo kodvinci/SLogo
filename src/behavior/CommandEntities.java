@@ -54,18 +54,18 @@ public class CommandEntities {
     }
 
     public void initialize () {
-        myCommands.put(FORWARD, new Forward());
-        myCommands.put(BACK, new Back());
-        myCommands.put(LEFT, new Left());
-        myCommands.put(RIGHT, new Right());
-        myCommands.put(SETHEADING, new SetHeading());
-        myCommands.put(TOWARDS, new Towards());
-        myCommands.put(SETXY, new SetXY());
-        myCommands.put(PENDOWN, new Forward());
-        myCommands.put(PENUP, new PenUp());
-        myCommands.put(SHOWTURTLE, new ShowTurtle());
-        myCommands.put(HIDETURTLE, new HideTurtle());
-        myCommands.put(CLEARSCREEN, new ClearScreen());
+        addCommand(FORWARD, new Forward());
+        addCommand(BACK, new Back());
+        addCommand(LEFT, new Left());
+        addCommand(RIGHT, new Right());
+        addCommand(SETHEADING, new SetHeading());
+        addCommand(TOWARDS, new Towards());
+        addCommand(SETXY, new SetXY());
+        addCommand(PENDOWN, new Forward());
+        addCommand(PENUP, new PenUp());
+        addCommand(SHOWTURTLE, new ShowTurtle());
+        addCommand(HIDETURTLE, new HideTurtle());
+        addCommand(CLEARSCREEN, new ClearScreen());
     }
 
     public ICommand getCommand (String command) {
