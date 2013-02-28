@@ -16,7 +16,7 @@ public class Turtle extends Sprite {
 
     private static final Pixmap TURTLE_IMAGE = new Pixmap("turtle.gif");
     public static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
-    
+
     private static final Dimension TURTLE_AREA = new Dimension(800, 600);
 
     private double myAngle;
@@ -81,6 +81,10 @@ public class Turtle extends Sprite {
 
     public boolean isVisible () {
         return visible;
+    }
+
+    public String toString (double num) {
+        return Double.toString(num);
     }
 
 }

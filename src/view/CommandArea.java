@@ -10,7 +10,7 @@ import utilities.Controller;
 
 /**
  * 
- * @author Leonard and Alan 
+ * @author Leonard and Alan
  * 
  */
 public class CommandArea extends Window {
@@ -33,30 +33,18 @@ public class CommandArea extends Window {
         setVisible(true);
         revalidate();
 
-        // place holder
         myController = control;
     }
 
-    public void update () {
-        myController.processUserInput(0, myTextField.getText());
-        //myController.getUserInput(myTextField.getText());
-        
-        myTextField.setText("");
-        
-        //super.update(pen, turtle);
-        
-    }
-
     public void makeListeners () {
-
         myActionListener = new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 System.out.println(myTextField.getText());
-                myController.getMyModels().get(0).update();
+                myController.processUserInput(0, myTextField.getText());
+                myTextField.setText("");
             }
         };
-
     }
 
     private JTextField makeTextField () {

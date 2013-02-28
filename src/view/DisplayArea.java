@@ -1,11 +1,13 @@
 package view;
 
-import java.awt.Color;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import object.Turtle;
 
 
 /**
@@ -20,29 +22,67 @@ public class DisplayArea extends Window {
     private static final long serialVersionUID = 1L;
     private JTextArea myTextArea;
     private static final int FIELD_SIZE = 30;
+    private Turtle myTurtle;
+    private MouseListener myMouseListener;
 
-    public DisplayArea (Dimension size) {
+    public DisplayArea (Dimension size, Turtle turtle) {
         super(size, "English");
-        add(makeDisplay());
-        setVisible(true);
+        myTurtle = turtle;
+        makeListeners();
 
+        add(makeDisplay(), BorderLayout.CENTER);
+        setVisible(true);
         revalidate();
 
     }
 
     private JComponent makeDisplay () {
-        myTextArea = new JTextArea(FIELD_SIZE, FIELD_SIZE);
+        myTextArea = new JTextArea(FIELD_SIZE, 18);
+        myTextArea.addMouseListener(myMouseListener);
+
         return new JScrollPane(myTextArea);
     }
 
-//    @Override
-//    public void paint (Graphics pen) {
-//        pen.setColor(Color.WHITE);
-//        pen.fillRect(0, 0, getSize().width, getSize().height);
-//    }
-
     public void update () {
-        // update
+    }
+
+    private void makeListeners () {
+
+        myMouseListener = new MouseListener() {
+            @Override
+            public void mouseClicked (MouseEvent e) {
+                echo("clicked", e);
+            }
+
+            @Override
+            public void mouseEntered (MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited (MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed (MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased (MouseEvent e) {
+            }
+        };
+
+    }
+
+    private void echo (String s, MouseEvent e) {
+        showMessage("x coordinate: " + myTurtle.toString(myTurtle.getX()));
+        showMessage("y coordinate: " + myTurtle.toString(myTurtle.getY()));
+        showMessage("turtle angle: " + myTurtle.toString(myTurtle.getMyAngle()));
+        showMessage("\n");
+    }
+
+    public void showMessage (String message) {
+        myTextArea.append(message + "\n");
+        myTextArea.setCaretPosition(myTextArea.getText().length());
     }
 
 }

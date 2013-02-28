@@ -39,11 +39,10 @@ public class CommandEntities {
 
     public static final String CLEARSCREEN = "CS";
 
-    private Map<String, ICommand> myCommands ;
-
+    private Map<String, ICommand> myCommands;
 
     public CommandEntities () {
-        myCommands = new HashMap<String, ICommand>() ;
+        myCommands = new HashMap<String, ICommand>();
     }
 
     public void addCommand (String command, ICommand newCommand) {
@@ -73,7 +72,7 @@ public class CommandEntities {
         return myCommands.get(command);
     }
 
-    public void doCommand (Model model , String commandName, double distanceOrAngle) {
+    public void doCommand (Model model, String commandName, double distanceOrAngle) {
         ICommand command = getCommand(commandName);
         try {
             command.move(model.getMyTurtle(), distanceOrAngle);
@@ -84,7 +83,7 @@ public class CommandEntities {
         }
     }
 
-    public void doCommand (Model model , String commandName, double x, double y) {
+    public void doCommand (Model model, String commandName, double x, double y) {
         ICommand command = getCommand(commandName);
         try {
             command.move(model.getMyTurtle(), x, y);
@@ -95,7 +94,7 @@ public class CommandEntities {
         }
     }
 
-    public void doCommand (Model model , String commandName) {
+    public void doCommand (Model model, String commandName) {
         ICommand command = getCommand(commandName);
         try {
             command.move(model.getMyTurtle());
