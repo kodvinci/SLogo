@@ -5,11 +5,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ResourceBundle;
+import javax.swing.AbstractAction;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import object.Turtle;
 import utilities.Controller;
 
@@ -38,11 +47,15 @@ public class Window extends JPanel {
     private static final int ENTER_KEY = KeyEvent.VK_ENTER;
     private static final long serialVersionUID = 1L;
     private KeyListener myKeyListener;
+    private JFileChooser myChooser;
 
     public Window (Controller controller) {
         makeKeyListener();
         myController = controller;
         myTurtle = myController.getMyTurtle();
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
+        myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
+        
         createGUI();
         addKeyListener(myKeyListener);
     }
@@ -88,6 +101,9 @@ public class Window extends JPanel {
         CommandArea myInput = new CommandArea(COMMAND_AREA_SIZE, myController);
         myFrame.getContentPane().add(myInput, BorderLayout.SOUTH);
 
+        //add menu
+        myFrame.setJMenuBar(makeMenus());
+        
         myFrame.pack();
         myFrame.setVisible(true);
     }
@@ -114,6 +130,68 @@ public class Window extends JPanel {
                 System.out.println("keyTyped");
             }
         };
+    }
+    
+    protected JMenuBar makeMenus () {
+        JMenuBar result = new JMenuBar();
+        result.add(makeFileMenu());
+        return result;
+    }
+
+    private JMenu makeFileMenu () {
+        JMenu result = new JMenu(myResources.getString("FileMenu"));
+        result.add(new AbstractAction(myResources.getString("OpenCommand")) {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                try {
+                    int response = myChooser.showOpenDialog(null);
+                    if (response == JFileChooser.APPROVE_OPTION) {
+                        echo(new FileReader(myChooser.getSelectedFile()));
+                    }
+                }
+                catch (IOException io) {
+                    // let user know an error occurred, but keep going
+                    showError(io.toString());
+                }
+            }
+        });
+        result.add(new AbstractAction(myResources.getString("SaveCommand")) {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                try {
+                    echo(new FileWriter("demo.out"));
+                }
+                catch (IOException io) {
+                    // let user know an error occurred, but keep going
+                    showError(io.toString());
+                }
+            }
+        });
+        result.add(new JSeparator());
+        result.add(new AbstractAction(myResources.getString("QuitCommand")) {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                // clean up any open resources, then
+                // end program
+                System.exit(0);
+            }
+        });
+        return result;
+    }
+
+    protected void echo (FileWriter fileWriter) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    protected void showError (String string) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    protected void echo (FileReader fileReader) {
+        // TODO Auto-generated method stub
+        
     }
 
 }
