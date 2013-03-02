@@ -26,7 +26,7 @@ public class Main {
         //new Window(myController);
 
          System.out.println(myController.getMyModels().size());
-         myController.processUserInput(0,"FD 10 FD 10 LT 90asdas");
+         myController.processUserInput(0,"FD 10 10 100 FD 10 LT 90asdas");
          System.out.println(myController.getModel(0).getMyTurtle().getX());
          System.out.println(myController.getModel(0).getMyTurtle().getY());
          System.out.println(myController.getModel(0).getMyTurtle().getMyAngle());
