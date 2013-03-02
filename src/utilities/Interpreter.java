@@ -1,7 +1,9 @@
 package utilities;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
+import exceptions.SyntaxException;
 import behavior.CommandEntities;
 
 
@@ -49,51 +51,29 @@ public class Interpreter {
             allCommands.add(str);
             str = null;
         }
-        // for(int i =0 ; i<allCommands.size() ; i++){
-        // String[] str = allCommands.get(i);
-        // for(int j =0 ; j<str.length ; j++){
-        // System.out.print(str[j]);
-        // System.out.print(" ");
-        // }
-        // System.out.print("\n");
-        // }
-
+     
         return allCommands;
     }
 
     // have to throw exception
-    public void translateAndExecute (Model model, String[] str) {
-
-        // for(int j =0 ; j<str.length ; j++){
-        // System.out.print(str[j]);
-        // System.out.print(" ");
-        // System.out.print("\n");
-        // }
+    public void translateAndExecute (Model model, String[] str) throws SyntaxException{
 
         Pattern myPattern = Pattern.compile("[0-9]*");
-        int parameterCount = 0;
+        List<Double> bufferList = new ArrayList<Double>();
 
         for (String element : str) {
             if (myPattern.matcher(element).matches()) {
-                parameterCount++;
-            }
-
-            if (parameterCount == 0) {
-                myCommands.doCommand(model, str[0]);
-            }
-            if (parameterCount == 1) {
-                double parameter = Double.parseDouble(str[1]);
-                myCommands.doCommand(model, str[0], parameter);
-            }
-            if (parameterCount == 2) {
-                double paraX = Double.parseDouble(str[1]);
-                double paraY = Double.parseDouble(str[2]);
-                myCommands.doCommand(model, str[0], paraX, paraY);
-            }
-            if (parameterCount > 2) {
-                // throw exception
+                bufferList.add(Double.parseDouble(element));
             }
         }
+        int size = bufferList.size();
+        
+        double[] parameters = new double[size];
+        for(int i = 0 ; i< size ; i++){
+            parameters[i] = bufferList.get(i).doubleValue();
+        }
+        
+        myCommands.doCommand(model, str[0], parameters);
 
     }
 
@@ -103,14 +83,12 @@ public class Interpreter {
      * @param ind the index of turtle we want to process
      * @param commands input of user
      */
-    public void process (Model model, String commands) {
+    public void process (Model model, String commands) throws SyntaxException {
 
         ArrayList<String[]> separatedCommands = split(commands);
 
         for (int i = 0; i < separatedCommands.size(); i++) {
-            // System.out.print(separatedCommands.size());
             translateAndExecute(model, separatedCommands.get(i));
-
         }
     }
 

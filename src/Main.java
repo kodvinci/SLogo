@@ -23,13 +23,13 @@ public class Main {
 
         Controller myController = new Controller();
         // new Canvas(myController);
-        new Window(myController);
+        //new Window(myController);
 
-        // System.out.println(myController.getMyModels().size());
-        // myController.processUserInput(0,"FD 10 FD 10 BK 10 LT 90");
-        // System.out.println(myController.getModel(0).getMyTurtle().getX());
-        // System.out.println(myController.getModel(0).getMyTurtle().getY());
-        // System.out.println(myController.getModel(0).getMyTurtle().getMyAngle());
+         System.out.println(myController.getMyModels().size());
+         myController.processUserInput(0,"FD 10 FD 10 LT 90asdas");
+         System.out.println(myController.getModel(0).getMyTurtle().getX());
+         System.out.println(myController.getModel(0).getMyTurtle().getY());
+         System.out.println(myController.getModel(0).getMyTurtle().getMyAngle());
 
     }
 

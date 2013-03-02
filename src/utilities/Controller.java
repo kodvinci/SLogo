@@ -2,6 +2,7 @@ package utilities;
 
 import java.util.ArrayList;
 import java.util.List;
+import exceptions.SyntaxException;
 import object.Turtle;
 
 
@@ -14,16 +15,22 @@ public class Controller {
 
     private List<Model> myModels = new ArrayList<Model>();
 
-    private Interpreter myInter;
+    private Interpreter myInterpreter;
 
     public Controller () {
         addModel();
-        myInter = new Interpreter();
+        myInterpreter = new Interpreter();
     }
 
     public void processUserInput (int seq, String string) {
-        myInter.process(myModels.get(seq), string);
-
+        
+        try {
+            myInterpreter.process(myModels.get(seq), string);
+        }
+        catch (SyntaxException e) {
+           // myModels.get(seq).showMessage("Syntax Error, please check your commands");  
+           System.out.println("Syntax Error");
+        }
         // update view
         myModels.get(0).update();
     }
@@ -53,7 +60,7 @@ public class Controller {
     }
 
     public Interpreter getMyInter () {
-        return myInter;
+        return myInterpreter;
     }
 
     public Turtle getMyTurtle () {

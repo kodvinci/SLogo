@@ -2,6 +2,7 @@ package behavior;
 
 import java.util.HashMap;
 import java.util.Map;
+import exceptions.SyntaxException;
 import utilities.Model;
 
 
@@ -69,20 +70,20 @@ public class CommandEntities {
         addCommand(CLEARSCREEN, new ClearScreen());
     }
 
-    public ICommand getCommand (String command) {
+    public ICommand getCommand (String command) throws SyntaxException {
+        if( !myCommands.containsKey(command)){
+            throw new SyntaxException();
+        }
+        
         return myCommands.get(command);
     }
 
-    public void doCommand (Model model, String commandName, double[] parameters) {
+    public void doCommand (Model model, String commandName, double[] parameters)throws SyntaxException {
         ICommand command = getCommand(commandName);
-        try {
-            command.move(model.getMyTurtle(), parameters);
-        }
-        catch (Exception e) {
-
-            e.printStackTrace();
-        }
+        
+        command.move(model.getMyTurtle(), parameters);
     }
+       
 
     public static double[] inverse(double[] parameters){
         int length = parameters.length;

@@ -20,7 +20,7 @@ public class Model {
 
     private Turtle myTurtle;
 
-    private DisplayArea myDisArea;
+    private DisplayArea myDisplayArea;
 
     private TurtleArea myTurArea;
 
@@ -29,19 +29,23 @@ public class Model {
     public Model (Controller controller) {
         myController = controller;
         myTurtle = new Turtle();
-        myDisArea = new DisplayArea(DisplayArea.DEFAULT_AREA_SIZE, myTurtle);
+        myDisplayArea = new DisplayArea(DisplayArea.DEFAULT_AREA_SIZE, myTurtle);
         myTurArea = new TurtleArea(TurtleArea.DEFAULT_AREA_SIZE, myTurtle);
 
     }
 
     public void update () {
         System.out.println("update!");
-        myDisArea.update();
+        myDisplayArea.update();
         myTurArea.update();
     }
 
     public Turtle getMyTurtle () {
         return myTurtle;
+    }
+    
+    public void showMessage(String message){
+        myDisplayArea.showMessage(message);
     }
 
 }
