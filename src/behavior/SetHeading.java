@@ -1,5 +1,6 @@
 package behavior;
 
+import exceptions.SyntaxException;
 import object.Turtle;
 
 
@@ -12,18 +13,13 @@ import object.Turtle;
 public class SetHeading implements ICommand {
 
     @Override
-    public void move (Turtle turtle, double distanceOrAngle) throws Exception {
-        turtle.setMyAngle(distanceOrAngle);
-    }
-
-    @Override
-    public void move (Turtle turtle, double X, double Y) throws Exception {
-
-    }
-
-    @Override
-    public void move (Turtle turtle) throws Exception {
-
+    public void move (Turtle turtle, double[] parameters) throws SyntaxException {
+        if(parameters.length != 1){
+            throw new SyntaxException();        
+        }else{
+            double angle = parameters[0];
+            turtle.setMyAngle(angle);
+        }
     }
 
 }

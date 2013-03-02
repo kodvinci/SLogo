@@ -21,7 +21,7 @@ public class Turtle extends Sprite {
 
     private double myAngle;
 
-    private boolean leaveTrail;
+    private boolean leftTrail;
 
     private Trail myTrail;
 
@@ -47,12 +47,12 @@ public class Turtle extends Sprite {
         myTrail.addTrail(new Location(getX(), getY()));
     }
 
-    public void leaveTrail () {
-        leaveTrail = true;
+    public void leftTrail () {
+        leftTrail = true;
     }
 
-    public void avoidLeaveTrail () {
-        leaveTrail = false;
+    public void avoidTrail () {
+        leftTrail = false;
     }
 
     public void clearTrail () {
@@ -76,7 +76,7 @@ public class Turtle extends Sprite {
     }
 
     public boolean isLeaveTrail () {
-        return leaveTrail;
+        return leftTrail;
     }
 
     public boolean isVisible () {

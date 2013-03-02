@@ -13,31 +13,31 @@ import utilities.Model;
 
 public class CommandEntities {
 
-    public static final String FORWARD = "FD";
+    private static final String FORWARD = "FD";
 
-    public static final String BACK = "BK";
+    private static final String BACK = "BK";
 
-    public static final String LEFT = "LT";
+    private static final String LEFT = "LT";
 
-    public static final String RIGHT = "RT";
+    private static final String RIGHT = "RT";
 
-    public static final String SETHEADING = "SETH";
+    private static final String SETHEADING = "SETH";
 
-    public static final String TOWARDS = "TOWARDS";
+    private static final String TOWARDS = "TOWARDS";
 
-    public static final String SETXY = "SETXY";
+    private static final String SETXY = "SETXY";
 
-    public static final String PENDOWN = "PD";
+    private static final String PENDOWN = "PD";
 
-    public static final String PENUP = "PU";
+    private static final String PENUP = "PU";
 
-    public static final String SHOWTURTLE = "ST";
+    private static final String SHOWTURTLE = "ST";
 
-    public static final String HIDETURTLE = "HT";
+    private static final String HIDETURTLE = "HT";
 
-    public static final String HOME = "HOME";
+    private static final String HOME = "HOME";
 
-    public static final String CLEARSCREEN = "CS";
+    private static final String CLEARSCREEN = "CS";
 
     private Map<String, ICommand> myCommands;
 
@@ -65,6 +65,7 @@ public class CommandEntities {
         addCommand(PENUP, new PenUp());
         addCommand(SHOWTURTLE, new ShowTurtle());
         addCommand(HIDETURTLE, new HideTurtle());
+        addCommand(HOME, new Home());
         addCommand(CLEARSCREEN, new ClearScreen());
     }
 
@@ -72,10 +73,10 @@ public class CommandEntities {
         return myCommands.get(command);
     }
 
-    public void doCommand (Model model, String commandName, double distanceOrAngle) {
+    public void doCommand (Model model, String commandName, double[] parameters) {
         ICommand command = getCommand(commandName);
         try {
-            command.move(model.getMyTurtle(), distanceOrAngle);
+            command.move(model.getMyTurtle(), parameters);
         }
         catch (Exception e) {
 
@@ -83,26 +84,16 @@ public class CommandEntities {
         }
     }
 
-    public void doCommand (Model model, String commandName, double x, double y) {
-        ICommand command = getCommand(commandName);
-        try {
-            command.move(model.getMyTurtle(), x, y);
+    public static double[] inverse(double[] parameters){
+        int length = parameters.length;
+        double[] inverseParameters = new double[length];
+        for(int i = 0 ; i< length ; i++){
+            inverseParameters[i] =  - parameters[i];
         }
-        catch (Exception e) {
-
-            e.printStackTrace();
-        }
+        return inverseParameters;
     }
+   
 
-    public void doCommand (Model model, String commandName) {
-        ICommand command = getCommand(commandName);
-        try {
-            command.move(model.getMyTurtle());
-        }
-        catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+    
 
 }
