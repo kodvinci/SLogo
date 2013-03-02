@@ -19,7 +19,6 @@ public class Canvas {
     private Turtle myTurtle;
     
     public Canvas(Controller controller){
-        System.out.println("Canvasss");
         myController = controller;
         myTurtle = myController.getMyTurtle();
         createGUI();

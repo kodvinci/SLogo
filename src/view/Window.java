@@ -49,6 +49,6 @@ public class Window extends JPanel {
     }
 
     public void update (Graphics2D pen, Turtle turtle){
-        turtle.paint(pen);
+        
     }
 }

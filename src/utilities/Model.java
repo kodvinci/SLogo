@@ -43,11 +43,12 @@ public class Model {
         
     }
 
-    public void update (Graphics pen) {
-
+    public void update () {
+        System.out.println("update");
+        myController.processUserInput(0, "FD 10 fd 10 fd 30");
         myDisArea.update();
        myComArea.update();
-        myTurArea.update(pen);
+        myTurArea.update();
     }
 
     public Turtle getMyTurtle () {

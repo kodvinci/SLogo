@@ -232,9 +232,7 @@ public abstract class Sprite {
     /**
      * Display this shape on the screen.
      */
-    public void paint (Graphics2D pen) {
-        myView.paint(pen, myCenter, mySize, myVelocity.getDirection());
-    }
+    
 
     /**
      * Returns rectangle that encloses this shape.

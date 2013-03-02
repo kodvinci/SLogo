@@ -25,11 +25,8 @@ public class Controller {
 
     }
 
-    public void processUserInput (int seq , String string, Graphics pen) {
-        myInter.process(myModels.get(seq),string);
-        
-        //update Turtle
-       myModels.get(0).update(pen);
+    public void processUserInput (int seq , String str) {
+        myInter.process(myModels.get(seq),str);
       }
     
     public void addModel(){

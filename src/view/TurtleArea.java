@@ -17,7 +17,7 @@ public class TurtleArea extends Window {
 
     private static final long serialVersionUID = 1L;
     private Turtle myTurtle; 
-    private Graphics2D myPen;
+    
     
     public TurtleArea (Dimension size, Turtle turtle) {
         super(size, "English");
@@ -27,14 +27,18 @@ public class TurtleArea extends Window {
 
     @Override
     public void paint (Graphics pen) {
+        System.out.println("painted");
         pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
-        myTurtle.paint((Graphics2D) pen);
+        System.out.println(myTurtle.getX());
+        System.out.println(myTurtle.getY());
+        pen.drawOval((int)myTurtle.getX(), (int)myTurtle.getY(),10 , 10);
+        
     }
 
-    public void update (Graphics pen) {
-        myTurtle.paint((Graphics2D) pen);
-        
+    public void update () {
+        System.out.println("update turtle");
+        repaint();
     }
 
 }
