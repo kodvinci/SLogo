@@ -4,19 +4,20 @@ import exceptions.SyntaxException;
 import object.Turtle;
 
 
-
 /**
  * 
  * @author Richard Yang
  * 
  */
-public class Back extends Forward {
+
+public class Ycor implements ICommand {
 
     @Override
     public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        double[] inverseParameters = CommandEntities.inverse(parameters);
-        super.move(turtle, inverseParameters);
-        return parameters[0];
+        if (parameters.length != 0) {
+            throw new SyntaxException();
+        }
+        return turtle.getX() - Turtle.DEFAULT_SIZE.height / 2;
     }
 
 }

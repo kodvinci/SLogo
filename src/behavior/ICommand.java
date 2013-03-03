@@ -1,6 +1,9 @@
 package behavior;
 
+import exceptions.SyntaxException;
 import object.Turtle;
+
+
 
 
 /**
@@ -10,10 +13,14 @@ import object.Turtle;
  */
 
 public interface ICommand {
-    public abstract void move (Turtle turtle, double distanceOrAngle) throws Exception;
-
-    public abstract void move (Turtle turtle, double X, double Y) throws Exception;
-
-    public abstract void move (Turtle turtle) throws Exception;
+    
+    /**
+     * Move the turtle
+     * @param turtle            The turtle object
+     * @param parameters        the parameters
+     * @return                  return command
+     * @throws SyntaxException  syntax exception
+     */
+    public abstract double move (Turtle turtle, double[] parameters) throws SyntaxException;
 
 }

@@ -10,13 +10,15 @@ import object.Turtle;
  * @author Richard Yang
  * 
  */
-public class Back extends Forward {
+
+public class Minus implements ICommand {
 
     @Override
     public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        double[] inverseParameters = CommandEntities.inverse(parameters);
-        super.move(turtle, inverseParameters);
-        return parameters[0];
+        if (parameters.length != 1) {
+            throw new SyntaxException();
+        }
+        return -parameters[0];
     }
 
 }

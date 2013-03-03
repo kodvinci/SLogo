@@ -1,7 +1,7 @@
 package behavior;
 
+import exceptions.SyntaxException;
 import object.Turtle;
-
 
 /**
  * 
@@ -12,19 +12,16 @@ import object.Turtle;
 public class ClearScreen implements ICommand {
 
     @Override
-    public void move (Turtle turtle, double distanceOrAngle) throws Exception {
-
-    }
-
-    @Override
-    public void move (Turtle turtle, double X, double Y) throws Exception {
-
-    }
-
-    @Override
-    public void move (Turtle turtle) throws Exception {
-        turtle.clearTrail();
-        turtle.initialize();
+    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
+        if (parameters.length != 0) {
+            throw new SyntaxException();
+        }
+        else {
+            turtle.clearTrail();
+            turtle.initialize();
+        }
+        return Math.sqrt(Math.pow(turtle.getX() - (Turtle.DEFAULT_SIZE.width / 2), 2) +
+                         Math.pow(turtle.getY() - Turtle.DEFAULT_SIZE.height / 2, 2));
     }
 
 }

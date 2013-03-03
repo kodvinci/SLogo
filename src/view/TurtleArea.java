@@ -73,6 +73,8 @@ public class TurtleArea extends Window {
        // Random myRand = new Random();
        // int myHack = myRand.nextInt(1);
         this.setSize(this.getWidth(), this.getHeight());
+
+        repaint();
     }
 
     private void paintTurtle (Graphics2D pen) {

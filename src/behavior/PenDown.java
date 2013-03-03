@@ -1,6 +1,8 @@
 package behavior;
 
+import exceptions.SyntaxException;
 import object.Turtle;
+
 
 
 /**
@@ -12,18 +14,14 @@ import object.Turtle;
 public class PenDown implements ICommand {
 
     @Override
-    public void move (Turtle turtle, double distanceOrAngle) throws Exception {
-
-    }
-
-    @Override
-    public void move (Turtle turtle, double X, double Y) throws Exception {
-
-    }
-
-    @Override
-    public void move (Turtle turtle) throws Exception {
-        turtle.leaveTrail();
+    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
+        if (parameters.length != 0) {
+            throw new SyntaxException();
+        }
+        else {
+            turtle.leftTrail();
+            return 1;
+        }
     }
 
 }

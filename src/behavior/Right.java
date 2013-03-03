@@ -1,5 +1,6 @@
 package behavior;
 
+import exceptions.SyntaxException;
 import object.Turtle;
 
 
@@ -12,13 +13,9 @@ import object.Turtle;
 public class Right extends Left {
 
     @Override
-    public void move (Turtle turtle, double distanceOrAngle) {
-        try {
-            super.move(turtle, -distanceOrAngle);
-        }
-        catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
+        double[] inverseParameters = CommandEntities.inverse(parameters);
+        super.move(turtle, inverseParameters);
+        return parameters[0];
     }
 }

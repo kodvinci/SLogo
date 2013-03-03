@@ -1,8 +1,10 @@
 package utilities;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 import behavior.CommandEntities;
+import exceptions.SyntaxException;
 
 
 /**
@@ -13,8 +15,14 @@ import behavior.CommandEntities;
 public class Interpreter {
 
     private CommandEntities myCommands;
+    Pattern numPattern;
+    Pattern strPattern;
+    Pattern listPattern;
 
     public Interpreter () {
+        numPattern = Pattern.compile("[0-9]*");
+        strPattern = Pattern.compile("[a-zA-Z]*");
+        listPattern = Pattern.compile("[\\[\\]]*");
         myCommands = new CommandEntities();
         myCommands.initialize();
     }
@@ -24,14 +32,14 @@ public class Interpreter {
 
         ArrayList<String[]> allCommands = new ArrayList<String[]>();
         ArrayList<StringBuffer> allBuffers = new ArrayList<StringBuffer>();
-        Pattern myPattern = Pattern.compile("[a-zA-Z]*");
 
         String[] cutBySpace = commands.split(" ");
 
         StringBuffer buffer = new StringBuffer();
         buffer.append(cutBySpace[0]);
         for (int i = 1; i < cutBySpace.length; i++) {
-            if (myPattern.matcher(cutBySpace[i]).matches()) {
+            if (strPattern.matcher(cutBySpace[i]).matches() ||
+                listPattern.matcher(cutBySpace[i]).matches()) {
 
                 allBuffers.add(buffer);
                 buffer = new StringBuffer();
@@ -49,51 +57,28 @@ public class Interpreter {
             allCommands.add(str);
             str = null;
         }
-        // for(int i =0 ; i<allCommands.size() ; i++){
-        // String[] str = allCommands.get(i);
-        // for(int j =0 ; j<str.length ; j++){
-        // System.out.print(str[j]);
-        // System.out.print(" ");
-        // }
-        // System.out.print("\n");
-        // }
 
         return allCommands;
     }
 
     // have to throw exception
-    public void translateAndExecute (Model model, String[] str) {
+    public void translateAndExecute (Model model, String[] str) throws SyntaxException {
 
-        // for(int j =0 ; j<str.length ; j++){
-        // System.out.print(str[j]);
-        // System.out.print(" ");
-        // System.out.print("\n");
-        // }
-
-        Pattern myPattern = Pattern.compile("[0-9]*");
-        int parameterCount = 0;
+        List<Double> bufferList = new ArrayList<Double>();
 
         for (String element : str) {
-            if (myPattern.matcher(element).matches()) {
-                parameterCount++;
-            }
-
-            if (parameterCount == 0) {
-                myCommands.doCommand(model, str[0]);
-            }
-            if (parameterCount == 1) {
-                double parameter = Double.parseDouble(str[1]);
-                myCommands.doCommand(model, str[0], parameter);
-            }
-            if (parameterCount == 2) {
-                double paraX = Double.parseDouble(str[1]);
-                double paraY = Double.parseDouble(str[2]);
-                myCommands.doCommand(model, str[0], paraX, paraY);
-            }
-            if (parameterCount > 2) {
-                // throw exception
+            if (numPattern.matcher(element).matches()) {
+                bufferList.add(Double.parseDouble(element));
             }
         }
+        int size = bufferList.size();
+
+        double[] parameters = new double[size];
+        for (int i = 0; i < size; i++) {
+            parameters[i] = bufferList.get(i).doubleValue();
+        }
+
+        myCommands.doCommand(model, str[0].toUpperCase(), parameters);
 
     }
 
@@ -103,19 +88,45 @@ public class Interpreter {
      * @param ind the index of turtle we want to process
      * @param commands input of user
      */
-    public void process (Model model, String commands) {
+    public void process (Model model, String commands) throws SyntaxException {
 
         ArrayList<String[]> separatedCommands = split(commands);
+        System.out.println(separatedCommands.size());
+        for (int i = 0; i < separatedCommands.size(); i++) {
+            for (int j = 0; j < separatedCommands.get(i).length; j++) {
+                System.out.println(separatedCommands.get(i)[j]);
+            }
+        }
 
         for (int i = 0; i < separatedCommands.size(); i++) {
-            // System.out.print(separatedCommands.size());
-            translateAndExecute(model, separatedCommands.get(i));
+            String[] currentCommand = separatedCommands.get(i);
+
+            // to make a variable
+            if (currentCommand[0].toUpperCase().equals("MAKE")) {
+                i++;
+                currentCommand = separatedCommands.get(i);
+                makeVariable(model, currentCommand);
+            }
+            else if (currentCommand[0].toUpperCase().equals("IF")) {
+
+            }
+            else {
+                translateAndExecute(model, currentCommand);
+            }
 
         }
     }
 
-    public CommandEntities getMyCommands () {
-        return myCommands;
+    public void makeVariable (Model model, String[] currentCommand) throws SyntaxException {
+
+        if (currentCommand.length < 2) throw new SyntaxException();
+        String name = currentCommand[0];
+        String value = currentCommand[1];
+        if (!(strPattern.matcher(name).matches() && numPattern.matcher(value).matches()))
+            throw new SyntaxException();
+        else {
+            model.addVariable(name, Double.parseDouble(value));
+        }
     }
 
 }

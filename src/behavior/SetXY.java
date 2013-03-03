@@ -1,5 +1,6 @@
 package behavior;
 
+import exceptions.SyntaxException;
 import object.Turtle;
 
 
@@ -12,17 +13,17 @@ import object.Turtle;
 public class SetXY implements ICommand {
 
     @Override
-    public void move (Turtle turtle, double distanceOrAngle) throws Exception {
-
-    }
-
-    @Override
-    public void move (Turtle turtle, double x, double y) throws Exception {
-        turtle.setCenter(x, y);
-    }
-
-    @Override
-    public void move (Turtle turtle) throws Exception {
+    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
+        if (parameters.length != 2) {
+            throw new SyntaxException();
+        }
+        else {
+            double newX = parameters[0];
+            double newY = parameters[1];
+            turtle.setCenter(newX, newY);
+            return Math.sqrt(Math.pow(newX - turtle.getX() + Turtle.DEFAULT_SIZE.width / 2, 2) +
+                             Math.pow(newY - turtle.getY() + Turtle.DEFAULT_SIZE.height / 2, 2));
+        }
 
     }
 
