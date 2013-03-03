@@ -17,7 +17,7 @@ public class Main {
     public static final String TITLE = "SLOGO";
 
     /**
-     * @param args
+     * @param args      nothing
      */
     public static void main (String[] args) {
 
@@ -25,11 +25,11 @@ public class Main {
         // new Canvas(myController);
         //new Window(myController);
 
-         System.out.println(myController.getMyModels().size());
-         myController.processUserInput(0,"pu");
-         System.out.println(myController.getModel(0).getMyTurtle().getX());
-         System.out.println(myController.getModel(0).getMyTurtle().getY());
-         System.out.println(myController.getModel(0).getMyTurtle().getMyAngle());
+        System.out.println(myController.getMyModels().size());
+        myController.processUserInput(0, "Make ");
+        System.out.println(myController.getModel(0).getMyTurtle().getX());
+        System.out.println(myController.getModel(0).getMyTurtle().getY());
+        System.out.println(myController.getModel(0).getMyTurtle().getMyAngle());
 
     }
 
