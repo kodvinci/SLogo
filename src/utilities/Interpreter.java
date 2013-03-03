@@ -17,10 +17,12 @@ public class Interpreter {
     private CommandEntities myCommands;
     Pattern numPattern;
     Pattern strPattern;
+    Pattern listPattern;
 
     public Interpreter () {
         numPattern = Pattern.compile("[0-9]*");
         strPattern = Pattern.compile("[a-zA-Z]*");
+        listPattern = Pattern.compile("[\\[\\]]*");
         myCommands = new CommandEntities();
         myCommands.initialize();
     }
@@ -36,7 +38,7 @@ public class Interpreter {
         StringBuffer buffer = new StringBuffer();
         buffer.append(cutBySpace[0]);
         for (int i = 1; i < cutBySpace.length; i++) {
-            if (strPattern.matcher(cutBySpace[i]).matches()) {
+            if (strPattern.matcher(cutBySpace[i]).matches() || listPattern.matcher(cutBySpace[i]).matches()) {
 
                 allBuffers.add(buffer);
                 buffer = new StringBuffer();
@@ -88,15 +90,25 @@ public class Interpreter {
     public void process (Model model, String commands) throws SyntaxException {
 
         ArrayList<String[]> separatedCommands = split(commands);
+        System.out.println(separatedCommands.size());
+        for(int i = 0 ; i< separatedCommands.size() ; i++){
+            for(int j = 0 ; j< separatedCommands.get(i).length ; j++){
+                System.out.println(separatedCommands.get(i)[j]);
+            }
+        }
 
         for (int i = 0; i < separatedCommands.size(); i++) {
             String[] currentCommand = separatedCommands.get(i);
+           
+            //to make a variable
             if (currentCommand[0].toUpperCase().equals("MAKE")) {
                 i++ ;
                 currentCommand = separatedCommands.get(i);
                 makeVariable(model, currentCommand);
-            }
-            else {
+            }else if (currentCommand[0].toUpperCase().equals("IF")){
+                
+                
+            }else {
                 translateAndExecute(model, currentCommand);
             }
 

@@ -25,17 +25,11 @@ public class Main {
         // new Canvas(myController);
         // new Window(myController);
 
-        myController.processUserInput(0, "Make arcueid 10 make makubex ");
+        myController.processUserInput(0, "IF 50 [ FD 10 ]");
         System.out.println(myController.getModel(0).getMyTurtle().getX());
         System.out.println(myController.getModel(0).getMyTurtle().getY());
         System.out.println(myController.getModel(0).getMyTurtle().getMyAngle());
-        try {
-            System.out.println(myController.getModel(0).getVariableValue("arcueid"));
-            System.out.println(myController.getModel(0).getVariableValue("makubex"));
-        }
-        catch (NoSuchVariableException e) {
-            System.out.println("no such variable");
-        }
+        
 
     }
 
