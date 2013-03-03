@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 import object.Turtle;
 
 
@@ -68,7 +69,10 @@ public class TurtleArea extends Window {
 
     public void update () {
         System.out.println("turtle update");
-        repaint();
+       // repaint();
+       // Random myRand = new Random();
+       // int myHack = myRand.nextInt(1);
+        this.setSize(this.getWidth(), this.getHeight());
     }
 
     private void paintTurtle (Graphics2D pen) {
