@@ -73,7 +73,7 @@ public class Interpreter {
             parameters[i] = bufferList.get(i).doubleValue();
         }
         
-        myCommands.doCommand(model, str[0], parameters);
+        myCommands.doCommand(model, str[0].toUpperCase(), parameters);
 
     }
 

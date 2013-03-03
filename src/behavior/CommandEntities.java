@@ -62,7 +62,7 @@ public class CommandEntities {
         addCommand(SETHEADING, new SetHeading());
         addCommand(TOWARDS, new Towards());
         addCommand(SETXY, new SetXY());
-        addCommand(PENDOWN, new Forward());
+        addCommand(PENDOWN, new PenDown());
         addCommand(PENUP, new PenUp());
         addCommand(SHOWTURTLE, new ShowTurtle());
         addCommand(HIDETURTLE, new HideTurtle());
