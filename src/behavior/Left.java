@@ -1,7 +1,7 @@
 package behavior;
 
-import exceptions.SyntaxException;
 import object.Turtle;
+import exceptions.SyntaxException;
 
 
 /**
@@ -14,13 +14,13 @@ public class Left implements ICommand {
 
     @Override
     public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        if(parameters.length != 1){
+        if (parameters.length != 1)
             throw new SyntaxException();
-        }else{
+        else {
             double angle = parameters[0];
             double deltaAngle = angle * Math.PI / 180;
             turtle.setMyAngle(angle - deltaAngle);
-            return angle ;
+            return angle;
         }
     }
 }

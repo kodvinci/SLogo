@@ -55,7 +55,7 @@ public class Window extends JPanel {
         myTurtle = myController.getMyTurtle();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
-        
+
         createGUI();
         addKeyListener(myKeyListener);
     }
@@ -101,9 +101,9 @@ public class Window extends JPanel {
         CommandArea myInput = new CommandArea(COMMAND_AREA_SIZE, myController);
         myFrame.getContentPane().add(myInput, BorderLayout.SOUTH);
 
-        //add menu
+        // add menu
         myFrame.setJMenuBar(makeMenus());
-        
+
         myFrame.pack();
         myFrame.setVisible(true);
     }
@@ -131,7 +131,7 @@ public class Window extends JPanel {
             }
         };
     }
-    
+
     protected JMenuBar makeMenus () {
         JMenuBar result = new JMenuBar();
         result.add(makeFileMenu());
@@ -181,17 +181,17 @@ public class Window extends JPanel {
 
     protected void echo (FileWriter fileWriter) {
         // TODO Auto-generated method stub
-        
+
     }
 
     protected void showError (String string) {
         // TODO Auto-generated method stub
-        
+
     }
 
     protected void echo (FileReader fileReader) {
         // TODO Auto-generated method stub
-        
+
     }
 
 }

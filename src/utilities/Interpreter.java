@@ -3,8 +3,8 @@ package utilities;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-import exceptions.SyntaxException;
 import behavior.CommandEntities;
+import exceptions.SyntaxException;
 
 
 /**
@@ -54,14 +54,13 @@ public class Interpreter {
             allCommands.add(str);
             str = null;
         }
-     
+
         return allCommands;
     }
 
     // have to throw exception
-    public void translateAndExecute (Model model, String[] str) throws SyntaxException{
+    public void translateAndExecute (Model model, String[] str) throws SyntaxException {
 
-        
         List<Double> bufferList = new ArrayList<Double>();
 
         for (String element : str) {
@@ -70,12 +69,12 @@ public class Interpreter {
             }
         }
         int size = bufferList.size();
-        
+
         double[] parameters = new double[size];
-        for(int i = 0 ; i< size ; i++){
+        for (int i = 0; i < size; i++) {
             parameters[i] = bufferList.get(i).doubleValue();
         }
-        
+
         myCommands.doCommand(model, str[0].toUpperCase(), parameters);
 
     }
@@ -87,30 +86,36 @@ public class Interpreter {
      * @param commands input of user
      */
     public void process (Model model, String commands) throws SyntaxException {
-        
+
         ArrayList<String[]> separatedCommands = split(commands);
 
         for (int i = 0; i < separatedCommands.size(); i++) {
             String[] currentCommand = separatedCommands.get(i);
-            if(currentCommand[0].toUpperCase() .equals("MAKE")){
-                makeVariable(model , currentCommand);
-            }else{
+            if (currentCommand[0].toUpperCase().equals("MAKE")) {
+                i++ ;
+                currentCommand = separatedCommands.get(i);
+                makeVariable(model, currentCommand);
+            }
+            else {
                 translateAndExecute(model, currentCommand);
             }
-            
+
         }
     }
 
-    public void makeVariable(Model model, String[] currentCommand) throws SyntaxException{
-     
-        if(currentCommand.length < 3) throw new SyntaxException();
-        String name = currentCommand[1];
-        String value = currentCommand[2];
-        if( !(strPattern.matcher(name).matches() && numPattern.matcher(value).matches()) ){
-            throw new SyntaxException() ;
-        }else{
+    public void makeVariable (Model model, String[] currentCommand) throws SyntaxException {
+
+        if (currentCommand.length < 2){
+            throw new SyntaxException();
+            
+        } 
+        String name = currentCommand[0];
+        String value = currentCommand[1];
+        if (!(strPattern.matcher(name).matches() && numPattern.matcher(value).matches()))
+            throw new SyntaxException();
+        else {
             model.addVariable(name, Double.parseDouble(value));
         }
     }
-   
+
 }

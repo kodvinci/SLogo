@@ -1,7 +1,7 @@
 package behavior;
 
-import exceptions.SyntaxException;
 import object.Turtle;
+import exceptions.SyntaxException;
 
 
 /**
@@ -12,15 +12,13 @@ import object.Turtle;
 
 public class ShowTurtle implements ICommand {
 
-   
-
     @Override
-    public double move (Turtle turtle , double[] parameters) throws SyntaxException {
-        if(parameters.length != 0){
+    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
+        if (parameters.length != 0)
             throw new SyntaxException();
-        }else{
+        else {
             turtle.setVisible();
-            return 1 ;
+            return 1;
         }
 
     }

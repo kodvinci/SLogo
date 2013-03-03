@@ -2,8 +2,9 @@ package exceptions;
 
 /**
  * Syntax exceptions when wrong commands are typed
+ * 
  * @author Richard Yang
- *
+ * 
  */
 
 public class SyntaxException extends Exception {
@@ -13,14 +14,12 @@ public class SyntaxException extends Exception {
      */
     private static final long serialVersionUID = 1L;
 
-    
-    public SyntaxException(){
+    public SyntaxException () {
         super();
     }
-    
-    public SyntaxException(String message){
+
+    public SyntaxException (String message) {
         super(message);
     }
-    
-    
+
 }

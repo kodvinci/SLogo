@@ -2,8 +2,8 @@ package utilities;
 
 import java.util.ArrayList;
 import java.util.List;
-import exceptions.SyntaxException;
 import object.Turtle;
+import exceptions.SyntaxException;
 
 
 /**
@@ -23,16 +23,16 @@ public class Controller {
     }
 
     public void processUserInput (int seq, String string) {
-        
+
         try {
             myInterpreter.process(myModels.get(seq), string);
         }
         catch (SyntaxException e) {
-           // myModels.get(seq).showMessage("Syntax Error, please check your commands");  
-           System.out.println("Syntax Error");
+            // myModels.get(seq).showMessage("Syntax Error, please check your commands");
+            System.out.println("Syntax Error");
         }
         // update view
-        myModels.get(0).update();
+        myModels.get(seq).update();
     }
 
     public void addModel () {

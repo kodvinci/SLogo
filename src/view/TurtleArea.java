@@ -67,7 +67,7 @@ public class TurtleArea extends Window {
     }
 
     public void update () {
-        System.out.println("turtle update");
+       
         repaint();
     }
 

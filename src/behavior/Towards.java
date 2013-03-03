@@ -1,7 +1,7 @@
 package behavior;
 
-import exceptions.SyntaxException;
 import object.Turtle;
+import exceptions.SyntaxException;
 
 
 /**
@@ -12,12 +12,11 @@ import object.Turtle;
 
 public class Towards implements ICommand {
 
-   
     @Override
     public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        if(parameters.length != 2){
-            throw new SyntaxException();        
-        }else{
+        if (parameters.length != 2)
+            throw new SyntaxException();
+        else {
             double x = parameters[0];
             double y = parameters[1];
             double deltaX = x - turtle.getX();
@@ -25,11 +24,9 @@ public class Towards implements ICommand {
             double currentAngle = Math.atan(deltaX / deltaY);
             double difference = currentAngle - turtle.getMyAngle();
             turtle.setMyAngle(currentAngle);
-            return difference ;
-            
+            return difference;
+
         }
     }
-
-  
 
 }

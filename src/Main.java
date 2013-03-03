@@ -1,6 +1,6 @@
 import java.awt.Dimension;
+import exceptions.NoSuchVariableException;
 import utilities.Controller;
-import view.Window;
 
 
 /**
@@ -17,19 +17,25 @@ public class Main {
     public static final String TITLE = "SLOGO";
 
     /**
-     * @param args      nothing
+     * @param args nothing
      */
     public static void main (String[] args) {
 
         Controller myController = new Controller();
         // new Canvas(myController);
-        //new Window(myController);
+        // new Window(myController);
 
-        System.out.println(myController.getMyModels().size());
-        myController.processUserInput(0, "Make ");
+        myController.processUserInput(0, "Make arcueid 10 make makubex ");
         System.out.println(myController.getModel(0).getMyTurtle().getX());
         System.out.println(myController.getModel(0).getMyTurtle().getY());
         System.out.println(myController.getModel(0).getMyTurtle().getMyAngle());
+        try {
+            System.out.println(myController.getModel(0).getVariableValue("arcueid"));
+            System.out.println(myController.getModel(0).getVariableValue("makubex"));
+        }
+        catch (NoSuchVariableException e) {
+            System.out.println("no such variable");
+        }
 
     }
 

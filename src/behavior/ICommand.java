@@ -1,7 +1,7 @@
 package behavior;
 
-import exceptions.SyntaxException;
 import object.Turtle;
+import exceptions.SyntaxException;
 
 
 /**
@@ -12,7 +12,5 @@ import object.Turtle;
 
 public interface ICommand {
     public abstract double move (Turtle turtle, double[] parameters) throws SyntaxException;
-
-    
 
 }
