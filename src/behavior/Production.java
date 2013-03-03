@@ -3,14 +3,14 @@ package behavior;
 import object.Turtle;
 import exceptions.SyntaxException;
 
-public class Xcor implements ICommand {
+public class Production implements ICommand {
 
     @Override
     public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        if(parameters.length != 0){
+        if(parameters.length != 2){
             throw new SyntaxException();
         }
-        return turtle.getX()-Turtle.DEFAULT_SIZE.width/2;
+        return parameters[0] * parameters[1];
     }
 
 }

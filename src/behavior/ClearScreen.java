@@ -20,7 +20,7 @@ public class ClearScreen implements ICommand {
             turtle.clearTrail();
             turtle.initialize();    
         }
-        return Math.sqrt(Math.pow(turtle.getX(),2) + Math.pow( turtle.getY(),2));
+        return Math.sqrt(Math.pow((turtle.getX()-Turtle.DEFAULT_SIZE.width/2),2) + Math.pow( turtle.getY()-Turtle.DEFAULT_SIZE.height/2,2));
     }
 
 }

@@ -10,7 +10,7 @@ public class Ycor implements ICommand {
         if(parameters.length != 0){
             throw new SyntaxException();
         }
-        return turtle.getX();
+        return turtle.getX() -Turtle.DEFAULT_SIZE.height/2;
     }
 
 }
