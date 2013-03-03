@@ -15,8 +15,12 @@ import behavior.CommandEntities;
 public class Interpreter {
 
     private CommandEntities myCommands;
+    Pattern numPattern;
+    Pattern strPattern;
 
     public Interpreter () {
+        numPattern = Pattern.compile("[0-9]*");
+        strPattern = Pattern.compile("[a-zA-Z]*");
         myCommands = new CommandEntities();
         myCommands.initialize();
     }
@@ -26,14 +30,13 @@ public class Interpreter {
 
         ArrayList<String[]> allCommands = new ArrayList<String[]>();
         ArrayList<StringBuffer> allBuffers = new ArrayList<StringBuffer>();
-        Pattern myPattern = Pattern.compile("[a-zA-Z]*");
 
         String[] cutBySpace = commands.split(" ");
 
         StringBuffer buffer = new StringBuffer();
         buffer.append(cutBySpace[0]);
         for (int i = 1; i < cutBySpace.length; i++) {
-            if (myPattern.matcher(cutBySpace[i]).matches()) {
+            if (strPattern.matcher(cutBySpace[i]).matches()) {
 
                 allBuffers.add(buffer);
                 buffer = new StringBuffer();
@@ -58,11 +61,11 @@ public class Interpreter {
     // have to throw exception
     public void translateAndExecute (Model model, String[] str) throws SyntaxException{
 
-        Pattern myPattern = Pattern.compile("[0-9]*");
+        
         List<Double> bufferList = new ArrayList<Double>();
 
         for (String element : str) {
-            if (myPattern.matcher(element).matches()) {
+            if (numPattern.matcher(element).matches()) {
                 bufferList.add(Double.parseDouble(element));
             }
         }
@@ -84,16 +87,30 @@ public class Interpreter {
      * @param commands input of user
      */
     public void process (Model model, String commands) throws SyntaxException {
-
+        
         ArrayList<String[]> separatedCommands = split(commands);
 
         for (int i = 0; i < separatedCommands.size(); i++) {
-            translateAndExecute(model, separatedCommands.get(i));
+            String[] currentCommand = separatedCommands.get(i);
+            if(currentCommand[0].toUpperCase() .equals("MAKE")){
+                makeVariable(model , currentCommand);
+            }else{
+                translateAndExecute(model, currentCommand);
+            }
+            
         }
     }
 
-    public void makeVariable(Model model, String variableName , double variable){
-        model
+    public void makeVariable(Model model, String[] currentCommand) throws SyntaxException{
+     
+        if(currentCommand.length < 3) throw new SyntaxException();
+        String name = currentCommand[1];
+        String value = currentCommand[2];
+        if( !(strPattern.matcher(name).matches() && numPattern.matcher(value).matches()) ){
+            throw new SyntaxException() ;
+        }else{
+            model.addVariable(name, Double.parseDouble(value));
+        }
     }
    
 }
