@@ -14,7 +14,7 @@ public class Towards implements ICommand {
 
    
     @Override
-    public void move (Turtle turtle, double[] parameters) throws SyntaxException {
+    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
         if(parameters.length != 2){
             throw new SyntaxException();        
         }else{
@@ -22,7 +22,11 @@ public class Towards implements ICommand {
             double y = parameters[1];
             double deltaX = x - turtle.getX();
             double deltaY = y - turtle.getY();
-            turtle.setMyAngle(Math.atan(deltaX / deltaY));
+            double currentAngle = Math.atan(deltaX / deltaY);
+            double difference = currentAngle - turtle.getMyAngle();
+            turtle.setMyAngle(currentAngle);
+            return difference ;
+            
         }
     }
 

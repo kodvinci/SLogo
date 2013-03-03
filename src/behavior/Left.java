@@ -13,13 +13,14 @@ import object.Turtle;
 public class Left implements ICommand {
 
     @Override
-    public void move (Turtle turtle, double[] parameters) throws SyntaxException {
+    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
         if(parameters.length != 1){
             throw new SyntaxException();
         }else{
             double angle = parameters[0];
             double deltaAngle = angle * Math.PI / 180;
             turtle.setMyAngle(angle - deltaAngle);
+            return angle ;
         }
     }
 }

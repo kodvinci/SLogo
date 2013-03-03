@@ -11,7 +11,7 @@ import object.Turtle;
  */
 
 public interface ICommand {
-    public abstract void move (Turtle turtle, double[] parameters) throws SyntaxException;
+    public abstract double move (Turtle turtle, double[] parameters) throws SyntaxException;
 
     
 

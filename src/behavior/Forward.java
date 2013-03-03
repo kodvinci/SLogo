@@ -13,7 +13,7 @@ import object.Turtle;
 public class Forward implements ICommand {
 
     @Override
-    public void move (Turtle turtle, double[] parameters) throws SyntaxException {
+    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
         if(parameters.length != 1){
             throw new SyntaxException();        
         }else{
@@ -22,7 +22,7 @@ public class Forward implements ICommand {
             double newX = turtle.getX() + distance * Math.sin(angle);
             double newY = turtle.getY() + distance * Math.cos(angle);
             turtle.setCenter(newX, newY);
-                
+            return distance ; 
         }
     }
 

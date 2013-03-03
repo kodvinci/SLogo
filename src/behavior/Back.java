@@ -12,9 +12,10 @@ import object.Turtle;
 public class Back extends Forward {
 
     @Override
-    public void move (Turtle turtle, double[] parameters) throws SyntaxException {
+    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
             double[] inverseParameters = CommandEntities.inverse(parameters);
             super.move(turtle , inverseParameters); 
+            return parameters[0];
     }
   
 

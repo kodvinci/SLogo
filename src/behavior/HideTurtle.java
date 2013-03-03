@@ -12,12 +12,14 @@ import object.Turtle;
 public class HideTurtle implements ICommand {
 
     @Override
-    public void move (Turtle turtle, double[] parameters) throws SyntaxException {
+    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
         if(parameters.length != 0){
             throw new SyntaxException();
         }else{
         turtle.setInvisible();
+            return 0.0;
         }
+        
     }
 
 }

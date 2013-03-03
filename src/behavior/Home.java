@@ -13,11 +13,12 @@ import object.Turtle;
 public class Home implements ICommand {
 
     @Override
-    public void move (Turtle turtle, double[] parameters) throws SyntaxException {
+    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
         if(parameters.length != 0){
             throw new SyntaxException() ; 
         }else{
-        turtle.initialize();
+            turtle.initialize();
+            return Math.sqrt(Math.pow(turtle.getX(),2) + Math.pow( turtle.getY(),2));
         }
     }
 

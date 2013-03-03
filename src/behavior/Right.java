@@ -13,8 +13,9 @@ import object.Turtle;
 public class Right extends Left {
 
     @Override
-    public void move(Turtle turtle, double[] parameters)throws SyntaxException {
+    public double move(Turtle turtle, double[] parameters)throws SyntaxException {
         double[] inverseParameters = CommandEntities.inverse(parameters);
         super.move(turtle , inverseParameters);
+        return parameters[0];
     }
 }
