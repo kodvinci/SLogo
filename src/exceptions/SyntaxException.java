@@ -1,5 +1,11 @@
 package exceptions;
 
+/**
+ * Syntax exceptions when wrong commands are typed
+ * @author Richard Yang
+ *
+ */
+
 public class SyntaxException extends Exception {
 
     /**

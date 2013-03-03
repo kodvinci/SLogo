@@ -3,6 +3,12 @@ package behavior;
 import object.Turtle;
 import exceptions.SyntaxException;
 
+/**
+ * 
+ * @author Richard Yang
+ *
+ */
+
 public class Difference implements ICommand {
 
     @Override

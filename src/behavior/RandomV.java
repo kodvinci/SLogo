@@ -4,6 +4,13 @@ import java.util.Random;
 import object.Turtle;
 import exceptions.SyntaxException;
 
+
+/**
+ * 
+ * @author Richard Yang
+ *
+ */
+
 public class RandomV implements ICommand {
 
     @Override
