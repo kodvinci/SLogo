@@ -1,5 +1,10 @@
 package exceptions;
 
+/**
+ * 
+ * @author Richard
+ *
+ */
 public class ParameterException extends Exception {
 
     /**
@@ -8,11 +13,19 @@ public class ParameterException extends Exception {
     private static final long serialVersionUID = 1L;
 
     
-    public ParameterException(){
+    /**
+     * Throws Parameter exception
+     */
+    public ParameterException() {
         
     }
     
-    public ParameterException(String message){
+    /**
+     * Throws parameter exception with message
+     * @param message   The exception message
+     */
+    
+    public ParameterException(String message) {
         super(message);
     } 
     
