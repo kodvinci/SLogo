@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import object.Turtle;
@@ -132,7 +134,7 @@ public class Window extends JPanel {
         };
     }
 
-    protected JMenuBar makeMenus () {
+    private JMenuBar makeMenus () {
         JMenuBar result = new JMenuBar();
         result.add(makeFileMenu());
         return result;
@@ -162,7 +164,6 @@ public class Window extends JPanel {
                     echo(new FileWriter("demo.out"));
                 }
                 catch (IOException io) {
-                    // let user know an error occurred, but keep going
                     showError(io.toString());
                 }
             }
@@ -171,27 +172,36 @@ public class Window extends JPanel {
         result.add(new AbstractAction(myResources.getString("QuitCommand")) {
             @Override
             public void actionPerformed (ActionEvent e) {
-                // clean up any open resources, then
-                // end program
                 System.exit(0);
             }
         });
         return result;
     }
 
-    protected void echo (FileWriter fileWriter) {
+    private void echo (FileWriter fileWriter) {
         // TODO Auto-generated method stub
 
     }
 
-    protected void showError (String string) {
-        // TODO Auto-generated method stub
-
+    private void showError (String message) {
+        JOptionPane.showMessageDialog(this, message, myResources.getString("ErrorTitle"),
+                                      JOptionPane.ERROR_MESSAGE);
     }
 
-    protected void echo (FileReader fileReader) {
-        // TODO Auto-generated method stub
-
+    private void echo (FileReader fileReader) {
+        try {
+            String userInput = "";
+            BufferedReader input = new BufferedReader(fileReader);
+            String line = input.readLine();
+            while (line != null) {
+                userInput += line + "\n";
+                line = input.readLine();
+            }
+            myController.processUserInput(0, userInput);
+        }
+        catch (IOException e) {
+            showError(e.toString());
+        }
     }
-
+    
 }

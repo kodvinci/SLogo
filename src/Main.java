@@ -1,5 +1,6 @@
 import java.awt.Dimension;
 import utilities.Controller;
+import view.Window;
 
 
 /**
@@ -39,7 +40,7 @@ public class Main {
 
         Controller myController = new Controller();
         // new Canvas(myController);
-        // new Window(myController);
+        new Window(myController);
 
         myController.processUserInput(0, "IF 50 [ FD 10 ]");
         System.out.println(myController.getModel(0).getMyTurtle().getX());
