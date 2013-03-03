@@ -1,19 +1,35 @@
 import java.awt.Dimension;
-import exceptions.NoSuchVariableException;
 import utilities.Controller;
 
 
 /**
  * 
- * @author Leonard
+ * @author Jerry
  * 
  */
 public class Main {
-
+    
+    /**
+     * default turtle area size
+     */
     public static final Dimension TURTLE_AREA_SIZE = new Dimension(800, 500);
+    
+    /**
+     * default display area size
+     */
     public static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
+    
+    /**
+     * default command area size
+     */
     public static final Dimension COMMAND_AREA_SIZE = new Dimension(1000, 40);
+    /**
+     * defaullt total canvas size
+     */
     public static final Dimension SIZE = new Dimension(1100, 700);
+    /**
+     * Title of game
+     */
     public static final String TITLE = "SLOGO";
 
     /**
@@ -29,7 +45,6 @@ public class Main {
         System.out.println(myController.getModel(0).getMyTurtle().getX());
         System.out.println(myController.getModel(0).getMyTurtle().getY());
         System.out.println(myController.getModel(0).getMyTurtle().getMyAngle());
-        
 
     }
 

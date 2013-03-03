@@ -3,10 +3,10 @@ package utilities;
 import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
-import exceptions.NoSuchVariableException;
 import object.Turtle;
 import view.DisplayArea;
 import view.TurtleArea;
+import exceptions.NoSuchVariableException;
 
 
 /**
@@ -41,7 +41,7 @@ public class Model {
     }
 
     public void update () {
-       
+
         myDisplayArea.update();
         myTurArea.update();
     }
@@ -63,7 +63,7 @@ public class Model {
     }
 
     public double getVariableValue (String name) throws NoSuchVariableException {
-        if( !myVariables.containsKey(name)) throw new NoSuchVariableException() ;
+        if (!myVariables.containsKey(name)) throw new NoSuchVariableException();
         return myVariables.get(name);
     }
 

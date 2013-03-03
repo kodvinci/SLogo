@@ -1,8 +1,7 @@
 package behavior;
 
-import exceptions.SyntaxException;
 import object.Turtle;
-
+import exceptions.SyntaxException;
 
 
 /**

@@ -67,7 +67,7 @@ public class TurtleArea extends Window {
     }
 
     public void update () {
-       
+
         repaint();
     }
 
