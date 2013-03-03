@@ -92,8 +92,8 @@ public class Interpreter {
         }
     }
 
-    public CommandEntities getMyCommands () {
-        return myCommands;
+    public void makeVariable(Model model, String variableName , double variable){
+        model
     }
-
+   
 }
