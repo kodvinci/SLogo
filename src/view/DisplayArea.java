@@ -39,8 +39,8 @@ public class DisplayArea extends Window {
 
     private JComponent makeDisplay () {
         myTextArea = new JTextArea(FIELD_SIZE, 18);
+        myTextArea.setEditable(false);
         myTextArea.addMouseListener(myMouseListener);
-
         return new JScrollPane(myTextArea);
     }
 
