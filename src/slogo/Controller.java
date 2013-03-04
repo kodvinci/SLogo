@@ -36,10 +36,10 @@ public class Controller {
         myFactory = new Factory(this);
         addModel();
         myInterpreter = new Interpreter();
+        for (int i = 0; i < myModels.size(); i++) {
+            myFactory.createTurtle(i);
+        }
         myView = new Canvas(this);
-//        for (int i = 0; i < myModels.size(); i++) {
-//            myFactory.createTurtle(i);
-//        }
     }
     
     /**

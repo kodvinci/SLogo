@@ -42,7 +42,6 @@ public class Model {
     private List<Turtle> myTurtles;
     private DisplayArea myDisplayArea;
     private Map<String, Double> myVariables;
-    private Turtle myInitialTurtle;
 
     /**
      * Constructs model that holds objects
@@ -54,8 +53,6 @@ public class Model {
         myController = controller;
         myID = id;
         myTurtles = new ArrayList<Turtle>();
-        myInitialTurtle = new Turtle();
-        myTurtles.add(myInitialTurtle);
         myVariables = new HashMap<String, Double>();
 
     }
