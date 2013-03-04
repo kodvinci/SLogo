@@ -28,7 +28,6 @@ public class Controller {
     private Interpreter myInterpreter;
     private Factory myFactory;
     private Canvas myView;
-
     /**
      * Initialize a model view controller
      */

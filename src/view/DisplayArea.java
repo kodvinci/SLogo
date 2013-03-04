@@ -21,7 +21,11 @@ public class DisplayArea extends Window {
     public static final Dimension DEFAULT_AREA_SIZE = new Dimension(200, 600);
 
     private static final long serialVersionUID = 1L;
+    private static final int FIRST_TURTLE=0; 
     private JTextArea myTextArea;
+    private static final String X_LABEL="x coordinate: " ;
+    private static final String Y_LABEL="y coordinate: ";
+    private static final String ANGLE_LABEL="turtle angle: " ;
     private static final int FIELD_SIZE = 30;
     private List<Turtle> myTurtle;
     private MouseListener myMouseListener;
@@ -42,9 +46,6 @@ public class DisplayArea extends Window {
         myTextArea.setEditable(false);
         myTextArea.addMouseListener(myMouseListener);
         return new JScrollPane(myTextArea);
-    }
-
-    public void update () {
     }
 
     private void makeListeners () {
@@ -75,12 +76,12 @@ public class DisplayArea extends Window {
     }
 
     private void echo (String s, MouseEvent e) {
-        showMessage("x coordinate: " +
-                        myTurtle.get(0).toString(myTurtle.get(0).getX()));
-        showMessage("y coordinate: " +
-                        myTurtle.get(0).toString(myTurtle.get(0).getY()));
-        showMessage("turtle angle: " +
-                        myTurtle.get(0).toString(myTurtle.get(0).getMyAngle()));
+        showMessage(X_LABEL+
+                        myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getX()));
+        showMessage(Y_LABEL+
+                        myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getY()));
+        showMessage(ANGLE_LABEL+
+                        myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getMyAngle()));
         showMessage("\n");
     }
 

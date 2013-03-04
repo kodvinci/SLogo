@@ -34,7 +34,11 @@ public class Window extends JPanel {
     public static final Dimension COMMAND_AREA_SIZE = new Dimension(1000, 40);
     public static final Dimension SIZE = new Dimension(1100, 700);
     public static final Dimension SIZE1 = new Dimension(1000, 700);
+    private static final int FIRST_TURTLE=0; 
+    private static final Color BACKGROUND_COLOR=Color.WHITE; 
     public static final String TITLE = "SLOGO";
+    private static final int X_INDEX=0; 
+    private static final int Y_INDEX=0; 
     private Controller myController;
     private List<Turtle> myTurtle;
     //
@@ -46,13 +50,10 @@ public class Window extends JPanel {
     private Canvas myView;
 
     public Window (Controller controller) {
-        // makeKeyListener();
         myController = controller;
         myTurtle = myController.getMyTurtles();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
-
-        // addKeyListener(myKeyListener);
     }
 
     public Window (Dimension size, String language) {
@@ -76,14 +77,12 @@ public class Window extends JPanel {
 
     @Override
     public void paintComponent (Graphics pen) {
-        System.out.println("Window!");
         super.paintComponent(pen);
-        pen.setColor(Color.WHITE);
-        pen.fillRect(0, 0, getSize().width, getSize().height);
+        pen.setColor(BACKGROUND_COLOR);
+        pen.fillRect(X_INDEX, Y_INDEX, getSize().width, getSize().height);
 
         if (myTurtle != null) {
-            myTurtle.get(0).paint((Graphics2D) pen);
-            System.out.println("Window Turtle!");
+            myTurtle.get(FIRST_TURTLE).paint((Graphics2D) pen);
         }
     }
 

@@ -19,6 +19,7 @@ public class CommandArea extends Window {
 
     private static final long serialVersionUID = 1L;
     private static final int FIELD_SIZE = 30;
+    private static final String emptyString=""; 
     private ActionListener myActionListener;
     private static final Dimension BUTTON_SIZE = new Dimension(70, 30);
     private JTextField myTextField;
@@ -42,7 +43,7 @@ public class CommandArea extends Window {
             public void actionPerformed (ActionEvent e) {
                 System.out.println(myTextField.getText());
                 myController.processUserInput(0, myTextField.getText());
-                myTextField.setText("");
+                myTextField.setText(emptyString);
             }
         };
     }
