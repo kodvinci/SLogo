@@ -1,14 +1,11 @@
 package slogo;
 
+import exceptions.SyntaxException;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import object.Turtle;
 import view.Canvas;
-import view.DisplayArea;
-import view.TurtleArea;
-import exceptions.SyntaxException;
-
 
 /**
  * 
@@ -16,19 +13,22 @@ import exceptions.SyntaxException;
  * 
  */
 public class Controller {
-
+    
+    /**
+     * Default Turtle area size
+     */
     public static final Dimension TURTLE_AREA_SIZE = new Dimension(800, 500);
+    /**
+     * Default Display area size
+     */
     public static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
     private Turtle myTurtle;
 
-    private DisplayArea myDisplayArea;
-    private TurtleArea myTurArea;
     private List<Model> myModels = new ArrayList<Model>();
 
     private Interpreter myInterpreter;
     private Factory myFactory;
     private Canvas myView;
-
     /**
      * Initialize a model view controller
      */
@@ -38,14 +38,23 @@ public class Controller {
         addModel();
         myInterpreter = new Interpreter();
         myView = new Canvas(this);
+        for (int i = 0; i < myModels.size(); i++) {
+            myFactory.createTurtle(i);
+        }
     }
-
-    public Factory getFactory () {
+ 
+    /**
+     * Return factory
+     * @return
+     */
+    public Factory getFactory() {
         return myFactory;
     }
-
+    
+    /**
+     * Update display areas
+     */
     public void update () {
-        myTurArea.update();
         myView.update();
     }
 
@@ -136,9 +145,13 @@ public class Controller {
      * @return
      */
     public Turtle getMyTurtle () {
-        return myModels.get(0).getMyTurtle();
+        return myModels.get(0).getMyTurtle(0);
     }
-
+    
+    /**
+     * Returns list of turtles
+     * @return
+     */
     public List<Turtle> getMyTurtles () {
         return myModels.get(0).getMyTurtles();
     }

@@ -2,18 +2,32 @@ package slogo;
 
 import object.Turtle;
 
-
+/**
+ * 
+ * @author Jerry
+ *
+ */
 public class Factory {
 
     private Controller myController;
 
+    /**
+     * Constructs factory for controller
+     * @param controller        the controller
+     */
     public Factory (Controller controller) {
         myController = controller;
     }
-
-    public void createTurtle (int model) {
+    
+    /**
+     * Creates turtle 
+     * @param model     the model id to identify model turtle is created in
+     */
+    public void createTurtle(int model) {
         Turtle turtle = new Turtle();
+        System.out.println(myController.getMyModels().size());
         myController.getMyModels().get(model).getMyTurtles().add(turtle);
     }
-
+    
 }
+

@@ -1,5 +1,6 @@
 package slogo;
 
+import exceptions.NoSuchVariableException;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,14 +38,10 @@ public class Model {
 
     private int myID;
 
-    private List<Turtle> myTurtles;
-
-    private DisplayArea myDisplayArea;
-
     private Controller myController;
-
+    private List<Turtle> myTurtles;
+    private DisplayArea myDisplayArea;
     private Map<String, Double> myVariables;
-
     private Turtle myInitialTurtle;
 
     /**
@@ -57,6 +54,10 @@ public class Model {
         myController = controller;
         myID = id;
         myTurtles = new ArrayList<Turtle>();
+
+        //myController.getFactory().createTurtle();
+        myDisplayArea = new DisplayArea(DisplayArea.DEFAULT_AREA_SIZE, myTurtles);
+
         myController.getFactory().createTurtle(myID);
 
         myInitialTurtle = new Turtle();
@@ -66,16 +67,16 @@ public class Model {
     }
 
     /**
-     * Return turtle
-     * 
+     * Return specific turtle
+     * @param index     index of turtle
      * @return
      */
-    public Turtle getMyTurtle () {
-        return myTurtles.get(0);
+    public Turtle getMyTurtle (int index) {
+        return myTurtles.get(index);
     }
 
     /**
-     * 
+     * return list of turtles
      * @return
      */
     public List<Turtle> getMyTurtles () {
@@ -118,7 +119,9 @@ public class Model {
      * @throws NoSuchVariableException throws if there is no variable
      */
     public double getVariableValue (String name) throws NoSuchVariableException {
-        if (!myVariables.containsKey(name)) throw new NoSuchVariableException();
+        if (!myVariables.containsKey(name)) {
+            throw new NoSuchVariableException();
+        }
         return myVariables.get(name);
     }
 
