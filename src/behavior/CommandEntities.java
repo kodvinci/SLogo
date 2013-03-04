@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import slogo.Model;
 
+
 /**
  * 
  * @author Richard Yang
@@ -40,31 +41,33 @@ public class CommandEntities {
     private static final String CLEARSCREEN = "CS";
 
     private Map<String, ICommand> myCommands;
-    
+
     /**
      * New CommandEntities
      */
     public CommandEntities () {
         myCommands = new HashMap<String, ICommand>();
     }
-    
+
     /**
      * add a command
-     * @param command           String name of command
-     * @param newCommand        The ICommand
+     * 
+     * @param command String name of command
+     * @param newCommand The ICommand
      */
     public void addCommand (String command, ICommand newCommand) {
         myCommands.put(command, newCommand);
     }
-    
+
     /**
      * Removes command
-     * @param command   string command
+     * 
+     * @param command string command
      */
     public void removeCommand (String command) {
         myCommands.remove(command);
     }
-    
+
     /**
      * initialize commands
      */
@@ -83,39 +86,40 @@ public class CommandEntities {
         addCommand(HOME, new Home());
         addCommand(CLEARSCREEN, new ClearScreen());
     }
-    
+
     /**
      * get command
-     * @param command   String command
-     * @return          ICommand
-     * @throws SyntaxException  Syntax exception
+     * 
+     * @param command String command
+     * @return ICommand
+     * @throws SyntaxException Syntax exception
      */
     public ICommand getCommand (String command) throws SyntaxException {
-        if (!myCommands.containsKey(command)) { 
-            throw new SyntaxException();
-        }
+        if (!myCommands.containsKey(command)) { throw new SyntaxException(); }
 
         return myCommands.get(command);
     }
-    
+
     /**
      * perform command
-     * @param model             SLogo model
-     * @param commandName       String of command
-     * @param parameters        parameters
-     * @throws SyntaxException  Syntax Exception
+     * 
+     * @param model SLogo model
+     * @param commandName String of command
+     * @param parameters parameters
+     * @throws SyntaxException Syntax Exception
      */
-    public void doCommand (Model model, String commandName, 
+    public void doCommand (Model model, String commandName,
                            double[] parameters) throws SyntaxException {
         ICommand command = getCommand(commandName);
 
         command.move(model.getMyTurtle(), parameters);
     }
-    
+
     /**
      * invert
-     * @param parameters        parameters
-     * @return                  inverted parameters
+     * 
+     * @param parameters parameters
+     * @return inverted parameters
      */
     public static double[] inverse (double[] parameters) {
         int length = parameters.length;

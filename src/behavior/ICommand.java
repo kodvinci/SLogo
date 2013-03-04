@@ -4,8 +4,6 @@ import exceptions.SyntaxException;
 import object.Turtle;
 
 
-
-
 /**
  * 
  * @author Richard Yang
@@ -13,13 +11,14 @@ import object.Turtle;
  */
 
 public interface ICommand {
-    
+
     /**
      * Move the turtle
-     * @param turtle            The turtle object
-     * @param parameters        the parameters
-     * @return                  return command
-     * @throws SyntaxException  syntax exception
+     * 
+     * @param turtle The turtle object
+     * @param parameters the parameters
+     * @return return command
+     * @throws SyntaxException syntax exception
      */
     public abstract double move (Turtle turtle, double[] parameters) throws SyntaxException;
 

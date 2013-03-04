@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
 import object.Turtle;
-import object.Trail;
+import object.Trail; 
 import view.DisplayArea;
 import view.TurtleArea;
 import exceptions.NoSuchVariableException;
@@ -29,8 +29,8 @@ public class Model {
     private TurtleArea myTurArea;
 
     private Map<String, Double> myVariables;
-
-    private Controller myController;
+    
+    private Controller myController; 
 
     public Model (Controller controller) {
         myController = controller;
