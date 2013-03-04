@@ -1,5 +1,6 @@
 package exceptions;
 
+
 /**
  * 
  * @author Richard Yang

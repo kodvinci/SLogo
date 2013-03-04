@@ -299,8 +299,11 @@ public class Vector {
         // value based on this table:
         final double EPSILON = 5.96e-08;
         if (Double.isNaN(a) && Double.isNaN(b) || Double.isInfinite(a)
-                && Double.isInfinite(b))
+                && Double.isInfinite(b)) {
             return true;
-        else return Math.abs(a / b - 1) < EPSILON;
+        }
+        else {
+            return Math.abs(a / b - 1) < EPSILON;
+        }
     }
 }

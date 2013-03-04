@@ -96,6 +96,7 @@ public abstract class Sprite {
      */
     public void translate (Vector v) {
         myCenter.translate(v);
+        
         resetBounds();
     }
 
@@ -304,13 +305,18 @@ public abstract class Sprite {
         // double angle = Vector.angleBetween(myCenter, new Location(bounds.getCenterX(),
         // bounds.getCenterY()));
         // BUGBUG: FIX ME --- this is very imperfect, but sort of works for now
-        if (bounds.contains(new Location(getLeft(), getY())))
+        if (bounds.contains(new Location(getLeft(), getY()))) {
             return RIGHT_DIRECTION;
-        else if (bounds.contains(new Location(getX(), getBottom())))
+        }
+        else if (bounds.contains(new Location(getX(), getBottom()))) {
             return UP_DIRECTION;
-        else if (bounds.contains(new Location(getRight(), getY())))
+        }
+        else if (bounds.contains(new Location(getRight(), getY()))) {
             return LEFT_DIRECTION;
-        else if (bounds.contains(new Location(getX(), getTop()))) return DOWN_DIRECTION;
+        }
+        else if (bounds.contains(new Location(getX(), getTop()))) {
+            return DOWN_DIRECTION;
+        }
         return 0;
         // return Double.NaN;
     }

@@ -1,32 +1,20 @@
-import java.awt.Dimension;
-
 import slogo.Controller;
-import view.Canvas;
-import view.Window;
-
-
-import slogo.Controller;
-import view.Window;
-
-import slogo.Controller;
-
-
 
 /**
  * 
  * @author Jerry
  * 
  */
-public class Main {
+final class Main {
+    
     /**
-     * 
+     * empty
      */
-    public Main () {
-        // No need to construct it
+    private Main() {
+        //empty 
     }
-
     /**
-     * @param args nothing
+     * @param args nothing, command line arguments
      */
     public static void main (String[] args) {
         // create the SLogo controller
