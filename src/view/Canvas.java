@@ -74,7 +74,7 @@ public class Canvas extends JComponent {
      */
     public Canvas (Controller controller) {
         myController = controller;
-        myTurtle = myController.getMyTurtles();
+        myTurtle = myController.getMyModels().get(0).getMyTurtles();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         createGUI();

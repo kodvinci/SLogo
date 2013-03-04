@@ -54,16 +54,6 @@ public class Model {
         myController = controller;
         myID = id;
         myTurtles = new ArrayList<Turtle>();
-<<<<<<< HEAD
-
-        //myController.getFactory().createTurtle();
-        myDisplayArea = new DisplayArea(DisplayArea.DEFAULT_AREA_SIZE, myTurtles);
-
-
-=======
-        myController.getFactory().createTurtle(myID);
-        
->>>>>>> 359d6d46f0a21e7c68b7dc033b7eb0452c972bd7
         myInitialTurtle = new Turtle();
         myTurtles.add(myInitialTurtle);
         myVariables = new HashMap<String, Double>();
@@ -78,15 +68,9 @@ public class Model {
     public Turtle getMyTurtle (int index) {
         return myTurtles.get(index);
     }
-<<<<<<< HEAD
     
     /**
      * return list of turtles
-=======
-
-    /**
-     * 
->>>>>>> 359d6d46f0a21e7c68b7dc033b7eb0452c972bd7
      * @return
      */
     public List<Turtle> getMyTurtles () {
