@@ -25,7 +25,6 @@ public class Factory {
      */
     public void createTurtle(int model) {
         Turtle turtle = new Turtle();
-        System.out.println(myController.getMyModels().size());
         myController.getMyModels().get(model).getMyTurtles().add(turtle);
     }
     
