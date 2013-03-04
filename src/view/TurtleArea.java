@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -80,6 +81,7 @@ public class TurtleArea extends Window implements ActionListener {
         System.out.println("paint turtleArea!");
         myPen = (Graphics2D) pen;
         paintTurtle((Graphics2D) pen);
+        paintPaths((Graphics2D) pen);
 
         new Timer(DEFAULT_DELAY, new ActionListener() {
             @Override
@@ -96,8 +98,6 @@ public class TurtleArea extends Window implements ActionListener {
      * 
      */
     public void update () {
-        System.out.println("turtle update1!");
-
         myTurtle.addTrail();
 
         BufferedImage image = new BufferedImage(2, 2, BufferedImage.TYPE_INT_ARGB);
@@ -106,7 +106,6 @@ public class TurtleArea extends Window implements ActionListener {
         // myFrame.revalidate();
 
         revalidate();
-        myFrame.revalidate();
         reSizeFrame();
         // this.setSize(new Dimension(810, 600));
 
@@ -117,6 +116,7 @@ public class TurtleArea extends Window implements ActionListener {
 
     private void paintTurtle (Graphics2D pen) {
         myTurtle.paint(pen);
+        myTurtle.addTrail(); 
         System.out.println("turtle painted!");
     }
 
@@ -126,6 +126,7 @@ public class TurtleArea extends Window implements ActionListener {
     }
 
     private void paintPaths (Graphics2D pen) {
+        pen.setColor(Color.BLACK);
         List<Location> trails = myTrail.getTrails();
         if (!(trails.isEmpty())) {
             Location prevLocation = myTrail.getTrails().get(0);
