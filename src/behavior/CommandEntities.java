@@ -3,7 +3,7 @@ package behavior;
 import exceptions.SyntaxException;
 import java.util.HashMap;
 import java.util.Map;
-import utilities.Model;
+import slogo.Model;
 
 /**
  * 

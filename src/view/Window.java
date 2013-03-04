@@ -20,7 +20,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import object.Turtle;
-import utilities.Controller;
+import slogo.Controller;
 
 
 /**

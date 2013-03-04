@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import object.Turtle;
-import utilities.Controller;
+import slogo.Controller;
 
 
 /**

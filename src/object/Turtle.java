@@ -14,8 +14,12 @@ import util.Sprite;
 
 public class Turtle extends Sprite {
     
-    private static final int DEFAULT_LOCATION = 200;
+    /**
+     * Default dimension size
+     */
     public static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
+   
+    private static final int DEFAULT_LOCATION = 200;
     private static final Pixmap TURTLE_IMAGE = new Pixmap("turtle.gif");
     //private static final Dimension TURTLE_AREA = new Dimension(800, 600);
 
