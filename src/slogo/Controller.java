@@ -38,9 +38,9 @@ public class Controller {
         addModel();
         myInterpreter = new Interpreter();
         myView = new Canvas(this);
-        for (int i = 0; i < myModels.size(); i++) {
-            myFactory.createTurtle(i);
-        }
+//        for (int i = 0; i < myModels.size(); i++) {
+//            myFactory.createTurtle(i);
+//        }
     }
  
     /**

@@ -40,8 +40,9 @@ public class CommandArea extends Window {
 
         setVisible(true);
         revalidate();
-
         myController = control;
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
+
     }
 
     /**
