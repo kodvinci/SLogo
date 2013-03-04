@@ -60,6 +60,7 @@ public class Canvas extends JComponent {
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     public static final String USER_DIR = "user.dir";
 
+
     /**
      * 
      * @param controller
@@ -112,7 +113,7 @@ public class Canvas extends JComponent {
         int hack = rand.nextInt(10);
         Dimension SIZE = new Dimension(1050 + hack, 700);
         myPanel.setSize(SIZE);
-        myFrame.revalidate();
+        myFrame.validate();
     }
 
     private JMenuBar makeMenus () {
