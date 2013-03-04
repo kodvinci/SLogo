@@ -12,7 +12,7 @@ import exceptions.SyntaxException;
 
 /**
  * 
- * @author Richard Yang
+ * @author Richard Yang & Jerry Li
  * 
  */
 public class Controller {
@@ -20,22 +20,28 @@ public class Controller {
     public static final Dimension TURTLE_AREA_SIZE = new Dimension(800, 500);
     public static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
     private Turtle myTurtle;
-
+    
     private DisplayArea myDisplayArea;
     private TurtleArea myTurArea;
     private List<Model> myModels = new ArrayList<Model>();
-
+    
     private Interpreter myInterpreter;
-
+    private Factory myFactory;
     private Canvas myView;
 
     /**
      * Initialize a model view controller
      */
     public Controller () {
+        
+        myFactory = new Factory(this);
         addModel();
         myInterpreter = new Interpreter();
         myView = new Canvas(this);
+    }
+    
+    public Factory getFactory() {
+        return myFactory;
     }
 
     public void update () {
@@ -66,7 +72,7 @@ public class Controller {
      * Add a model
      */
     public void addModel () {
-        myModels.add(new Model(this));
+        myModels.add(new Model(this, myModels.size()));
     }
 
     /**

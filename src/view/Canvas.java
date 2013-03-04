@@ -66,6 +66,7 @@ public class Canvas extends JComponent {
     private JFileChooser myChooser;
     private ResourceBundle myResources;
 
+
     /**
      * 
      * @param controller
@@ -117,7 +118,7 @@ public class Canvas extends JComponent {
         int hack = rand.nextInt(10);
         Dimension SIZE = new Dimension(1050 + hack, 700);
         myPanel.setSize(SIZE);
-        myFrame.revalidate();
+        myFrame.validate();
     }
 
     private JMenuBar makeMenus () {
