@@ -36,11 +36,13 @@ public class Window extends JPanel {
     public static final String USER_DIR = "user.dir";
     public ResourceBundle myResources;
 
+    public JFrame myFrame;
     //
     public static final Dimension TURTLE_AREA_SIZE = new Dimension(800, 500);
     public static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
     public static final Dimension COMMAND_AREA_SIZE = new Dimension(1000, 40);
     public static final Dimension SIZE = new Dimension(1100, 700);
+    public static final Dimension SIZE1 = new Dimension(1000, 700);
     public static final String TITLE = "SLOGO";
     private Controller myController;
     private Turtle myTurtle;
@@ -67,6 +69,7 @@ public class Window extends JPanel {
         setSize(size);
         setFocusable(true);
         requestFocus();
+        revalidate();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     }
 
@@ -83,11 +86,17 @@ public class Window extends JPanel {
         }
     }
 
+    /**
+     * 
+     */
     public void createGUI () {
 
-        JFrame myFrame = new JFrame(TITLE);
+        // JFrame myFrame = new JFrame(TITLE);
+
+        myFrame = new JFrame(TITLE);
         JPanel myPanel = new JPanel();
         myFrame.setContentPane(myPanel);
+        myFrame.setSize(SIZE);
         myFrame.setPreferredSize(SIZE);
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -108,6 +117,14 @@ public class Window extends JPanel {
 
         myFrame.pack();
         myFrame.setVisible(true);
+    }
+
+    /**
+     * 
+     */
+    public void reSizeFrame () {
+       // myFrame.setSize(SIZE1);
+        validate();
     }
 
     private void makeKeyListener () {
@@ -203,5 +220,5 @@ public class Window extends JPanel {
             showError(e.toString());
         }
     }
-    
+
 }

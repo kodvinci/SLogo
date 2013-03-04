@@ -4,8 +4,6 @@ import exceptions.SyntaxException;
 import object.Turtle;
 
 
-
-
 /**
  * 
  * @author Richard Yang
@@ -13,9 +11,9 @@ import object.Turtle;
  */
 
 public class Left implements ICommand {
-    
+
     private final int myDelt = 180;
-    
+
     @Override
     public double move (Turtle turtle, double[] parameters) throws SyntaxException {
         if (parameters.length != 1) {
