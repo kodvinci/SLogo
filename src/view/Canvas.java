@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import object.Turtle;
 import slogo.Controller;
-
+import java.util.List;
 
 /**
  * 
@@ -22,11 +22,11 @@ public class Canvas {
     public static final String TITLE = "SLOGO";
 
     private Controller myController;
-    private Turtle myTurtle;
+    private List<Turtle> myTurtle;
 
     public Canvas (Controller controller) {
         myController = controller;
-        myTurtle = myController.getMyTurtle();
+        myTurtle = myController.getMyTurtles();
         createGUI();
     }
 

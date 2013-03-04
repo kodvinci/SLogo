@@ -2,7 +2,9 @@ package slogo;
 
 import exceptions.NoSuchVariableException;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import object.Turtle;
 import view.DisplayArea;
@@ -33,7 +35,7 @@ public class Model {
      */
     public static final String TITLE = "SLOGO";
 
-    private Turtle myTurtle;
+    private List<Turtle> myTurtles;
 
     private DisplayArea myDisplayArea;
 
@@ -43,15 +45,19 @@ public class Model {
 
     private Map<String, Double> myVariables;
     
+    private Turtle myInitialTurtle;
+    
     /**
      * Constructs model that holds objects
      * @param controller        the controller
      */
     public Model (Controller controller) {
         myController = controller;
-        myTurtle = new Turtle();
-        myDisplayArea = new DisplayArea(DisplayArea.DEFAULT_AREA_SIZE, myTurtle);
-        myTurArea = new TurtleArea(TurtleArea.DEFAULT_AREA_SIZE, myTurtle);
+        myTurtles = new ArrayList<Turtle>();
+        myInitialTurtle = new Turtle();
+        myTurtles.add(myInitialTurtle);
+        myDisplayArea = new DisplayArea(DisplayArea.DEFAULT_AREA_SIZE, myTurtles);
+        myTurArea = new TurtleArea(TurtleArea.DEFAULT_AREA_SIZE, myTurtles);
         myVariables = new HashMap<String, Double>();
 
     }
@@ -70,7 +76,11 @@ public class Model {
      * @return
      */
     public Turtle getMyTurtle () {
-        return myTurtle;
+        return myTurtles.get(0);
+    }
+    
+    public List<Turtle> getMyTurtles() {
+        return myTurtles;
     }
     
     /**

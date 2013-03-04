@@ -106,4 +106,8 @@ public class Controller {
     public Turtle getMyTurtle () {
         return myModels.get(0).getMyTurtle();
     }
+    
+    public List<Turtle> getMyTurtles() {
+        return myModels.get(0).getMyTurtles();
+    }
 }

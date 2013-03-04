@@ -1,5 +1,7 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
@@ -8,6 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import object.Turtle;
+
 
 
 /**
@@ -22,12 +25,12 @@ public class DisplayArea extends Window {
     private static final long serialVersionUID = 1L;
     private JTextArea myTextArea;
     private static final int FIELD_SIZE = 30;
-    private Turtle myTurtle;
+    private List<Turtle> myTurtle;
     private MouseListener myMouseListener;
 
-    public DisplayArea (Dimension size, Turtle turtle) {
+    public DisplayArea (Dimension size, List<Turtle> myTurtles) {
         super(size, "English");
-        myTurtle = turtle;
+        myTurtle = myTurtles;
         makeListeners();
 
         add(makeDisplay(), BorderLayout.CENTER);
@@ -74,9 +77,12 @@ public class DisplayArea extends Window {
     }
 
     private void echo (String s, MouseEvent e) {
-        showMessage("x coordinate: " + myTurtle.toString(myTurtle.getX()));
-        showMessage("y coordinate: " + myTurtle.toString(myTurtle.getY()));
-        showMessage("turtle angle: " + myTurtle.toString(myTurtle.getMyAngle()));
+        showMessage("x coordinate: " + 
+                        myTurtle.get(0).toString(myTurtle.get(0).getX()));
+        showMessage("y coordinate: " + 
+                        myTurtle.get(0).toString(myTurtle.get(0).getY()));
+        showMessage("turtle angle: " + 
+                        myTurtle.get(0).toString(myTurtle.get(0).getMyAngle()));
         showMessage("\n");
     }
 
