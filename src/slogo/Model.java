@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import exceptions.NoSuchVariableException;
 import object.Turtle;
 import view.DisplayArea;
+import exceptions.NoSuchVariableException;
 
 
 /**
