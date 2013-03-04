@@ -14,12 +14,11 @@ import util.Sprite;
 
 public class Turtle extends Sprite {
 
-    
     /**
      * Default dimension size
      */
     public static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
-    
+
     /**
      * Default Location
      */
@@ -120,7 +119,7 @@ public class Turtle extends Sprite {
      * @param angle angle to set to
      */
     public void setMyAngle (double angle) {
-        this.myAngle = angle;
+        myAngle = angle;
     }
 
     /**

@@ -1,16 +1,14 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import object.Turtle;
-
 
 
 /**
@@ -77,11 +75,11 @@ public class DisplayArea extends Window {
     }
 
     private void echo (String s, MouseEvent e) {
-        showMessage("x coordinate: " + 
+        showMessage("x coordinate: " +
                         myTurtle.get(0).toString(myTurtle.get(0).getX()));
-        showMessage("y coordinate: " + 
+        showMessage("y coordinate: " +
                         myTurtle.get(0).toString(myTurtle.get(0).getY()));
-        showMessage("turtle angle: " + 
+        showMessage("turtle angle: " +
                         myTurtle.get(0).toString(myTurtle.get(0).getMyAngle()));
         showMessage("\n");
     }

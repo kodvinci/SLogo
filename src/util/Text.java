@@ -16,7 +16,7 @@ import java.awt.geom.Rectangle2D;
  */
 public class Text {
     // possible font styles
-    
+
     /**
      * Default font size
      */
@@ -40,7 +40,8 @@ public class Text {
     /**
      * Construct a shape at the given position, with the given velocity,
      * size, and color, displaying the given text string.
-     * @param text      text
+     * 
+     * @param text text
      */
     public Text (String text) {
         myText = text;
@@ -56,7 +57,8 @@ public class Text {
 
     /**
      * Change text of this shape
-     * @param s         string
+     * 
+     * @param s string
      */
     public void setText (String s) {
         myText = s;
@@ -64,8 +66,9 @@ public class Text {
 
     /**
      * Change the font of this shape's text.
-     * @param type      type to change to
-     * @param size      new size
+     * 
+     * @param type type to change to
+     * @param size new size
      */
     public void setFont (String type, int size) {
         myFont = new Font(type, Font.BOLD, size);
@@ -73,9 +76,10 @@ public class Text {
 
     /**
      * Describes how to draw the shape on the screen.
-     * @param pen       Graphics pen
-     * @param center    center
-     * @param color     color
+     * 
+     * @param pen Graphics pen
+     * @param center center
+     * @param color color
      */
     public void paint (Graphics2D pen, Point2D center, Color color) {
         Color oldColor = pen.getColor();

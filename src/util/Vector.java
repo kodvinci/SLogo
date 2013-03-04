@@ -11,7 +11,7 @@ import java.awt.geom.Point2D;
  * @author Robert C. Duvall
  */
 public class Vector {
-    
+
     /**
      * add/subtract angle by this to get opposite
      */
@@ -34,7 +34,8 @@ public class Vector {
 
     /**
      * Create a vector in the given direction with the given magnitude.
-     * @param angle     angle
+     * 
+     * @param angle angle
      * @param magnitude magnitude
      */
     public Vector (double angle, double magnitude) {
@@ -45,8 +46,9 @@ public class Vector {
     /**
      * Create a vector whose direction and magnitude are determined by
      * direction and distance between the two given points.
-     * @param source    point source
-     * @param target    point target
+     * 
+     * @param source point source
+     * @param target point target
      */
     public Vector (Point2D source, Point2D target) {
         double dx = target.getX() - source.getX();
@@ -57,7 +59,8 @@ public class Vector {
 
     /**
      * Create a vector that is identical to the given other vector.
-     * @param other     other vector
+     * 
+     * @param other other vector
      */
     public Vector (Vector other) {
         this(other.getDirection(), other.getMagnitude());
@@ -83,7 +86,8 @@ public class Vector {
      * 
      * More formally, returns the magnitude of this vector projected onto the
      * given other vector.
-     * @param other     other vector
+     * 
+     * @param other other vector
      */
     public double getRelativeMagnitude (Vector other) {
         return -getMagnitude() * Math.cos(Math.toRadians(getAngleBetween(other)));
@@ -96,7 +100,8 @@ public class Vector {
      * <LI>Values less than 1 reduce the magnitude
      * <LI>Values greater than 1 increase the magnitude
      * </UL>
-     * @param change    magnitude of change
+     * 
+     * @param change magnitude of change
      */
     public void scale (double change) {
         setMagnitude(getMagnitude() * change);
@@ -121,7 +126,8 @@ public class Vector {
 
     /**
      * Returns the angle between this vector and the given other vector.
-     * @param other     other vector
+     * 
+     * @param other other vector
      */
     public double getAngleBetween (Vector other) {
         return getDirection() - other.getDirection();
@@ -129,7 +135,8 @@ public class Vector {
 
     /**
      * Adjusts this vector's direction by the given change value.
-     * @param change    directoin value to change by
+     * 
+     * @param change directoin value to change by
      */
     public void turn (double change) {
         setDirection(getDirection() + change);
@@ -158,7 +165,8 @@ public class Vector {
 
     /**
      * Adds the given vector to this vector.
-     * @param other     other vector
+     * 
+     * @param other other vector
      */
     public void sum (Vector other) {
         // double a1 = getAngle();
@@ -180,7 +188,8 @@ public class Vector {
 
     /**
      * Subtracts the given vector from this vector.
-     * @param other     other vector
+     * 
+     * @param other other vector
      */
     public void difference (Vector other) {
         // avoid changing other vector
@@ -199,7 +208,8 @@ public class Vector {
 
     /**
      * Returns the average of this vector with the given other vector.
-     * @param other     other vector
+     * 
+     * @param other other vector
      */
     public Vector average (Vector other) {
         return new Vector((getDirection() + other.getDirection()) / 2.0,
@@ -209,13 +219,15 @@ public class Vector {
     /**
      * Return true if this vector has the same magnitude and direction
      * as the given other vector.
-     * @param vector    other vector
+     * 
+     * @param vector other vector
      */
     @Override
     public boolean equals (Object vector) {
         try {
             Vector other = (Vector) vector;
-            return fuzzyEquals(getMagnitude(), other.getMagnitude()) && fuzzyEquals(
+            return fuzzyEquals(getMagnitude(), other.getMagnitude()) &&
+                   fuzzyEquals(
                                                getDirection(), other.getDirection());
         }
         catch (ClassCastException e) {
@@ -233,8 +245,9 @@ public class Vector {
 
     /**
      * Returns the distance between given two points
-     * @param p1        point 1
-     * @param p2        point 2
+     * 
+     * @param p1 point 1
+     * @param p2 point 2
      */
     public static double distanceBetween (Point2D p1, Point2D p2) {
         return distanceBetween(p1.getX() - p2.getX(), p1.getY() - p2.getY());
@@ -242,8 +255,9 @@ public class Vector {
 
     /**
      * Returns the distance represented by the given dx and dy
-     * @param dx        x distance
-     * @param dy        y distance
+     * 
+     * @param dx x distance
+     * @param dy y distance
      */
     public static double distanceBetween (double dx, double dy) {
         return Math.sqrt(dx * dx + dy * dy);
@@ -251,8 +265,9 @@ public class Vector {
 
     /**
      * Returns the angle between the given two points
-     * @param p1        point 1
-     * @param p2        point 2
+     * 
+     * @param p1 point 1
+     * @param p2 point 2
      */
     public static double angleBetween (Point2D p1, Point2D p2) {
         return angleBetween(p1.getX() - p2.getX(), p1.getY() - p2.getY());
@@ -260,8 +275,9 @@ public class Vector {
 
     /**
      * Returns the angle represented by the given dx and dy
-     * @param dx        x distance
-     * @param dy        y distnce
+     * 
+     * @param dx x distance
+     * @param dy y distnce
      */
     public static double angleBetween (double dx, double dy) {
         // TODO: this is still buggy :(
@@ -275,18 +291,16 @@ public class Vector {
      * http://www.ibm.com/developerworks/java/library/j-jtp0114/#N10255
      * 
      * This function exists in many add-on libraries, but not standard Java :(
-     * @param a         first value
-     * @param b         second value
+     * 
+     * @param a first value
+     * @param b second value
      */
     public static boolean fuzzyEquals (double a, double b) {
         // value based on this table:
         final double EPSILON = 5.96e-08;
         if (Double.isNaN(a) && Double.isNaN(b) || Double.isInfinite(a)
-                && Double.isInfinite(b)) {
+                && Double.isInfinite(b))
             return true;
-        }
-        else {
-            return Math.abs(a / b - 1) < EPSILON;
-        }
+        else return Math.abs(a / b - 1) < EPSILON;
     }
 }

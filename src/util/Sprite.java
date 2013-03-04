@@ -48,9 +48,10 @@ public abstract class Sprite {
 
     /**
      * Create a shape at the given position, with the given size.
-     * @param image             the image
-     * @param center            center 
-     * @param size              size of image
+     * 
+     * @param image the image
+     * @param center center
+     * @param size size of image
      */
     public Sprite (Pixmap image, Location center, Dimension size) {
         this(image, center, size, new Vector());
@@ -58,10 +59,11 @@ public abstract class Sprite {
 
     /**
      * Create a shape at the given position, with the given size, velocity, and color.
-     * @param image     picture
-     * @param center    center
-     * @param size      size
-     * @param velocity  velocity
+     * 
+     * @param image picture
+     * @param center center
+     * @param size size
+     * @param velocity velocity
      */
     public Sprite (Pixmap image, Location center, Dimension size, Vector velocity) {
         // make copies just to be sure no one else has access
@@ -70,15 +72,15 @@ public abstract class Sprite {
         myOriginalVelocity = new Vector(velocity);
         myOriginalView = new Pixmap(image);
         reset();
-        resetBounds();  
+        resetBounds();
     }
-    
-    
+
     /**
      * Describes how to "animate" the shape by changing its state.
      * Currently, moves by the current velocity.
-     * @param elapsedTime       the elapsed time
-     * @param bounds            bounds
+     * 
+     * @param elapsedTime the elapsed time
+     * @param bounds bounds
      */
     public void update (double elapsedTime, Dimension bounds) {
         // do not change original velocity
@@ -89,7 +91,8 @@ public abstract class Sprite {
 
     /**
      * Moves shape's center by given vector.
-     * @param v         the vector that translates
+     * 
+     * @param v the vector that translates
      */
     public void translate (Vector v) {
         myCenter.translate(v);
@@ -98,8 +101,9 @@ public abstract class Sprite {
 
     /**
      * Resets shape's center.
-     * @param x         x coordinate
-     * @param y         y coordinate
+     * 
+     * @param x x coordinate
+     * @param y y coordinate
      */
     public void setCenter (double x, double y) {
         myCenter.setLocation(x, y);
@@ -108,7 +112,8 @@ public abstract class Sprite {
 
     /**
      * Resets shape's center.
-     * @param center    center of shape
+     * 
+     * @param center center of shape
      */
     public void setCenter (Location center) {
         setCenter(center.getX(), center.getY());
@@ -151,7 +156,8 @@ public abstract class Sprite {
 
     /**
      * Returns shape's bottom-most coordinate in pixels.
-     * @return        the shapes bottom coordinate
+     * 
+     * @return the shapes bottom coordinate
      */
     public double getBottom () {
         return myCenter.getY() + mySize.height / 2;
@@ -173,8 +179,9 @@ public abstract class Sprite {
 
     /**
      * Scales shape's size by the given factors.
-     * @param widthFactor       width factor
-     * @param heightFactor      height factor
+     * 
+     * @param widthFactor width factor
+     * @param heightFactor height factor
      */
     public void scale (double widthFactor, double heightFactor) {
         mySize.setSize(mySize.width * widthFactor, mySize.height * heightFactor);
@@ -183,8 +190,9 @@ public abstract class Sprite {
 
     /**
      * Resets shape's size.
-     * @param width   width to be resized to
-     * @param height  height to be resized to
+     * 
+     * @param width width to be resized to
+     * @param height height to be resized to
      */
     public void setSize (int width, int height) {
         mySize.setSize(width, height);
@@ -193,7 +201,8 @@ public abstract class Sprite {
 
     /**
      * Resets shape's size.
-     * @param size      size to resize to
+     * 
+     * @param size size to resize to
      */
     public void setSize (Dimension size) {
         setSize(size.width, size.height);
@@ -208,8 +217,9 @@ public abstract class Sprite {
 
     /**
      * Resets shape's velocity.
-     * @param angle     angle to rest to
-     * @param magnitude  magnitude to reset to
+     * 
+     * @param angle angle to rest to
+     * @param magnitude magnitude to reset to
      */
     public void setVelocity (double angle, double magnitude) {
         myVelocity = new Vector(angle, magnitude);
@@ -217,7 +227,8 @@ public abstract class Sprite {
 
     /**
      * Resets shape's velocity.
-     * @param velocity   velocity to reset to
+     * 
+     * @param velocity velocity to reset to
      */
     public void setVelocity (Vector velocity) {
         setVelocity(velocity.getDirection(), velocity.getMagnitude());
@@ -225,7 +236,8 @@ public abstract class Sprite {
 
     /**
      * Resets shape's image.
-     * @param image     image to reset to
+     * 
+     * @param image image to reset to
      */
     public void setView (Pixmap image) {
         if (image != null) {
@@ -242,7 +254,8 @@ public abstract class Sprite {
 
     /**
      * Returns true if the given point is within a rectangle representing this shape.
-     * @param other     other sprite
+     * 
+     * @param other other sprite
      */
     public boolean intersects (Sprite other) {
         return getBounds().intersects(other.getBounds());
@@ -250,7 +263,8 @@ public abstract class Sprite {
 
     /**
      * Returns true if the given point is within a rectangle representing this shape.
-     * @param pt        point
+     * 
+     * @param pt point
      */
     public boolean intersects (Point2D pt) {
         return getBounds().contains(pt);
@@ -268,7 +282,8 @@ public abstract class Sprite {
 
     /**
      * Display this shape on the screen.
-     * @param pen       graphics pen
+     * 
+     * @param pen graphics pen
      */
     public void paint (Graphics2D pen) {
         myView.paint(pen, myCenter, mySize, myVelocity.getDirection());
@@ -289,18 +304,13 @@ public abstract class Sprite {
         // double angle = Vector.angleBetween(myCenter, new Location(bounds.getCenterX(),
         // bounds.getCenterY()));
         // BUGBUG: FIX ME --- this is very imperfect, but sort of works for now
-        if (bounds.contains(new Location(getLeft(), getY()))) {
+        if (bounds.contains(new Location(getLeft(), getY())))
             return RIGHT_DIRECTION;
-        }
-        else if (bounds.contains(new Location(getX(), getBottom()))) {
+        else if (bounds.contains(new Location(getX(), getBottom())))
             return UP_DIRECTION;
-        }
-        else if (bounds.contains(new Location(getRight(), getY()))) {
+        else if (bounds.contains(new Location(getRight(), getY())))
             return LEFT_DIRECTION;
-        }
-        else if (bounds.contains(new Location(getX(), getTop()))) {
-            return DOWN_DIRECTION;
-        }
+        else if (bounds.contains(new Location(getX(), getTop()))) return DOWN_DIRECTION;
         return 0;
         // return Double.NaN;
     }

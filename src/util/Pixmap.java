@@ -24,7 +24,8 @@ public class Pixmap {
 
     /**
      * Create an image from the given filename.
-     * @param fileName          the file name
+     * 
+     * @param fileName the file name
      */
     public Pixmap (String fileName) {
         setImage(fileName);
@@ -32,7 +33,8 @@ public class Pixmap {
 
     /**
      * Create a copy of image from the given other image.
-     * @param other   the other image to be copied
+     * 
+     * @param other the other image to be copied
      */
     public Pixmap (Pixmap other) {
         this(other.myFileName);
@@ -40,7 +42,8 @@ public class Pixmap {
 
     /**
      * Set this image to the image referred to by the given filename.
-     * @param fileName          the file
+     * 
+     * @param fileName the file
      */
     public void setImage (String fileName) {
         myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
@@ -49,9 +52,10 @@ public class Pixmap {
 
     /**
      * Describes how to draw the image on the screen.
-     * @param pen       graphics pen
-     * @param center    center of image
-     * @param size      size of image
+     * 
+     * @param pen graphics pen
+     * @param center center of image
+     * @param size size of image
      */
     public void paint (Graphics2D pen, Point2D center, Dimension size) {
         paint(pen, center, size, 0);
@@ -59,10 +63,11 @@ public class Pixmap {
 
     /**
      * Describes how to draw the image rotated on the screen.
-     * @param pen       graphics pen
-     * @param center    center of image
-     * @param size      size of image
-     * @param angle     angle
+     * 
+     * @param pen graphics pen
+     * @param center center of image
+     * @param size size of image
+     * @param angle angle
      */
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
         // save current state of the graphics area
