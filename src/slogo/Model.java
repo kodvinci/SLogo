@@ -1,12 +1,13 @@
 package slogo;
 
-import exceptions.NoSuchVariableException;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import object.Turtle;
 import view.DisplayArea;
-import view.TurtleArea;
+import exceptions.NoSuchVariableException;
 
 
 /**
@@ -15,7 +16,7 @@ import view.TurtleArea;
  * 
  */
 public class Model {
-    
+
     /**
      * Default turtle area size
      */
@@ -33,84 +34,86 @@ public class Model {
      */
     public static final String TITLE = "SLOGO";
 
-    private Turtle myTurtle;
+    private List<Turtle> myTurtles;
 
     private DisplayArea myDisplayArea;
-
-    private TurtleArea myTurArea;
 
     private Controller myController;
 
     private Map<String, Double> myVariables;
-    
+
+    private Turtle myInitialTurtle;
+
     /**
      * Constructs model that holds objects
-     * @param controller        the controller
+     * 
+     * @param controller the controller
      */
     public Model (Controller controller) {
         myController = controller;
-        myTurtle = new Turtle();
-        myDisplayArea = new DisplayArea(DisplayArea.DEFAULT_AREA_SIZE, myTurtle);
-        myTurArea = new TurtleArea(TurtleArea.DEFAULT_AREA_SIZE, myTurtle);
+
+        myTurtles = new ArrayList<Turtle>();
+        myInitialTurtle = new Turtle();
+        myTurtles.add(myInitialTurtle);
+        myDisplayArea = new DisplayArea(DisplayArea.DEFAULT_AREA_SIZE, myTurtles);
+
         myVariables = new HashMap<String, Double>();
 
     }
-    
-    /**
-     * Update display areas
-     */
-    public void update () {
 
-        myDisplayArea.update();
-        myTurArea.update();
-    }
-    
     /**
      * Return turtle
+     * 
      * @return
      */
     public Turtle getMyTurtle () {
-        return myTurtle;
+        return myTurtles.get(0);
     }
-    
+
+    public List<Turtle> getMyTurtles () {
+        return myTurtles;
+    }
+
     /**
      * Show message
-     * @param message   the message
+     * 
+     * @param message the message
      */
     public void showMessage (String message) {
         myDisplayArea.showMessage(message);
     }
-    
+
     /**
      * Add a variable
-     * @param name      the variable    
-     * @param value     the value
+     * 
+     * @param name the variable
+     * @param value the value
      */
     public void addVariable (String name, Double value) {
         myVariables.put(name, value);
     }
-    
+
     /**
      * Remove a variable
-     * @param name      the string
+     * 
+     * @param name the string
      */
     public void removeVariable (String name) {
         myVariables.remove(name);
     }
-    
+
     /**
      * get the variable name
-     * @param name      the variable name
-     * @return          
+     * 
+     * @param name the variable name
+     * @return
      * @throws NoSuchVariableException throws if there is no variable
      */
     public double getVariableValue (String name) throws NoSuchVariableException {
-        if (!myVariables.containsKey(name)) {
-            throw new NoSuchVariableException();
-        }
+        if (!myVariables.containsKey(name)) throw new NoSuchVariableException();
         return myVariables.get(name);
     }
-    
+
     /**
      * Clear the values of the all variables
      */

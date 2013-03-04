@@ -1,9 +1,9 @@
 package behavior;
 
-import exceptions.SyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import slogo.Model;
+import exceptions.SyntaxException;
 
 
 /**
@@ -95,7 +95,7 @@ public class CommandEntities {
      * @throws SyntaxException Syntax exception
      */
     public ICommand getCommand (String command) throws SyntaxException {
-        if (!myCommands.containsKey(command)) { throw new SyntaxException(); }
+        if (!myCommands.containsKey(command)) throw new SyntaxException();
 
         return myCommands.get(command);
     }

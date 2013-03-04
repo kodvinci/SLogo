@@ -13,18 +13,19 @@ import util.Sprite;
  */
 
 public class Turtle extends Sprite {
-<<<<<<< HEAD
-    
+
     /**
      * Default dimension size
      */
-=======
-
-    private static final int DEFAULT_LOCATION = 200;
->>>>>>> b155bdfe9d69094e0e895d7dc6ae4e2b9e4e61ed
     public static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
-   
+
+    /**
+     * Default Location
+     */
     private static final int DEFAULT_LOCATION = 200;
+    /**
+     * Default turtle image;
+     */
     private static final Pixmap TURTLE_IMAGE = new Pixmap("turtle.gif");
     // private static final Dimension TURTLE_AREA = new Dimension(800, 600);
 
@@ -118,7 +119,7 @@ public class Turtle extends Sprite {
      * @param angle angle to set to
      */
     public void setMyAngle (double angle) {
-        this.myAngle = angle;
+        myAngle = angle;
     }
 
     /**

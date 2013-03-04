@@ -4,14 +4,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.List;
-import java.util.Random;
 import javax.swing.Timer;
 import object.Trail;
 import object.Turtle;
@@ -33,11 +31,12 @@ public class TurtleArea extends Window implements ActionListener {
     private static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
     private static final int ENTER_KEY = KeyEvent.VK_ENTER;
     private static final long serialVersionUID = 1L;
-    private Turtle myTurtle;
+    private List<Turtle> myTurtle;
     private Trail myTrail;
     private KeyListener myKeyListener;
     private ActionListener myActionListener;
     private Graphics2D myPen;
+    private Canvas myView;
 
     /**
      * 
@@ -46,14 +45,16 @@ public class TurtleArea extends Window implements ActionListener {
      * @param turtle
      *        pen image
      */
-    public TurtleArea (Dimension size, Turtle turtle) {
+    public TurtleArea (Dimension size, List<Turtle> turtle, Canvas canvas) {
         super(size, "English");
         setFocusable(true);
 
+        myView = canvas;
         makeKeyListener();
         myTurtle = turtle;
-        myTrail = myTurtle.getTrail();
-        this.addKeyListener(myKeyListener);
+
+        myTrail = myTurtle.get(0).getTrail();
+        addKeyListener(myKeyListener);
     }
 
     private void makeKeyListener () {
@@ -100,23 +101,35 @@ public class TurtleArea extends Window implements ActionListener {
     public void update () {
         myTurtle.addTrail();
 
+        System.out.println("turtle update1!");
+
+        myTurtle.get(0).addTrail();
+
         BufferedImage image = new BufferedImage(2, 2, BufferedImage.TYPE_INT_ARGB);
-        Graphics g2 = image.getGraphics();
+        image.getGraphics();
 
         // myFrame.revalidate();
 
         revalidate();
         reSizeFrame();
+        // revalidate();
+        // myFrame.revalidate();
+        // reSizeFrame();
         // this.setSize(new Dimension(810, 600));
 
         // myTurtle.paint((Graphics2D) g2);
+
+        myView.update();
 
         System.out.println("Revalidated");
     }
 
     private void paintTurtle (Graphics2D pen) {
+
         myTurtle.paint(pen);
         myTurtle.addTrail(); 
+
+        myTurtle.get(0).paint(pen);
         System.out.println("turtle painted!");
     }
 

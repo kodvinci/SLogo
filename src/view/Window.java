@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
@@ -37,6 +38,7 @@ public class Window extends JPanel {
     public ResourceBundle myResources;
 
     public JFrame myFrame;
+    public JPanel myPanel;
     //
     public static final Dimension TURTLE_AREA_SIZE = new Dimension(800, 500);
     public static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
@@ -45,23 +47,24 @@ public class Window extends JPanel {
     public static final Dimension SIZE1 = new Dimension(1000, 700);
     public static final String TITLE = "SLOGO";
     private Controller myController;
-    private Turtle myTurtle;
+    private List<Turtle> myTurtle;
     //
 
     private static final int ENTER_KEY = KeyEvent.VK_ENTER;
     private static final long serialVersionUID = 1L;
     private KeyListener myKeyListener;
     private JFileChooser myChooser;
+    private Canvas myView;
 
     public Window (Controller controller) {
-        makeKeyListener();
+        // createGUI();
+        // makeKeyListener();
         myController = controller;
-        myTurtle = myController.getMyTurtle();
+        myTurtle = myController.getMyTurtles();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
 
-        createGUI();
-        addKeyListener(myKeyListener);
+        // addKeyListener(myKeyListener);
     }
 
     public Window (Dimension size, String language) {
@@ -73,6 +76,16 @@ public class Window extends JPanel {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     }
 
+    public Window (Dimension size, String language, Canvas canvas) {
+        setPreferredSize(size);
+        setSize(size);
+        setFocusable(true);
+        requestFocus();
+        revalidate();
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
+        myView = canvas;
+    }
+
     @Override
     public void paintComponent (Graphics pen) {
         System.out.println("Window!");
@@ -81,7 +94,7 @@ public class Window extends JPanel {
         pen.fillRect(0, 0, getSize().width, getSize().height);
 
         if (myTurtle != null) {
-            myTurtle.paint((Graphics2D) pen);
+            myTurtle.get(0).paint((Graphics2D) pen);
             System.out.println("Window Turtle!");
         }
     }
@@ -94,14 +107,15 @@ public class Window extends JPanel {
         // JFrame myFrame = new JFrame(TITLE);
 
         myFrame = new JFrame(TITLE);
-        JPanel myPanel = new JPanel();
+        myPanel = new JPanel();
+        myFrame.setLayout(new BorderLayout());
         myFrame.setContentPane(myPanel);
         myFrame.setSize(SIZE);
         myFrame.setPreferredSize(SIZE);
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // for turtle sprite display
-        TurtleArea myTurtleArea = new TurtleArea(TURTLE_AREA_SIZE, myTurtle);
+        TurtleArea myTurtleArea = new TurtleArea(TURTLE_AREA_SIZE, myTurtle, myView);
         myFrame.getContentPane().add(myTurtleArea, BorderLayout.CENTER);
 
         // for turtle status display
@@ -119,13 +133,17 @@ public class Window extends JPanel {
         myFrame.setVisible(true);
     }
 
-    /**
-     * 
-     */
-    public void reSizeFrame () {
-        // myFrame.setSize(SIZE1);
-        validate();
-    }
+    // /**
+    // *
+    // */
+    // public void reSizeFrame () {
+    // // myFrame.setPreferredSize(SIZE1);
+    // // myFrame.setBounds(0, 0, 1000, 500);
+    // // this.setSize(SIZE1);
+    // // myPanel.setPreferredSize(SIZE1);
+    // myPanel.setSize(SIZE1);
+    // validate();
+    // }
 
     private void makeKeyListener () {
         System.out.println("made listener");
