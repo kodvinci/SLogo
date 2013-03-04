@@ -140,4 +140,8 @@ public class Turtle extends Sprite {
         return Double.toString(num);
     }
 
+    public Trail getTrail () {
+        return myTrail;
+    }
+
 }

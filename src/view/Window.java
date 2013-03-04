@@ -123,7 +123,7 @@ public class Window extends JPanel {
      * 
      */
     public void reSizeFrame () {
-       // myFrame.setSize(SIZE1);
+        // myFrame.setSize(SIZE1);
         validate();
     }
 

@@ -9,9 +9,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.Random;
 import javax.swing.Timer;
+import object.Trail;
 import object.Turtle;
+import util.Location;
 
 
 /**
@@ -30,6 +33,7 @@ public class TurtleArea extends Window implements ActionListener {
     private static final int ENTER_KEY = KeyEvent.VK_ENTER;
     private static final long serialVersionUID = 1L;
     private Turtle myTurtle;
+    private Trail myTrail;
     private KeyListener myKeyListener;
     private ActionListener myActionListener;
     private Graphics2D myPen;
@@ -47,6 +51,7 @@ public class TurtleArea extends Window implements ActionListener {
 
         makeKeyListener();
         myTurtle = turtle;
+        myTrail = myTurtle.getTrail();
         this.addKeyListener(myKeyListener);
     }
 
@@ -93,6 +98,8 @@ public class TurtleArea extends Window implements ActionListener {
     public void update () {
         System.out.println("turtle update1!");
 
+        myTurtle.addTrail();
+
         BufferedImage image = new BufferedImage(2, 2, BufferedImage.TYPE_INT_ARGB);
         Graphics g2 = image.getGraphics();
 
@@ -101,7 +108,7 @@ public class TurtleArea extends Window implements ActionListener {
         revalidate();
         myFrame.revalidate();
         reSizeFrame();
-       // this.setSize(new Dimension(810, 600));
+        // this.setSize(new Dimension(810, 600));
 
         // myTurtle.paint((Graphics2D) g2);
 
@@ -117,4 +124,19 @@ public class TurtleArea extends Window implements ActionListener {
     public void actionPerformed (ActionEvent arg0) {
         System.out.println("keyPressed");
     }
+
+    private void paintPaths (Graphics2D pen) {
+        List<Location> trails = myTrail.getTrails();
+        if (!(trails.isEmpty())) {
+            Location prevLocation = myTrail.getTrails().get(0);
+            Location newLocation;
+            for (int i = 1; i < trails.size(); i++) {
+                newLocation = trails.get(i);
+                pen.drawLine((int) prevLocation.getX(), (int) prevLocation.getY(),
+                             (int) newLocation.getX(), (int) newLocation.getY());
+                prevLocation = newLocation;
+            }
+        }
+    }
+
 }

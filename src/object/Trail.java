@@ -54,4 +54,11 @@ public class Trail {
     public void clearTrail () {
         myTrails.clear();
     }
+
+    /**
+     * returns the list of trails;
+     */
+    public List<Location> getTrails () {
+        return myTrails;
+    }
 }
