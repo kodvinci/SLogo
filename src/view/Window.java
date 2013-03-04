@@ -36,7 +36,7 @@ public class Window extends JPanel {
     private static final int Y_INDEX = 0;
     private static final long serialVersionUID = 1L;
 
-    private ResourceBundle myResources;
+    public ResourceBundle myResources;
     private JFileChooser myChooser;
     private Controller myController;
     private List<Turtle> myTurtle;
