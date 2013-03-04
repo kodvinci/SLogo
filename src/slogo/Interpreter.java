@@ -1,4 +1,4 @@
-package utilities;
+package slogo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,18 +15,28 @@ import exceptions.SyntaxException;
 public class Interpreter {
 
     private CommandEntities myCommands;
-    Pattern numPattern;
-    Pattern strPattern;
-    Pattern listPattern;
 
+    private Pattern myNumPattern;
+    private Pattern myStrPattern;
+    private Pattern myListPattern;
+
+    /**
+     * Constructs an interpreter
+     */
     public Interpreter () {
-        numPattern = Pattern.compile("[0-9]*");
-        strPattern = Pattern.compile("[a-zA-Z]*");
-        listPattern = Pattern.compile("[\\[\\]]*");
+        myNumPattern = Pattern.compile("[0-9]*");
+        myStrPattern = Pattern.compile("[a-zA-Z]*");
+        myListPattern = Pattern.compile("[\\[\\]]*");
         myCommands = new CommandEntities();
         myCommands.initialize();
     }
 
+    /**
+     * Returns an arraylist of the user input
+     * 
+     * @param commands user input
+     * @return
+     */
     // have to throw exception
     public ArrayList<String[]> split (String commands) {
 
@@ -38,8 +48,8 @@ public class Interpreter {
         StringBuffer buffer = new StringBuffer();
         buffer.append(cutBySpace[0]);
         for (int i = 1; i < cutBySpace.length; i++) {
-            if (strPattern.matcher(cutBySpace[i]).matches() ||
-                listPattern.matcher(cutBySpace[i]).matches()) {
+            if (myStrPattern.matcher(cutBySpace[i]).matches() ||
+                myListPattern.matcher(cutBySpace[i]).matches()) {
 
                 allBuffers.add(buffer);
                 buffer = new StringBuffer();
@@ -61,13 +71,20 @@ public class Interpreter {
         return allCommands;
     }
 
+    /**
+     * Translates arraylist input and executes command
+     * 
+     * @param model the model
+     * @param str arraylist command
+     * @throws SyntaxException syntax exception
+     */
     // have to throw exception
     public void translateAndExecute (Model model, String[] str) throws SyntaxException {
 
         List<Double> bufferList = new ArrayList<Double>();
 
         for (String element : str) {
-            if (numPattern.matcher(element).matches()) {
+            if (myNumPattern.matcher(element).matches()) {
                 bufferList.add(Double.parseDouble(element));
             }
         }
@@ -85,8 +102,9 @@ public class Interpreter {
     /**
      * this method can finish the process of input commands.
      * 
-     * @param ind the index of turtle we want to process
+     * @param model the model
      * @param commands input of user
+     * @throws SyntaxException Syntax exception
      */
     public void process (Model model, String commands) throws SyntaxException {
 
@@ -108,7 +126,7 @@ public class Interpreter {
                 makeVariable(model, currentCommand);
             }
             else if (currentCommand[0].toUpperCase().equals("IF")) {
-
+                continue;
             }
             else {
                 translateAndExecute(model, currentCommand);
@@ -117,12 +135,19 @@ public class Interpreter {
         }
     }
 
+    /**
+     * Makes a variable from user input
+     * 
+     * @param model the slogo model
+     * @param currentCommand current command
+     * @throws SyntaxException syntax exception
+     */
     public void makeVariable (Model model, String[] currentCommand) throws SyntaxException {
 
         if (currentCommand.length < 2) throw new SyntaxException();
         String name = currentCommand[0];
         String value = currentCommand[1];
-        if (!(strPattern.matcher(name).matches() && numPattern.matcher(value).matches()))
+        if (!(myStrPattern.matcher(name).matches() && myNumPattern.matcher(value).matches()))
             throw new SyntaxException();
         else {
             model.addVariable(name, Double.parseDouble(value));

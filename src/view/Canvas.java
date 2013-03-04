@@ -2,11 +2,12 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.List;
 import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import object.Turtle;
-import utilities.Controller;
+import slogo.Controller;
 
 
 /**
@@ -38,9 +39,9 @@ public class Canvas {
     public static final String TITLE = "SLOGO";
 
     private Controller myController;
-    private Turtle myTurtle;
     private JPanel myPanel;
     private JFrame myFrame;
+    private List<Turtle> myTurtle;
 
     /**
      * 
@@ -49,7 +50,7 @@ public class Canvas {
      */
     public Canvas (Controller controller) {
         myController = controller;
-        myTurtle = myController.getMyTurtle();
+        myTurtle = myController.getMyTurtles();
         createGUI();
     }
 

@@ -30,7 +30,7 @@ public class TurtleArea extends Window implements ActionListener {
     private static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
     private static final int ENTER_KEY = KeyEvent.VK_ENTER;
     private static final long serialVersionUID = 1L;
-    private Turtle myTurtle;
+    private List<Turtle> myTurtle;
     private Trail myTrail;
     private KeyListener myKeyListener;
     private ActionListener myActionListener;
@@ -44,14 +44,15 @@ public class TurtleArea extends Window implements ActionListener {
      * @param turtle
      *        pen image
      */
-    public TurtleArea (Dimension size, Turtle turtle, Canvas canvas) {
+    public TurtleArea (Dimension size, List<Turtle> turtle, Canvas canvas) {
         super(size, "English");
         setFocusable(true);
 
         myView = canvas;
         makeKeyListener();
         myTurtle = turtle;
-        myTrail = myTurtle.getTrail();
+
+        myTrail = myTurtle.get(0).getTrail();
         addKeyListener(myKeyListener);
     }
 
@@ -98,7 +99,7 @@ public class TurtleArea extends Window implements ActionListener {
     public void update () {
         System.out.println("turtle update1!");
 
-        myTurtle.addTrail();
+        myTurtle.get(0).addTrail();
 
         BufferedImage image = new BufferedImage(2, 2, BufferedImage.TYPE_INT_ARGB);
         image.getGraphics();
@@ -118,7 +119,7 @@ public class TurtleArea extends Window implements ActionListener {
     }
 
     private void paintTurtle (Graphics2D pen) {
-        myTurtle.paint(pen);
+        myTurtle.get(0).paint(pen);
         System.out.println("turtle painted!");
     }
 

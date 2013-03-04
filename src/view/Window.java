@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
@@ -22,7 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import object.Turtle;
-import utilities.Controller;
+import slogo.Controller;
 
 
 /**
@@ -46,7 +47,7 @@ public class Window extends JPanel {
     public static final Dimension SIZE1 = new Dimension(1000, 700);
     public static final String TITLE = "SLOGO";
     private Controller myController;
-    private Turtle myTurtle;
+    private List<Turtle> myTurtle;
     //
 
     private static final int ENTER_KEY = KeyEvent.VK_ENTER;
@@ -59,7 +60,7 @@ public class Window extends JPanel {
         // createGUI();
         // makeKeyListener();
         myController = controller;
-        myTurtle = myController.getMyTurtle();
+        myTurtle = myController.getMyTurtles();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
 
@@ -93,7 +94,7 @@ public class Window extends JPanel {
         pen.fillRect(0, 0, getSize().width, getSize().height);
 
         if (myTurtle != null) {
-            myTurtle.paint((Graphics2D) pen);
+            myTurtle.get(0).paint((Graphics2D) pen);
             System.out.println("Window Turtle!");
         }
     }

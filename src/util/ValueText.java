@@ -12,6 +12,9 @@ public class ValueText extends Text {
 
     /**
      * Create with its label and an initial value.
+     * 
+     * @param label string label
+     * @param initialValue initial value
      */
     public ValueText (String label, int initialValue) {
         super(label + " " + initialValue);
@@ -28,6 +31,8 @@ public class ValueText extends Text {
 
     /**
      * Update displayed value.
+     * 
+     * @param value value ot update
      */
     public void updateValue (int value) {
         myValue += value;
