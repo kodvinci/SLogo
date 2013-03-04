@@ -1,5 +1,6 @@
 package slogo;
 
+import exceptions.NoSuchVariableException;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import object.Turtle;
 import view.DisplayArea;
-import exceptions.NoSuchVariableException;
 
 
 /**
@@ -32,8 +32,12 @@ public class Model {
     /**
      * String title
      */
+    
+    
     public static final String TITLE = "SLOGO";
-
+    
+    private int myID;
+    
     private List<Turtle> myTurtles;
 
     private DisplayArea myDisplayArea;
@@ -48,13 +52,13 @@ public class Model {
      * Constructs model that holds objects
      * 
      * @param controller the controller
+     * @param id         the model id
      */
-    public Model (Controller controller) {
+    public Model (Controller controller, int id) {
         myController = controller;
-
+        myID = id;
         myTurtles = new ArrayList<Turtle>();
-        myInitialTurtle = new Turtle();
-        myTurtles.add(myInitialTurtle);
+        myController.getFactory().createTurtle(myID);
         myDisplayArea = new DisplayArea(DisplayArea.DEFAULT_AREA_SIZE, myTurtles);
 
         myVariables = new HashMap<String, Double>();
