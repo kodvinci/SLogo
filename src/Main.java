@@ -1,13 +1,13 @@
 import java.awt.Dimension;
-<<<<<<< HEAD
+
 import slogo.Controller;
 import view.Canvas;
 import view.Window;
 
-=======
-import utilities.Controller;
+
+import slogo.Controller;
 import view.Window;
->>>>>>> b155bdfe9d69094e0e895d7dc6ae4e2b9e4e61ed
+
 
 
 /**
@@ -46,11 +46,9 @@ public class Main {
     public static void main (String[] args) {
 
         Controller myController = new Controller();
-<<<<<<< HEAD
         new Canvas(myController);
-=======
         // new Canvas(myController);
->>>>>>> b155bdfe9d69094e0e895d7dc6ae4e2b9e4e61ed
+
         new Window(myController);
 
         // myController.processUserInput(0, "IF 50 [ FD 10 ]");

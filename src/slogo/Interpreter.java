@@ -123,9 +123,7 @@ public class Interpreter {
                 currentCommand = separatedCommands.get(i);
                 makeVariable(model, currentCommand);
             }
-            else if (currentCommand[0].toUpperCase().equals("IF")) {
-                continue;
-            }
+            
             else {
                 translateAndExecute(model, currentCommand);
             }
