@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
 import object.Turtle;
-import object.Trail;
 import view.DisplayArea;
 import view.TurtleArea;
 import exceptions.NoSuchVariableException;
@@ -19,8 +18,6 @@ public class Model {
 
     public static final Dimension TURTLE_AREA_SIZE = new Dimension(800, 500);
     public static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
-    public static final Dimension SIZE = new Dimension(1100, 700);
-    public static final String TITLE = "SLOGO";
 
     private Turtle myTurtle;
 
@@ -36,7 +33,7 @@ public class Model {
         myController = controller;
         myTurtle = new Turtle();
         myDisplayArea = new DisplayArea(DisplayArea.DEFAULT_AREA_SIZE, myTurtle);
-        myTurArea = new TurtleArea(TurtleArea.DEFAULT_AREA_SIZE, myTurtle);
+        // myTurArea = new TurtleArea(TurtleArea.DEFAULT_AREA_SIZE, myTurtle);
         myVariables = new HashMap<String, Double>();
 
     }
@@ -44,7 +41,7 @@ public class Model {
     public void update () {
 
         myDisplayArea.update();
-        myTurArea.update();
+        // myTurArea.update();
     }
 
     public Turtle getMyTurtle () {

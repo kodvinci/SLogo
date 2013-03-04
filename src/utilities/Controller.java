@@ -1,8 +1,12 @@
 package utilities;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import object.Turtle;
+import view.Canvas;
+import view.DisplayArea;
+import view.TurtleArea;
 import exceptions.SyntaxException;
 
 
@@ -13,13 +17,27 @@ import exceptions.SyntaxException;
  */
 public class Controller {
 
+    public static final Dimension TURTLE_AREA_SIZE = new Dimension(800, 500);
+    public static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
+    private Turtle myTurtle;
+
+    private DisplayArea myDisplayArea;
+    private TurtleArea myTurArea;
     private List<Model> myModels = new ArrayList<Model>();
 
     private Interpreter myInterpreter;
+    private Canvas myView;
 
     public Controller () {
         addModel();
         myInterpreter = new Interpreter();
+        myView = new Canvas(this);
+    }
+
+    public void update () {
+        // myDisplayArea.update();
+        // myTurArea.update();
+        myView.update();
     }
 
     public void processUserInput (int seq, String string) {
@@ -32,7 +50,7 @@ public class Controller {
             System.out.println("Syntax Error");
         }
         // update view
-        myModels.get(seq).update();
+        update();
     }
 
     public void addModel () {

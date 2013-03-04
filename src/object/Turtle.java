@@ -109,7 +109,7 @@ public class Turtle extends Sprite {
      * @param angle angle to set to
      */
     public void setMyAngle (double angle) {
-        this.myAngle = angle;
+        myAngle = angle;
     }
 
     /**

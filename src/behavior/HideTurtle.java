@@ -1,7 +1,7 @@
 package behavior;
 
-import exceptions.SyntaxException;
 import object.Turtle;
+import exceptions.SyntaxException;
 
 
 /**
@@ -13,9 +13,8 @@ public class HideTurtle implements ICommand {
 
     @Override
     public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        if (parameters.length != 0) {
+        if (parameters.length != 0)
             throw new SyntaxException();
-        }
         else {
             turtle.setInvisible();
             return 0.0;
