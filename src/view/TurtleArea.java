@@ -21,6 +21,8 @@ public class TurtleArea extends Window {
 
     private static final long serialVersionUID = 1L;
     private List<Turtle> myTurtles;
+    private static final int FIRST_TURTLE=0; 
+    private static final Color trailColor= Color.BLACK; 
     private Trail myTrail;
     private Canvas myView;
 
@@ -37,7 +39,7 @@ public class TurtleArea extends Window {
 
         myView = canvas;
         myTurtles = turtles;
-        myTrail = myTurtles.get(0).getTrail();
+        myTrail = myTurtles.get(FIRST_TURTLE).getTrail();
     }
 
     @Override
@@ -59,12 +61,8 @@ public class TurtleArea extends Window {
             t.addTrail();
         }
 
-        System.out.println("turtle update1!");
 
-        myTurtles.get(0).addTrail();
-
-        BufferedImage image = new BufferedImage(2, 2, BufferedImage.TYPE_INT_ARGB);
-        image.getGraphics();
+        myTurtles.get(FIRST_TURTLE).addTrail();
 
         revalidate();
         // revalidate();
@@ -76,7 +74,6 @@ public class TurtleArea extends Window {
 
         myView.update();
 
-        System.out.println("Revalidated");
     }
 
     private void paintTurtle (Graphics2D pen) {
@@ -86,14 +83,13 @@ public class TurtleArea extends Window {
             t.addTrail();
         }
 
-        System.out.println("turtle painted!");
     }
 
     private void paintPaths (Graphics2D pen) {
-        pen.setColor(Color.BLACK);
+        pen.setColor(trailColor);
         List<Location> trails = myTrail.getTrails();
         if (!(trails.isEmpty())) {
-            Location prevLocation = myTrail.getTrails().get(0);
+            Location prevLocation = myTrail.getTrails().get(FIRST_TURTLE);
             Location newLocation;
             for (int i = 1; i < trails.size(); i++) {
                 newLocation = trails.get(i);
