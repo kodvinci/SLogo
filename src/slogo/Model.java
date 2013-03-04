@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import exceptions.NoSuchVariableException;
 import object.Turtle;
 import view.DisplayArea;
-import exceptions.NoSuchVariableException;
 
 
 /**
@@ -55,8 +55,6 @@ public class Model {
         myTurtles = new ArrayList<Turtle>();
         myInitialTurtle = new Turtle();
         myTurtles.add(myInitialTurtle);
-        myDisplayArea = new DisplayArea(DisplayArea.DEFAULT_AREA_SIZE, myTurtles);
-
         myVariables = new HashMap<String, Double>();
 
     }

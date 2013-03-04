@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -21,97 +22,56 @@ import util.Location;
  * @author Leonard and Alan
  * 
  */
-public class TurtleArea extends Window implements ActionListener {
-    /**
-     * 
-     */
-    public static final Dimension DEFAULT_AREA_SIZE = new Dimension(800, 600);
-    private static final int FRAMES_PER_SECOND = 25;
-    private static final int ONE_SECOND = 1000;
-    private static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
-    private static final int ENTER_KEY = KeyEvent.VK_ENTER;
+public class TurtleArea extends Window {
+  
     private static final long serialVersionUID = 1L;
-    private List<Turtle> myTurtle;
+    private List<Turtle> myTurtles;
     private Trail myTrail;
-    private KeyListener myKeyListener;
-    private ActionListener myActionListener;
-    private Graphics2D myPen;
     private Canvas myView;
 
     /**
      * 
      * @param size
      *        size of display area
-     * @param turtle
+     * @param turtles
      *        pen image
      */
-    public TurtleArea (Dimension size, List<Turtle> turtle, Canvas canvas) {
+    public TurtleArea (Dimension size, List<Turtle> turtles, Canvas canvas) {
         super(size, "English");
         setFocusable(true);
 
         myView = canvas;
-        makeKeyListener();
-        myTurtle = turtle;
-
-        myTrail = myTurtle.get(0).getTrail();
-        addKeyListener(myKeyListener);
-    }
-
-    private void makeKeyListener () {
-        System.out.println("made listener");
-        myKeyListener = new KeyListener() {
-            @Override
-            public void keyPressed (KeyEvent e) {
-                System.out.println("keyPressed");
-                repaint();
-            }
-
-            @Override
-            public void keyReleased (KeyEvent e) {
-            }
-
-            @Override
-            public void keyTyped (KeyEvent e) {
-            }
-        };
+        myTurtles = turtles;
+        myTrail = myTurtles.get(0).getTrail();
     }
 
     @Override
     public void paint (Graphics pen) {
         super.paintComponent(pen);
         System.out.println("paint turtleArea!");
-        myPen = (Graphics2D) pen;
         paintTurtle((Graphics2D) pen);
         paintPaths((Graphics2D) pen);
 
-        new Timer(DEFAULT_DELAY, new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                repaint();
-            }
-        });
-
-        // Toolkit.getDefaultToolkit().sync();
-        // pen.dispose();
+         Toolkit.getDefaultToolkit().sync();
+         pen.dispose();
     }
 
     /**
      * 
      */
     public void update () {
-        myTurtle.addTrail();
-
+        for(Turtle t: myTurtles) {
+            t.addTrail();
+        }
+        
         System.out.println("turtle update1!");
 
-        myTurtle.get(0).addTrail();
+        myTurtles.get(0).addTrail();
 
         BufferedImage image = new BufferedImage(2, 2, BufferedImage.TYPE_INT_ARGB);
         image.getGraphics();
 
-        // myFrame.revalidate();
-
         revalidate();
-        reSizeFrame();
         // revalidate();
         // myFrame.revalidate();
         // reSizeFrame();
@@ -126,16 +86,12 @@ public class TurtleArea extends Window implements ActionListener {
 
     private void paintTurtle (Graphics2D pen) {
 
-        myTurtle.paint(pen);
-        myTurtle.addTrail(); 
+        for (Turtle t: myTurtles) {
+            t.paint(pen);
+            t.addTrail();
+        } 
 
-        myTurtle.get(0).paint(pen);
         System.out.println("turtle painted!");
-    }
-
-    @Override
-    public void actionPerformed (ActionEvent arg0) {
-        System.out.println("keyPressed");
     }
 
     private void paintPaths (Graphics2D pen) {
