@@ -20,11 +20,11 @@ public class Controller {
     public static final Dimension TURTLE_AREA_SIZE = new Dimension(800, 500);
     public static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
     private Turtle myTurtle;
-    
+
     private DisplayArea myDisplayArea;
     private TurtleArea myTurArea;
     private List<Model> myModels = new ArrayList<Model>();
-    
+
     private Interpreter myInterpreter;
     private Factory myFactory;
     private Canvas myView;
@@ -33,14 +33,14 @@ public class Controller {
      * Initialize a model view controller
      */
     public Controller () {
-        
+
         myFactory = new Factory(this);
         addModel();
         myInterpreter = new Interpreter();
         myView = new Canvas(this);
     }
-    
-    public Factory getFactory() {
+
+    public Factory getFactory () {
         return myFactory;
     }
 

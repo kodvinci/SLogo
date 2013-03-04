@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
 import java.util.List;
 import object.Trail;
 import object.Turtle;
@@ -20,11 +19,11 @@ import util.Location;
 public class TurtleArea extends Window {
 
     private static final long serialVersionUID = 1L;
-    private List<Turtle> myTurtles;
-    private static final int FIRST_TURTLE=0; 
-    private static final Color trailColor= Color.BLACK; 
+    private static final int FIRST_TURTLE = 0;
+    private static final Color TRAIL_COLOR = Color.BLACK;
     private Trail myTrail;
     private Canvas myView;
+    private List<Turtle> myTurtles;
 
     /**
      * 
@@ -79,7 +78,7 @@ public class TurtleArea extends Window {
     }
 
     private void paintPaths (Graphics2D pen) {
-        pen.setColor(trailColor);
+        pen.setColor(TRAIL_COLOR);
         List<Location> trails = myTrail.getTrails();
         if (!(trails.isEmpty())) {
             Location prevLocation = myTrail.getTrails().get(FIRST_TURTLE);
