@@ -1,4 +1,15 @@
+import java.awt.Dimension;
+
 import slogo.Controller;
+import view.Canvas;
+import view.Window;
+
+
+import slogo.Controller;
+import view.Window;
+
+import slogo.Controller;
+
 
 
 /**
