@@ -58,9 +58,14 @@ public class Model {
         myController = controller;
         myID = id;
         myTurtles = new ArrayList<Turtle>();
+<<<<<<< HEAD
         myController.getFactory().createTurtle(myID);
         myDisplayArea = new DisplayArea(DisplayArea.DEFAULT_AREA_SIZE, myTurtles);
 
+=======
+        myInitialTurtle = new Turtle();
+        myTurtles.add(myInitialTurtle);
+>>>>>>> 030faca3da99872a22e36dc8760ad41acab4a2d9
         myVariables = new HashMap<String, Double>();
 
     }
