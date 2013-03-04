@@ -50,7 +50,7 @@ public class Turtle extends Sprite {
      * Constructs turtle object with image
      */
     public Turtle () {
-        super(TURTLE_IMAGE, new Location(DEFAULT_LOCATION, DEFAULT_LOCATION/2), DEFAULT_SIZE);
+        super(TURTLE_IMAGE, new Location(DEFAULT_LOCATION, DEFAULT_LOCATION / 2), DEFAULT_SIZE);
         myAngle = 0;
         myTrail = new Trail();
     }
