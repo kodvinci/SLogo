@@ -15,16 +15,24 @@ import slogo.Controller;
  */
 public class CommandArea extends Window {
 
+    /**
+     * 
+     */
     public static final Dimension DEFAULT_AREA_SIZE = new Dimension(500, 50);
 
     private static final long serialVersionUID = 1L;
     private static final int FIELD_SIZE = 30;
-    private static final String emptyString=""; 
-    private ActionListener myActionListener;
+    private static final String EMPTY_STRING = ""; 
     private static final Dimension BUTTON_SIZE = new Dimension(70, 30);
     private JTextField myTextField;
     private Controller myController;
-
+    private ActionListener myActionListener;
+    
+    /**
+     * 
+     * @param size      view size
+     * @param control   default controller
+     */
     public CommandArea (Dimension size, Controller control) {
         super(size, "English");
         makeListeners();
@@ -37,13 +45,16 @@ public class CommandArea extends Window {
         myController = control;
     }
 
+    /**
+     * 
+     */
     public void makeListeners () {
         myActionListener = new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 System.out.println(myTextField.getText());
                 myController.processUserInput(0, myTextField.getText());
-                myTextField.setText(emptyString);
+                myTextField.setText(EMPTY_STRING);
             }
         };
     }
