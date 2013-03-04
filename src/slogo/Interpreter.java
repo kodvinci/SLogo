@@ -125,7 +125,7 @@ public class Interpreter {
                 currentCommand = separatedCommands.get(i);
                 makeVariable(model, currentCommand);
             }
-            
+
             else {
                 translateAndExecute(model, currentCommand);
             }

@@ -22,9 +22,10 @@ public class Controller {
      * Default Display area size
      */
     public static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
-    
+    private Turtle myTurtle;
+
     private List<Model> myModels = new ArrayList<Model>();
-    
+
     private Interpreter myInterpreter;
     private Factory myFactory;
     private Canvas myView;
@@ -32,7 +33,7 @@ public class Controller {
      * Initialize a model view controller
      */
     public Controller () {
-        
+
         myFactory = new Factory(this);
         addModel();
         myInterpreter = new Interpreter();
@@ -41,7 +42,7 @@ public class Controller {
         }
         myView = new Canvas(this);
     }
-    
+ 
     /**
      * Return factory
      * @return

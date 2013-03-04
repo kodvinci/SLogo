@@ -58,14 +58,13 @@ public class Canvas extends JComponent {
      * 
      */
     public static final String USER_DIR = "user.dir";
-    
+
     private Controller myController;
     private JPanel myPanel;
     private JFrame myFrame;
     private List<Turtle> myTurtle;
     private JFileChooser myChooser;
     private ResourceBundle myResources;
-
 
     /**
      * 
@@ -141,7 +140,6 @@ public class Canvas extends JComponent {
                     }
                 }
                 catch (IOException io) {
-                    // let user know an error occurred, but keep going
                     showError(io.toString());
                 }
             }
@@ -172,7 +170,7 @@ public class Canvas extends JComponent {
     }
 
     private void echo (FileWriter fileWriter) {
-        // TODO do I really need this? 
+        // TODO do I really need this?
     }
 
     private void showError (String message) {
@@ -196,4 +194,12 @@ public class Canvas extends JComponent {
         }
     }
 
+    /**
+     * 
+     * @return
+     *          the resource bundle
+     */
+    public ResourceBundle getResource() {
+        return myResources;
+    }
 }

@@ -8,9 +8,9 @@ import object.Turtle;
  *
  */
 public class Factory {
-    
+
     private Controller myController;
-    
+
     /**
      * Constructs factory for controller
      * @param controller        the controller
