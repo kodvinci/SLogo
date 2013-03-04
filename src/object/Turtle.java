@@ -22,12 +22,11 @@ public class Turtle extends Sprite {
     /**
      * Default Location
      */
-    private static final int DEFAULT_LOCATION = 200;
+    private static final int DEFAULT_LOCATION = 400;
     /**
      * Default turtle image;
      */
     private static final Pixmap TURTLE_IMAGE = new Pixmap("turtle.gif");
-    // private static final Dimension TURTLE_AREA = new Dimension(800, 600);
 
     private double myAngle;
     private boolean myLeftTrail;
@@ -50,7 +49,7 @@ public class Turtle extends Sprite {
      * Constructs turtle object with image
      */
     public Turtle () {
-        super(TURTLE_IMAGE, new Location(DEFAULT_LOCATION, DEFAULT_LOCATION), DEFAULT_SIZE);
+        super(TURTLE_IMAGE, new Location(DEFAULT_LOCATION, DEFAULT_LOCATION/2), DEFAULT_SIZE);
         myAngle = 0;
         myTrail = new Trail();
     }

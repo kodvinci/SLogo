@@ -39,8 +39,7 @@ public class Controller {
     }
 
     public void update () {
-        // myDisplayArea.update();
-        // myTurArea.update();
+        myTurArea.update();
         myView.update();
     }
 

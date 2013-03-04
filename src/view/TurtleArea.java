@@ -30,6 +30,8 @@ public class TurtleArea extends Window {
      *        size of display area
      * @param turtles
      *        pen image
+     * @param canvas
+     *        view
      */
     public TurtleArea (Dimension size, List<Turtle> turtles, Canvas canvas) {
         super(size, "English");
@@ -43,7 +45,6 @@ public class TurtleArea extends Window {
     @Override
     public void paint (Graphics pen) {
         super.paintComponent(pen);
-        System.out.println("paint turtleArea!");
         paintTurtle((Graphics2D) pen);
         paintPaths((Graphics2D) pen);
 
@@ -59,24 +60,14 @@ public class TurtleArea extends Window {
             t.addTrail();
         }
 
-        System.out.println("turtle update1!");
-
         myTurtles.get(0).addTrail();
 
         BufferedImage image = new BufferedImage(2, 2, BufferedImage.TYPE_INT_ARGB);
         image.getGraphics();
 
         revalidate();
-        // revalidate();
-        // myFrame.revalidate();
-        // reSizeFrame();
-        // this.setSize(new Dimension(810, 600));
-
-        // myTurtle.paint((Graphics2D) g2);
-
         myView.update();
 
-        System.out.println("Revalidated");
     }
 
     private void paintTurtle (Graphics2D pen) {
@@ -86,7 +77,6 @@ public class TurtleArea extends Window {
             t.addTrail();
         }
 
-        System.out.println("turtle painted!");
     }
 
     private void paintPaths (Graphics2D pen) {

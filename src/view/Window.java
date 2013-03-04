@@ -46,13 +46,10 @@ public class Window extends JPanel {
     private Canvas myView;
 
     public Window (Controller controller) {
-        // makeKeyListener();
         myController = controller;
         myTurtle = myController.getMyTurtles();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
-
-        // addKeyListener(myKeyListener);
     }
 
     public Window (Dimension size, String language) {

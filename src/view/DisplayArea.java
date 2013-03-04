@@ -44,9 +44,6 @@ public class DisplayArea extends Window {
         return new JScrollPane(myTextArea);
     }
 
-    public void update () {
-    }
-
     private void makeListeners () {
 
         myMouseListener = new MouseListener() {

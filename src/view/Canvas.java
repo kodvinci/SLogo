@@ -50,15 +50,21 @@ public class Canvas extends JComponent {
      * 
      */
     public static final String TITLE = "SLOGO";
-
+    /**
+     * 
+     */
+    public static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+    /**
+     * 
+     */
+    public static final String USER_DIR = "user.dir";
+    
     private Controller myController;
     private JPanel myPanel;
     private JFrame myFrame;
     private List<Turtle> myTurtle;
     private JFileChooser myChooser;
     private ResourceBundle myResources;
-    public static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
-    public static final String USER_DIR = "user.dir";
 
     /**
      * 
@@ -107,7 +113,6 @@ public class Canvas extends JComponent {
      * Resize the view
      */
     public void update () {
-        System.out.println("Canvas update");
         Random rand = new Random();
         int hack = rand.nextInt(10);
         Dimension SIZE = new Dimension(1050 + hack, 700);
@@ -124,6 +129,8 @@ public class Canvas extends JComponent {
     private JMenu makeFileMenu () {
         JMenu result = new JMenu(myResources.getString("FileMenu"));
         result.add(new AbstractAction(myResources.getString("OpenCommand")) {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void actionPerformed (ActionEvent e) {
                 try {
@@ -139,6 +146,8 @@ public class Canvas extends JComponent {
             }
         });
         result.add(new AbstractAction(myResources.getString("SaveCommand")) {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void actionPerformed (ActionEvent e) {
                 try {
@@ -151,6 +160,8 @@ public class Canvas extends JComponent {
         });
         result.add(new JSeparator());
         result.add(new AbstractAction(myResources.getString("QuitCommand")) {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void actionPerformed (ActionEvent e) {
                 System.exit(0);
@@ -160,8 +171,7 @@ public class Canvas extends JComponent {
     }
 
     private void echo (FileWriter fileWriter) {
-        // TODO Auto-generated method stub
-
+        // TODO do I really need this? 
     }
 
     private void showError (String message) {
