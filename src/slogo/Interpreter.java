@@ -27,7 +27,7 @@ public class Interpreter {
         myNumPattern = Pattern.compile("[0-9]*");
         myStrPattern = Pattern.compile("[a-zA-Z]*");
         myListPattern = Pattern.compile("[\\[\\]]*");
-        myCommands = new CommandEntities();
+        myCommands = new CommandEntities("commands");
     }
 
     /**

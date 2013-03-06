@@ -1,8 +1,6 @@
 package behavior;
 
 import exceptions.SyntaxException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 import slogo.Model;
 
@@ -23,8 +21,8 @@ public class CommandEntities {
     /**
      * New CommandEntities
      */
-    public CommandEntities () {
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
+    public CommandEntities (String bundleName) {
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + bundleName);
     }
 
 
