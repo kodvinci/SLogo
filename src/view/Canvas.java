@@ -18,7 +18,7 @@ import slogo.Controller;
  * @author Leonard
  * 
  */
-public class Canvas extends JComponent {
+public class Canvas {
 
     /**
      * 
@@ -57,8 +57,6 @@ public class Canvas extends JComponent {
     private JPanel myPanel;
     private JFrame myFrame;
     private List<Turtle> myTurtle;
-    private JFileChooser myChooser;
-    private ResourceBundle myResources;
 
     /**
      * 
@@ -68,8 +66,7 @@ public class Canvas extends JComponent {
     public Canvas (Controller controller) {
         myController = controller;
         myTurtle = myController.getMyModels().get(0).getMyTurtles();
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
-        myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
+        
         createGUI();
     }
 
@@ -114,79 +111,5 @@ public class Canvas extends JComponent {
         myPanel.setSize(SIZE);
         myFrame.validate();
     }
-
-    // private JMenuBar makeMenus () {
-    // JMenuBar result = new JMenuBar();
-    // result.add(makeFileMenu());
-    // return result;
-    // }
-    //
-    // private JMenu makeFileMenu () {
-    // JMenu result = new JMenu(myResources.getString("FileMenu"));
-    // result.add(new AbstractAction(myResources.getString("OpenCommand")) {
-    // private static final long serialVersionUID = 1L;
-    //
-    // @Override
-    // public void actionPerformed (ActionEvent e) {
-    // try {
-    // int response = myChooser.showOpenDialog(null);
-    // if (response == JFileChooser.APPROVE_OPTION) {
-    // echo(new FileReader(myChooser.getSelectedFile()));
-    // }
-    // }
-    // catch (IOException io) {
-    // showError(io.toString());
-    // }
-    // }
-    // });
-    // result.add(new AbstractAction(myResources.getString("SaveCommand")) {
-    // private static final long serialVersionUID = 1L;
-    //
-    // @Override
-    // public void actionPerformed (ActionEvent e) {
-    // try {
-    // echo(new FileWriter("demo.out"));
-    // }
-    // catch (IOException io) {
-    // showError(io.toString());
-    // }
-    // }
-    // });
-    // result.add(new JSeparator());
-    // result.add(new AbstractAction(myResources.getString("QuitCommand")) {
-    // private static final long serialVersionUID = 1L;
-    //
-    // @Override
-    // public void actionPerformed (ActionEvent e) {
-    // System.exit(0);
-    // }
-    // });
-    // return result;
-    // }
-    //
-    // private void echo (FileWriter fileWriter) {
-    // // TODO do I really need this?
-    // }
-    //
-    // private void showError (String message) {
-    // JOptionPane.showMessageDialog(this, message, myResources.getString("ErrorTitle"),
-    // JOptionPane.ERROR_MESSAGE);
-    // }
-    //
-    // private void echo (FileReader fileReader) {
-    // try {
-    // String userInput = "";
-    // BufferedReader input = new BufferedReader(fileReader);
-    // String line = input.readLine();
-    // while (line != null) {
-    // userInput += line + "\n";
-    // line = input.readLine();
-    // }
-    // myController.processUserInput(0, userInput);
-    // }
-    // catch (IOException e) {
-    // showError(e.toString());
-    // }
-    // }
 
 }
