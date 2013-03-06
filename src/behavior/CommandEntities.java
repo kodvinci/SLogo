@@ -1,8 +1,9 @@
 package behavior;
 
-import exceptions.SyntaxException;
 import java.util.ResourceBundle;
 import slogo.Model;
+import exceptions.NoSuchCommandException;
+import exceptions.SyntaxException;
 
 
 /**
@@ -12,35 +13,33 @@ import slogo.Model;
  */
 
 public class CommandEntities {
-    
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources."; 
+
+    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
 
     private ResourceBundle myResources;
-    
 
     /**
-     * New CommandEntities
+     * constructor
+     * 
+     * @param bundleName the name of resource bundle which include command information
      */
     public CommandEntities (String bundleName) {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + bundleName);
     }
 
-
     /**
-     * perform command
      * 
-     * @param model SLogo model
-     * @param commandName String of command
-     * @param parameters parameters
-     * @throws SyntaxException Syntax Exception
-     * @throws ClassNotFoundException 
-     * @throws IllegalAccessException 
-     * @throws InstantiationException 
+     * @param model model which we want deal with
+     * @param command name of the command
+     * @param parameters parameters of this command
+     * @throws SyntaxException
+     * @throws NoSuchCommandException
      */
     public void doCommand (Model model, String command,
-                           double[] parameters) throws SyntaxException {
-        if( !myResources.containsKey(command)) throw new SyntaxException();
-        else{
+                           double[] parameters) throws SyntaxException, NoSuchCommandException {
+        if (!myResources.containsKey(command))
+            throw new NoSuchCommandException();
+        else {
             String commandName = myResources.getString(command);
             Class<?> commandClass = null;
             try {
@@ -56,9 +55,9 @@ public class CommandEntities {
             catch (InstantiationException | IllegalAccessException e) {
                 System.out.println("cannot create instance");
             }
-            ICommand myCommand = (ICommand)o;
+            ICommand myCommand = (ICommand) o;
             myCommand.move(model.getMyTurtle(0), parameters);
-               
+
         }
     }
 

@@ -197,9 +197,9 @@ public class Canvas extends JComponent {
     /**
      * 
      * @return
-     *          the resource bundle
+     *         the resource bundle
      */
-    public ResourceBundle getResource() {
+    public ResourceBundle getResource () {
         return myResources;
     }
 }

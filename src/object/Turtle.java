@@ -1,11 +1,10 @@
 package object;
 
 import java.awt.Dimension;
+import util.Animal;
 import util.Location;
 import util.Pixmap;
-import util.Animal;
 import view.Canvas;
-
 
 
 /**
@@ -47,7 +46,8 @@ public class Turtle extends Animal {
      * Constructs turtle object with image
      */
     public Turtle () {
-        super(TURTLE_IMAGE, new Location(Canvas.TURTLE_AREA_SIZE.width/2, Canvas.TURTLE_AREA_SIZE.height / 2), DEFAULT_SIZE);
+        super(TURTLE_IMAGE, new Location(Canvas.TURTLE_AREA_SIZE.width / 2,
+                                         Canvas.TURTLE_AREA_SIZE.height / 2), DEFAULT_SIZE);
         myAngle = 0;
         myTrail = new Trail();
     }
@@ -146,9 +146,10 @@ public class Turtle extends Animal {
     public String toString (double num) {
         return Double.toString(num);
     }
-    
+
     /**
      * Return trail
+     * 
      * @return
      */
     public Trail getTrail () {

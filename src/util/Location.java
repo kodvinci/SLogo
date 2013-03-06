@@ -49,5 +49,4 @@ public class Location extends Point2D.Double {
         setLocation(0, 0);
     }
 
-
 }

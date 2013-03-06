@@ -44,7 +44,6 @@ public abstract class Animal {
     // cached for efficiency
     private Rectangle myBounds;
 
-
     /**
      * Create a shape at the given position, with the given size, velocity, and color.
      * 
@@ -61,8 +60,6 @@ public abstract class Animal {
         reset();
         resetBounds();
     }
-
-
 
     /**
      * Resets shape's center.
@@ -173,8 +170,6 @@ public abstract class Animal {
         setSize(size.width, size.height);
     }
 
-    
-
     /**
      * Resets shape's image.
      * 
@@ -236,5 +231,4 @@ public abstract class Animal {
         myBounds = new Rectangle((int) getLeft(), (int) getTop(), mySize.width, mySize.height);
     }
 
-  
 }

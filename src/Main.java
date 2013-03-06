@@ -1,18 +1,20 @@
 import slogo.Controller;
 
+
 /**
  * 
  * @author Jerry
  * 
  */
 final class Main {
-    
+
     /**
      * empty
      */
-    private Main() {
-        //empty 
+    private Main () {
+        // empty
     }
+
     /**
      * @param args nothing, command line arguments
      */
