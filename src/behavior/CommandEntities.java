@@ -15,7 +15,7 @@ import slogo.Model;
 
 public class CommandEntities {
     
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resoure."; 
+    private static final String DEFAULT_RESOURCE_PACKAGE = "resources."; 
 
     private ResourceBundle myResources;
     
@@ -26,7 +26,7 @@ public class CommandEntities {
      */
     public CommandEntities () {
         myCommands = new HashMap<String, ICommand>();
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+"commands");
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
     }
 
     /**
@@ -77,13 +77,33 @@ public class CommandEntities {
      * @param commandName String of command
      * @param parameters parameters
      * @throws SyntaxException Syntax Exception
+     * @throws ClassNotFoundException 
+     * @throws IllegalAccessException 
+     * @throws InstantiationException 
      */
-    public void doCommand (Model model, String commandName,
+    public void doCommand (Model model, String command,
                            double[] parameters) throws SyntaxException {
-        
-        ICommand command = getCommand(commandName);
-
-        command.move(model.getMyTurtle(0), parameters);
+        if( !myResources.containsKey(command)) throw new SyntaxException();
+        else{
+            String commandName = myResources.getString(command);
+            Class<?> commandClass = null;
+            try {
+                commandClass = Class.forName("behavior." + commandName);
+            }
+            catch (ClassNotFoundException e) {
+                System.out.println("command not found");
+            }
+            Object o = null;
+            try {
+                o = commandClass.newInstance();
+            }
+            catch (InstantiationException | IllegalAccessException e) {
+                System.out.println("cannot create instance");
+            }
+            ICommand myCommand = (ICommand)o;
+            myCommand.move(model.getMyTurtle(0), parameters);
+               
+        }
     }
 
     /**
