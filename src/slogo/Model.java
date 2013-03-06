@@ -111,7 +111,7 @@ public class Model {
      * @throws NoSuchVariableException throws if there is no variable
      */
     public double getVariableValue (String name) throws NoSuchVariableException {
-        if (!myVariables.containsKey(name)) throw new NoSuchVariableException();
+        if (!myVariables.containsKey(name)) { throw new NoSuchVariableException(); }
         return myVariables.get(name);
     }
 

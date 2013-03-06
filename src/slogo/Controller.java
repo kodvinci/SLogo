@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import object.Turtle;
 import view.Canvas;
+import exceptions.NoSuchCommandException;
 import exceptions.SyntaxException;
 
 
@@ -75,6 +76,10 @@ public class Controller {
         catch (SyntaxException e) {
             // myModels.get(seq).showMessage("Syntax Error, please check your commands");
             System.out.println("Syntax Error");
+        }
+        catch (NoSuchCommandException e) {
+            // myModels.get(seq).showMessage("Syntax Error, please check your commands");
+            System.out.println("No such command");
         }
         // update view
         update();

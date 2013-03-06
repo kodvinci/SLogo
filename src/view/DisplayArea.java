@@ -88,12 +88,12 @@ public class DisplayArea extends Window {
 
     private void echo (String s, MouseEvent e) {
         showMessage(X_LABEL +
-                        myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getX()));
+                    myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getX()));
         showMessage(Y_LABEL +
-                        myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getY()));
+                    myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getY()));
         showMessage(ANGLE_LABEL +
-                        myTurtle.get(FIRST_TURTLE)
-                                .toString(myTurtle.get(FIRST_TURTLE).getMyAngle()));
+                    myTurtle.get(FIRST_TURTLE)
+                            .toString(myTurtle.get(FIRST_TURTLE).getMyAngle()));
         showMessage("\n");
     }
 

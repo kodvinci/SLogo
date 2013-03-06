@@ -14,8 +14,9 @@ public class Towards implements ICommand {
 
     @Override
     public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        if (parameters.length != 2)
+        if (parameters.length != 2) {
             throw new SyntaxException();
+        }
         else {
             double x = parameters[0];
             double y = parameters[1];

@@ -27,7 +27,7 @@ public class Window extends JPanel {
      * 
      */
     public static final String USER_DIR = "user.dir";
-
+    
     public ResourceBundle myResources;
 
     private static final Color BACKGROUND_COLOR = Color.WHITE;

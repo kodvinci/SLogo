@@ -1,10 +1,9 @@
 package behavior;
 
-import exceptions.SyntaxException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 import slogo.Model;
+import exceptions.NoSuchCommandException;
+import exceptions.SyntaxException;
 
 
 /**
@@ -20,14 +19,17 @@ public class CommandEntities {
     private ResourceBundle myResources;
 
     /**
-     * New CommandEntities
+     * constructor
+     * 
+     * @param bundleName the name of resource bundle which include command information
      */
-    public CommandEntities () {
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
+    public CommandEntities (String bundleName) {
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + bundleName);
     }
 
     /**
-     * perform command
+     * 
+     <<<<<<< HEAD
      * 
      * @param model SLogo model
      * @param commandName String of command
@@ -36,11 +38,20 @@ public class CommandEntities {
      * @throws ClassNotFoundException
      * @throws IllegalAccessException
      * @throws InstantiationException
+     *         =======
+     * @param model model which we want deal with
+     * @param command name of the command
+     * @param parameters parameters of this command
+     * @throws SyntaxException
+     * @throws NoSuchCommandException
+     *         >>>>>>> 7bd5c8816a7f4ca84214b88b0f22592b425a1a74
      */
     public void doCommand (Model model, String command,
-                           double[] parameters) throws SyntaxException {
-        if( !myResources.containsKey(command)) throw new SyntaxException();
-        else{
+                           double[] parameters) throws SyntaxException, NoSuchCommandException {
+        if (!myResources.containsKey(command)) {
+            throw new NoSuchCommandException();
+        }
+        else {
             String commandName = myResources.getString(command);
             Class<?> commandClass = null;
             try {
@@ -56,9 +67,9 @@ public class CommandEntities {
             catch (InstantiationException | IllegalAccessException e) {
                 System.out.println("cannot create instance");
             }
-            ICommand myCommand = (ICommand)o;
+            ICommand myCommand = (ICommand) o;
             myCommand.move(model.getMyTurtle(0), parameters);
-               
+
         }
     }
 

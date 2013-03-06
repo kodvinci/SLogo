@@ -1,9 +1,10 @@
 package object;
 
 import java.awt.Dimension;
+import util.Animal;
 import util.Location;
 import util.Pixmap;
-import util.Sprite;
+import view.Canvas;
 
 
 /**
@@ -12,17 +13,13 @@ import util.Sprite;
  * 
  */
 
-public class Turtle extends Sprite {
+public class Turtle extends Animal {
 
     /**
      * Default dimension size
      */
     public static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
 
-    /**
-     * Default Location
-     */
-    private static final int DEFAULT_LOCATION = 400;
     /**
      * Default turtle image;
      */
@@ -49,7 +46,8 @@ public class Turtle extends Sprite {
      * Constructs turtle object with image
      */
     public Turtle () {
-        super(TURTLE_IMAGE, new Location(DEFAULT_LOCATION, DEFAULT_LOCATION / 2), DEFAULT_SIZE);
+        super(TURTLE_IMAGE, new Location(Canvas.TURTLE_AREA_SIZE.width / 2,
+                                         Canvas.TURTLE_AREA_SIZE.height / 2), DEFAULT_SIZE);
         myAngle = 0;
         myTrail = new Trail();
     }

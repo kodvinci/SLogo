@@ -5,14 +5,14 @@ public class NoSuchCommandException extends Exception {
     private static final long serialVersionUID = 1L;
 
     /**
-     * No such variable exception
+     * No such command exception
      */
     public NoSuchCommandException () {
         super();
     }
 
     /**
-     * no such variable exception with message
+     * no such command exception with message
      * 
      * @param message the exception message
      */
