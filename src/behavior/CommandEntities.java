@@ -19,56 +19,14 @@ public class CommandEntities {
 
     private ResourceBundle myResources;
     
-    private Map<String, ICommand> myCommands;
 
     /**
      * New CommandEntities
      */
     public CommandEntities () {
-        myCommands = new HashMap<String, ICommand>();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
     }
 
-    /**
-     * add a command
-     * 
-     * @param command String name of command
-     * @param newCommand The ICommand
-     */
-    public void addCommand (String command, ICommand newCommand) {
-        myCommands.put(command, newCommand);
-    }
-
-    /**
-     * Removes command
-     * 
-     * @param command string command
-     */
-    public void removeCommand (String command) {
-        myCommands.remove(command);
-    }
-
-    /**
-     * initialize commands
-     */
-    public void initialize () {
-       
-    }
-
-    /**
-     * get command
-     * 
-     * @param command String command
-     * @return ICommand
-     * @throws SyntaxException Syntax exception
-     */
-    public ICommand getCommand (String command) throws SyntaxException {
-        if (!myCommands.containsKey(command)) {
-            throw new SyntaxException();
-        }
-
-        return myCommands.get(command);
-    }
 
     /**
      * perform command

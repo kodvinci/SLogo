@@ -28,7 +28,6 @@ public class Interpreter {
         myStrPattern = Pattern.compile("[a-zA-Z]*");
         myListPattern = Pattern.compile("[\\[\\]]*");
         myCommands = new CommandEntities();
-        myCommands.initialize();
     }
 
     /**
