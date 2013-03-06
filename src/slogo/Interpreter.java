@@ -1,10 +1,10 @@
 package slogo;
 
-import behavior.CommandEntities;
-import exceptions.SyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import behavior.CommandEntities;
+import exceptions.SyntaxException;
 
 
 /**
@@ -141,15 +141,11 @@ public class Interpreter {
      */
     public void makeVariable (Model model, String[] currentCommand) throws SyntaxException {
 
-        if (currentCommand.length < 2) {
-            throw new SyntaxException();
-        }
+        if (currentCommand.length < 2) throw new SyntaxException();
         String name = currentCommand[0];
         String value = currentCommand[1];
-        if (!(myStrPattern.matcher(name).matches() && 
-                 myNumPattern.matcher(value).matches())) {
+        if (!(myStrPattern.matcher(name).matches() && myNumPattern.matcher(value).matches()))
             throw new SyntaxException();
-        }
         else {
             model.addVariable(name, Double.parseDouble(value));
         }

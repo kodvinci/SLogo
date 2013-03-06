@@ -27,7 +27,8 @@ public class Window extends JPanel {
      * 
      */
     public static final String USER_DIR = "user.dir";
-    
+
+    public ResourceBundle myResources;
 
     private static final Color BACKGROUND_COLOR = Color.WHITE;
     private static final String TITLE = "SLOGO";
@@ -36,7 +37,6 @@ public class Window extends JPanel {
     private static final int Y_INDEX = 0;
     private static final long serialVersionUID = 1L;
 
-    public ResourceBundle myResources;
     private JFileChooser myChooser;
     private Controller myController;
     private List<Turtle> myTurtle;

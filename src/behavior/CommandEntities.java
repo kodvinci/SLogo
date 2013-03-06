@@ -14,11 +14,10 @@ import slogo.Model;
  */
 
 public class CommandEntities {
-    
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources."; 
+
+    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
 
     private ResourceBundle myResources;
-    
 
     /**
      * New CommandEntities
@@ -27,7 +26,6 @@ public class CommandEntities {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
     }
 
-
     /**
      * perform command
      * 
@@ -35,9 +33,9 @@ public class CommandEntities {
      * @param commandName String of command
      * @param parameters parameters
      * @throws SyntaxException Syntax Exception
-     * @throws ClassNotFoundException 
-     * @throws IllegalAccessException 
-     * @throws InstantiationException 
+     * @throws ClassNotFoundException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
      */
     public void doCommand (Model model, String command,
                            double[] parameters) throws SyntaxException {

@@ -6,7 +6,6 @@ import util.Pixmap;
 import util.Sprite;
 
 
-
 /**
  * 
  * @author Richard Yang
@@ -149,9 +148,10 @@ public class Turtle extends Sprite {
     public String toString (double num) {
         return Double.toString(num);
     }
-    
+
     /**
      * Return trail
+     * 
      * @return
      */
     public Trail getTrail () {
