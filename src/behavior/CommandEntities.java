@@ -3,6 +3,7 @@ package behavior;
 import exceptions.SyntaxException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 import slogo.Model;
 
 
@@ -13,33 +14,11 @@ import slogo.Model;
  */
 
 public class CommandEntities {
+    
+    private static final String DEFAULT_RESOURCE_PACKAGE = "resoure."; 
 
-    private static final String FORWARD = "FD";
-
-    private static final String BACK = "BK";
-
-    private static final String LEFT = "LT";
-
-    private static final String RIGHT = "RT";
-
-    private static final String SETHEADING = "SETH";
-
-    private static final String TOWARDS = "TOWARDS";
-
-    private static final String SETXY = "SETXY";
-
-    private static final String PENDOWN = "PD";
-
-    private static final String PENUP = "PU";
-
-    private static final String SHOWTURTLE = "ST";
-
-    private static final String HIDETURTLE = "HT";
-
-    private static final String HOME = "HOME";
-
-    private static final String CLEARSCREEN = "CS";
-
+    private ResourceBundle myResources;
+    
     private Map<String, ICommand> myCommands;
 
     /**
@@ -47,6 +26,7 @@ public class CommandEntities {
      */
     public CommandEntities () {
         myCommands = new HashMap<String, ICommand>();
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+"commands");
     }
 
     /**
@@ -72,19 +52,7 @@ public class CommandEntities {
      * initialize commands
      */
     public void initialize () {
-        addCommand(FORWARD, new Forward());
-        addCommand(BACK, new Back());
-        addCommand(LEFT, new Left());
-        addCommand(RIGHT, new Right());
-        addCommand(SETHEADING, new SetHeading());
-        addCommand(TOWARDS, new Towards());
-        addCommand(SETXY, new SetXY());
-        addCommand(PENDOWN, new PenDown());
-        addCommand(PENUP, new PenUp());
-        addCommand(SHOWTURTLE, new ShowTurtle());
-        addCommand(HIDETURTLE, new HideTurtle());
-        addCommand(HOME, new Home());
-        addCommand(CLEARSCREEN, new ClearScreen());
+       
     }
 
     /**
@@ -112,6 +80,7 @@ public class CommandEntities {
      */
     public void doCommand (Model model, String commandName,
                            double[] parameters) throws SyntaxException {
+        
         ICommand command = getCommand(commandName);
 
         command.move(model.getMyTurtle(0), parameters);
