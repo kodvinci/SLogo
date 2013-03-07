@@ -113,10 +113,10 @@ public class Interpreter {
                                                       NoSuchCommandException {
 
         ArrayList<String[]> separatedCommands = split(commands);
-        System.out.println(separatedCommands.size());
+        //System.out.println(separatedCommands.size());
         for (int i = 0; i < separatedCommands.size(); i++) {
             for (int j = 0; j < separatedCommands.get(i).length; j++) {
-                System.out.println(separatedCommands.get(i)[j]);
+                //System.out.println(separatedCommands.get(i)[j]);
             }
         }
 
@@ -129,11 +129,33 @@ public class Interpreter {
                 currentCommand = separatedCommands.get(i);
                 makeVariable(model, currentCommand);
             }
+            
+            else if (currentCommand[0].toUpperCase().equals("REPEAT")) {
+                int repeatValue = Integer.parseInt(currentCommand[1]);
+                System.out.println(repeatValue);
+                i++;
+                currentCommand = separatedCommands.get(i);
+                for (int j = 0; j < repeatValue; j++) {
+                    translateAndExecute(model, currentCommand);
+                }
+         
+                
+            }
 
             else {
                 translateAndExecute(model, currentCommand);
             }
 
+        }
+        
+       
+    }
+    
+    public void repeatCommand(Model model, String[] currentCommand, int repeatValue) throws SyntaxException {
+        String value = currentCommand[1];
+        //int repeatValue = Integer.parseInt(value);
+        for (int i = 0; i < repeatValue; i++) {
+            //translateAndExecute(model, currentCommand)
         }
     }
 
@@ -158,3 +180,4 @@ public class Interpreter {
     }
 
 }
+ 
