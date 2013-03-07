@@ -1,6 +1,6 @@
 package behavior;
 
-import object.Turtle;
+import slogo.Model;
 import exceptions.SyntaxException;
 
 
@@ -20,6 +20,6 @@ public interface ICommand {
      * @return return command
      * @throws SyntaxException syntax exception
      */
-    public abstract double move (Turtle turtle, double[] parameters) throws SyntaxException;
+    public abstract double move (Model model , int TurtleNumber) throws SyntaxException;
 
 }

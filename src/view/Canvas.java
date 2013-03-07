@@ -12,7 +12,7 @@ import slogo.Controller;
 
 /**
  * 
- * @author Leonard
+ * @author Leonard and Alan
  * 
  */
 public class Canvas {
@@ -32,8 +32,8 @@ public class Canvas {
 
     /**
      * 
-     * @param controller
-     *        Slogo controller
+     * @param controller constructor
+     *        Sets the controller and turtle variable and calls to creat GUI
      */
     public Canvas (Controller controller) {
         myController = controller;
@@ -43,7 +43,7 @@ public class Canvas {
     }
 
     /**
-     * 
+     * Creates the Toolbar and Display, Turtle and Command Areas 
      */
     public void createGUI () {
 
