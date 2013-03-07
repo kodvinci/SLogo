@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import behavior.CommandEntities;
+import behavior.ICommand;
 import exceptions.NoSuchCommandException;
 import exceptions.SyntaxException;
 
@@ -80,24 +81,14 @@ public class Interpreter {
      * @throws NoSuchCommandException
      */
     // have to throw exception
-    public void translateAndExecute (Model model, String[] str) throws SyntaxException,
-                                                               NoSuchCommandException {
+    public void parse (Model model, int turtleNumner, String command) throws SyntaxException {
 
-        List<Double> bufferList = new ArrayList<Double>();
-
-        for (String element : str) {
-            if (myNumPattern.matcher(element).matches()) {
-                bufferList.add(Double.parseDouble(element));
-            }
-        }
-        int size = bufferList.size();
-
-        double[] parameters = new double[size];
-        for (int i = 0; i < size; i++) {
-            parameters[i] = bufferList.get(i).doubleValue();
-        }
-
-        myCommands.doCommand(model, str[0].toUpperCase(), parameters);
+        List<ICommand> myCommandList = new ArrayList<ICommand>();
+        
+        int position = command.indexOf(this.getClass().toString());
+        if( position == -1 ){
+             addCommands(split(commands));
+        
 
     }
 
@@ -113,13 +104,14 @@ public class Interpreter {
                                                       NoSuchCommandException {
 
         ArrayList<String[]> separatedCommands = split(commands);
-        //System.out.println(separatedCommands.size());
+   
         for (int i = 0; i < separatedCommands.size(); i++) {
             for (int j = 0; j < separatedCommands.get(i).length; j++) {
                 //System.out.println(separatedCommands.get(i)[j]);
             }
         }
-
+        
+        
         for (int i = 0; i < separatedCommands.size(); i++) {
             String[] currentCommand = separatedCommands.get(i);
 
@@ -178,6 +170,6 @@ public class Interpreter {
             model.addVariable(name, Double.parseDouble(value));
         }
     }
-
+    
 }
  
