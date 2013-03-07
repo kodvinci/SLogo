@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import slogo.Model;
 import slogo.Parser;
+import exceptions.NoSuchCommandException;
 import exceptions.SyntaxException;
 
 public class Repeat implements ICommand {
@@ -19,7 +20,7 @@ public class Repeat implements ICommand {
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     
     
-    public Repeat(String subCommands, int time) throws SyntaxException{
+    public Repeat(String subCommands, int time) throws SyntaxException, NoSuchCommandException{
         
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
        
@@ -60,46 +61,11 @@ public class Repeat implements ICommand {
         }
     }
     
-    public void addCommands(List<String[]> commands) throws SyntaxException{
+    public void addCommands(List<String[]> commands) throws SyntaxException, NoSuchCommandException{
         for(String[] str : commands){
-            if(myResources.containsKey(str[0])){
-                String[] subArray = subStringArray(str);
-                String commandName = myResources.getString(str[0]);
-                Class<?> commandClass = null;
-                try {
-                    commandClass = Class.forName("behavior." + commandName);
-                }
-                catch (ClassNotFoundException e) {
-                    System.out.println("command not found");
-                }
-                Object o = null;
-                try {
-                    o = commandClass.newInstance();
-                }
-                catch (InstantiationException e) {
-                    System.out.println("cannot create instance");
-                }
-                catch (IllegalAccessException e) {
-                    System.out.println("cannot create instance");
-                }
-                ICommand myCommand = (ICommand) o;
-                Constructor<?>[] cons = commandClass.getConstructors();
-                try {
-                    myCommand = (ICommand)cons[0].newInstance(str[1]);
-                }
-                catch (InstantiationException e) {
-                    e.printStackTrace();
-                }
-                catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                catch (IllegalArgumentException e) {
-                    e.printStackTrace();
-                }
-                catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-                myCommands.add(myCommand);
+            if(myResources.containsKey(str[0])) throw new SyntaxException();
+            else{
+                myCommands.add( myParser.buildCommand(str));
             }
         }
     }

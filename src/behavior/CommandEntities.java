@@ -1,5 +1,6 @@
 package behavior;
 
+import java.util.List;
 import java.util.ResourceBundle;
 import slogo.Model;
 import exceptions.NoSuchCommandException;
@@ -27,42 +28,11 @@ public class CommandEntities {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + bundleName);
     }
 
-    /**
-     * 
-     * @param model model which we want deal with
-     * @param command name of the command
-     * @param parameters parameters of this command
-     * @throws SyntaxException
-     * @throws NoSuchCommandException
-     * 
-     */
-    public void doCommand (Model model, String command,
-                           double[] parameters) throws SyntaxException, NoSuchCommandException {
-        if (!myResources.containsKey(command)) {
-            throw new NoSuchCommandException();
-        }
-        else {
-            String commandName = myResources.getString(command);
-            Class<?> commandClass = null;
-            try {
-                commandClass = Class.forName("behavior." + commandName);
-            }
-            catch (ClassNotFoundException e) {
-                System.out.println("command not found");
-            }
-            Object o = null;
-            try {
-                o = commandClass.newInstance();
-            }
-            catch (InstantiationException e) {
-                System.out.println("cannot create instance");
-            }
-            catch (IllegalAccessException e) {
-                System.out.println("cannot create instance");
-            }
-            ICommand myCommand = (ICommand) o;
-            myCommand.move(model.getMyTurtle(0), parameters);
-
+    
+    
+    public void doCommand (Model model, int turtleNumber , List<ICommand> commands) throws SyntaxException  {
+        for(ICommand command : commands){
+            command.move(model, turtleNumber);
         }
     }
 
