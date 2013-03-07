@@ -1,11 +1,13 @@
 package slogo;
 
-import exceptions.SyntaxException;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import object.Turtle;
 import view.Canvas;
+import exceptions.NoSuchCommandException;
+import exceptions.SyntaxException;
+
 
 /**
  * 
@@ -13,7 +15,7 @@ import view.Canvas;
  * 
  */
 public class Controller {
-    
+
     /**
      * Default Turtle area size
      */
@@ -28,6 +30,7 @@ public class Controller {
     private Interpreter myInterpreter;
     private Factory myFactory;
     private Canvas myView;
+
     /**
      * Initialize a model view controller
      */
@@ -41,15 +44,16 @@ public class Controller {
         }
         myView = new Canvas(this);
     }
- 
+
     /**
      * Return factory
+     * 
      * @return
      */
-    public Factory getFactory() {
+    public Factory getFactory () {
         return myFactory;
     }
-    
+
     /**
      * Update display areas
      */
@@ -71,6 +75,10 @@ public class Controller {
         catch (SyntaxException e) {
             // myModels.get(seq).showMessage("Syntax Error, please check your commands");
             System.out.println("Syntax Error");
+        }
+        catch (NoSuchCommandException e) {
+            // myModels.get(seq).showMessage("Syntax Error, please check your commands");
+            System.out.println("No such command");
         }
         // update view
         update();
@@ -146,9 +154,10 @@ public class Controller {
     public Turtle getMyTurtle () {
         return myModels.get(0).getMyTurtle(0);
     }
-    
+
     /**
      * Returns list of turtles
+     * 
      * @return
      */
     public List<Turtle> getMyTurtles () {

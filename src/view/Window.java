@@ -27,16 +27,14 @@ public class Window extends JPanel {
      * 
      */
     public static final String USER_DIR = "user.dir";
-    
+
+    public ResourceBundle myResources;
 
     private static final Color BACKGROUND_COLOR = Color.WHITE;
-    private static final String TITLE = "SLOGO";
     private static final int FIRST_TURTLE = 0;
     private static final int X_INDEX = 0;
     private static final int Y_INDEX = 0;
     private static final long serialVersionUID = 1L;
-
-    public ResourceBundle myResources;
     private JFileChooser myChooser;
     private Controller myController;
     private List<Turtle> myTurtle;
@@ -62,11 +60,7 @@ public class Window extends JPanel {
      *        international considerations
      */
     public Window (Dimension size, String language) {
-        setPreferredSize(size);
-        setSize(size);
-        setFocusable(true);
-        requestFocus();
-        revalidate();
+        initWindowProperties(size);
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     }
 
@@ -80,15 +74,19 @@ public class Window extends JPanel {
      *        the view
      */
     public Window (Dimension size, String language, Canvas canvas) {
+        initWindowProperties(size);
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
+        myView = canvas;
+    }
+
+    private void initWindowProperties(Dimension size){
         setPreferredSize(size);
         setSize(size);
         setFocusable(true);
         requestFocus();
         revalidate();
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
-        myView = canvas;
     }
-
+    
     @Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);

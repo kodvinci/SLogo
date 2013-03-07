@@ -1,7 +1,7 @@
 package behavior;
 
-import exceptions.SyntaxException;
 import object.Turtle;
+import exceptions.SyntaxException;
 
 
 /**
@@ -17,10 +17,7 @@ public class Or implements ICommand {
         if (parameters.length != 2) {
             throw new SyntaxException();
         }
-        else if (!((parameters[0] == 1 || parameters[0] == 0) && 
-                (parameters[1] == 1 || parameters[1] == 0))) {
-            throw new SyntaxException();
-        }
+        else if (!((parameters[0] == 1 || parameters[0] == 0) && (parameters[1] == 1 || parameters[1] == 0))) { throw new SyntaxException(); }
         return ((parameters[0] == 0) && (parameters[1] == 0)) ? 0 : 1;
     }
 

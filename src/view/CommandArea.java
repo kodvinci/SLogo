@@ -22,16 +22,16 @@ public class CommandArea extends Window {
 
     private static final long serialVersionUID = 1L;
     private static final int FIELD_SIZE = 30;
-    private static final String EMPTY_STRING = ""; 
+    private static final String EMPTY_STRING = "";
     private static final Dimension BUTTON_SIZE = new Dimension(70, 30);
     private JTextField myTextField;
     private Controller myController;
     private ActionListener myActionListener;
-    
+
     /**
      * 
-     * @param size      view size
-     * @param control   default controller
+     * @param size view size
+     * @param control default controller
      */
     public CommandArea (Dimension size, Controller control) {
         super(size, "English");

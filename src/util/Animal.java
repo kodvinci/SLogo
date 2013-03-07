@@ -12,9 +12,9 @@ import java.awt.geom.Point2D;
  * Note, Sprite is a technical term:
  * http://en.wikipedia.org/wiki/Sprite_(computer_graphics)
  * 
- * @author Robert C. Duvall
+ * @author Robert C. Duvall, Richard Yang
  */
-public abstract class Sprite {
+public abstract class Animal {
     // canonical directions for a collision
     /**
      * Right
@@ -35,27 +35,14 @@ public abstract class Sprite {
 
     // state
     private Location myCenter;
-    private Vector myVelocity;
     private Dimension mySize;
     private Pixmap myView;
     // keep copies of the original state so shape can be reset as needed
     private Location myOriginalCenter;
-    private Vector myOriginalVelocity;
     private Dimension myOriginalSize;
     private Pixmap myOriginalView;
     // cached for efficiency
     private Rectangle myBounds;
-
-    /**
-     * Create a shape at the given position, with the given size.
-     * 
-     * @param image the image
-     * @param center center
-     * @param size size of image
-     */
-    public Sprite (Pixmap image, Location center, Dimension size) {
-        this(image, center, size, new Vector());
-    }
 
     /**
      * Create a shape at the given position, with the given size, velocity, and color.
@@ -65,38 +52,12 @@ public abstract class Sprite {
      * @param size size
      * @param velocity velocity
      */
-    public Sprite (Pixmap image, Location center, Dimension size, Vector velocity) {
+    public Animal (Pixmap image, Location center, Dimension size) {
         // make copies just to be sure no one else has access
         myOriginalCenter = new Location(center);
         myOriginalSize = new Dimension(size);
-        myOriginalVelocity = new Vector(velocity);
         myOriginalView = new Pixmap(image);
         reset();
-        resetBounds();
-    }
-
-    /**
-     * Describes how to "animate" the shape by changing its state.
-     * Currently, moves by the current velocity.
-     * 
-     * @param elapsedTime the elapsed time
-     * @param bounds bounds
-     */
-    public void update (double elapsedTime, Dimension bounds) {
-        // do not change original velocity
-        Vector v = new Vector(myVelocity);
-        v.scale(elapsedTime);
-        translate(v);
-    }
-
-    /**
-     * Moves shape's center by given vector.
-     * 
-     * @param v the vector that translates
-     */
-    public void translate (Vector v) {
-        myCenter.translate(v);
-        
         resetBounds();
     }
 
@@ -210,32 +171,6 @@ public abstract class Sprite {
     }
 
     /**
-     * Returns shape's velocity.
-     */
-    public Vector getVelocity () {
-        return myVelocity;
-    }
-
-    /**
-     * Resets shape's velocity.
-     * 
-     * @param angle angle to rest to
-     * @param magnitude magnitude to reset to
-     */
-    public void setVelocity (double angle, double magnitude) {
-        myVelocity = new Vector(angle, magnitude);
-    }
-
-    /**
-     * Resets shape's velocity.
-     * 
-     * @param velocity velocity to reset to
-     */
-    public void setVelocity (Vector velocity) {
-        setVelocity(velocity.getDirection(), velocity.getMagnitude());
-    }
-
-    /**
      * Resets shape's image.
      * 
      * @param image image to reset to
@@ -258,7 +193,7 @@ public abstract class Sprite {
      * 
      * @param other other sprite
      */
-    public boolean intersects (Sprite other) {
+    public boolean intersects (Animal other) {
         return getBounds().intersects(other.getBounds());
     }
 
@@ -277,7 +212,6 @@ public abstract class Sprite {
     public void reset () {
         myCenter = new Location(myOriginalCenter);
         mySize = new Dimension(myOriginalSize);
-        myVelocity = new Vector(myOriginalVelocity);
         myView = new Pixmap(myOriginalView);
     }
 
@@ -287,7 +221,7 @@ public abstract class Sprite {
      * @param pen graphics pen
      */
     public void paint (Graphics2D pen) {
-        myView.paint(pen, myCenter, mySize, myVelocity.getDirection());
+        myView.paint(pen, myCenter, mySize);
     }
 
     /**
@@ -297,27 +231,4 @@ public abstract class Sprite {
         myBounds = new Rectangle((int) getLeft(), (int) getTop(), mySize.width, mySize.height);
     }
 
-    /**
-     * Returns approximate direction from center of rectangle to side which was hit or
-     * NaN if no hit took place.
-     */
-    protected double getHitDirection (Rectangle bounds) {
-        // double angle = Vector.angleBetween(myCenter, new Location(bounds.getCenterX(),
-        // bounds.getCenterY()));
-        // BUGBUG: FIX ME --- this is very imperfect, but sort of works for now
-        if (bounds.contains(new Location(getLeft(), getY()))) {
-            return RIGHT_DIRECTION;
-        }
-        else if (bounds.contains(new Location(getX(), getBottom()))) {
-            return UP_DIRECTION;
-        }
-        else if (bounds.contains(new Location(getRight(), getY()))) {
-            return LEFT_DIRECTION;
-        }
-        else if (bounds.contains(new Location(getX(), getTop()))) {
-            return DOWN_DIRECTION;
-        }
-        return 0;
-        // return Double.NaN;
-    }
 }

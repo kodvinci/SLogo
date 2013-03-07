@@ -1,6 +1,5 @@
 package slogo;
 
-import exceptions.NoSuchVariableException;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,7 +60,8 @@ public class Model {
 
     /**
      * Return specific turtle
-     * @param index     index of turtle
+     * 
+     * @param index index of turtle
      * @return
      */
     public Turtle getMyTurtle (int index) {
@@ -70,6 +70,7 @@ public class Model {
 
     /**
      * return list of turtles
+     * 
      * @return
      */
     public List<Turtle> getMyTurtles () {
@@ -112,9 +113,7 @@ public class Model {
      * @throws NoSuchVariableException throws if there is no variable
      */
     public double getVariableValue (String name) throws NoSuchVariableException {
-        if (!myVariables.containsKey(name)) {
-            throw new NoSuchVariableException();
-        }
+        if (!myVariables.containsKey(name)) { throw new NoSuchVariableException(); }
         return myVariables.get(name);
     }
 

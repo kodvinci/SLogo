@@ -1,9 +1,9 @@
 package behavior;
 
-import exceptions.SyntaxException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ResourceBundle;
 import slogo.Model;
+import exceptions.NoSuchCommandException;
+import exceptions.SyntaxException;
 
 
 /**
@@ -14,107 +14,56 @@ import slogo.Model;
 
 public class CommandEntities {
 
-    private static final String FORWARD = "FD";
+    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
 
-    private static final String BACK = "BK";
-
-    private static final String LEFT = "LT";
-
-    private static final String RIGHT = "RT";
-
-    private static final String SETHEADING = "SETH";
-
-    private static final String TOWARDS = "TOWARDS";
-
-    private static final String SETXY = "SETXY";
-
-    private static final String PENDOWN = "PD";
-
-    private static final String PENUP = "PU";
-
-    private static final String SHOWTURTLE = "ST";
-
-    private static final String HIDETURTLE = "HT";
-
-    private static final String HOME = "HOME";
-
-    private static final String CLEARSCREEN = "CS";
-
-    private Map<String, ICommand> myCommands;
+    private ResourceBundle myResources;
 
     /**
-     * New CommandEntities
-     */
-    public CommandEntities () {
-        myCommands = new HashMap<String, ICommand>();
-    }
-
-    /**
-     * add a command
+     * constructor
      * 
-     * @param command String name of command
-     * @param newCommand The ICommand
+     * @param bundleName the name of resource bundle which include command information
      */
-    public void addCommand (String command, ICommand newCommand) {
-        myCommands.put(command, newCommand);
+    public CommandEntities (String bundleName) {
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + bundleName);
     }
 
     /**
-     * Removes command
      * 
-     * @param command string command
-     */
-    public void removeCommand (String command) {
-        myCommands.remove(command);
-    }
-
-    /**
-     * initialize commands
-     */
-    public void initialize () {
-        addCommand(FORWARD, new Forward());
-        addCommand(BACK, new Back());
-        addCommand(LEFT, new Left());
-        addCommand(RIGHT, new Right());
-        addCommand(SETHEADING, new SetHeading());
-        addCommand(TOWARDS, new Towards());
-        addCommand(SETXY, new SetXY());
-        addCommand(PENDOWN, new PenDown());
-        addCommand(PENUP, new PenUp());
-        addCommand(SHOWTURTLE, new ShowTurtle());
-        addCommand(HIDETURTLE, new HideTurtle());
-        addCommand(HOME, new Home());
-        addCommand(CLEARSCREEN, new ClearScreen());
-    }
-
-    /**
-     * get command
+     * @param model model which we want deal with
+     * @param command name of the command
+     * @param parameters parameters of this command
+     * @throws SyntaxException
+     * @throws NoSuchCommandException
      * 
-     * @param command String command
-     * @return ICommand
-     * @throws SyntaxException Syntax exception
      */
-    public ICommand getCommand (String command) throws SyntaxException {
-        if (!myCommands.containsKey(command)) {
-            throw new SyntaxException();
+    public void doCommand (Model model, String command,
+                           double[] parameters) throws SyntaxException, NoSuchCommandException {
+        if (!myResources.containsKey(command)) {
+            throw new NoSuchCommandException();
         }
+        else {
+            String commandName = myResources.getString(command);
+            Class<?> commandClass = null;
+            try {
+                commandClass = Class.forName("behavior." + commandName);
+            }
+            catch (ClassNotFoundException e) {
+                System.out.println("command not found");
+            }
+            Object o = null;
+            try {
+                o = commandClass.newInstance();
+            }
+            catch (InstantiationException e) {
+                System.out.println("cannot create instance");
+            }
+            catch (IllegalAccessException e) {
+                System.out.println("cannot create instance");
+            }
+            ICommand myCommand = (ICommand) o;
+            myCommand.move(model.getMyTurtle(0), parameters);
 
-        return myCommands.get(command);
-    }
-
-    /**
-     * perform command
-     * 
-     * @param model SLogo model
-     * @param commandName String of command
-     * @param parameters parameters
-     * @throws SyntaxException Syntax Exception
-     */
-    public void doCommand (Model model, String commandName,
-                           double[] parameters) throws SyntaxException {
-        ICommand command = getCommand(commandName);
-
-        command.move(model.getMyTurtle(0), parameters);
+        }
     }
 
     /**

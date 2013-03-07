@@ -1,5 +1,6 @@
 import slogo.Controller;
 
+
 /**
  * 
  * Starts the program
@@ -8,13 +9,14 @@ import slogo.Controller;
  * 
  */
 final class Main {
-    
+
     /**
      * empty
      */
-    private Main() {
-        //empty 
+    private Main () {
+        // empty
     }
+
     /**
      * @param args nothing, command line arguments
      */
