@@ -131,15 +131,9 @@ public class Interpreter {
             }
             
             else if (currentCommand[0].toUpperCase().equals("REPEAT")) {
-                int repeatValue = Integer.parseInt(currentCommand[1]);
-                System.out.println(repeatValue);
-                i++;
-                currentCommand = separatedCommands.get(i);
-                for (int j = 0; j < repeatValue; j++) {
-                    translateAndExecute(model, currentCommand);
-                }
-         
-                
+                int repeatValue = 1;
+                repeatCommand(model, currentCommand, separatedCommands, repeatValue);
+                  
             }
 
             else {
@@ -151,12 +145,30 @@ public class Interpreter {
        
     }
     
-    public void repeatCommand(Model model, String[] currentCommand, int repeatValue) throws SyntaxException {
-        String value = currentCommand[1];
-        //int repeatValue = Integer.parseInt(value);
-        for (int i = 0; i < repeatValue; i++) {
-            //translateAndExecute(model, currentCommand)
+    public void repeatCommand(Model model, String[] currentCommand, ArrayList<String[]> separatedCommands, int repeatValue) throws SyntaxException, NoSuchCommandException {
+        currentCommand = separatedCommands.get(0);
+        ArrayList<String[]> newSeparatedCommands = new ArrayList<String[]>();
+        for (int i = 1; i < separatedCommands.size(); i++) {
+            newSeparatedCommands.add(separatedCommands.get(i));
         }
+//        if (repeatValue == 0) {
+//           return;
+//        }
+//        else {
+            if (currentCommand[0].equals("REPEAT")){
+                int nestedRepeat = Integer.parseInt(currentCommand[1]);
+                int value = nestedRepeat * repeatValue;
+                currentCommand = separatedCommands.get(1);
+                repeatCommand(model, currentCommand, newSeparatedCommands, value);
+            }
+            else {
+                for (int i = 0; i < repeatValue-1; i++) {
+                    translateAndExecute(model, currentCommand);
+                }
+            }
+            
+        
+        
     }
 
     /**
