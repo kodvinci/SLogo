@@ -15,9 +15,6 @@ import slogo.Controller;
  */
 public class CommandArea extends Window {
 
-    /**
-     * 
-     */
     public static final Dimension DEFAULT_AREA_SIZE = new Dimension(500, 50);
 
     private static final long serialVersionUID = 1L;
@@ -32,6 +29,7 @@ public class CommandArea extends Window {
      * 
      * @param size view size
      * @param control default controller
+     * Constructor for CommandArea
      */
     public CommandArea (Dimension size, Controller control) {
         super(size, "English");
@@ -46,7 +44,7 @@ public class CommandArea extends Window {
     }
 
     /**
-     * 
+     * Sends text to controller and clears textfield 
      */
     public void makeListeners () {
         myActionListener = new ActionListener() {
@@ -58,6 +56,11 @@ public class CommandArea extends Window {
             }
         };
     }
+    
+    /**
+     * 
+     * Set textfield equal to userinput
+     */
 
     private JTextField makeTextField () {
 
@@ -68,6 +71,10 @@ public class CommandArea extends Window {
         return myTextField;
 
     }
+    
+    /**
+     * Creates button that allows for user submission of command
+     */
 
     private JButton makeButton () {
 

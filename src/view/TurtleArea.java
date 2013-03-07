@@ -33,6 +33,7 @@ public class TurtleArea extends Window {
      *        pen image
      * @param canvas
      *        view
+     *        Constructs TurtleArea
      */
     public TurtleArea (Dimension size, List<Turtle> turtles, Canvas canvas) {
         super(size, "English");
@@ -43,18 +44,21 @@ public class TurtleArea extends Window {
         myTrail = myTurtles.get(FIRST_TURTLE).getTrail();
     }
 
+    /**
+     * Paints turtle and trail
+     */
     @Override
     public void paint (Graphics pen) {
         super.paintComponent(pen);
         paintTurtle((Graphics2D) pen);
-        paintPaths((Graphics2D) pen);
+        paintTrails((Graphics2D) pen);
 
         Toolkit.getDefaultToolkit().sync();
         pen.dispose();
     }
 
     /**
-     * 
+     * Updates turtles' trails and their location
      */
     public void update () {
         for (Turtle t : myTurtles) {
@@ -68,6 +72,9 @@ public class TurtleArea extends Window {
 
     }
 
+    /**
+     * paints all the turtles and updates their trails
+     */
     private void paintTurtle (Graphics2D pen) {
 
         for (Turtle t : myTurtles) {
@@ -77,7 +84,11 @@ public class TurtleArea extends Window {
 
     }
 
-    private void paintPaths (Graphics2D pen) {
+    /**
+     * 
+     * Paints all trails that the turtle has traveled
+     */
+    private void paintTrails (Graphics2D pen) {
         pen.setColor(TRAIL_COLOR);
         List<Location> trails = myTrail.getTrails();
         if (!(trails.isEmpty())) {

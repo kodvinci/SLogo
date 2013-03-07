@@ -13,14 +13,10 @@ import object.Turtle;
 
 /**
  * 
- * @author Leonard
+ * @author Leonard and Alan
  * 
  */
 public class DisplayArea extends Window {
-
-    /**
-     * 
-     */
     public static final Dimension DEFAULT_AREA_SIZE = new Dimension(200, 600);
 
     private static final long serialVersionUID = 1L;
@@ -40,6 +36,7 @@ public class DisplayArea extends Window {
      *        display area size
      * @param myTurtles
      *        the pens
+     *        DisplayArea constructor, starts listeners
      */
     public DisplayArea (Dimension size, List<Turtle> myTurtles) {
         super(size, "English");
@@ -52,6 +49,9 @@ public class DisplayArea extends Window {
 
     }
 
+    /*
+     * Creates display area and sets it as editable
+     */
     private JComponent makeDisplay () {
         myTextArea = new JTextArea(FIELD_SIZE, FIELD_SIZE_TWO);
         myTextArea.setEditable(false);
@@ -86,6 +86,9 @@ public class DisplayArea extends Window {
 
     }
 
+    /**
+     * Prints current X and Y Location and Angle
+     */
     private void echo (String s, MouseEvent e) {
         showMessage(X_LABEL +
                     myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getX()));
@@ -101,6 +104,7 @@ public class DisplayArea extends Window {
      * 
      * @param message
      *        message to be displayed
+     * Displays message in display area
      */
     public void showMessage (String message) {
         myTextArea.append(message + "\n");
