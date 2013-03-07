@@ -87,8 +87,8 @@ public class Interpreter {
         
         int position = command.indexOf(this.getClass().toString());
         if( position == -1 ){
-             addCommands(split(commands));
-        
+             //addCommands(split(commands));
+        }
 
     }
 
