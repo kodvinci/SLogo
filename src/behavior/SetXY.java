@@ -1,10 +1,7 @@
 package behavior;
 
 import object.Turtle;
-<<<<<<< HEAD
-=======
 import view.Canvas;
->>>>>>> 7bd5c8816a7f4ca84214b88b0f22592b425a1a74
 import exceptions.SyntaxException;
 
 

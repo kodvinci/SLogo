@@ -4,9 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.List;
 import java.util.Random;
-import java.util.ResourceBundle;
-import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import object.Turtle;
@@ -20,39 +17,14 @@ import slogo.Controller;
  */
 public class Canvas {
 
-    /**
-     * 
-     */
     public static final Dimension TURTLE_AREA_SIZE = new Dimension(800, 500);
-    /**
-     * 
-     */
-    public static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
-    /**
-     * 
-     */
-    public static final Dimension COMMAND_AREA_SIZE = new Dimension(1000, 40);
-    /**
-     * 
-     */
-    public static final Dimension MENU_AREA_SIZE = new Dimension(1000, 40);
-    /**
-     * 
-     */
-    public static final Dimension SIZE = new Dimension(1100, 700);
-    /**
-     * 
-     */
-    public static final String TITLE = "SLOGO";
-    /**
-     * 
-     */
-    public static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
-    /**
-     * 
-     */
-    public static final String USER_DIR = "user.dir";
-
+    private static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
+    private static final Dimension COMMAND_AREA_SIZE = new Dimension(1000, 40);
+    private static final Dimension SIZE = new Dimension(1100, 700);
+    private static final String TITLE = "SLOGO";
+    private int myWidth = 1050;
+    private int myHeight = 700;
+    private int myRange = 10;
     private Controller myController;
     private JPanel myPanel;
     private JFrame myFrame;
@@ -66,7 +38,7 @@ public class Canvas {
     public Canvas (Controller controller) {
         myController = controller;
         myTurtle = myController.getMyModels().get(0).getMyTurtles();
-        
+
         createGUI();
     }
 
@@ -106,9 +78,7 @@ public class Canvas {
      */
     public void update () {
         Random rand = new Random();
-        int hack = rand.nextInt(10);
-        Dimension SIZE = new Dimension(1050 + hack, 700);
-        myPanel.setSize(SIZE);
+        myPanel.setSize(new Dimension(myWidth + rand.nextInt(myRange), myHeight));
         myFrame.validate();
     }
 

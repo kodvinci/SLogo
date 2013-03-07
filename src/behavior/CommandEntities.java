@@ -29,22 +29,12 @@ public class CommandEntities {
 
     /**
      * 
-     <<<<<<< HEAD
-     * 
-     * @param model SLogo model
-     * @param commandName String of command
-     * @param parameters parameters
-     * @throws SyntaxException Syntax Exception
-     * @throws ClassNotFoundException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     *         =======
      * @param model model which we want deal with
      * @param command name of the command
      * @param parameters parameters of this command
      * @throws SyntaxException
      * @throws NoSuchCommandException
-     *         >>>>>>> 7bd5c8816a7f4ca84214b88b0f22592b425a1a74
+     * 
      */
     public void doCommand (Model model, String command,
                            double[] parameters) throws SyntaxException, NoSuchCommandException {
@@ -64,7 +54,10 @@ public class CommandEntities {
             try {
                 o = commandClass.newInstance();
             }
-            catch (InstantiationException | IllegalAccessException e) {
+            catch (InstantiationException e) {
+                System.out.println("cannot create instance");
+            }
+            catch (IllegalAccessException e) {
                 System.out.println("cannot create instance");
             }
             ICommand myCommand = (ICommand) o;

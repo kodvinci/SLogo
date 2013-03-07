@@ -62,34 +62,6 @@ public abstract class Animal {
     }
 
     /**
-<<<<<<< HEAD:src/util/Sprite.java
-     * Describes how to "animate" the shape by changing its state.
-     * Currently, moves by the current velocity.
-     * 
-     * @param elapsedTime the elapsed time
-     * @param bounds bounds
-     */
-    public void update (double elapsedTime, Dimension bounds) {
-        // do not change original velocity
-        Vector v = new Vector(myVelocity);
-        v.scale(elapsedTime);
-        translate(v);
-    }
-
-    /**
-     * Moves shape's center by given vector.
-     * 
-     * @param v the vector that translates
-     */
-    public void translate (Vector v) {
-        myCenter.translate(v);
-
-        resetBounds();
-    }
-
-    /**
-=======
->>>>>>> 7bd5c8816a7f4ca84214b88b0f22592b425a1a74:src/util/Animal.java
      * Resets shape's center.
      * 
      * @param x x coordinate
@@ -259,30 +231,4 @@ public abstract class Animal {
         myBounds = new Rectangle((int) getLeft(), (int) getTop(), mySize.width, mySize.height);
     }
 
-<<<<<<< HEAD:src/util/Sprite.java
-    /**
-     * Returns approximate direction from center of rectangle to side which was hit or
-     * NaN if no hit took place.
-     */
-    protected double getHitDirection (Rectangle bounds) {
-        // double angle = Vector.angleBetween(myCenter, new Location(bounds.getCenterX(),
-        // bounds.getCenterY()));
-        // BUGBUG: FIX ME --- this is very imperfect, but sort of works for now
-        if (bounds.contains(new Location(getLeft(), getY()))) {
-            return RIGHT_DIRECTION;
-        }
-        else if (bounds.contains(new Location(getX(), getBottom()))) {
-            return UP_DIRECTION;
-        }
-        else if (bounds.contains(new Location(getRight(), getY()))) {
-            return LEFT_DIRECTION;
-        }
-        else if (bounds.contains(new Location(getX(), getTop()))) {
-            return DOWN_DIRECTION;
-        }
-        return 0;
-        // return Double.NaN;
-    }
-=======
->>>>>>> 7bd5c8816a7f4ca84214b88b0f22592b425a1a74:src/util/Animal.java
 }

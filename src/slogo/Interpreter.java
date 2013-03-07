@@ -146,9 +146,7 @@ public class Interpreter {
      */
     public void makeVariable (Model model, String[] currentCommand) throws SyntaxException {
 
-        if (currentCommand.length < 2) {
-            throw new SyntaxException();
-        }
+        if (currentCommand.length < 2) { throw new SyntaxException(); }
         String name = currentCommand[0];
         String value = currentCommand[1];
         if (!(myStrPattern.matcher(name).matches() && myNumPattern.matcher(value).matches())) {
