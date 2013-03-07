@@ -34,11 +34,13 @@ public class CommandEntities {
      * @param parameters parameters of this command
      * @throws SyntaxException
      * @throws NoSuchCommandException
+     * 
      */
     public void doCommand (Model model, String command,
                            double[] parameters) throws SyntaxException, NoSuchCommandException {
-        if (!myResources.containsKey(command))
+        if (!myResources.containsKey(command)) {
             throw new NoSuchCommandException();
+        }
         else {
             String commandName = myResources.getString(command);
             Class<?> commandClass = null;
@@ -52,7 +54,10 @@ public class CommandEntities {
             try {
                 o = commandClass.newInstance();
             }
-            catch (InstantiationException | IllegalAccessException e) {
+            catch (InstantiationException e) {
+                System.out.println("cannot create instance");
+            }
+            catch (IllegalAccessException e) {
                 System.out.println("cannot create instance");
             }
             ICommand myCommand = (ICommand) o;

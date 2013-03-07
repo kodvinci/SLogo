@@ -15,8 +15,9 @@ public class SetXY implements ICommand {
 
     @Override
     public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        if (parameters.length != 2)
+        if (parameters.length != 2) {
             throw new SyntaxException();
+        }
         else {
             double newX = parameters[0];
             double newY = parameters[1];
