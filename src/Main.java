@@ -2,7 +2,9 @@ import slogo.Controller;
 
 /**
  * 
+ * Starts the program
  * @author Jerry
+ * 
  * 
  */
 final class Main {

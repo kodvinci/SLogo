@@ -5,7 +5,7 @@ import object.Turtle;
 
 
 /**
- * 
+ * Clears the Screen
  * @author Richard Yang
  * 
  */

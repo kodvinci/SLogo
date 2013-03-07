@@ -56,6 +56,8 @@ public class Model {
         myVariables = new HashMap<String, Double>();
 
     }
+    
+    
 
     /**
      * Return specific turtle
