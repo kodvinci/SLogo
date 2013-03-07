@@ -113,13 +113,16 @@ public class Interpreter {
                                                       NoSuchCommandException {
 
         ArrayList<String[]> separatedCommands = split(commands);
-        System.out.println(separatedCommands.size());
+        
+        
+        
         for (int i = 0; i < separatedCommands.size(); i++) {
             for (int j = 0; j < separatedCommands.get(i).length; j++) {
                 System.out.println(separatedCommands.get(i)[j]);
             }
         }
-
+        
+        
         for (int i = 0; i < separatedCommands.size(); i++) {
             String[] currentCommand = separatedCommands.get(i);
 
@@ -155,5 +158,5 @@ public class Interpreter {
             model.addVariable(name, Double.parseDouble(value));
         }
     }
-
+    
 }
