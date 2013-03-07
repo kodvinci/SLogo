@@ -162,6 +162,27 @@ public class Interpreter {
         
         
     }
+    
+    public void translateAndExecute (Model model, String[] str) throws SyntaxException,
+    NoSuchCommandException {
+
+        List<Double> bufferList = new ArrayList<Double>();
+
+        for (String element : str) {
+            if (myNumPattern.matcher(element).matches()) {
+                bufferList.add(Double.parseDouble(element));
+            }
+        }
+        int size = bufferList.size();
+
+        double[] parameters = new double[size];
+        for (int i = 0; i < size; i++) {
+            parameters[i] = bufferList.get(i).doubleValue();
+        }
+
+        myCommands.doCommand(model, str[0].toUpperCase(), parameters);
+
+    }
 
     /**
      * Makes a variable from user input
