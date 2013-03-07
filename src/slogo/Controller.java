@@ -24,7 +24,6 @@ public class Controller {
      * Default Display area size
      */
     public static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
-    private Turtle myTurtle;
 
     private List<Model> myModels = new ArrayList<Model>();
 
