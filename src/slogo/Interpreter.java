@@ -130,7 +130,8 @@ public class Interpreter {
         int position = command.indexOf("TO");
         if( position == -1 ){
              myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(command)));
-        }else{
+        }
+        else{
             String formerString = command.substring(0, position);
             if(formerString.length() != 0){
                 myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(formerString)));
@@ -160,6 +161,38 @@ public class Interpreter {
         return 0;
      }
 
+ public int ifElse (String command, List<ICommand> myCommandList) throws SyntaxException, NoSuchCommandException {
+         int position = command.indexOf("IFELSE");
+         if (position == -1) {
+             myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(command)));
+         }
+         else {
+             String formerString = command.substring(0, position);
+             if(formerString.length() != 0){
+                 myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(formerString)));
+             }
+             int bracketPosition = command.indexOf("[");
+             String value = command.substring(position + 3, bracketPosition);
+             String post = command.substring(bracketPosition+1, command.length());
+             String trueCommand = post.substring(0, post.indexOf("]"));
+             String falseCommand = post.substring(post.indexOf("[")+1, post.length()-1);
+             System.out.println(value);
+             System.out.println(trueCommand);
+             System.out.println(falseCommand);
+             List<String[]> trueCommands = split(trueCommand);
+             List<String[]> falseCommands = split(falseCommand);
+             System.out.println(Arrays.toString(trueCommands.get(0)) + " " + Arrays.toString(trueCommands.get(1)));
+             myCommandList.add(new IfElse(commandName, variables, commandsFromBracket, value));
+             myUserToCommands.put(commandName, new To(commandName, variables, commandsFromBracket, value));
+             
+               if (variables.get(0).length == commandsFromBracket.size()) {
+                   return 1;
+               }
+               else {
+                   return 0;
+               }
+         }
+ }
     
 
     /**

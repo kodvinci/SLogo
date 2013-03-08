@@ -1,4 +1,3 @@
-package behavior;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,11 +12,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.regex.Pattern;
 import behavior.ICommand;
 
-public class To implements ICommand {
+public class IfElse implements ICommand {
     
     private List<ICommand> myCommandList = new ArrayList<ICommand>();
-    private List<String[]> myVariables;
-    private List<String[]> myCommands;
+    private List<String[]> myTrueCommands;
+    private List<String[]> myFalseCommands;
     private String myName;
     private Parser myParser = new Parser();
     
@@ -25,21 +24,21 @@ public class To implements ICommand {
     
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";  
     
-    public To (String name, List<String[]> variables, List<String[]> commands) throws NoSuchCommandException, SyntaxException{
+    public IfElse (String name, List<String[]> trueCommands, List<String[]> falseCommands, double Value) throws NoSuchCommandException, SyntaxException{
         
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
-        myVariables = variables;
-        myCommands = commands;
+        myTrueCommands = trueCommands;
+        myFalseCommands = falseCommands;
         myName = name;
-        System.out.println(myVariables.get(0).length + " " + myCommands.size());
-        map(variables, commands);
+        System.out.println(myTrueCommands.size() + " " + myFalseCommands.size());
+        map(myTrueCommands, myFalseCommands);
     }
     
     public String getName() {
         return myName;
     }
     
-    public void map(List<String[]> variables, List<String[]> commands) throws NoSuchCommandException, SyntaxException {
+    public void map(List<String[]> trueCommands, List<String[]> falseCommands) throws NoSuchCommandException, SyntaxException {
         for (int i =0; i < commands.size(); i++) {
             String[] command = commands.get(i);
             System.out.println(Arrays.toString(command));
