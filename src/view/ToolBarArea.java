@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List; 
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -88,14 +90,16 @@ public class ToolBarArea extends JMenuBar {
 
     private void echo (FileReader fileReader) {
         try {
-            String userInput = "";
             BufferedReader input = new BufferedReader(fileReader);
             String line = input.readLine();
-            while (line != null) {
-                userInput += line + "\n";
+            List<String> inputCommands= new ArrayList<String>();
+            while (line.length()!=0) {
+                inputCommands.add(line);
                 line = input.readLine();
             }
-            myController.processUserInput(0, userInput);
+            for (String inputCommand: inputCommands){
+            	myController.processUserInput(0, inputCommand);
+            }
         }
         catch (IOException e) {
             showError(e.toString());
