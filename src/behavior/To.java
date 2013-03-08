@@ -51,6 +51,7 @@ public class To implements ICommand {
             String[] str = {command[0], var};
             ICommand myCommand = myParser.buildCommand(str);
             myCommandList.add(myCommand);
+            System.out.println(myCommandList.size());
             }
     }
     

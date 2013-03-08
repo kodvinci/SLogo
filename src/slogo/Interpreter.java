@@ -119,13 +119,10 @@ public class Interpreter {
             }
             //System.out.println(myCommandList.size());
         }
-<<<<<<< HEAD
 
     }
-=======
 
              //addCommands(split(commands));
-     }
 
     
  public int parseTo (String command, List<ICommand> myCommandList) throws SyntaxException, NoSuchCommandException {
@@ -165,7 +162,6 @@ public class Interpreter {
      }
 
     
->>>>>>> e10484ec54ff19cc52e6c93ba3695901c27254f9
 
     /**
      * this method can finish the process of input commands.
@@ -183,21 +179,17 @@ public class Interpreter {
         parseTo(commands , myCommandList);
         System.out.println(myCommandList.size());
         for(ICommand ic : myCommandList){
-<<<<<<< HEAD
+
             System.out.println(myUserToCommands.size());
-=======
+
             System.out.println("list size :" + myCommandList.size());
->>>>>>> 51146c210b5a3c73771cf2fd150f9f27846198cd
             ic.move(model, turtleNumber);
         } 
 
-<<<<<<< HEAD
     }
     
-    
-=======
        
-    }
+    
     
 //    public void repeatCommand(Model model, String[] currentCommand, ArrayList<String[]> separatedCommands, int repeatValue) throws SyntaxException, NoSuchCommandException {
 //        currentCommand = separatedCommands.get(0);
@@ -265,7 +257,6 @@ public class Interpreter {
             model.addVariable(name, Double.parseDouble(value));
         }
     }
->>>>>>> e10484ec54ff19cc52e6c93ba3695901c27254f9
     
 }
  
