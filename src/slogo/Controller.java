@@ -71,14 +71,14 @@ public class Controller {
     public void processUserInput (int seq, String string) {
 
         try {
-            myInterpreter.process(myModels.get(seq), string);
+            myInterpreter.process(myModels.get(seq),0, string);
         }
         catch (SyntaxException e) {
             // myModels.get(seq).showMessage("Syntax Error, please check your commands");
             System.out.println("Syntax Error");
         }
         catch (NoSuchCommandException e) {
-            // myModels.get(seq).showMessage("Syntax Error, please check your commands");
+            // myModels.get(seq).showMDessage("Syntax Error, please check your commands");
             System.out.println("No such command");
         }
         List<Turtle> myTurtles= myModels.get(seq).getMyTurtles();

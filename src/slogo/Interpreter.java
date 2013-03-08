@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import behavior.CommandEntities;
 import behavior.ICommand;
+import behavior.Repeat;
 import exceptions.NoSuchCommandException;
 import exceptions.SyntaxException;
 
@@ -21,7 +22,8 @@ public class Interpreter {
     private Pattern myNumPattern;
     private Pattern myStrPattern;
     private Pattern myListPattern;
-
+    private Parser myParser;
+    
     /**
      * Constructs an interpreter
      */
@@ -30,6 +32,7 @@ public class Interpreter {
         myStrPattern = Pattern.compile("[a-zA-Z]*");
         myListPattern = Pattern.compile("[\\[\\]]*");
         myCommands = new CommandEntities("commands");
+        myParser = new Parser();
     }
 
     /**
@@ -81,15 +84,34 @@ public class Interpreter {
      * @throws NoSuchCommandException
      */
     // have to throw exception
-    public void parse (Model model, int turtleNumner, String command) throws SyntaxException {
-
-        List<ICommand> myCommandList = new ArrayList<ICommand>();
+    public void parse ( String command, List<ICommand> myCommandList) throws SyntaxException, NoSuchCommandException {
         
-        int position = command.indexOf(this.getClass().toString());
+        int position = command.indexOf("REPEAT");
         if( position == -1 ){
+<<<<<<< HEAD
+             myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(command)));
+        }else{
+            String formerString = command.substring(0, position);
+            if(formerString.length() != 0){
+                myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(formerString)));
+            }
+            int bracketPosition = command.indexOf("[");
+            int end = myParser.findRelatedBrackets(command,bracketPosition);
+            String postString = command.substring(end);
+            String repeatString = command.substring(position, bracketPosition);
+            List<String[]> repeatBuffer = myParser.split(repeatString);
+            String recursionString = command.substring(bracketPosition+1,end-1);
+            myCommandList.add(new Repeat(recursionString ,Integer.parseInt(repeatBuffer.get(0)[1])));
+            if(postString.length() != 0){
+                parse(postString, myCommandList);
+            }
+            //System.out.println(myCommandList.size());
+        }
+=======
              //addCommands(split(commands));
         }
 
+>>>>>>> 5af8cb02d1363f6baf9dce7ee45157843b64f292
     }
 
     /**
@@ -100,28 +122,18 @@ public class Interpreter {
      * @throws SyntaxException Syntax exception
      * @throws NoSuchCommandException
      */
-    public void process (Model model, String commands) throws SyntaxException,
+    public void process (Model model, int turtleNumber , String commands) throws SyntaxException,
                                                       NoSuchCommandException {
-
-        ArrayList<String[]> separatedCommands = split(commands);
-   
-        for (int i = 0; i < separatedCommands.size(); i++) {
-            for (int j = 0; j < separatedCommands.get(i).length; j++) {
-                //System.out.println(separatedCommands.get(i)[j]);
-            }
-        }
-        
-        
-        for (int i = 0; i < separatedCommands.size(); i++) {
-            String[] currentCommand = separatedCommands.get(i);
-
-            // to make a variable
-            if (currentCommand[0].toUpperCase().equals("MAKE")) {
-                i++;
-                currentCommand = separatedCommands.get(i);
-                makeVariable(model, currentCommand);
-            }
             
+<<<<<<< HEAD
+        List<ICommand> myCommandList = new ArrayList<ICommand>();
+        parse(commands , myCommandList);
+        System.out.println(myCommandList.size());
+        for(ICommand ic : myCommandList){
+            System.out.println(ic.getClass().toString());
+            ic.move(model, turtleNumber);
+        } 
+=======
             else if (currentCommand[0].toUpperCase().equals("REPEAT")) {
                 int repeatValue = 1;
                 repeatCommand(model, currentCommand, separatedCommands, repeatValue);
@@ -133,6 +145,7 @@ public class Interpreter {
             }
 
         }
+>>>>>>> 5af8cb02d1363f6baf9dce7ee45157843b64f292
         
        
     }
