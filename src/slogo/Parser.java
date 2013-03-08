@@ -79,7 +79,7 @@ public class Parser {
             String commandName = myResources.getString(str[0]);
             Class<?> commandClass = null;
             try {
-                commandClass = Class.forName("behavior."+commandName);
+                commandClass = Class.forName("behavior." + commandName);
             }
             catch (ClassNotFoundException e) {
                 // TODO Auto-generated catch block
