@@ -1,6 +1,7 @@
 package slogo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 import behavior.CommandEntities;
@@ -8,7 +9,9 @@ import behavior.ICommand;
 import behavior.Repeat;
 import exceptions.NoSuchCommandException;
 import exceptions.SyntaxException;
-
+import behavior.To;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * 
@@ -23,6 +26,8 @@ public class Interpreter {
     private Pattern myStrPattern;
     private Pattern myListPattern;
     private Parser myParser;
+    
+    private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
     
     /**
      * Constructs an interpreter
@@ -127,21 +132,14 @@ public class Interpreter {
             String post = command.substring(bracketPosition+1, command.length());
             String variable = post.substring(0, post.indexOf("]"));
             String commandsBracket = post.substring(post.indexOf("[")+1, post.length()-1);
-            System.out.println(commandName);
-            System.out.println(variable);
-            System.out.println(commandsBracket);
+//            System.out.println(commandName);
+//            System.out.println(variable);
+//            System.out.println(commandsBracket);
             List<String[]> variables = split(variable);
             List<String[]> commandsFromBracket = split(commandsBracket);
+//            System.out.println(Arrays.toString(commandsFromBracket.get(0)) + " " + Arrays.toString(commandsFromBracket.get(1)));
             myCommandList.add(new To(commandName, variables, commandsFromBracket));
-//            String postString = command.substring(end);
-//            String repeatString = command.substring(position, bracketPosition);
-//            List<String[]> repeatBuffer = myParser.split(repeatString);
-//            String recursionString = command.substring(bracketPosition+1,end-1);
-//            myCommandList.add(new Repeat(recursionString ,Integer.parseInt(repeatBuffer.get(0)[1])));
-//            if(postString.length() != 0){
-//                parse(postString, myCommandList);
-//            }
-//            //System.out.println(myCommandList.size());
+            myUserToCommands.put(commandName, new To(commandName, variables, commandsFromBracket));
             
               if (variables.size() == commandsFromBracket.size()) {
                   return 1;
@@ -151,10 +149,8 @@ public class Interpreter {
               }
         }
 
-             //addCommands(split(commands));
-             //test
+        return 0;
      }
-
 
     
 
@@ -174,7 +170,7 @@ public class Interpreter {
         parseTo(commands , myCommandList);
         System.out.println(myCommandList.size());
         for(ICommand ic : myCommandList){
-            System.out.println(ic.getClass().toString());
+            System.out.println(myUserToCommands.size());
             ic.move(model, turtleNumber);
         } 
 
