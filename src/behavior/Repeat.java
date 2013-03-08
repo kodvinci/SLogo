@@ -23,28 +23,30 @@ public class Repeat implements ICommand {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
        
         myRunTime = time ;
-        int position = subCommands.indexOf(this.getClass().toString());
+        int position = subCommands.indexOf("REPEAT");
         if( position == -1 ){
-             System.out.println(subCommands);
              List<String[]> splitedCommands = myParser.split(subCommands);
-             System.out.println(splitedCommands.size());
-             System.out.println(splitedCommands.get(0)[0]);
-             System.out.println(splitedCommands.get(0)[1]);
              myCommands.addAll(myParser.buildMultipleCommands(splitedCommands));
-        }else{
+        }else {
             String formerString = subCommands.substring(0, position);
-            String postString = subCommands.substring(position);
             if(formerString.length() != 0){
-                myParser.buildMultipleCommands(myParser.split(formerString));
+               myParser.buildMultipleCommands(myParser.split(formerString));
             }
             int bracketPosition = subCommands.indexOf("[");
-            int end = findRelatedBrackets(subCommands,bracketPosition);
+            int end = myParser.findRelatedBrackets(subCommands,bracketPosition);
+            String postString = null;
+            if(end != subCommands.length()){
+                postString = subCommands.substring(end + 1);    
+            }
             
             String repeatString = subCommands.substring(position, bracketPosition);
             List<String[]> repeatBuffer = myParser.split(repeatString);
-            String recursionString = subCommands.substring(bracketPosition +1,end);
+            String recursionString = subCommands.substring(bracketPosition +1,end-1);
+            System.out.println("formerString : " + formerString);
+            System.out.println("recursionString : " + recursionString);
+            System.out.println("postString : " + postString);
             myCommands.add(new Repeat(recursionString ,Integer.parseInt(repeatBuffer.get(0)[1])));
-            if(postString.length() != 0){
+            if(postString != null){
                 addCommands(myParser.split(postString));    
             }
             System.out.println("here");
@@ -54,21 +56,6 @@ public class Repeat implements ICommand {
         
     }
     
-    
-    
-    public int findRelatedBrackets(String str, int position) throws SyntaxException{
-        if(str.charAt(position) != '[') throw new SyntaxException();
-        else{
-            int priority = 0;
-            int i = position;
-            for( i = position + 1 ; i< str.length() ; i++){
-                if(priority == 1 && str.charAt(i) == ']') break;
-                else if(str.charAt(i) == '[') priority ++;
-                else if (str.charAt(i) == ']') priority --;
-            }
-            return i;
-        }
-    }
     
     public void addCommands(List<String[]> commands) throws SyntaxException, NoSuchCommandException{
         for(String[] str : commands){
@@ -89,10 +76,12 @@ public class Repeat implements ICommand {
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
         double returnValue = 0;
-        while (myRunTime != 0){
+        int time = myRunTime;
+        while (time != 0){
             for(ICommand command : myCommands){
                 returnValue = command.move(model, turtleNumber);
             }
+            time -- ;
         }
         return returnValue;
     }
