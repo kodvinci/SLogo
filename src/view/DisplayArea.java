@@ -2,9 +2,12 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -41,17 +44,15 @@ public class DisplayArea extends Window {
     public DisplayArea (Dimension size, List<Turtle> myTurtles) {
         super(size, "English");
         myTurtle = myTurtles;
+        
         makeListeners();
-
+        add(clearDisplayArea(), BorderLayout.NORTH);
         add(makeDisplay(), BorderLayout.CENTER);
         setVisible(true);
         revalidate();
 
     }
 
-    /*
-     * Creates display area and sets it as editable
-     */
     private JComponent makeDisplay () {
         myTextArea = new JTextArea(FIELD_SIZE, FIELD_SIZE_TWO);
         myTextArea.setEditable(false);
@@ -110,5 +111,16 @@ public class DisplayArea extends Window {
         myTextArea.append(message + "\n");
         myTextArea.setCaretPosition(myTextArea.getText().length());
     }
-
+    
+    private JButton clearDisplayArea () {
+        JButton result = new JButton(myResources.getString("ClearCommand"));
+        result.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myTextArea.setText("");
+            }
+        });
+        return result;
+    }
+    
 }

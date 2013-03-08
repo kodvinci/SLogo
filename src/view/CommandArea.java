@@ -50,7 +50,6 @@ public class CommandArea extends Window {
         myActionListener = new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                System.out.println(myTextField.getText());
                 myController.processUserInput(0, myTextField.getText());
                 myTextField.setText(EMPTY_STRING);
             }

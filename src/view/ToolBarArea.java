@@ -79,7 +79,6 @@ public class ToolBarArea extends JMenuBar {
     }
 
     private void echo (FileWriter fileWriter) {
-        // TODO do I really need this?
     }
 
     private void showError (String message) {
