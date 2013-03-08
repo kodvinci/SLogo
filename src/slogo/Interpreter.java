@@ -136,21 +136,20 @@ public class Interpreter {
                 myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(formerString)));
             }
             int bracketPosition = command.indexOf("[");
-            int end = myParser.findRelatedBrackets(command,bracketPosition);
             String commandName = command.substring(position + 3, bracketPosition);
             String post = command.substring(bracketPosition+1, command.length());
             String variable = post.substring(0, post.indexOf("]"));
             String commandsBracket = post.substring(post.indexOf("[")+1, post.length()-1);
-//            System.out.println(commandName);
-//            System.out.println(variable);
-//            System.out.println(commandsBracket);
+            System.out.println(commandName);
+            System.out.println(variable);
+            System.out.println(commandsBracket);
             List<String[]> variables = split(variable);
             List<String[]> commandsFromBracket = split(commandsBracket);
-//            System.out.println(Arrays.toString(commandsFromBracket.get(0)) + " " + Arrays.toString(commandsFromBracket.get(1)));
+            System.out.println(Arrays.toString(commandsFromBracket.get(0)) + " " + Arrays.toString(commandsFromBracket.get(1)));
             myCommandList.add(new To(commandName, variables, commandsFromBracket));
             myUserToCommands.put(commandName, new To(commandName, variables, commandsFromBracket));
             
-              if (variables.size() == commandsFromBracket.size()) {
+              if (variables.get(0).length == commandsFromBracket.size()) {
                   return 1;
               }
               else {
@@ -191,52 +190,8 @@ public class Interpreter {
        
     
     
-//    public void repeatCommand(Model model, String[] currentCommand, ArrayList<String[]> separatedCommands, int repeatValue) throws SyntaxException, NoSuchCommandException {
-//        currentCommand = separatedCommands.get(0);
-//        ArrayList<String[]> newSeparatedCommands = new ArrayList<String[]>();
-//        for (int i = 1; i < separatedCommands.size(); i++) {
-//            newSeparatedCommands.add(separatedCommands.get(i));
-//        }
-////        if (repeatValue == 0) {
-////           return;
-////        }
-////        else {
-//            if (currentCommand[0].equals("REPEAT")){
-//                int nestedRepeat = Integer.parseInt(currentCommand[1]);
-//                int value = nestedRepeat * repeatValue;
-//                currentCommand = separatedCommands.get(1);
-//                repeatCommand(model, currentCommand, newSeparatedCommands, value);
-//            }
-//            else {
-//                for (int i = 0; i < repeatValue-1; i++) {
-//                    translateAndExecute(model, currentCommand);
-//                }
-//            }
-//            
-//        
-        
-//    }
+
     
-//    public void translateAndExecute (Model model, String[] str) throws SyntaxException,
-//    NoSuchCommandException {
-//
-//        List<Double> bufferList = new ArrayList<Double>();
-//
-//        for (String element : str) {
-//            if (myNumPattern.matcher(element).matches()) {
-//                bufferList.add(Double.parseDouble(element));
-//            }
-//        }
-//        int size = bufferList.size();
-//
-//        double[] parameters = new double[size];
-//        for (int i = 0; i < size; i++) {
-//            parameters[i] = bufferList.get(i).doubleValue();
-//        }
-//
-//        myCommands.doCommand(model, str[0].toUpperCase(), parameters);
-//
-//    }
 
     /**
      * Makes a variable from user input

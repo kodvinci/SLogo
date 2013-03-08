@@ -75,6 +75,7 @@ public class Parser {
     public ICommand buildCommand(String[] str)throws NoSuchCommandException, SyntaxException{
         if( !myResources.containsKey(str[0])) throw new NoSuchCommandException();
         else{
+            System.out.println("test");
             String[] subArray = subStringArray(str);
             String commandName = myResources.getString(str[0]);
             Class<?> commandClass = null;

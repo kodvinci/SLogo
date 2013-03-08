@@ -33,7 +33,7 @@ public class To implements ICommand {
         myVariables = variables;
         myCommands = commands;
         myName = name;
-        System.out.println(myVariables.size()+ " " + myCommands.size());
+        System.out.println(myVariables.get(0).length + " " + myCommands.size());
         map(variables, commands);
     }
     
