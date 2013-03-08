@@ -74,7 +74,7 @@ public class Window extends JPanel {
      *        international conventions
      * @param canvas
      *        the view
-     *        Constructs window and sets canvas 
+     *        Constructs window and sets canvas
      */
     public Window (Dimension size, String language, Canvas canvas) {
         initWindowProperties(size);
@@ -86,17 +86,18 @@ public class Window extends JPanel {
      * 
      * Sets window properties
      */
-    private void initWindowProperties(Dimension size){
+    private void initWindowProperties (Dimension size) {
         setPreferredSize(size);
         setSize(size);
         setFocusable(true);
         requestFocus();
         revalidate();
     }
+
     /**
      * Paints window
      */
-    
+
     @Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);

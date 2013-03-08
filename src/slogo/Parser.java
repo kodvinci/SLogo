@@ -9,16 +9,17 @@ import behavior.ICommand;
 import exceptions.NoSuchCommandException;
 import exceptions.SyntaxException;
 
+
 public class Parser {
-    
+
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
-    
+
     private Pattern myNumPattern;
     private Pattern myStrPattern;
     private Pattern myListPattern;
     private ResourceBundle myResources;
-    
-    public Parser(){
+
+    public Parser () {
         myNumPattern = Pattern.compile("[0-9]*");
         myStrPattern = Pattern.compile("[a-zA-Z]*");
         myListPattern = Pattern.compile("[\\[\\]]*");
@@ -42,7 +43,7 @@ public class Parser {
                 buffer = new StringBuffer();
                 buffer.append(cutBySpace[i]);
             }
-            else if(myNumPattern.matcher(cutBySpace[i]).matches()) {
+            else if (myNumPattern.matcher(cutBySpace[i]).matches()) {
                 buffer.append(" ");
                 buffer.append(cutBySpace[i]);
             }
@@ -57,26 +58,26 @@ public class Parser {
 
         return allCommands;
     }
-    
-    
-    public ICommand buildCommand(String[] str)throws NoSuchCommandException, SyntaxException{
-        if( !myResources.containsKey(str[0])) throw new NoSuchCommandException();
-        else{
+
+    public ICommand buildCommand (String[] str) throws NoSuchCommandException, SyntaxException {
+        if (!myResources.containsKey(str[0]))
+            throw new NoSuchCommandException();
+        else {
             String[] subArray = subStringArray(str);
             String commandName = myResources.getString(str[0]);
             Class<?> commandClass = null;
             try {
-                commandClass = Class.forName("behavior."+commandName);
+                commandClass = Class.forName("behavior." + commandName);
             }
             catch (ClassNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             Object o = null;
-            ICommand myCommand = (ICommand)o;
+            ICommand myCommand = (ICommand) o;
             Constructor<?>[] cons = commandClass.getConstructors();
             try {
-                myCommand=(ICommand) cons[0].newInstance(subArray);
+                myCommand = (ICommand) cons[0].newInstance(subArray);
             }
             catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                     | InvocationTargetException e) {
@@ -86,16 +87,14 @@ public class Parser {
             return myCommand;
         }
     }
-    
-    
-    
-    public String[] subStringArray(String[] str){
+
+    public String[] subStringArray (String[] str) {
         int size = str.length;
-        String[] subArray = new String[size-1];
-        for(int i =0 ; i< size - 1 ; i ++){
-            subArray[i] = str[i+1];  
+        String[] subArray = new String[size - 1];
+        for (int i = 0; i < size - 1; i++) {
+            subArray[i] = str[i + 1];
         }
-       
+
         return subArray;
     }
 }

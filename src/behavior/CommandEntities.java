@@ -28,10 +28,9 @@ public class CommandEntities {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + bundleName);
     }
 
-    
-    
-    public void doCommand (Model model, int turtleNumber , List<ICommand> commands) throws SyntaxException  {
-        for(ICommand command : commands){
+    public void doCommand (Model model, int turtleNumber, List<ICommand> commands)
+                                                                                  throws SyntaxException {
+        for (ICommand command : commands) {
             command.move(model, turtleNumber);
         }
     }

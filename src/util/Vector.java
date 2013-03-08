@@ -228,7 +228,7 @@ public class Vector {
             Vector other = (Vector) vector;
             return fuzzyEquals(getMagnitude(), other.getMagnitude()) &&
                    fuzzyEquals(
-                                               getDirection(), other.getDirection());
+                               getDirection(), other.getDirection());
         }
         catch (ClassCastException e) {
             return false;
@@ -299,7 +299,7 @@ public class Vector {
         // value based on this table:
         final double EPSILON = 5.96e-08;
         if (Double.isNaN(a) && Double.isNaN(b) || Double.isInfinite(a)
-                && Double.isInfinite(b)) {
+            && Double.isInfinite(b)) {
             return true;
         }
         else {

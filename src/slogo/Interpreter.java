@@ -84,10 +84,10 @@ public class Interpreter {
     public void parse (Model model, int turtleNumner, String command) throws SyntaxException {
 
         List<ICommand> myCommandList = new ArrayList<ICommand>();
-        
+
         int position = command.indexOf(this.getClass().toString());
-        if( position == -1 ){
-             //addCommands(split(commands));
+        if (position == -1) {
+            // addCommands(split(commands));
         }
 
     }
@@ -104,14 +104,13 @@ public class Interpreter {
                                                       NoSuchCommandException {
 
         ArrayList<String[]> separatedCommands = split(commands);
-   
+
         for (int i = 0; i < separatedCommands.size(); i++) {
             for (int j = 0; j < separatedCommands.get(i).length; j++) {
-                //System.out.println(separatedCommands.get(i)[j]);
+                // System.out.println(separatedCommands.get(i)[j]);
             }
         }
-        
-        
+
         for (int i = 0; i < separatedCommands.size(); i++) {
             String[] currentCommand = separatedCommands.get(i);
 
@@ -121,11 +120,11 @@ public class Interpreter {
                 currentCommand = separatedCommands.get(i);
                 makeVariable(model, currentCommand);
             }
-            
+
             else if (currentCommand[0].toUpperCase().equals("REPEAT")) {
                 int repeatValue = 1;
                 repeatCommand(model, currentCommand, separatedCommands, repeatValue);
-                  
+
             }
 
             else {
@@ -133,38 +132,38 @@ public class Interpreter {
             }
 
         }
-        
-       
+
     }
-    
-    public void repeatCommand(Model model, String[] currentCommand, ArrayList<String[]> separatedCommands, int repeatValue) throws SyntaxException, NoSuchCommandException {
+
+    public void repeatCommand (Model model,
+                               String[] currentCommand,
+                               ArrayList<String[]> separatedCommands,
+                               int repeatValue) throws SyntaxException, NoSuchCommandException {
         currentCommand = separatedCommands.get(0);
         ArrayList<String[]> newSeparatedCommands = new ArrayList<String[]>();
         for (int i = 1; i < separatedCommands.size(); i++) {
             newSeparatedCommands.add(separatedCommands.get(i));
         }
-//        if (repeatValue == 0) {
-//           return;
-//        }
-//        else {
-            if (currentCommand[0].equals("REPEAT")){
-                int nestedRepeat = Integer.parseInt(currentCommand[1]);
-                int value = nestedRepeat * repeatValue;
-                currentCommand = separatedCommands.get(1);
-                repeatCommand(model, currentCommand, newSeparatedCommands, value);
+        // if (repeatValue == 0) {
+        // return;
+        // }
+        // else {
+        if (currentCommand[0].equals("REPEAT")) {
+            int nestedRepeat = Integer.parseInt(currentCommand[1]);
+            int value = nestedRepeat * repeatValue;
+            currentCommand = separatedCommands.get(1);
+            repeatCommand(model, currentCommand, newSeparatedCommands, value);
+        }
+        else {
+            for (int i = 0; i < repeatValue - 1; i++) {
+                translateAndExecute(model, currentCommand);
             }
-            else {
-                for (int i = 0; i < repeatValue-1; i++) {
-                    translateAndExecute(model, currentCommand);
-                }
-            }
-            
-        
-        
+        }
+
     }
-    
+
     public void translateAndExecute (Model model, String[] str) throws SyntaxException,
-    NoSuchCommandException {
+                                                               NoSuchCommandException {
 
         List<Double> bufferList = new ArrayList<Double>();
 
@@ -203,6 +202,5 @@ public class Interpreter {
             model.addVariable(name, Double.parseDouble(value));
         }
     }
-    
+
 }
- 

@@ -6,6 +6,7 @@ import exceptions.SyntaxException;
 
 /**
  * Clears the Screen
+ * 
  * @author Richard Yang
  * 
  */

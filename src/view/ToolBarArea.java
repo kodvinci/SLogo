@@ -2,7 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.List; 
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -18,6 +18,12 @@ import javax.swing.JSeparator;
 import slogo.Controller;
 
 
+/**
+ * Provides the tool bar area where menus can be added
+ * 
+ * @author Leonard
+ * 
+ */
 public class ToolBarArea extends JMenuBar {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
@@ -92,13 +98,13 @@ public class ToolBarArea extends JMenuBar {
         try {
             BufferedReader input = new BufferedReader(fileReader);
             String line = input.readLine();
-            List<String> inputCommands= new ArrayList<String>();
-            while (line.length()!=0) {
+            List<String> inputCommands = new ArrayList<String>();
+            while (line.length() != 0) {
                 inputCommands.add(line);
                 line = input.readLine();
             }
-            for (String inputCommand: inputCommands){
-            	myController.processUserInput(0, inputCommand);
+            for (String inputCommand : inputCommands) {
+                myController.processUserInput(0, inputCommand);
             }
         }
         catch (IOException e) {
