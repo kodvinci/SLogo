@@ -44,6 +44,7 @@ public class Window extends JPanel {
      * 
      * @param controller
      *        default controller
+     *        Constructs Window and sets controller
      */
     public Window (Controller controller) {
         myController = controller;
@@ -58,6 +59,7 @@ public class Window extends JPanel {
      *        display size
      * @param language
      *        international considerations
+     *        Constructs window
      */
     public Window (Dimension size, String language) {
         initWindowProperties(size);
@@ -72,6 +74,7 @@ public class Window extends JPanel {
      *        international conventions
      * @param canvas
      *        the view
+     *        Constructs window and sets canvas 
      */
     public Window (Dimension size, String language, Canvas canvas) {
         initWindowProperties(size);
@@ -79,6 +82,10 @@ public class Window extends JPanel {
         myView = canvas;
     }
 
+    /**
+     * 
+     * Sets window properties
+     */
     private void initWindowProperties(Dimension size){
         setPreferredSize(size);
         setSize(size);
@@ -86,6 +93,9 @@ public class Window extends JPanel {
         requestFocus();
         revalidate();
     }
+    /**
+     * Paints window
+     */
     
     @Override
     public void paintComponent (Graphics pen) {

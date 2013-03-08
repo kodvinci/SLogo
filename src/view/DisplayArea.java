@@ -2,9 +2,12 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -13,14 +16,10 @@ import object.Turtle;
 
 /**
  * 
- * @author Leonard
+ * @author Leonard and Alan
  * 
  */
 public class DisplayArea extends Window {
-
-    /**
-     * 
-     */
     public static final Dimension DEFAULT_AREA_SIZE = new Dimension(200, 600);
 
     private static final long serialVersionUID = 1L;
@@ -40,12 +39,14 @@ public class DisplayArea extends Window {
      *        display area size
      * @param myTurtles
      *        the pens
+     *        DisplayArea constructor, starts listeners
      */
     public DisplayArea (Dimension size, List<Turtle> myTurtles) {
         super(size, "English");
         myTurtle = myTurtles;
+        
         makeListeners();
-
+        add(clearDisplayArea(), BorderLayout.NORTH);
         add(makeDisplay(), BorderLayout.CENTER);
         setVisible(true);
         revalidate();
@@ -86,6 +87,9 @@ public class DisplayArea extends Window {
 
     }
 
+    /**
+     * Prints current X and Y Location and Angle
+     */
     private void echo (String s, MouseEvent e) {
         showMessage(X_LABEL +
                     myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getX()));
@@ -101,10 +105,22 @@ public class DisplayArea extends Window {
      * 
      * @param message
      *        message to be displayed
+     * Displays message in display area
      */
     public void showMessage (String message) {
         myTextArea.append(message + "\n");
         myTextArea.setCaretPosition(myTextArea.getText().length());
     }
-
+    
+    private JButton clearDisplayArea () {
+        JButton result = new JButton(myResources.getString("ClearCommand"));
+        result.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myTextArea.setText("");
+            }
+        });
+        return result;
+    }
+    
 }
