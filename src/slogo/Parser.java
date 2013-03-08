@@ -29,23 +29,24 @@ public class Parser {
     }
 
     public ArrayList<String[]> split (String commands) {
+        
+        
         if(commands == null) {
-            System.out.println("null");
             return null;
         }
+        
         ArrayList<String[]> allCommands = new ArrayList<String[]>();
         ArrayList<StringBuffer> allBuffers = new ArrayList<StringBuffer>();
 
-        for(int i = 0 ; i < commands.length() ; i++){
-            if (commands.charAt(i) != ' ') {
-                commands = commands.substring(i);    
+        for(int i = 0 ; i<commands.length() ; i++){
+            if(commands.charAt(i) != ' '){
+                commands = commands.substring(i);
                 break;
             }
-            
         }
         
         String[] cutBySpace = mySpacePattern.split(commands);
-        //System.out.println(cutBySpace[0]);
+        if(cutBySpace.length == 0) return null;
         StringBuffer buffer = new StringBuffer();
         buffer.append(cutBySpace[0]);
         for (int i = 1; i < cutBySpace.length; i++) {
@@ -72,7 +73,6 @@ public class Parser {
     }
     
     public ICommand buildCommand(String[] str)throws NoSuchCommandException, SyntaxException{
-        System.out.println(str[0]);
         if( !myResources.containsKey(str[0])) throw new NoSuchCommandException();
         else{
             String[] subArray = subStringArray(str);
@@ -101,8 +101,7 @@ public class Parser {
     }
     
     public List<ICommand> buildMultipleCommands(List<String[]> commands) throws SyntaxException, NoSuchCommandException{
-        if(commands.size() == 0) {
-            System.out.println("null");
+        if(commands == null) {
             return null; 
         }
         
@@ -128,7 +127,7 @@ public class Parser {
             int priority = 0;
             int i = position;
             for( i = position + 1 ; i< str.length() ; i++){
-                if(priority == 1 && str.charAt(i) == ']') break;
+                if(priority == 0 && str.charAt(i) == ']') break;
                 else if(str.charAt(i) == '[') priority ++;
                 else if (str.charAt(i) == ']') priority --;
             }
