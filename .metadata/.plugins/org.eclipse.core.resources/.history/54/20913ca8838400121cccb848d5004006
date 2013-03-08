@@ -1,0 +1,22 @@
+package slogo;
+
+import object.Turtle;
+import java.util.List;
+
+public class Factory {
+    
+    private Controller myController;
+   
+    public Factory (Controller controller) {
+        myController = controller;
+    }
+
+    public void createTurtle() {
+        Turtle turtle = new Turtle();
+        myController.myModels.get(0).myTurtles.add(turtle);
+    }
+
+
+}
+
+
