@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename field &apos;restLength&apos; in &apos;simulation.Muscle&apos; to &apos;myRestLength&apos;&#x0D;&#x0A;- Original project: &apos;Springies&apos;&#x0D;&#x0A;- Original element: &apos;simulation.Muscle.restLength&apos;&#x0D;&#x0A;- Renamed element: &apos;simulation.Muscle.myRestLength&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;restLength&apos;" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;simulation{Muscle.java[Muscle^restLength" name="myRestLength" references="true" setter="false" stamp="1360359670759" textual="false" version="1.0"/>
-</session>
