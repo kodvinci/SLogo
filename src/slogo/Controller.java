@@ -74,7 +74,7 @@ public class Controller {
         try {
             myInterpreter.process(myModels.get(seq), 0, string);
         }
-        catch(NoSuchVariableException e) {
+        catch (NoSuchVariableException e) {
             //myModels.get(seq).showMessage("NoSuchVariable");
             System.out.println("NoSuchVariable");
         }

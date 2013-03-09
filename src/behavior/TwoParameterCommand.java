@@ -1,10 +1,15 @@
 package behavior;
 
+import exceptions.SyntaxException;
 import java.util.regex.Pattern;
 import slogo.Model;
-import exceptions.SyntaxException;
 
 
+/**
+ * abstract class for two parameter commands
+ * @author Richard Yang
+ *
+ */
 public abstract class TwoParameterCommand implements ICommand {
 
     private double myFirstValue;
@@ -12,7 +17,7 @@ public abstract class TwoParameterCommand implements ICommand {
     private Pattern myNumPattern = Pattern.compile("[0-9]*");
 
     @Override
-    public double move (Model model, int TurtleNumber) throws SyntaxException {
+    public double move (Model model, int turtleNumber) throws SyntaxException {
         return 0;
     }
 
@@ -23,11 +28,17 @@ public abstract class TwoParameterCommand implements ICommand {
         myFirstValue = Double.parseDouble(information[0]);
         mySecondValue = Double.parseDouble(information[1]);
     }
-
+    /**
+     * get first value
+     * @return
+     */
     public double getMyFirstValue () {
         return myFirstValue;
     }
-
+    /**
+     * get second value
+     * @return
+     */
     public double getMySecondValue () {
         return mySecondValue;
     }

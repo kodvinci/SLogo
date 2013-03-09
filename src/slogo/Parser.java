@@ -159,8 +159,9 @@ public class Parser {
 
                                                                               SyntaxException, NoSuchVariableException{
         
-        
+        System.out.println(command);
         int position = findFirstFlow(command);
+        System.out.println(position);
 
         if (position == -1) {
             myCommandList.addAll(buildMultipleCommands(split(command), model));
@@ -183,6 +184,7 @@ public class Parser {
 
             List<String[]> repeatBuffer = split(repeatString);
             String flowName = repeatBuffer.get(0)[0].toUpperCase();
+            System.out.println(flowName);
             String recursionString = command.substring(bracketPosition + 1, end - 1);
             System.out.println("recursionString : " + recursionString);
             if (flowName.equals("REPEAT")){
@@ -291,24 +293,26 @@ public class Parser {
         }
     }
     public int findFirstFlow(String command){
-
-        int toAndIf = 0;
-        int repeatAndIfElse = 0;
+        
+        int toAndIf = command.length();
+        int repeatAndIfElse = command.length();
         for(int i = 0 ; i< command.length()-1 ; i++){
             if(myFlows.containsKey(command.substring(i, i+2).toUpperCase())){
                 toAndIf = i;
             }
         }
+        System.out.println(toAndIf);
         for(int i = 0 ; i< command.length()-5 ; i++){
             if(myFlows.containsKey(command.substring(i, i+6).toUpperCase())){
                 repeatAndIfElse = i;
             }
         }
+        System.out.println(repeatAndIfElse);
         if(toAndIf < repeatAndIfElse){
             return toAndIf;
         }else if (toAndIf > repeatAndIfElse){
- 
-            return toAndIf;
+        
+            return repeatAndIfElse;
         }else return -1;
     }
 

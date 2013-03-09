@@ -6,12 +6,11 @@ import behavior.ICommand;
 import exceptions.NoSuchCommandException;
 import exceptions.NoSuchVariableException;
 import exceptions.SyntaxException;
-import java.util.Collections;
-import java.util.Map;
 import java.util.ArrayList;
-import java.util.TreeMap;
 import java.util.List;
 import java.util.Map;
+
+import java.util.TreeMap;
 import java.util.regex.Pattern;
 
 
@@ -43,12 +42,22 @@ public class Interpreter {
 
 
    
+    /**
+     * parse user input 
+     * @param command
+     * @param myCommandList
+     * @param model
+     * @throws SyntaxException
+     * @throws NoSuchCommandException
+     * @throws NumberFormatException
+     * @throws NoSuchVariableException
+     */
     
-    
-    public void parse (String command, List<ICommand> myCommandList, Model model) throws SyntaxException, NoSuchCommandException, NumberFormatException, NoSuchVariableException {
+    public void parse (String command, List<ICommand> myCommandList, Model model) 
+            throws SyntaxException, NoSuchCommandException, NumberFormatException, NoSuchVariableException {
         
 
-        myParser.parseOneBracket(command, myCommandList, model);
+          myParser.parseOneBracket(command, myCommandList, model);
 
 
 //        int repeatIndex = myParser.findFirstFlow(command, "REPEAT");
