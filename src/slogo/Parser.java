@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import behavior.ICommand;
-import behavior.flow.Repeat;
 import exceptions.NoSuchCommandException;
 import exceptions.SyntaxException;
 
@@ -161,7 +160,7 @@ public class Parser {
             if(postString.length() != 0 && ! mySpacePattern.matcher(postString).matches()){
                 parseOneBracket(postString, myCommandList);
             }
-            //System.out.println(myCommandList.size());
+           
         }
     }
 }

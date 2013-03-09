@@ -1,5 +1,10 @@
 package exceptions;
 
+/**
+ * No command exception
+ * @author Richard
+ *
+ */
 public class NoSuchCommandException extends Exception {
 
     private static final long serialVersionUID = 1L;

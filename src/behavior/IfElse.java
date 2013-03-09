@@ -130,5 +130,9 @@ public class IfElse implements ICommand {
         
     }
     
+    @Override
+    public void initialize(String[] information, Model model) throws SyntaxException {
+        
+    }
 
 }

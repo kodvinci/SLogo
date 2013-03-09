@@ -93,17 +93,11 @@ public class To implements ICommand {
         return myCommandList.size();
     }
     
-<<<<<<< HEAD
-    public void initialize(String[] string, Model model) {
-=======
-    /**
-     * implements ICommand.initialize
-     * @param string    string command
-     */
-    public void initialize(String[] string) {
->>>>>>> f4f2a115ec12604839ff870bb233820c00d55492
+    @Override
+    public void initialize(String[] information, Model model) throws SyntaxException {
         
     }
+
     
     
 }
