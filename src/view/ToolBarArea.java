@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List; 
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
@@ -17,10 +17,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import slogo.Controller;
 
+
 /**
  * Creates ToolBar area
+ * 
  * @author Alan and Leonard
- *
+ * 
  */
 public class ToolBarArea extends JMenuBar {
 
@@ -40,9 +42,10 @@ public class ToolBarArea extends JMenuBar {
         setBackground(BACKGROUND_COLOR);
         this.add(makeFileMenu());
     }
-    
+
     /**
      * make file menu
+     * 
      * @return
      */
     private JMenu makeFileMenu () {
@@ -105,7 +108,7 @@ public class ToolBarArea extends JMenuBar {
                 inputCommands.add(line);
                 line = input.readLine();
             }
-            for (String inputCommand: inputCommands) {
+            for (String inputCommand : inputCommands) {
                 myController.processUserInput(0, inputCommand);
             }
         }

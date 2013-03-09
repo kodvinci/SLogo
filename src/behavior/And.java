@@ -1,8 +1,7 @@
 package behavior;
 
-import exceptions.SyntaxException;
 import slogo.Model;
-
+import exceptions.SyntaxException;
 
 
 /**
@@ -13,7 +12,6 @@ import slogo.Model;
 
 public class And extends TwoParameterCommand {
 
-    
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
 

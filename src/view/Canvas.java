@@ -16,7 +16,7 @@ import slogo.Controller;
  * 
  */
 public class Canvas {
-    
+
     /**
      * default turtle size
      */
@@ -61,7 +61,7 @@ public class Canvas {
     }
 
     /**
-     * Creates the Toolbar and Display, Turtle and Command Areas 
+     * Creates the Toolbar and Display, Turtle and Command Areas
      */
     public void createGUI () {
 

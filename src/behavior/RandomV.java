@@ -1,9 +1,8 @@
 package behavior;
 
-import exceptions.SyntaxException;
 import java.util.Random;
 import slogo.Model;
-
+import exceptions.SyntaxException;
 
 
 /**

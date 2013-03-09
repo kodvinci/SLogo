@@ -1,12 +1,14 @@
 package behavior;
 
-import exceptions.SyntaxException;
 import slogo.Model;
+import exceptions.SyntaxException;
+
 
 /**
  * an abstract class for no parameter commands
+ * 
  * @author Richard Yang
- *
+ * 
  */
 public abstract class NoParameterCommand implements ICommand {
 

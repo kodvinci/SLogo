@@ -1,14 +1,14 @@
 package slogo;
 
-import exceptions.NoSuchCommandException;
-import exceptions.NoSuchVariableException;
-import exceptions.SyntaxException;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import object.Turtle;
 import util.Location;
 import view.Canvas;
+import exceptions.NoSuchCommandException;
+import exceptions.NoSuchVariableException;
+import exceptions.SyntaxException;
 
 
 /**
@@ -75,15 +75,15 @@ public class Controller {
             myInterpreter.process(myModels.get(seq), 0, string);
         }
         catch (NoSuchVariableException e) {
-            //myModels.get(seq).showMessage("NoSuchVariable");
+            // myModels.get(seq).showMessage("NoSuchVariable");
             System.out.println("NoSuchVariable");
         }
         catch (SyntaxException e) {
-            //myModels.get(seq).showMessage("Syntax Error, please check your commands");
+            // myModels.get(seq).showMessage("Syntax Error, please check your commands");
             System.out.println("Syntax Error");
         }
         catch (NoSuchCommandException e) {
-            //myModels.get(seq).showMessage("Syntax Error, please check your commands");
+            // myModels.get(seq).showMessage("Syntax Error, please check your commands");
             System.out.println("No such command");
         }
         List<Turtle> myTurtles = myModels.get(seq).getMyTurtles();

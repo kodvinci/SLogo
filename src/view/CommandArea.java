@@ -14,7 +14,7 @@ import slogo.Controller;
  * 
  */
 public class CommandArea extends Window {
-    
+
     /**
      * Default size
      */
@@ -32,7 +32,7 @@ public class CommandArea extends Window {
      * 
      * @param size view size
      * @param control default controller
-     * Constructor for CommandArea
+     *        Constructor for CommandArea
      */
     public CommandArea (Dimension size, Controller control) {
         super(size, "English");
@@ -47,7 +47,7 @@ public class CommandArea extends Window {
     }
 
     /**
-     * Sends text to controller and clears textfield 
+     * Sends text to controller and clears textfield
      */
     public void makeListeners () {
         myActionListener = new ActionListener() {
@@ -58,7 +58,7 @@ public class CommandArea extends Window {
             }
         };
     }
-    
+
     /**
      * 
      * Set textfield equal to userinput
@@ -73,7 +73,7 @@ public class CommandArea extends Window {
         return myTextField;
 
     }
-    
+
     /**
      * Creates button that allows for user submission of command
      */

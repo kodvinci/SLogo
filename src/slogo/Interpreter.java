@@ -1,17 +1,15 @@
 package slogo;
 
-import behavior.CommandEntities;
-import behavior.ICommand;
-
-import exceptions.NoSuchCommandException;
-import exceptions.NoSuchVariableException;
-import exceptions.SyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import java.util.TreeMap;
 import java.util.regex.Pattern;
+import behavior.CommandEntities;
+import behavior.ICommand;
+import exceptions.NoSuchCommandException;
+import exceptions.NoSuchVariableException;
+import exceptions.SyntaxException;
 
 
 /**
@@ -21,15 +19,13 @@ import java.util.regex.Pattern;
  */
 public class Interpreter {
 
-
     private CommandEntities myCommands;
     private Pattern myNumPattern;
     private Pattern myStrPattern;
     private Parser myParser;
-    
+
     private Map<Integer, String> myFlowMap = new TreeMap<Integer, String>();
     private List<Integer> myFlowOrder = new ArrayList<Integer>();
-
 
     /**
      * Constructs an interpreter
@@ -40,10 +36,9 @@ public class Interpreter {
         myParser = new Parser();
     }
 
-
-   
     /**
-     * parse user input 
+     * parse user input
+     * 
      * @param command
      * @param myCommandList
      * @param model
@@ -52,44 +47,44 @@ public class Interpreter {
      * @throws NumberFormatException
      * @throws NoSuchVariableException
      */
-    
-    public void parse (String command, List<ICommand> myCommandList, Model model) 
-            throws SyntaxException, NoSuchCommandException, NumberFormatException, NoSuchVariableException {
-        
 
-          myParser.parseOneBracket(command, myCommandList, model);
+    public void parse (String command, List<ICommand> myCommandList, Model model)
+                                                                                 throws SyntaxException,
+                                                                                 NoSuchCommandException,
+                                                                                 NumberFormatException,
+                                                                                 NoSuchVariableException {
 
+        myParser.parseOneBracket(command, myCommandList, model);
 
-//        int repeatIndex = myParser.findFirstFlow(command, "REPEAT");
-//        int toIndex = myParser.findFirstFlow(command, "TO");
-//        int ifIndex = myParser.findFirstFlow(command, "IF");
-//        int elseifIndex = myParser.findFirstFlow(command, "ELSEIF");
-//        
-//        myFlowMap.put(repeatIndex, "REPEAT");
-//        myFlowMap.put(toIndex, "TO");
-//        myFlowMap.put(ifIndex, "IF");
-//        myFlowMap.put(elseifIndex, "ELSEIF");
-//        myFlowOrder.add(repeatIndex);
-//        myFlowOrder.add(toIndex);
-//        myFlowOrder.add(ifIndex);
-//        myFlowOrder.add(elseifIndex);
-//        
-//        Collections.sort(myFlowOrder);
-//        
-//        for (int i = 0; i < myFlowOrder.size(); i++) {
-//            if (myFlowMap.get(myFlowOrder.get(i)).equals("REPEAT")) {
-//                parseOneBracket(command, myCommandList, model)
-//            }
-//        }
-        
-        
-        //myParser.parseTo(command, myCommandList, model);
+        // int repeatIndex = myParser.findFirstFlow(command, "REPEAT");
+        // int toIndex = myParser.findFirstFlow(command, "TO");
+        // int ifIndex = myParser.findFirstFlow(command, "IF");
+        // int elseifIndex = myParser.findFirstFlow(command, "ELSEIF");
+        //
+        // myFlowMap.put(repeatIndex, "REPEAT");
+        // myFlowMap.put(toIndex, "TO");
+        // myFlowMap.put(ifIndex, "IF");
+        // myFlowMap.put(elseifIndex, "ELSEIF");
+        // myFlowOrder.add(repeatIndex);
+        // myFlowOrder.add(toIndex);
+        // myFlowOrder.add(ifIndex);
+        // myFlowOrder.add(elseifIndex);
+        //
+        // Collections.sort(myFlowOrder);
+        //
+        // for (int i = 0; i < myFlowOrder.size(); i++) {
+        // if (myFlowMap.get(myFlowOrder.get(i)).equals("REPEAT")) {
+        // parseOneBracket(command, myCommandList, model)
+        // }
+        // }
 
-//       int index = myParser.findFirstFlow(command);
-//       if (index < 0) {
-//          myParser.parseTo(command, myCommandList, model);
-//       }
-//       System.out.println("index" + index);
+        // myParser.parseTo(command, myCommandList, model);
+
+        // int index = myParser.findFirstFlow(command);
+        // if (index < 0) {
+        // myParser.parseTo(command, myCommandList, model);
+        // }
+        // System.out.println("index" + index);
 
     }
 
@@ -102,7 +97,7 @@ public class Interpreter {
      * @throws SyntaxException if synatx is wrong
      * @throws NoSuchCommandException if no command exists
      */
-   
+
     /**
      * this method can finish the process of input commands.
      * 
@@ -110,24 +105,24 @@ public class Interpreter {
      * @param commands input of user
      * @throws SyntaxException Syntax exception
      * @throws NoSuchCommandException
-     * @throws NoSuchVariableException 
-     * @throws NumberFormatException 
+     * @throws NoSuchVariableException
+     * @throws NumberFormatException
      */
     public void process (Model model, int turtleNumber, String commands) throws SyntaxException,
-                                                                        NoSuchCommandException, NumberFormatException, NoSuchVariableException {
+                                                                        NoSuchCommandException,
+                                                                        NumberFormatException,
+                                                                        NoSuchVariableException {
 
         List<ICommand> myCommandList = new ArrayList<ICommand>();
 
-        parse(commands,myCommandList,model);
-        //System.out.println(myCommandList.size());
+        parse(commands, myCommandList, model);
+        // System.out.println(myCommandList.size());
         for (ICommand ic : myCommandList) {
 
-
-           // System.out.println("list size :" + myCommandList.size());
+            // System.out.println("list size :" + myCommandList.size());
             ic.move(model, turtleNumber);
         }
 
     }
-
 
 }

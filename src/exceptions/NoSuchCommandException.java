@@ -2,8 +2,9 @@ package exceptions;
 
 /**
  * No command exception
+ * 
  * @author Richard
- *
+ * 
  */
 public class NoSuchCommandException extends Exception {
 
@@ -24,5 +25,5 @@ public class NoSuchCommandException extends Exception {
     public NoSuchCommandException (String message) {
         super(message);
     }
-    
+
 }

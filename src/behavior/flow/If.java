@@ -1,20 +1,20 @@
 package behavior.flow;
 
-import behavior.ICommand;
-import exceptions.NoSuchCommandException;
-import exceptions.NoSuchVariableException;
-import exceptions.SyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import slogo.Model;
 import slogo.Parser;
-
+import behavior.ICommand;
+import exceptions.NoSuchCommandException;
+import exceptions.NoSuchVariableException;
+import exceptions.SyntaxException;
 
 
 /**
  * if command
+ * 
  * @author Richard Yang
- *
+ * 
  */
 public class If implements ICommand {
 
@@ -24,6 +24,7 @@ public class If implements ICommand {
 
     /**
      * construcor for if class
+     * 
      * @param subCommands command string
      * @param statement parameter to judge whether we should run commands or not
      * @param model model we want to operate

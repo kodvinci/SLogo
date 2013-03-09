@@ -1,13 +1,15 @@
 package behavior;
 
-import exceptions.SyntaxException;
 import java.util.regex.Pattern;
 import slogo.Model;
+import exceptions.SyntaxException;
+
 
 /**
  * Make a variable
+ * 
  * @author Richard Yang
- *
+ * 
  */
 
 public class Make implements ICommand {

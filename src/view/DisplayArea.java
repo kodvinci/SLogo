@@ -14,7 +14,6 @@ import javax.swing.JTextArea;
 import object.Turtle;
 
 
-
 /**
  * 
  * @author Leonard and Alan
@@ -48,7 +47,7 @@ public class DisplayArea extends Window {
     public DisplayArea (Dimension size, List<Turtle> myTurtles) {
         super(size, "English");
         myTurtle = myTurtles;
-        
+
         makeListeners();
         add(clearDisplayArea(), BorderLayout.NORTH);
         add(makeDisplay(), BorderLayout.CENTER);
@@ -108,13 +107,13 @@ public class DisplayArea extends Window {
      * 
      * @param message
      *        message to be displayed
-     * Displays message in display area
+     *        Displays message in display area
      */
     public void showMessage (String message) {
         myTextArea.append(message + "\n");
         myTextArea.setCaretPosition(myTextArea.getText().length());
     }
-    
+
     private JButton clearDisplayArea () {
         JButton result = new JButton(myResources.getString("ClearCommand"));
         result.addActionListener(new ActionListener() {
@@ -125,5 +124,5 @@ public class DisplayArea extends Window {
         });
         return result;
     }
-    
+
 }

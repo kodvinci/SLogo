@@ -1,9 +1,8 @@
 package behavior;
 
-import exceptions.SyntaxException;
 import java.util.List;
 import slogo.Model;
-
+import exceptions.SyntaxException;
 
 
 /**
@@ -21,8 +20,8 @@ public class CommandEntities {
      * @param commands user commands
      * @throws SyntaxException wrong syntax format
      */
-    public void doCommand (Model model, int turtleNumber, List<ICommand> commands) 
-            throws SyntaxException {
+    public void doCommand (Model model, int turtleNumber, List<ICommand> commands)
+                                                                                  throws SyntaxException {
 
         for (ICommand command : commands) {
             command.move(model, turtleNumber);

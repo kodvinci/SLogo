@@ -1,6 +1,5 @@
 package slogo;
 
-import exceptions.NoSuchVariableException;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import object.Turtle;
 import view.DisplayArea;
+import exceptions.NoSuchVariableException;
 
 
 /**
@@ -35,7 +35,6 @@ public class Model {
 
     public static final String TITLE = "SLOGO";
 
-  
     private List<Turtle> myTurtles;
     private DisplayArea myDisplayArea;
     private Map<String, Double> myVariables;
@@ -47,13 +46,11 @@ public class Model {
      * @param id the model id
      */
     public Model (Controller controller, int id) {
-      
+
         myTurtles = new ArrayList<Turtle>();
         myVariables = new HashMap<String, Double>();
 
     }
-    
-    
 
     /**
      * Return specific turtle

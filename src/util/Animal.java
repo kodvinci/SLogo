@@ -58,7 +58,6 @@ public abstract class Animal {
         myOriginalView = new Pixmap(image);
         reset();
 
-        
         resetBounds();
     }
 

@@ -16,12 +16,20 @@ import exceptions.NoSuchVariableException;
 import exceptions.SyntaxException;
 
 
+/**
+ * parse the command
+ * 
+ * @author Richard Yang
+ * 
+ */
 public class Parser {
 
     private static final int TO_LENGTH = 3;
     private static final int IFELSE_LENGTH = 7;
+    private static final String LEFT_BRACKET = "[";
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
+    
 
     private Pattern myNumPattern;
     private Pattern myStrPattern;
@@ -29,6 +37,9 @@ public class Parser {
     private ResourceBundle myResources;
     private ResourceBundle myFlows;
 
+    /**
+     * constructor
+     */
     public Parser () {
         myNumPattern = Pattern.compile("[0-9]*");
         myStrPattern = Pattern.compile("[a-zA-Z]*");
@@ -37,6 +48,12 @@ public class Parser {
         myFlows = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "flow");
     }
 
+    /**
+     * split the string
+     * 
+     * @param commands commands we want to split
+     * @return splited string
+     */
     public ArrayList<String[]> split (String commands) {
 
         if (commands == null) { return null; }
@@ -77,8 +94,16 @@ public class Parser {
 
         return allCommands;
     }
-
-    public ICommand buildCommand (String[] str, Model model) throws NoSuchCommandException, SyntaxException {
+   /**
+    * build a command through string we got
+    * @param str splited input commands
+    * @param model model we want to operate
+    * @return command
+    * @throws NoSuchCommandException
+    * @throws SyntaxException
+    */
+    public ICommand buildCommand (String[] str, Model model) throws NoSuchCommandException,
+                                                            SyntaxException {
         if (!myResources.containsKey(str[0].toUpperCase())) {
             throw new NoSuchCommandException();
         }
@@ -86,22 +111,22 @@ public class Parser {
             String[] subArray = subStringArray(str);
             System.out.println(str[0]);
             String commandName = myResources.getString(str[0].toUpperCase());
-            
+
             Class<?> commandClass = null;
             try {
                 commandClass = Class.forName("behavior." + commandName);
             }
             catch (ClassNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                //model.showMessage("class not found");
             }
             Object o = null;
             try {
                 o = commandClass.newInstance();
             }
             catch (InstantiationException | IllegalAccessException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                
+                //model.showMessage("illegal access");
+             
             }
             ICommand myCommand = (ICommand) o;
             myCommand.initialize(subArray, null);
@@ -109,9 +134,17 @@ public class Parser {
 
         }
     }
-
-    public List<ICommand> buildMultipleCommands (List<String[]> commands, Model model) throws SyntaxException,
-                                                                         NoSuchCommandException {
+    /**
+     * build multiple commands
+     * @param commands command strings
+     * @param model mode we want to operate
+     * @return
+     * @throws SyntaxException
+     * @throws NoSuchCommandException
+     */
+    public List<ICommand> buildMultipleCommands (List<String[]> commands, Model model)
+                                                                                      throws SyntaxException,
+                                                                                      NoSuchCommandException {
         if (commands == null) { return null; }
 
         List<ICommand> myCommandList = new ArrayList<ICommand>();
@@ -120,7 +153,11 @@ public class Parser {
         }
         return myCommandList;
     }
-
+    /**
+     * delete first element of a string
+     * @param str input string
+     * @return
+     */
     public String[] subStringArray (String[] str) {
         int size = str.length;
         String[] subArray = new String[size - 1];
@@ -130,7 +167,13 @@ public class Parser {
 
         return subArray;
     }
-
+    /**
+     * find brackets that are in pair
+     * @param str input string
+     * @param position position of "["
+     * @return position of "]"
+     * @throws SyntaxException
+     */
     public int findRelatedBrackets (String str, int position) throws SyntaxException {
         if (str.charAt(position) != '[') {
             throw new SyntaxException();
@@ -152,13 +195,23 @@ public class Parser {
             return i;
         }
     }
-
+    /**
+     * parse commands that need one bracket
+     * @param command command we want to parse
+     * @param myCommandList our commandlist, used for recursion
+     * @param model model we want to operation
+     * @throws NumberFormatException
+     * @throws NoSuchCommandException
+     * @throws SyntaxException
+     * @throws NoSuchVariableException
+     */
     public void parseOneBracket (String command, List<ICommand> myCommandList, Model model)
-                                                                              throws NumberFormatException,
-                                                                              NoSuchCommandException,
+                                                                                           throws
+                                                                                           NoSuchCommandException,
 
-                                                                              SyntaxException, NoSuchVariableException{
-        
+                                                                                           SyntaxException,
+                                                                                           NoSuchVariableException {
+
         System.out.println(command);
         int position = findFirstFlow(command);
         System.out.println(position);
@@ -171,7 +224,7 @@ public class Parser {
             if (formerString.length() != 0 && !mySpacePattern.matcher(formerString).matches()) {
                 myCommandList.addAll(buildMultipleCommands(split(formerString), model));
             }
-            int bracketPosition = command.indexOf("[");
+            int bracketPosition = command.indexOf(LEFT_BRACKET);
             int end = findRelatedBrackets(command, bracketPosition);
 
             String postString = "";
@@ -187,10 +240,13 @@ public class Parser {
             System.out.println(flowName);
             String recursionString = command.substring(bracketPosition + 1, end - 1);
             System.out.println("recursionString : " + recursionString);
-            if (flowName.equals("REPEAT")){
-                myCommandList.add(new Repeat(recursionString, Integer.parseInt(repeatBuffer.get(0)[1]),model));
-            }else if (flowName.equals("IF")){
-                myCommandList.add(new If(recursionString, Integer.parseInt(repeatBuffer.get(0)[1]),model));
+            if (flowName.equals("REPEAT")) {
+                myCommandList.add(new Repeat(recursionString,
+                                             Integer.parseInt(repeatBuffer.get(0)[1]), model));
+            }
+            else if (flowName.equals("IF")) {
+                myCommandList.add(new If(recursionString, Integer.parseInt(repeatBuffer.get(0)[1]),
+                                         model));
             }
             if (postString.length() != 0 && !mySpacePattern.matcher(postString).matches()) {
                 parseOneBracket(postString, myCommandList, model);
@@ -198,18 +254,19 @@ public class Parser {
 
         }
     }
-    
+
     /**
      * Parses TO command
-     * @param command                   String command
-     * @param myCommandList             command LIst
+     * 
+     * @param command String command
+     * @param myCommandList command LIst
      * @return
-     * @throws SyntaxException             Syntax Exception
-     * @throws NoSuchCommandException       No command exception
+     * @throws SyntaxException Syntax Exception
+     * @throws NoSuchCommandException No command exception
      */
     public int parseTo (String command, List<ICommand> myCommandList, Model model)
-            throws SyntaxException,
-            NoSuchCommandException {
+                                                                                  throws SyntaxException,
+                                                                                  NoSuchCommandException {
         int position = command.indexOf("TO");
         if (position == -1) {
             myCommandList.addAll(buildMultipleCommands(split(command), model));
@@ -222,21 +279,22 @@ public class Parser {
             int bracketPosition = command.indexOf("[");
             String commandName = command.substring(position + TO_LENGTH, bracketPosition);
             String post = command.substring(bracketPosition + 1, command.length());
-           // System.out.println("This is after the command: " + post);
+            // System.out.println("This is after the command: " + post);
             String variable = post.substring(0, post.indexOf("]"));
-           // System.out.println("This is the variables: " + variable);
+            // System.out.println("This is the variables: " + variable);
             String temp = post.substring(post.indexOf("[") + 1, post.length());
-           // System.out.println("This is everything after the variable: " + temp);
+            // System.out.println("This is everything after the variable: " + temp);
             String commandsBracket = temp.substring(0, temp.indexOf("]"));
-           // System.out.println("This is the commands: " + commandsBracket);
+            // System.out.println("This is the commands: " + commandsBracket);
             String recurse = temp.substring(temp.indexOf("]") + 1, temp.length());
-           // System.out.println("This is the stuff after: " + recurse);
+            // System.out.println("This is the stuff after: " + recurse);
 
             List<String[]> variables = split(variable);
             List<String[]> commandsFromBracket = split(commandsBracket);
 
             myCommandList.add(new To(commandName, variables, commandsFromBracket, model));
-            myUserToCommands.put(commandName, new To(commandName, variables, commandsFromBracket, model));
+            myUserToCommands.put(commandName, new To(commandName, variables, commandsFromBracket,
+                                                     model));
             if (recurse.length() != 0) {
                 parseTo(recurse, myCommandList, model);
             }
@@ -249,16 +307,18 @@ public class Parser {
         }
         return 0;
     }
-    
+
     /**
      * parse ifelse statements
-     * @param command                   Command
-     * @param myCommandList             command list
-     * @throws SyntaxException          Syntax Exeception
-     * @throws NoSuchCommandException   NoCommand exceptoin
+     * 
+     * @param command Command
+     * @param myCommandList command list
+     * @throws SyntaxException Syntax Exeception
+     * @throws NoSuchCommandException NoCommand exceptoin
      */
-    public void parseIfElse (String command, List<ICommand> myCommandList, Model model) throws SyntaxException,
-                                                                          NoSuchCommandException {
+    public void parseIfElse (String command, List<ICommand> myCommandList, Model model)
+                                                                                       throws SyntaxException,
+                                                                                       NoSuchCommandException {
         int position = command.indexOf("IFELSE");
         if (position == -1) {
             myCommandList.addAll(buildMultipleCommands(split(command), model));
@@ -271,15 +331,15 @@ public class Parser {
             int bracketPosition = command.indexOf("[");
             String value = command.substring(position + IFELSE_LENGTH, bracketPosition);
             String post = command.substring(bracketPosition + 1, command.length());
-           // System.out.println("This is after the command: " + post);
+            // System.out.println("This is after the command: " + post);
             String trueCommand = post.substring(0, post.indexOf("]"));
-           // System.out.println("THis is true commands: " + trueCommand);
+            // System.out.println("THis is true commands: " + trueCommand);
             String temp = post.substring(post.indexOf("[") + 1, post.length());
-           // System.out.println("This is everything after true COmmand: " + temp);
+            // System.out.println("This is everything after true COmmand: " + temp);
             String falseCommand = temp.substring(0, temp.indexOf("]"));
-           // System.out.println("This is false command " + falseCommand);
+            // System.out.println("This is false command " + falseCommand);
             String recurse = temp.substring(temp.indexOf("]") + 1, temp.length());
-           // System.out.println("THis is eveyrhting after: " + recurse);
+            // System.out.println("THis is eveyrhting after: " + recurse);
 
             List<String[]> trueCommands = split(trueCommand);
             List<String[]> falseCommands = split(falseCommand);
@@ -292,28 +352,36 @@ public class Parser {
             }
         }
     }
-    public int findFirstFlow(String command){
-        
+    /**
+     * find first flow word in a string
+     * @param command input command
+     * @return position of first flow string
+     */
+    public int findFirstFlow (String command) {
+
         int toAndIf = command.length();
         int repeatAndIfElse = command.length();
-        for(int i = 0 ; i< command.length()-1 ; i++){
-            if(myFlows.containsKey(command.substring(i, i+2).toUpperCase())){
+        for (int i = 0; i < command.length() - 1; i++) {
+            if (myFlows.containsKey(command.substring(i, i + 2).toUpperCase())) {
                 toAndIf = i;
             }
         }
-        System.out.println(toAndIf);
-        for(int i = 0 ; i< command.length()-5 ; i++){
-            if(myFlows.containsKey(command.substring(i, i+6).toUpperCase())){
+        for (int i = 0; i < command.length() - 5; i++) {
+            if (myFlows.containsKey(command.substring(i, i + 6).toUpperCase())) {
                 repeatAndIfElse = i;
             }
         }
         System.out.println(repeatAndIfElse);
-        if(toAndIf < repeatAndIfElse){
+        if (toAndIf < repeatAndIfElse) {
             return toAndIf;
-        }else if (toAndIf > repeatAndIfElse){
-        
+        }
+        else if (toAndIf > repeatAndIfElse) {
+
             return repeatAndIfElse;
-        }else return -1;
+        }
+        else {
+            return -1;
+        }
     }
 
 }
