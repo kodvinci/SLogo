@@ -26,20 +26,20 @@ public class Repeat implements ICommand {
        
         myRunTime = time ;
          
-        myParser.parseOneBracket(subCommands, myCommands,model);
+        myParser.parseOneBracket(subCommands, myCommands, model);
         
         
     }
     
     
-    public void addCommands(List<String[]> commands,Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException{
+    public void addCommands(List<String[]> commands, Model model) throws SyntaxException, NoSuchCommandException{
         for(String[] str : commands){
             if( !myResources.containsKey(str[0])) {
                 System.out.print(str[0]);
                 throw new SyntaxException();
             }
             else{
-                myCommands.add( myParser.buildCommand(str,model));
+                myCommands.add(myParser.buildCommand(str, model));
             
             }
         }
@@ -65,6 +65,7 @@ public class Repeat implements ICommand {
 
     @Override
     public void initialize (String[] information, Model model) throws SyntaxException {
+        // TODO Auto-generated method stub
         
     }
 

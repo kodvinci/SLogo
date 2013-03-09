@@ -1,4 +1,4 @@
-package behavior;
+package behavior.flow;
 
 import exceptions.NoSuchCommandException;
 import exceptions.SyntaxException;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import behavior.ICommand;
 import slogo.Model;
 import slogo.Parser;
 
@@ -38,7 +39,7 @@ public class To implements ICommand {
      * @throws NoSuchCommandException No command exception
      * @throws SyntaxException        Wrong syntax exception
      */
-    public To (String name, List<String[]> variables, List<String[]> commands) 
+    public To (String name, List<String[]> variables, List<String[]> commands, Model model) 
             throws NoSuchCommandException, SyntaxException{
         
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
@@ -46,7 +47,7 @@ public class To implements ICommand {
         myCommands = commands;
         myName = name;
         System.out.println(myVariables.get(0).length + " " + myCommands.size());
-        map(variables, commands);
+        map(variables, commands, model);
     }
     
     /**
@@ -64,7 +65,7 @@ public class To implements ICommand {
      * @throws NoSuchCommandException   NoSuchCommandException
      * @throws SyntaxException          SyntaxException
      */
-    public void map(List<String[]> variables, List<String[]> commands) 
+    public void map(List<String[]> variables, List<String[]> commands, Model model) 
             throws NoSuchCommandException, SyntaxException {
         for (int i = 0; i < commands.size(); i++) {
             String[] command = commands.get(i);
@@ -73,7 +74,7 @@ public class To implements ICommand {
             System.out.println(Arrays.toString(variable));
             String var = variable[i];
             String[] str = {command[0], var};
-            ICommand myCommand = myParser.buildCommand(str);
+            ICommand myCommand = myParser.buildCommand(str, model);
             myCommandList.add(myCommand);
             System.out.println(myCommandList.size());
         }
