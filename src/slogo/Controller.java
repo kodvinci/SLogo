@@ -1,6 +1,7 @@
 package slogo;
 
 import java.awt.Dimension;
+import util.Location; 
 import java.util.ArrayList;
 import java.util.List;
 import object.Turtle;
@@ -70,20 +71,44 @@ public class Controller {
     public void processUserInput (int seq, String string) {
 
         try {
-            myInterpreter.process(myModels.get(seq), string);
+            myInterpreter.process(myModels.get(seq),0, string);
         }
         catch (SyntaxException e) {
             // myModels.get(seq).showMessage("Syntax Error, please check your commands");
             System.out.println("Syntax Error");
         }
         catch (NoSuchCommandException e) {
-            // myModels.get(seq).showMessage("Syntax Error, please check your commands");
+            // myModels.get(seq).showMDessage("Syntax Error, please check your commands");
             System.out.println("No such command");
+        }
+        List<Turtle> myTurtles= myModels.get(seq).getMyTurtles();
+        for (Turtle t:myTurtles){
+        	checkBounds(t);
         }
         // update view
         update();
     }
-
+    
+    public static void checkBounds(Turtle t){
+    	double x=t.getX();
+    	double y=t.getY();
+    	double xMargin=t.DEFAULT_SIZE.getWidth()/2;
+    	double yMargin=t.DEFAULT_SIZE.getHeight()/2;
+    	if (x>TURTLE_AREA_SIZE.getWidth()-xMargin){
+    		x=TURTLE_AREA_SIZE.getWidth()-xMargin; 
+    	}
+    	if (y>TURTLE_AREA_SIZE.getHeight()-yMargin){
+    		y=TURTLE_AREA_SIZE.getHeight()-yMargin; 
+    	}
+    	if (x<xMargin){
+    		x=xMargin;
+    	}
+    	if (y<yMargin){
+    		y=yMargin; 
+    	}
+    	t.setCenter(new Location (x,y));
+    	
+    }
     /**
      * Add a model
      */

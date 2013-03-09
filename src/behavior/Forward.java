@@ -1,7 +1,5 @@
 package behavior;
 
-import java.util.regex.Pattern;
-import object.Turtle;
 import slogo.Model;
 import util.Location;
 import exceptions.SyntaxException;
@@ -13,16 +11,7 @@ import exceptions.SyntaxException;
  * 
  */
 
-public class Forward implements ICommand {
-
-    private double myDistance;
-    private Pattern myNumPattern = Pattern.compile("[0-9]*");
-
-    public Forward (String[] information) throws SyntaxException {
-        if (information.length != 1 || !myNumPattern.matcher(information[0]).matches())
-            throw new SyntaxException();
-        myDistance = Double.parseDouble(information[0]);
-    }
+public class Forward extends OneParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
@@ -30,10 +19,10 @@ public class Forward implements ICommand {
         double currentY = model.getMyTurtle(turtleNumber).getY();
         double angle = model.getMyTurtle(turtleNumber).getMyAngle();
         Location newLocation =
-                new Location(currentX + myDistance * Math.sin(angle), currentY + myDistance *
-                                                                      Math.sin(angle));
+                new Location(currentX + getMyValue() * Math.sin(angle), currentY + getMyValue() *
+                                                                        Math.cos(angle));
         model.getMyTurtle(turtleNumber).setCenter(newLocation);
-        return myDistance;
+        return getMyValue();
 
     }
 }
