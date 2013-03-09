@@ -54,8 +54,7 @@ public class Interpreter {
                                                                                  NoSuchCommandException,
                                                                                  NumberFormatException,
                                                                                  NoSuchVariableException {
-        myParser.parseOneBracket(command, myCommandList, model);
-
+      
         // int repeatIndex = myParser.findFirstFlow(command, "REPEAT");
         // int toIndex = myParser.findFirstFlow(command, "TO");
         // int ifIndex = myParser.findFirstFlow(command, "IF");
@@ -85,6 +84,8 @@ public class Interpreter {
         // myParser.parseTo(command, myCommandList, model);
         // }
         // System.out.println("index" + index);
+        int index = myParser.findFirstFlow(command);
+        System.out.println("index" + index);
         if (command.contains("REPEAT")) {
             myParser.parseOneBracket(command, myCommandList, model);
         }
