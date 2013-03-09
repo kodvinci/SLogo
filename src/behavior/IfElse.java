@@ -66,7 +66,7 @@ public class IfElse implements ICommand {
      * @throws SyntaxException
      */
     public void map(List<String[]> trueCommands, List<String[]> falseCommands) 
-            throws NoSuchCommandException, SyntaxException {
+        throws NoSuchCommandException, SyntaxException {
         myTrueCommands = buildCommands(trueCommands);
         myFalseCommands = buildCommands(falseCommands);
     }
