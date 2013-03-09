@@ -84,6 +84,13 @@ public class Interpreter {
         
         
         //myParser.parseTo(command, myCommandList, model);
+
+//       int index = myParser.findFirstFlow(command);
+//       if (index < 0) {
+//          myParser.parseTo(command, myCommandList, model);
+//       }
+//       System.out.println("index" + index);
+
     }
 
     /**

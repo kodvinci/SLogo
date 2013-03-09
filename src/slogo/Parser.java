@@ -222,15 +222,15 @@ public class Parser {
             int bracketPosition = command.indexOf("[");
             String commandName = command.substring(position + TO_LENGTH, bracketPosition);
             String post = command.substring(bracketPosition + 1, command.length());
-            System.out.println("This is after the command: " + post);
+           // System.out.println("This is after the command: " + post);
             String variable = post.substring(0, post.indexOf("]"));
-            System.out.println("This is the variables: " + variable);
+           // System.out.println("This is the variables: " + variable);
             String temp = post.substring(post.indexOf("[") + 1, post.length());
-            System.out.println("This is everything after the variable: " + temp);
+           // System.out.println("This is everything after the variable: " + temp);
             String commandsBracket = temp.substring(0, temp.indexOf("]"));
-            System.out.println("This is the commands: " + commandsBracket);
+           // System.out.println("This is the commands: " + commandsBracket);
             String recurse = temp.substring(temp.indexOf("]") + 1, temp.length());
-            System.out.println("This is the stuff after: " + recurse);
+           // System.out.println("This is the stuff after: " + recurse);
 
             List<String[]> variables = split(variable);
             List<String[]> commandsFromBracket = split(commandsBracket);
@@ -271,15 +271,15 @@ public class Parser {
             int bracketPosition = command.indexOf("[");
             String value = command.substring(position + IFELSE_LENGTH, bracketPosition);
             String post = command.substring(bracketPosition + 1, command.length());
-            System.out.println("This is after the command: " + post);
+           // System.out.println("This is after the command: " + post);
             String trueCommand = post.substring(0, post.indexOf("]"));
-            System.out.println("THis is true commands: " + trueCommand);
+           // System.out.println("THis is true commands: " + trueCommand);
             String temp = post.substring(post.indexOf("[") + 1, post.length());
-            System.out.println("This is everything after true COmmand: " + temp);
+           // System.out.println("This is everything after true COmmand: " + temp);
             String falseCommand = temp.substring(0, temp.indexOf("]"));
-            System.out.println("This is false command " + falseCommand);
+           // System.out.println("This is false command " + falseCommand);
             String recurse = temp.substring(temp.indexOf("]") + 1, temp.length());
-            System.out.println("THis is eveyrhting after: " + recurse);
+           // System.out.println("THis is eveyrhting after: " + recurse);
 
             List<String[]> trueCommands = split(trueCommand);
             List<String[]> falseCommands = split(falseCommand);
