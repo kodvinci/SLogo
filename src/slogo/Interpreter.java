@@ -6,6 +6,7 @@ import behavior.ICommand;
 import exceptions.NoSuchCommandException;
 import exceptions.NoSuchVariableException;
 import exceptions.SyntaxException;
+import java.util.Collections;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -44,20 +45,36 @@ public class Interpreter {
    
     
     
-    public void parse (String command, List<ICommand> myCommandList,Model model) throws SyntaxException, NoSuchCommandException, NumberFormatException, NoSuchVariableException {
+    public void parse (String command, List<ICommand> myCommandList, Model model) throws SyntaxException, NoSuchCommandException, NumberFormatException, NoSuchVariableException {
         
+
         myParser.parseOneBracket(command, myCommandList, model);
+
+
 //        int repeatIndex = myParser.findFirstFlow(command, "REPEAT");
 //        int toIndex = myParser.findFirstFlow(command, "TO");
 //        int ifIndex = myParser.findFirstFlow(command, "IF");
 //        int elseifIndex = myParser.findFirstFlow(command, "ELSEIF");
 //        
+//        myFlowMap.put(repeatIndex, "REPEAT");
+//        myFlowMap.put(toIndex, "TO");
+//        myFlowMap.put(ifIndex, "IF");
+//        myFlowMap.put(elseifIndex, "ELSEIF");
 //        myFlowOrder.add(repeatIndex);
 //        myFlowOrder.add(toIndex);
 //        myFlowOrder.add(ifIndex);
+//        myFlowOrder.add(elseifIndex);
 //        
+//        Collections.sort(myFlowOrder);
 //        
-//        myParser.parseTo(command, myCommandList, model);
+//        for (int i = 0; i < myFlowOrder.size(); i++) {
+//            if (myFlowMap.get(myFlowOrder.get(i)).equals("REPEAT")) {
+//                parseOneBracket(command, myCommandList, model)
+//            }
+//        }
+        
+        
+        //myParser.parseTo(command, myCommandList, model);
     }
 
     /**
