@@ -1,18 +1,19 @@
 package behavior;
 
+import exceptions.NoSuchCommandException;
+import exceptions.SyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import slogo.Model;
 import slogo.Parser;
-import exceptions.NoSuchCommandException;
-import exceptions.SyntaxException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.regex.Pattern;
-import behavior.ICommand;
 
+/**
+ * Implements TO command
+ * @author Jerry
+ *
+ */
 public class To implements ICommand {
     
     private List<ICommand> myCommandList = new ArrayList<ICommand>();
@@ -23,9 +24,22 @@ public class To implements ICommand {
     
     private ResourceBundle myResources;
     
+    /**
+     * resources of commands
+     */
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";  
     
-    public To (String name, List<String[]> variables, List<String[]> commands) throws NoSuchCommandException, SyntaxException{
+    
+    /**
+     * Initializes TO command
+     * @param name          name
+     * @param variables     variables
+     * @param commands      commands
+     * @throws NoSuchCommandException No command exception
+     * @throws SyntaxException        Wrong syntax exception
+     */
+    public To (String name, List<String[]> variables, List<String[]> commands) 
+            throws NoSuchCommandException, SyntaxException{
         
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
         myVariables = variables;
@@ -35,12 +49,24 @@ public class To implements ICommand {
         map(variables, commands);
     }
     
+    /**
+     * return name
+     * @return
+     */
     public String getName() {
         return myName;
     }
     
-    public void map(List<String[]> variables, List<String[]> commands) throws NoSuchCommandException, SyntaxException {
-        for (int i =0; i < commands.size(); i++) {
+    /**
+     * Maps stuff in brackets to respective lists
+     * @param variables                 variables
+     * @param commands                  commands
+     * @throws NoSuchCommandException   NoSuchCommandException
+     * @throws SyntaxException          SyntaxException
+     */
+    public void map(List<String[]> variables, List<String[]> commands) 
+            throws NoSuchCommandException, SyntaxException {
+        for (int i = 0; i < commands.size(); i++) {
             String[] command = commands.get(i);
             System.out.println(Arrays.toString(command));
             String[] variable = variables.get(0);
@@ -50,9 +76,15 @@ public class To implements ICommand {
             ICommand myCommand = myParser.buildCommand(str);
             myCommandList.add(myCommand);
             System.out.println(myCommandList.size());
-            }
+        }
     }
     
+    /**
+     * Move     
+     * @param model         the model
+     * @param turtleNumber  the turtle
+     * @throws SyntaxException  SyntaxException
+     */
     public double move (Model model, int turtleNumber) throws SyntaxException {
         for (int i = 0; i < myCommandList.size(); i++) {
             myCommandList.get(i).move(model, turtleNumber);
@@ -61,6 +93,10 @@ public class To implements ICommand {
         return myCommandList.size();
     }
     
+    /**
+     * implements ICommand.initialize
+     * @param string    string command
+     */
     public void initialize(String[] string) {
         
     }
