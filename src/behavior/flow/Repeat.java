@@ -25,7 +25,7 @@ public class Repeat implements ICommand {
        
         myRunTime = time ;
          
-        myParser.parseOneBracket(subCommands, myCommands);
+        myParser.parseOneBracket(subCommands, myCommands, model);
         
         
     }

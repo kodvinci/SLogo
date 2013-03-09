@@ -39,7 +39,7 @@ public class IfElse implements ICommand {
      * @throws NoSuchCommandException   
      * @throws SyntaxException
      */
-    public IfElse (List<String[]> trueCommands, List<String[]> falseCommands, double value)
+    public IfElse (List<String[]> trueCommands, List<String[]> falseCommands, double value, Model model)
             throws NoSuchCommandException, SyntaxException {
         
         myStringTrueCommands = trueCommands;
@@ -48,7 +48,7 @@ public class IfElse implements ICommand {
         myTrueCommands = new ArrayList<ICommand>();
         myFalseCommands = new ArrayList<ICommand>();
         myValue = value;
-        map(trueCommands, falseCommands);
+        map(trueCommands, falseCommands, model);
     }
     
     /**
@@ -66,10 +66,10 @@ public class IfElse implements ICommand {
      * @throws NoSuchCommandException
      * @throws SyntaxException
      */
-    public void map(List<String[]> trueCommands, List<String[]> falseCommands) 
+    public void map(List<String[]> trueCommands, List<String[]> falseCommands, Model model) 
         throws NoSuchCommandException, SyntaxException {
-        myTrueCommands = buildCommands(trueCommands);
-        myFalseCommands = buildCommands(falseCommands);
+        myTrueCommands = buildCommands(trueCommands, model);
+        myFalseCommands = buildCommands(falseCommands, model);
     }
     
     /**
@@ -79,11 +79,11 @@ public class IfElse implements ICommand {
      * @throws NoSuchCommandException
      * @throws SyntaxException
      */
-    public List<ICommand> buildCommands(List<String[]> commands) throws NoSuchCommandException, SyntaxException {
+    public List<ICommand> buildCommands(List<String[]> commands, Model model) throws NoSuchCommandException, SyntaxException {
         List<ICommand> theCommands = new ArrayList<ICommand>();
         for (int i = 0; i < commands.size(); i++) {
             String[] command = commands.get(i);
-            ICommand myCommand = myParser.buildCommand(command);
+            ICommand myCommand = myParser.buildCommand(command, model);
             theCommands.add(myCommand);
         }
         return theCommands;
