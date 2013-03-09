@@ -99,7 +99,7 @@ public class DisplayArea extends Window {
         showMessage(Y_LABEL +
                     myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getY()));
         showMessage(ANGLE_LABEL +
-                    myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getMyAngle()));
+                    myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getAngle()));
         showMessage("\n");
     }
 

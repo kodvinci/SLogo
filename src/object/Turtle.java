@@ -106,7 +106,7 @@ public class Turtle extends Animal {
      * 
      * @return myAngle
      */
-    public double getMyAngle () {
+    public double getAngle () {
         return myAngle;
     }
 
@@ -115,7 +115,7 @@ public class Turtle extends Animal {
      * 
      * @param angle angle to set to
      */
-    public void setMyAngle (double angle) {
+    public void setAngle (double angle) {
         myAngle = angle;
     }
 
@@ -156,4 +156,11 @@ public class Turtle extends Animal {
         return myTrail;
     }
 
+    /**
+     * 
+     * @return size of Image
+     */
+    public Dimension getSize () {
+        return DEFAULT_SIZE;
+    }
 }

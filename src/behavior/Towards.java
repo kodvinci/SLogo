@@ -20,8 +20,8 @@ public class Towards extends TwoParameterCommand {
         double deltaX = x - model.getMyTurtle(turtleNumber).getX();
         double deltaY = y - model.getMyTurtle(turtleNumber).getY();
         double currentAngle = Math.atan(deltaX / deltaY);
-        double difference = currentAngle - model.getMyTurtle(turtleNumber).getMyAngle();
-        model.getMyTurtle(turtleNumber).setMyAngle(currentAngle);
+        double difference = currentAngle - model.getMyTurtle(turtleNumber).getAngle();
+        model.getMyTurtle(turtleNumber).setAngle(currentAngle);
         return difference;
     }
 

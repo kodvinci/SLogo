@@ -10,6 +10,7 @@ import object.Trail;
 import object.Turtle;
 import util.Location;
 
+
 /**
  * 
  * @author Leonard and Alan
@@ -55,8 +56,17 @@ public class TurtleArea extends Window {
         paintTurtle((Graphics2D) pen);
         paintTrails((Graphics2D) pen);
 
+        // rotation
+        rotatePen((Graphics2D) pen);
+
         Toolkit.getDefaultToolkit().sync();
         pen.dispose();
+    }
+
+    private void rotatePen (Graphics2D pen) {
+        for (Turtle t : myTurtles) {
+            t.paint(pen, t.getCenter(), t.getSize(), t.getAngle());
+        }
     }
 
     /**
