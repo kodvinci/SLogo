@@ -16,15 +16,33 @@ import slogo.Controller;
  * 
  */
 public class Canvas {
-
+    
+    /**
+     * default turtle size
+     */
     public static final Dimension TURTLE_AREA_SIZE = new Dimension(800, 500);
+    private static final int WIDTH = 1050;
+    private static final int HEIGHT = 700;
+    private static final int RANGE = 10;
+    /**
+     * default display area size
+     */
     private static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
+    /**
+     * default command area size
+     */
     private static final Dimension COMMAND_AREA_SIZE = new Dimension(1000, 40);
+    /**
+     * default size
+     */
     private static final Dimension SIZE = new Dimension(1100, 700);
+    /**
+     * title
+     */
     private static final String TITLE = "SLOGO";
-    private int myWidth = 1050;
-    private int myHeight = 700;
-    private int myRange = 10;
+    private int myWidth = WIDTH;
+    private int myHeight = HEIGHT;
+    private int myRange = RANGE;
     private Controller myController;
     private JPanel myPanel;
     private JFrame myFrame;

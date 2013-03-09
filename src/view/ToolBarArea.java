@@ -1,13 +1,13 @@
 package view;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List; 
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List; 
 import java.util.ResourceBundle;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
@@ -17,7 +17,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import slogo.Controller;
 
-
+/**
+ * Creates ToolBar area
+ * @author Alan and Leonard
+ *
+ */
 public class ToolBarArea extends JMenuBar {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
@@ -36,7 +40,11 @@ public class ToolBarArea extends JMenuBar {
         setBackground(BACKGROUND_COLOR);
         this.add(makeFileMenu());
     }
-
+    
+    /**
+     * make file menu
+     * @return
+     */
     private JMenu makeFileMenu () {
         JMenu result = new JMenu(myResources.getString("FileMenu"));
         result.add(new AbstractAction(myResources.getString("OpenCommand")) {
@@ -92,13 +100,13 @@ public class ToolBarArea extends JMenuBar {
         try {
             BufferedReader input = new BufferedReader(fileReader);
             String line = input.readLine();
-            List<String> inputCommands= new ArrayList<String>();
-            while (line.length()!=0) {
+            List<String> inputCommands = new ArrayList<String>();
+            while (line.length() != 0) {
                 inputCommands.add(line);
                 line = input.readLine();
             }
-            for (String inputCommand: inputCommands){
-            	myController.processUserInput(0, inputCommand);
+            for (String inputCommand: inputCommands) {
+                myController.processUserInput(0, inputCommand);
             }
         }
         catch (IOException e) {
