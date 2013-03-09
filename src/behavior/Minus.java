@@ -1,6 +1,5 @@
 package behavior;
 
-
 import slogo.Model;
 import exceptions.SyntaxException;
 

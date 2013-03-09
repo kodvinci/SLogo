@@ -14,7 +14,7 @@ public class GreaterP extends TwoParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
-        
+
         return (getMyFirstValue() > getMySecondValue()) ? 1 : 0;
     }
 

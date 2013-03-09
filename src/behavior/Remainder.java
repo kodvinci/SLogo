@@ -14,7 +14,7 @@ public class Remainder extends TwoParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
-        
+
         int result = (int) getMyFirstValue() % (int) getMySecondValue();
         return result;
     }

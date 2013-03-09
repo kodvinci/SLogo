@@ -18,9 +18,11 @@ public class Forward extends OneParameterCommand {
         double currentX = model.getMyTurtle(turtleNumber).getX();
         double currentY = model.getMyTurtle(turtleNumber).getY();
         double angle = model.getMyTurtle(turtleNumber).getMyAngle();
-        Location newLocation = new Location(currentX+ getMyValue() * Math.sin(angle), currentY + getMyValue() * Math.cos(angle));
+        Location newLocation =
+                new Location(currentX + getMyValue() * Math.sin(angle), currentY + getMyValue() *
+                                                                        Math.cos(angle));
         model.getMyTurtle(turtleNumber).setCenter(newLocation);
         return getMyValue();
-        
+
     }
 }

@@ -14,7 +14,7 @@ public class Not extends OneParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
-        
+
         return getMyValue() != 0 ? 0 : 1;
     }
 

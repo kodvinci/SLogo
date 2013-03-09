@@ -14,9 +14,9 @@ public class ShowTurtle extends NoParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
-        
-            model.getMyTurtle(turtleNumber).setVisible();
-            return 1;
+
+        model.getMyTurtle(turtleNumber).setVisible();
+        return 1;
 
     }
 

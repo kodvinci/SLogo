@@ -20,7 +20,7 @@ public interface ICommand {
      * @return return command
      * @throws SyntaxException syntax exception
      */
-    public abstract double move (Model model , int TurtleNumber) throws SyntaxException;
+    public abstract double move (Model model, int TurtleNumber) throws SyntaxException;
 
-    public abstract void initialize(String[] information, Model model) throws SyntaxException;
+    public abstract void initialize (String[] information, Model model) throws SyntaxException;
 }
