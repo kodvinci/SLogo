@@ -14,8 +14,16 @@ import slogo.Model;
 
 public class CommandEntities {
 
-    public void doCommand (Model model, int turtleNumber, List<ICommand> commands)
-                                                                                  throws SyntaxException {
+    /**
+     * 
+     * @param model model to apply command
+     * @param turtleNumber which turtle we want to operate
+     * @param commands user commands
+     * @throws SyntaxException wrong syntax format
+     */
+    public void doCommand (Model model, int turtleNumber, List<ICommand> commands) 
+            throws SyntaxException {
+
         for (ICommand command : commands) {
             command.move(model, turtleNumber);
         }

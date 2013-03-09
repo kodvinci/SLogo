@@ -1,9 +1,14 @@
 package behavior;
 
+import exceptions.SyntaxException;
 import java.util.regex.Pattern;
 import slogo.Model;
-import exceptions.SyntaxException;
 
+/**
+ * Make a variable
+ * @author Richard Yang
+ *
+ */
 
 public class Make implements ICommand {
 
@@ -12,7 +17,7 @@ public class Make implements ICommand {
     private double myValue;
 
     @Override
-    public double move (Model model, int TurtleNumber) throws SyntaxException {
+    public double move (Model model, int turtleNumber) throws SyntaxException {
         model.addVariable(myVariableName, myValue);
         return myValue;
     }
