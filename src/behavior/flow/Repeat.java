@@ -7,6 +7,7 @@ import behavior.ICommand;
 import slogo.Model;
 import slogo.Parser;
 import exceptions.NoSuchCommandException;
+import exceptions.NoSuchVariableException;
 import exceptions.SyntaxException;
 
 public class Repeat implements ICommand {
@@ -19,26 +20,26 @@ public class Repeat implements ICommand {
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     
     
-    public Repeat(String subCommands, int time) throws NoSuchCommandException, SyntaxException{
+    public Repeat(String subCommands, int time, Model model) throws NoSuchCommandException, SyntaxException, NumberFormatException, NoSuchVariableException{
         
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
        
         myRunTime = time ;
          
-        myParser.parseOneBracket(subCommands, myCommands);
+        myParser.parseOneBracket(subCommands, myCommands,model);
         
         
     }
     
     
-    public void addCommands(List<String[]> commands) throws SyntaxException, NoSuchCommandException{
+    public void addCommands(List<String[]> commands,Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException{
         for(String[] str : commands){
             if( !myResources.containsKey(str[0])) {
                 System.out.print(str[0]);
                 throw new SyntaxException();
             }
             else{
-                myCommands.add( myParser.buildCommand(str));
+                myCommands.add( myParser.buildCommand(str,model));
             
             }
         }
@@ -64,7 +65,6 @@ public class Repeat implements ICommand {
 
     @Override
     public void initialize (String[] information, Model model) throws SyntaxException {
-        // TODO Auto-generated method stub
         
     }
 
