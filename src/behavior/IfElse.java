@@ -129,13 +129,6 @@ public class IfElse implements ICommand {
         
         
     }
-    /**
-     * implements ICommand.initialize
-     */
-    @Override
-    public void initialize(String[] string, Model model) {
-
-    }
     
     
     
