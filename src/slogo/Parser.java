@@ -220,8 +220,8 @@ public class Parser {
             List<String[]> variables = split(variable);
             List<String[]> commandsFromBracket = split(commandsBracket);
 
-            myCommandList.add(new To(commandName, variables, commandsFromBracket));
-            myUserToCommands.put(commandName, new To(commandName, variables, commandsFromBracket));
+            myCommandList.add(new To(commandName, variables, commandsFromBracket, model));
+            myUserToCommands.put(commandName, new To(commandName, variables, commandsFromBracket, model));
             if (recurse.length() != 0) {
                 parseTo(recurse, myCommandList, model);
             }
