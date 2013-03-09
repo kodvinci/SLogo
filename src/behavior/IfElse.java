@@ -1,63 +1,81 @@
+package behavior; 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import slogo.Model;
 import slogo.Parser;
 import exceptions.NoSuchCommandException;
 import exceptions.SyntaxException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.regex.Pattern;
 import behavior.ICommand;
 
 public class IfElse implements ICommand {
     
-    private List<ICommand> myCommandList = new ArrayList<ICommand>();
-    private List<String[]> myTrueCommands;
-    private List<String[]> myFalseCommands;
-    private String myName;
+    private List<String[]> myStringTrueCommands;
+    private List<String[]> myStringFalseCommands;
+    private List<ICommand> myTrueCommands;
+    private List<ICommand> myFalseCommands;
     private Parser myParser = new Parser();
+    private double myValue;
+    private double myFinalValue;
     
     private ResourceBundle myResources;
     
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";  
     
-    public IfElse (String name, List<String[]> trueCommands, List<String[]> falseCommands, double Value) throws NoSuchCommandException, SyntaxException{
+    public IfElse (List<String[]> trueCommands, List<String[]> falseCommands, double Value) throws NoSuchCommandException, SyntaxException{
         
+        myStringTrueCommands = trueCommands;
+        myStringFalseCommands = falseCommands;
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
-        myTrueCommands = trueCommands;
-        myFalseCommands = falseCommands;
-        myName = name;
-        System.out.println(myTrueCommands.size() + " " + myFalseCommands.size());
-        map(myTrueCommands, myFalseCommands);
+        myTrueCommands = new ArrayList<ICommand>();
+        myFalseCommands = new ArrayList<ICommand>();
+        myValue = Value;
+        map(trueCommands, falseCommands);
     }
     
-    public String getName() {
-        return myName;
+    public double getMyFinalValue() {
+        return myFinalValue;
     }
     
     public void map(List<String[]> trueCommands, List<String[]> falseCommands) throws NoSuchCommandException, SyntaxException {
-        for (int i =0; i < commands.size(); i++) {
-            String[] command = commands.get(i);
-            System.out.println(Arrays.toString(command));
-            String[] variable = variables.get(0);
-            System.out.println(Arrays.toString(variable));
-            String var = variable[i];
-            String[] str = {command[0], var};
-            ICommand myCommand = myParser.buildCommand(str);
-            myCommandList.add(myCommand);
-            System.out.println(myCommandList.size());
-            }
+        myTrueCommands = buildCommands(trueCommands);
+        myFalseCommands = buildCommands(falseCommands);
     }
     
+    public List<ICommand> buildCommands(List<String[]> commands) throws NoSuchCommandException, SyntaxException {
+        List<ICommand> theCommands = new ArrayList<ICommand>();
+        for (int i =0; i < commands.size(); i++) {
+            String[] command = commands.get(i);
+            ICommand myCommand = myParser.buildCommand(command);
+            theCommands.add(myCommand);
+        }
+        return theCommands;
+    }
+    
+    
     public double move (Model model, int turtleNumber) throws SyntaxException {
-        for (int i = 0; i < myCommandList.size(); i++) {
-            myCommandList.get(i).move(model, turtleNumber);
+        myFinalValue = move(model, turtleNumber, myValue);
+        return myFinalValue;
+    }
+    
+    public double move(Model model, int turtleNumber, double value) throws SyntaxException {
+        if (value == 0) {
+            for (int i = 0; i < myFalseCommands.size(); i++) {
+                myFalseCommands.get(i).move(model, turtleNumber);
+            }
+            double myLastValue = Double.parseDouble(myStringTrueCommands.get(myStringTrueCommands.size()-1)[1]);
+            return myLastValue;
+        }
+        else {
+            for (int i = 0; i < myTrueCommands.size(); i++) {
+                myTrueCommands.get(i).move(model, turtleNumber);
+            }
+            double myLastValue = Double.parseDouble(myStringFalseCommands.get(myStringFalseCommands.size()-1)[1]);
+            return myLastValue;
         }
         
-        return myCommandList.size();
+        
     }
     
     public void initialize(String[] string) {
