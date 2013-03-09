@@ -182,11 +182,18 @@ public class Parser {
 
         }
     }
-
+    
+    /**
+     * Parses TO command
+     * @param command                   String command
+     * @param myCommandList             command LIst
+     * @return
+     * @throws SyntaxException             Syntax Exception
+     * @throws NoSuchCommandException       No command exception
+     */
     public int parseTo (String command, List<ICommand> myCommandList)
-                                                                     throws SyntaxException,
-                                                                     NoSuchCommandException {
-
+            throws SyntaxException,
+            NoSuchCommandException {
         int position = command.indexOf("TO");
         if (position == -1) {
             myCommandList.addAll(buildMultipleCommands(split(command)));
@@ -197,7 +204,6 @@ public class Parser {
                 myCommandList.addAll(buildMultipleCommands(split(formerString)));
             }
             int bracketPosition = command.indexOf("[");
-
             String commandName = command.substring(position + TO_LENGTH, bracketPosition);
             String post = command.substring(bracketPosition + 1, command.length());
             System.out.println("This is after the command: " + post);
@@ -225,10 +231,16 @@ public class Parser {
                 return 0;
             }
         }
-
         return 0;
     }
-
+    
+    /**
+     * parse ifelse statements
+     * @param command                   Command
+     * @param myCommandList             command list
+     * @throws SyntaxException          Syntax Exeception
+     * @throws NoSuchCommandException   NoCommand exceptoin
+     */
     public void parseIfElse (String command, List<ICommand> myCommandList) throws SyntaxException,
                                                                           NoSuchCommandException {
         int position = command.indexOf("IFELSE");
@@ -259,7 +271,7 @@ public class Parser {
             System.out.println(doubleValue);
             ICommand currentIfElse = new IfElse(trueCommands, falseCommands, doubleValue);
             myCommandList.add(currentIfElse);
-            if (recurse.length() != 0 && mySpacePattern.matcher(recurse).matches()) {
+            if (recurse.length() != 0) {
                 parseIfElse(recurse, myCommandList);
             }
         }
