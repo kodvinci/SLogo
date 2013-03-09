@@ -7,12 +7,8 @@ import exceptions.NoSuchCommandException;
 import exceptions.NoSuchVariableException;
 import exceptions.SyntaxException;
 import java.util.Map;
-import behavior.flow.IfElse;
-import behavior.flow.To;
-import exceptions.NoSuchCommandException;
-import exceptions.SyntaxException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -30,6 +26,9 @@ public class Interpreter {
     private Pattern myNumPattern;
     private Pattern myStrPattern;
     private Parser myParser;
+    
+    private Map<Integer, String> myFlowMap = new TreeMap<Integer, String>();
+    private List<Integer> myFlowOrder = new ArrayList<Integer>();
 
 
     /**
@@ -46,7 +45,18 @@ public class Interpreter {
     
     
     public void parse (String command, List<ICommand> myCommandList,Model model) throws SyntaxException, NoSuchCommandException, NumberFormatException, NoSuchVariableException {
-        myParser.parseOneBracket(command, myCommandList, model);
+        
+        int repeatIndex = myParser.findFirstFlow(command, "REPEAT");
+        int toIndex = myParser.findFirstFlow(command, "TO");
+        int ifIndex = myParser.findFirstFlow(command, "IF");
+        int elseifIndex = myParser.findFirstFlow(command, "ELSEIF");
+        
+        myFlowOrder.add(repeatIndex);
+        myFlowOrder.add(toIndex);
+        myFlowOrder.add(ifIndex);
+        
+        
+        myParser.parseTo(command, myCommandList, model);
     }
 
     /**
