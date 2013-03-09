@@ -15,7 +15,7 @@ public class RandomV extends OneParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
-        
+
         Random myRandom = new Random();
         int maxValue = (int) Math.floor(getMyValue());
         int result = myRandom.nextInt() % maxValue;

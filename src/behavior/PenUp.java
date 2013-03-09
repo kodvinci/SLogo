@@ -14,10 +14,10 @@ public class PenUp extends NoParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
-      
-            model.getMyTurtle(turtleNumber).leftTrail();
-            return 0;
-        
+
+        model.getMyTurtle(turtleNumber).leftTrail();
+        return 0;
+
     }
 
 }

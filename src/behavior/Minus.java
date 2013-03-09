@@ -1,8 +1,8 @@
 package behavior;
 
-
-import slogo.Model;
 import exceptions.SyntaxException;
+import slogo.Model;
+
 
 
 /**

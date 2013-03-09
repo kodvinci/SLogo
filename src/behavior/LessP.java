@@ -1,7 +1,7 @@
 package behavior;
 
-import slogo.Model;
 import exceptions.SyntaxException;
+import slogo.Model;
 
 
 /**
@@ -14,7 +14,7 @@ public class LessP extends TwoParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
-        
+
         return (getMyFirstValue() < getMySecondValue()) ? 1 : 0;
     }
 

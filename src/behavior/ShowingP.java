@@ -14,7 +14,7 @@ public class ShowingP extends NoParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
-        
+
         return model.getMyTurtle(turtleNumber).isVisible() ? 1 : 0;
     }
 

@@ -1,7 +1,8 @@
 package behavior;
 
-import slogo.Model;
 import exceptions.SyntaxException;
+import slogo.Model;
+
 
 
 /**
@@ -14,7 +15,7 @@ public class Not extends OneParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
-        
+
         return getMyValue() != 0 ? 0 : 1;
     }
 

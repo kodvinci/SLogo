@@ -16,6 +16,6 @@ public class Right extends Left {
     public double move (Model model, int turtleNumber) throws SyntaxException {
         inverseMyValue();
         super.move(model, turtleNumber);
-        return getMyValue();  
+        return getMyValue();
     }
 }

@@ -15,15 +15,13 @@ public class SetXY extends TwoParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
-        
-            double newX = getMyFirstValue() + Canvas.TURTLE_AREA_SIZE.width / 2;
-            double newY = getMySecondValue() + Canvas.TURTLE_AREA_SIZE.height / 2;
-            model.getMyTurtle(turtleNumber).setCenter(newX, newY);
-            return Math
-                    .sqrt(Math.pow(newX - model.getMyTurtle(turtleNumber).getX() , 2) +
-                          Math.pow(newY - model.getMyTurtle(turtleNumber).getY() , 2));
-        }
 
-    
+        double newX = getMyFirstValue() + Canvas.TURTLE_AREA_SIZE.width / 2;
+        double newY = getMySecondValue() + Canvas.TURTLE_AREA_SIZE.height / 2;
+        model.getMyTurtle(turtleNumber).setCenter(newX, newY);
+        return Math
+                .sqrt(Math.pow(newX - model.getMyTurtle(turtleNumber).getX(), 2) +
+                      Math.pow(newY - model.getMyTurtle(turtleNumber).getY(), 2));
+    }
 
 }
