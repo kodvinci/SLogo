@@ -38,6 +38,7 @@ public class Interpreter {
 
     /**
      * parse user input
+<<<<<<< HEAD
      * 
      * @param command
      * @param myCommandList
@@ -48,12 +49,23 @@ public class Interpreter {
      * @throws NoSuchVariableException
      */
 
+=======
+     * @param command               Command
+     * @param myCommandList         command list
+     * @param model                     model
+     * @throws SyntaxException              exception   
+     * @throws NoSuchCommandException          exception    
+     * @throws NumberFormatException            exception
+     * @throws NoSuchVariableException      exception
+     */
+>>>>>>> 0124c9c34bf406d2012bea16f1f0d42f7c1c9dec
     public void parse (String command, List<ICommand> myCommandList, Model model)
                                                                                  throws SyntaxException,
                                                                                  NoSuchCommandException,
                                                                                  NumberFormatException,
                                                                                  NoSuchVariableException {
 
+<<<<<<< HEAD
         myParser.parseOneBracket(command, myCommandList, model);
 
         // int repeatIndex = myParser.findFirstFlow(command, "REPEAT");
@@ -85,6 +97,24 @@ public class Interpreter {
         // myParser.parseTo(command, myCommandList, model);
         // }
         // System.out.println("index" + index);
+=======
+        if (command.contains("REPEAT")) {
+            myParser.parseOneBracket(command, myCommandList, model);
+        }
+        else if (command.contains("IFELSE")) {
+            myParser.parseIfElse(command, myCommandList, model);
+        }
+        else if (command.contains("IF")) {
+            myParser.parseOneBracket(command, myCommandList, model);
+        }
+        else if (command.contains("TO")) {
+            myParser.parseTo(command, myCommandList, model);
+        }
+        else {
+            myParser.parseOneBracket(command, myCommandList, model);
+        }
+        
+>>>>>>> 0124c9c34bf406d2012bea16f1f0d42f7c1c9dec
 
     }
 
