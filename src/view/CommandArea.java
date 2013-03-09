@@ -80,7 +80,7 @@ public class CommandArea extends Window {
 
     private JButton makeButton () {
 
-        JButton result = new JButton(myResources.getString("ActionCommand"));
+        JButton result = new JButton(getResourceBundle().getString("ActionCommand"));
         result.setPreferredSize(BUTTON_SIZE);
         result.addActionListener(myActionListener);
 

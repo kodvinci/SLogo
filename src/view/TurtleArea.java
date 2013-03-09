@@ -10,7 +10,6 @@ import object.Trail;
 import object.Turtle;
 import util.Location;
 
-
 /**
  * 
  * @author Leonard and Alan
@@ -46,6 +45,9 @@ public class TurtleArea extends Window {
 
     /**
      * Paints turtle and trail
+     * 
+     * @param pen
+     *        Graphics pen for drawing
      */
     @Override
     public void paint (Graphics pen) {

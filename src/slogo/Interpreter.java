@@ -75,16 +75,6 @@ public class Interpreter {
     }
 
     /**
-     * Parses to
-     * 
-     * @param command The user input
-     * @param myCommandList list of I command
-     * @return
-     * @throws SyntaxException if synatx is wrong
-     * @throws NoSuchCommandException if no command exists
-     */
-
-    /**
      * this method can finish the process of input commands.
      * 
      * @param model the model

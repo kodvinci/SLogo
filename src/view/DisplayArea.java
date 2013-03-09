@@ -115,7 +115,7 @@ public class DisplayArea extends Window {
     }
 
     private JButton clearDisplayArea () {
-        JButton result = new JButton(myResources.getString("ClearCommand"));
+        JButton result = new JButton(getResourceBundle().getString("ClearCommand"));
         result.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {

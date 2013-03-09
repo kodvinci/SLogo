@@ -44,9 +44,7 @@ public class ToolBarArea extends JMenuBar {
     }
 
     /**
-     * make file menu
-     * 
-     * @return
+     * make a file menu for opening and saving files
      */
     private JMenu makeFileMenu () {
         JMenu result = new JMenu(myResources.getString("FileMenu"));
