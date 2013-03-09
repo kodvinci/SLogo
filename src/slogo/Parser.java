@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import behavior.ICommand;
 import behavior.IfElse;
 import behavior.To;
+import behavior.flow.If;
 import behavior.flow.Repeat;
 import exceptions.NoSuchCommandException;
 import exceptions.NoSuchVariableException;
@@ -155,7 +156,9 @@ public class Parser {
                                                                               throws NumberFormatException,
                                                                               NoSuchCommandException,
                                                                               SyntaxException, NoSuchVariableException {
-        int position = command.indexOf("REPEAT");
+        
+        
+        int position = findFirstFlow(command);
         if (position == -1) {
             myCommandList.addAll(buildMultipleCommands(split(command),model));
         }
@@ -176,9 +179,14 @@ public class Parser {
             String repeatString = command.substring(position, bracketPosition);
 
             List<String[]> repeatBuffer = split(repeatString);
+            String flowName = repeatBuffer.get(0)[0].toUpperCase();
             String recursionString = command.substring(bracketPosition + 1, end - 1);
             System.out.println("recursionString : " + recursionString);
-            myCommandList.add(new Repeat(recursionString, Integer.parseInt(repeatBuffer.get(0)[1]),model));
+            if (flowName.equals("REPEAT")){
+                myCommandList.add(new Repeat(recursionString, Integer.parseInt(repeatBuffer.get(0)[1]),model));
+            }else if (flowName.equals("IF")){
+                myCommandList.add(new If(recursionString, Integer.parseInt(repeatBuffer.get(0)[1]),model));
+            }
             if (postString.length() != 0 && !mySpacePattern.matcher(postString).matches()) {
                 parseOneBracket(postString, myCommandList,model);
             }
@@ -279,7 +287,7 @@ public class Parser {
             }
         }
     }
-    public int findFirstFlow(String command, String flowName){
+    public int findFirstFlow(String command){
         int toAndIf = 0;
         int repeatAndIfElse = 0;
         for(int i = 0 ; i< command.length()-1 ; i++){
@@ -293,10 +301,9 @@ public class Parser {
             }
         }
         if(toAndIf < repeatAndIfElse){
-            flowName = command.substring(toAndIf, toAndIf+2).toUpperCase();
             return toAndIf;
         }else if (toAndIf > repeatAndIfElse){
-            flowName = command.substring(repeatAndIfElse, repeatAndIfElse+2).toUpperCase();
+ 
             return toAndIf;
         }else return -1;
     }
