@@ -23,35 +23,8 @@ public class Repeat implements ICommand {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
        
         myRunTime = time ;
-        int position = subCommands.indexOf("REPEAT");
-        if( position == -1 ){
-             List<String[]> splitedCommands = myParser.split(subCommands);
-             myCommands.addAll(myParser.buildMultipleCommands(splitedCommands));
-        }else {
-            String formerString = subCommands.substring(0, position);
-            if(formerString.length() != 0){
-               myParser.buildMultipleCommands(myParser.split(formerString));
-            }
-            int bracketPosition = subCommands.indexOf("[");
-            int end = myParser.findRelatedBrackets(subCommands,bracketPosition);
-            String postString = null;
-            if(end != subCommands.length()){
-                postString = subCommands.substring(end + 1);    
-            }
-            
-            String repeatString = subCommands.substring(position, bracketPosition);
-            List<String[]> repeatBuffer = myParser.split(repeatString);
-            String recursionString = subCommands.substring(bracketPosition +1,end-1);
-            System.out.println("formerString : " + formerString);
-            System.out.println("recursionString : " + recursionString);
-            System.out.println("postString : " + postString);
-            myCommands.add(new Repeat(recursionString ,Integer.parseInt(repeatBuffer.get(0)[1])));
-            if(postString != null){
-                addCommands(myParser.split(postString));    
-            }
-            System.out.println("here");
-            
-        }
+         
+        myParser.parseOneBracket(subCommands, myCommands);
         
         
     }

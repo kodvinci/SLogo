@@ -1,6 +1,7 @@
 package behavior;
 
-import object.Turtle;
+
+import slogo.Model;
 import exceptions.SyntaxException;
 
 
@@ -10,12 +11,12 @@ import exceptions.SyntaxException;
  * 
  */
 
-public class Minus implements ICommand {
+public class Minus extends OneParameterCommand {
 
     @Override
-    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        if (parameters.length != 1) { throw new SyntaxException(); }
-        return -parameters[0];
+    public double move (Model model, int turtleNumber) throws SyntaxException {
+        inverseMyValue();
+        return getMyValue();
     }
 
 }

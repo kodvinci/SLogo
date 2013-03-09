@@ -1,12 +1,12 @@
 package slogo;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import behavior.ICommand;
+import behavior.Repeat;
 import exceptions.NoSuchCommandException;
 import exceptions.SyntaxException;
 
@@ -16,14 +16,12 @@ public class Parser {
     
     private Pattern myNumPattern;
     private Pattern myStrPattern;
-    private Pattern myListPattern;
     private Pattern mySpacePattern;
     private ResourceBundle myResources;
     
     public Parser(){
         myNumPattern = Pattern.compile("[0-9]*");
         myStrPattern = Pattern.compile("[a-zA-Z]*");
-        myListPattern = Pattern.compile("[\\[\\]]*");
         mySpacePattern = Pattern.compile("[\\s]+");
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
     }
@@ -133,6 +131,37 @@ public class Parser {
                 else if (str.charAt(i) == ']') priority --;
             }
             return i;
+        }
+    }
+    
+    public void parseOneBracket(String command , List<ICommand> myCommandList) throws NumberFormatException, NoSuchCommandException, SyntaxException{
+        int position = command.indexOf("REPEAT");
+        if( position == -1 ){
+             myCommandList.addAll(buildMultipleCommands(split(command)));
+        }else{
+            String formerString = command.substring(0, position);
+            if(formerString.length() != 0 && !mySpacePattern.matcher(formerString).matches()){
+                myCommandList.addAll(buildMultipleCommands(split(formerString)));
+            }
+            int bracketPosition = command.indexOf("[");
+            int end = findRelatedBrackets(command,bracketPosition);
+            
+            String postString = "";
+            
+            if(end != command.length()){
+                postString = command.substring(end+1);
+            }
+            
+            String repeatString = command.substring(position, bracketPosition);
+            
+            List<String[]> repeatBuffer = split(repeatString);
+            String recursionString = command.substring(bracketPosition+1,end-1);
+            System.out.println("recursionString : " + recursionString);
+            myCommandList.add(new Repeat(recursionString ,Integer.parseInt(repeatBuffer.get(0)[1])));
+            if(postString.length() != 0 && ! mySpacePattern.matcher(postString).matches()){
+                parseOneBracket(postString, myCommandList);
+            }
+            //System.out.println(myCommandList.size());
         }
     }
 }

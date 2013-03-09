@@ -1,6 +1,7 @@
 package behavior;
 
-import object.Turtle;
+import slogo.Model;
+import view.Canvas;
 import exceptions.SyntaxException;
 
 
@@ -10,18 +11,14 @@ import exceptions.SyntaxException;
  * 
  */
 
-public class Home implements ICommand {
+public class Home extends NoParameterCommand {
 
     @Override
-    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        if (parameters.length != 0) {
-            throw new SyntaxException();
-        }
-        else {
-            turtle.initialize();
-            return Math.sqrt(Math.pow(turtle.getX() - Turtle.DEFAULT_SIZE.width / 2, 2) +
-                             Math.pow(turtle.getY() - Turtle.DEFAULT_SIZE.height / 2, 2));
-        }
+    public double move (Model model, int turtleNumber) throws SyntaxException {
+        
+            model.getMyTurtle(turtleNumber).initialize();
+            return Math.sqrt(Math.pow(model.getMyTurtle(turtleNumber).getX() - Canvas.TURTLE_AREA_SIZE.getWidth() / 2, 2) +
+                             Math.pow(model.getMyTurtle(turtleNumber).getY() - Canvas.TURTLE_AREA_SIZE.getHeight() / 2, 2));
     }
 
 }

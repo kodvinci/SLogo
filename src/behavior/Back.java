@@ -1,6 +1,6 @@
 package behavior;
 
-import object.Turtle;
+import slogo.Model;
 import exceptions.SyntaxException;
 
 
@@ -12,10 +12,10 @@ import exceptions.SyntaxException;
 public class Back extends Forward {
 
     @Override
-    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        double[] inverseParameters = CommandEntities.inverse(parameters);
-        super.move(turtle, inverseParameters);
-        return parameters[0];
+    public double move (Model model, int turtleNumber) throws SyntaxException {
+        inverseMyValue();
+        super.move(model, turtleNumber); 
+        return getMyValue();
     }
 
 }

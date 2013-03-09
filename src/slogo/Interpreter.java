@@ -24,7 +24,6 @@ public class Interpreter {
 
     private Pattern myNumPattern;
     private Pattern myStrPattern;
-    private Pattern myListPattern;
     private Parser myParser;
     
     private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
@@ -35,50 +34,10 @@ public class Interpreter {
     public Interpreter () {
         myNumPattern = Pattern.compile("[0-9]*");
         myStrPattern = Pattern.compile("[a-zA-Z]*");
-        myListPattern = Pattern.compile("[\\[\\]]*");
-        myCommands = new CommandEntities("commands");
         myParser = new Parser();
     }
 
-    /**
-     * Returns an arraylist of the user input
-     * 
-     * @param commands user input
-     * @return
-     */
-    // have to throw exception
-    public ArrayList<String[]> split (String commands) {
-
-        ArrayList<String[]> allCommands = new ArrayList<String[]>();
-        ArrayList<StringBuffer> allBuffers = new ArrayList<StringBuffer>();
-
-        String[] cutBySpace = commands.split(" ");
-
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(cutBySpace[0]);
-        for (int i = 1; i < cutBySpace.length; i++) {
-            if (myStrPattern.matcher(cutBySpace[i]).matches() ||
-                myListPattern.matcher(cutBySpace[i]).matches()) {
-
-                allBuffers.add(buffer);
-                buffer = new StringBuffer();
-                buffer.append(cutBySpace[i]);
-            }
-            else {
-                buffer.append(" ");
-                buffer.append(cutBySpace[i]);
-            }
-        }
-        allBuffers.add(buffer);
-
-        for (int i = 0; i < allBuffers.size(); i++) {
-            String[] str = allBuffers.get(i).toString().split(" ");
-            allCommands.add(str);
-            str = null;
-        }
-
-        return allCommands;
-    }
+   
 
     /**
      * Translates arraylist input and executes command
@@ -91,108 +50,81 @@ public class Interpreter {
     // have to throw exception
     public void parse ( String command, List<ICommand> myCommandList) throws SyntaxException, NoSuchCommandException {
         
-        int position = command.indexOf("REPEAT");
-        if( position == -1 ){
-             myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(command)));
-        }else{
-            String formerString = command.substring(0, position);
-            if(formerString.length() != 0){
-                myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(formerString)));
-            }
-            int bracketPosition = command.indexOf("[");
-            int end = myParser.findRelatedBrackets(command,bracketPosition);
-            
-            String postString = null;
-            
-            if(end != command.length()){
-                postString = command.substring(end+1);
-            }
-            
-            String repeatString = command.substring(position, bracketPosition);
-            
-            List<String[]> repeatBuffer = myParser.split(repeatString);
-            String recursionString = command.substring(bracketPosition+1,end-1);
-            System.out.println("recursionString : " + recursionString);
-            myCommandList.add(new Repeat(recursionString ,Integer.parseInt(repeatBuffer.get(0)[1])));
-            if(postString != null){
-                parse(postString, myCommandList);
-            }
-            //System.out.println(myCommandList.size());
-        }
+        myParser.parseOneBracket(command, myCommandList);
 
     }
-
-             //addCommands(split(commands));
-
-    
- public int parseTo (String command, List<ICommand> myCommandList) throws SyntaxException, NoSuchCommandException {
-        
-        int position = command.indexOf("TO");
-        if( position == -1 ){
-             myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(command)));
-        }
-        else{
-            String formerString = command.substring(0, position);
-            if(formerString.length() != 0){
-                myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(formerString)));
-            }
-            int bracketPosition = command.indexOf("[");
-            String commandName = command.substring(position + 3, bracketPosition);
-            String post = command.substring(bracketPosition+1, command.length());
-            String variable = post.substring(0, post.indexOf("]"));
-            String commandsBracket = post.substring(post.indexOf("[")+1, post.length()-1);
-            System.out.println(commandName);
-            System.out.println(variable);
-            System.out.println(commandsBracket);
-            List<String[]> variables = split(variable);
-            List<String[]> commandsFromBracket = split(commandsBracket);
-            System.out.println(Arrays.toString(commandsFromBracket.get(0)) + " " + Arrays.toString(commandsFromBracket.get(1)));
-            myCommandList.add(new To(commandName, variables, commandsFromBracket));
-            myUserToCommands.put(commandName, new To(commandName, variables, commandsFromBracket));
-            
-              if (variables.get(0).length == commandsFromBracket.size()) {
-                  return 1;
-              }
-              else {
-                  return 0;
-              }
-        }
-
-        return 0;
-     }
-
- public int ifElse (String command, List<ICommand> myCommandList) throws SyntaxException, NoSuchCommandException {
-         int position = command.indexOf("IFELSE");
-         if (position == -1) {
-             myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(command)));
-         }
-         else {
-             String formerString = command.substring(0, position);
-             if(formerString.length() != 0){
-                 myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(formerString)));
-             }
-             int bracketPosition = command.indexOf("[");
-             String value = command.substring(position + 3, bracketPosition);
-             String post = command.substring(bracketPosition+1, command.length());
-             String trueCommand = post.substring(0, post.indexOf("]"));
-             String falseCommand = post.substring(post.indexOf("[")+1, post.length()-1);
-             System.out.println(value);
-             System.out.println(trueCommand);
-             System.out.println(falseCommand);
-             List<String[]> trueCommands = split(trueCommand);
-             List<String[]> falseCommands = split(falseCommand);
-             System.out.println(Arrays.toString(trueCommands.get(0)) + " " + Arrays.toString(trueCommands.get(1)));
-             myCommandList.add(new IfElse(commandName, variables, commandsFromBracket, value));
-             myUserToCommands.put(commandName, new To(commandName, variables, commandsFromBracket, value));
-             
-               if (variables.get(0).length == commandsFromBracket.size()) {
-                   return 1;
-               }
-               else {
-                   return 0;
-               }
-         }
- }
+//
+//             //addCommands(split(commands));
+//
+//    
+// public int parseTo (String command, List<ICommand> myCommandList) throws SyntaxException, NoSuchCommandException {
+//        
+//        int position = command.indexOf("TO");
+//        if( position == -1 ){
+//             myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(command)));
+//        }
+//        else{
+//            String formerString = command.substring(0, position);
+//            if(formerString.length() != 0){
+//                myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(formerString)));
+//            }
+//            int bracketPosition = command.indexOf("[");
+//            String commandName = command.substring(position + 3, bracketPosition);
+//            String post = command.substring(bracketPosition+1, command.length());
+//            String variable = post.substring(0, post.indexOf("]"));
+//            String commandsBracket = post.substring(post.indexOf("[")+1, post.length()-1);
+//            System.out.println(commandName);
+//            System.out.println(variable);
+//            System.out.println(commandsBracket);
+//            List<String[]> variables = split(variable);
+//            List<String[]> commandsFromBracket = split(commandsBracket);
+//            System.out.println(Arrays.toString(commandsFromBracket.get(0)) + " " + Arrays.toString(commandsFromBracket.get(1)));
+//            myCommandList.add(new To(commandName, variables, commandsFromBracket));
+//            myUserToCommands.put(commandName, new To(commandName, variables, commandsFromBracket));
+//            
+//              if (variables.get(0).length == commandsFromBracket.size()) {
+//                  return 1;
+//              }
+//              else {
+//                  return 0;
+//              }
+//        }
+//
+//        return 0;
+//     }
+//
+// public int ifElse (String command, List<ICommand> myCommandList) throws SyntaxException, NoSuchCommandException {
+//         int position = command.indexOf("IFELSE");
+//         if (position == -1) {
+//             myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(command)));
+//         }
+//         else {
+//             String formerString = command.substring(0, position);
+//             if(formerString.length() != 0){
+//                 myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(formerString)));
+//             }
+//             int bracketPosition = command.indexOf("[");
+//             String value = command.substring(position + 3, bracketPosition);
+//             String post = command.substring(bracketPosition+1, command.length());
+//             String trueCommand = post.substring(0, post.indexOf("]"));
+//             String falseCommand = post.substring(post.indexOf("[")+1, post.length()-1);
+//             System.out.println(value);
+//             System.out.println(trueCommand);
+//             System.out.println(falseCommand);
+//             List<String[]> trueCommands = split(trueCommand);
+//             List<String[]> falseCommands = split(falseCommand);
+//             System.out.println(Arrays.toString(trueCommands.get(0)) + " " + Arrays.toString(trueCommands.get(1)));
+//             myCommandList.add(new IfElse(commandName, variables, commandsFromBracket, value));
+//             myUserToCommands.put(commandName, new To(commandName, variables, commandsFromBracket, value));
+//             
+//               if (variables.get(0).length == commandsFromBracket.size()) {
+//                   return 1;
+//               }
+//               else {
+//                   return 0;
+//               }
+//         }
+// }
     
 
     /**
@@ -208,7 +140,8 @@ public class Interpreter {
             
 
         List<ICommand> myCommandList = new ArrayList<ICommand>();
-        parseTo(commands , myCommandList);
+        parse(commands,myCommandList);
+        //parseTo(commands , myCommandList);
         System.out.println(myCommandList.size());
         for(ICommand ic : myCommandList){
 

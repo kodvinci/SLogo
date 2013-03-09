@@ -1,6 +1,6 @@
 package behavior;
 
-import object.Turtle;
+import slogo.Model;
 import exceptions.SyntaxException;
 
 
@@ -10,17 +10,14 @@ import exceptions.SyntaxException;
  * 
  */
 
-public class PenUp implements ICommand {
+public class PenUp extends NoParameterCommand {
 
     @Override
-    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        if (parameters.length != 0) {
-            throw new SyntaxException();
-        }
-        else {
-            turtle.avoidTrail();
+    public double move (Model model, int turtleNumber) throws SyntaxException {
+      
+            model.getMyTurtle(turtleNumber).leftTrail();
             return 0;
-        }
+        
     }
 
 }

@@ -1,6 +1,7 @@
 package behavior;
 
-import object.Turtle;
+import slogo.Model;
+import view.Canvas;
 import exceptions.SyntaxException;
 
 
@@ -10,12 +11,12 @@ import exceptions.SyntaxException;
  * 
  */
 
-public class Xcor implements ICommand {
+public class Xcor extends NoParameterCommand {
 
     @Override
-    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        if (parameters.length != 0) { throw new SyntaxException(); }
-        return turtle.getX() - Turtle.DEFAULT_SIZE.width / 2;
+    public double move (Model model, int turtleNumber) throws SyntaxException {
+        
+        return model.getMyTurtle(turtleNumber).getX() - Canvas.TURTLE_AREA_SIZE.getWidth() / 2;
     }
 
 }
