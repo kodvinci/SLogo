@@ -17,15 +17,9 @@ import exceptions.SyntaxException;
 
 
 /**
-<<<<<<< HEAD
- * parse the command
- * 
- * @author Richard Yang
-=======
  * Parses input
  * 
  * @author Richard, Jerry
->>>>>>> 0124c9c34bf406d2012bea16f1f0d42f7c1c9dec
  * 
  */
 public class Parser {
@@ -35,7 +29,6 @@ public class Parser {
     private static final String LEFT_BRACKET = "[";
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
-    
 
     private Pattern myNumPattern;
     private Pattern myStrPattern;
@@ -44,11 +37,7 @@ public class Parser {
     private ResourceBundle myFlows;
 
     /**
-<<<<<<< HEAD
-     * constructor
-=======
      * Constructs parser
->>>>>>> 0124c9c34bf406d2012bea16f1f0d42f7c1c9dec
      */
     public Parser () {
         myNumPattern = Pattern.compile("[0-9]*");
@@ -59,17 +48,11 @@ public class Parser {
     }
 
     /**
-<<<<<<< HEAD
      * split the string
      * 
      * @param commands commands we want to split
      * @return splited string
-=======
-     * Splits commands
      * 
-     * @param commands commands
-     * @return
->>>>>>> 0124c9c34bf406d2012bea16f1f0d42f7c1c9dec
      */
     public ArrayList<String[]> split (String commands) {
 
@@ -111,14 +94,16 @@ public class Parser {
 
         return allCommands;
     }
-   /**
-    * build a command through string we got
-    * @param str splited input commands
-    * @param model model we want to operate
-    * @return command
-    * @throws NoSuchCommandException
-    * @throws SyntaxException
-    */
+
+    /**
+     * build a command through string we got
+     * 
+     * @param str splited input commands
+     * @param model model we want to operate
+     * @return command
+     * @throws NoSuchCommandException
+     * @throws SyntaxException
+     */
 
     public ICommand buildCommand (String[] str, Model model) throws NoSuchCommandException,
                                                             SyntaxException {
@@ -135,16 +120,16 @@ public class Parser {
                 commandClass = Class.forName("behavior." + commandName);
             }
             catch (ClassNotFoundException e) {
-                //model.showMessage("class not found");
+                // model.showMessage("class not found");
             }
             Object o = null;
             try {
                 o = commandClass.newInstance();
             }
             catch (InstantiationException | IllegalAccessException e) {
-                
-                //model.showMessage("illegal access");
-             
+
+                // model.showMessage("illegal access");
+
             }
             ICommand myCommand = (ICommand) o;
             myCommand.initialize(subArray, null);
@@ -152,8 +137,10 @@ public class Parser {
 
         }
     }
+
     /**
      * build multiple commands
+     * 
      * @param commands command strings
      * @param model mode we want to operate
      * @return
@@ -161,7 +148,6 @@ public class Parser {
      * @throws NoSuchCommandException
      */
 
-   
     public List<ICommand> buildMultipleCommands (List<String[]> commands, Model model)
                                                                                       throws SyntaxException,
                                                                                       NoSuchCommandException {
@@ -176,6 +162,7 @@ public class Parser {
 
     /**
      * delete first element of a string
+     * 
      * @param str input string
      */
     public String[] subStringArray (String[] str) {
@@ -187,8 +174,10 @@ public class Parser {
 
         return subArray;
     }
+
     /**
      * find brackets that are in pair
+     * 
      * @param str input string
      * @param position position of "["
      * @return position of "]"
@@ -215,9 +204,10 @@ public class Parser {
             return i;
         }
     }
-    
+
     /**
      * parse commands that need one bracket
+     * 
      * @param command command we want to parse
      * @param myCommandList our commandlist, used for recursion
      * @param model model we want to operation
@@ -361,8 +351,10 @@ public class Parser {
             }
         }
     }
+
     /**
      * find first flow word in a string
+     * 
      * @param command input command
      * @return position of first flow string
      */

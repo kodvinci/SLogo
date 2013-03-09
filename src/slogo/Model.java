@@ -35,9 +35,6 @@ public class Model {
 
     public static final String TITLE = "SLOGO";
 
-    private int myID;
-
-    private Controller myController;
     private List<Turtle> myTurtles;
     private DisplayArea myDisplayArea;
     private Map<String, Double> myVariables;
@@ -49,8 +46,7 @@ public class Model {
      * @param id the model id
      */
     public Model (Controller controller, int id) {
-        myController = controller;
-        myID = id;
+
         myTurtles = new ArrayList<Turtle>();
         myVariables = new HashMap<String, Double>();
 

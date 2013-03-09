@@ -48,14 +48,12 @@ public class Interpreter {
      * @throws NoSuchVariableException
      */
 
-     
     public void parse (String command, List<ICommand> myCommandList, Model model)
                                                                                  throws SyntaxException,
                                                                                  NoSuchCommandException,
                                                                                  NumberFormatException,
                                                                                  NoSuchVariableException {
-      
-        
+
         int index = myParser.findFirstFlow(command);
         System.out.println("index" + index);
         if (command.contains("REPEAT")) {
@@ -73,7 +71,6 @@ public class Interpreter {
         else {
             myParser.parseOneBracket(command, myCommandList, model);
         }
-        
 
     }
 
@@ -97,7 +94,7 @@ public class Interpreter {
      * @throws NoSuchVariableException
      * @throws NumberFormatException
      */
-    public void process ( Model model, int turtleNumber, String commands) throws SyntaxException,
+    public void process (Model model, int turtleNumber, String commands) throws SyntaxException,
                                                                         NoSuchCommandException,
                                                                         NoSuchVariableException {
         List<ICommand> myCommandList = new ArrayList<ICommand>();

@@ -15,6 +15,9 @@ import slogo.Controller;
  */
 public class CommandArea extends Window {
 
+    /**
+     * Default size
+     */
     public static final Dimension DEFAULT_AREA_SIZE = new Dimension(500, 50);
 
     private static final long serialVersionUID = 1L;

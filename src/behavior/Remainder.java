@@ -1,6 +1,6 @@
 package behavior;
 
-import object.Turtle;
+import slogo.Model;
 import exceptions.SyntaxException;
 
 
@@ -10,12 +10,12 @@ import exceptions.SyntaxException;
  * 
  */
 
-public class Remainder implements ICommand {
+public class Remainder extends TwoParameterCommand {
 
     @Override
-    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        if (parameters.length != 2) { throw new SyntaxException(); }
-        int result = (int) parameters[0] % (int) parameters[1];
+    public double move (Model model, int turtleNumber) throws SyntaxException {
+
+        int result = (int) getMyFirstValue() % (int) getMySecondValue();
         return result;
     }
 

@@ -1,13 +1,13 @@
 package view;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
@@ -43,6 +43,11 @@ public class ToolBarArea extends JMenuBar {
         this.add(makeFileMenu());
     }
 
+    /**
+     * make file menu
+     * 
+     * @return
+     */
     private JMenu makeFileMenu () {
         JMenu result = new JMenu(myResources.getString("FileMenu"));
         result.add(new AbstractAction(myResources.getString("OpenCommand")) {

@@ -50,7 +50,6 @@ public abstract class Animal {
      * @param image picture
      * @param center center
      * @param size size
-     * @param velocity velocity
      */
     public Animal (Pixmap image, Location center, Dimension size) {
         // make copies just to be sure no one else has access
@@ -58,6 +57,7 @@ public abstract class Animal {
         myOriginalSize = new Dimension(size);
         myOriginalView = new Pixmap(image);
         reset();
+
         resetBounds();
     }
 

@@ -1,6 +1,6 @@
 package behavior;
 
-import object.Turtle;
+import slogo.Model;
 import exceptions.SyntaxException;
 
 
@@ -10,15 +10,12 @@ import exceptions.SyntaxException;
  * 
  */
 
-public class Or implements ICommand {
+public class Or extends TwoParameterCommand {
 
     @Override
-    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        if (parameters.length != 2) {
-            throw new SyntaxException();
-        }
-        else if (!((parameters[0] == 1 || parameters[0] == 0) && (parameters[1] == 1 || parameters[1] == 0))) { throw new SyntaxException(); }
-        return ((parameters[0] == 0) && (parameters[1] == 0)) ? 0 : 1;
+    public double move (Model model, int turtleNumber) throws SyntaxException {
+
+        return ((getMyFirstValue() == 0) && (getMySecondValue() == 0)) ? 0 : 1;
     }
 
 }

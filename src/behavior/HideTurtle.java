@@ -1,6 +1,6 @@
 package behavior;
 
-import object.Turtle;
+import slogo.Model;
 import exceptions.SyntaxException;
 
 
@@ -9,17 +9,13 @@ import exceptions.SyntaxException;
  * @author Richard Yang
  * 
  */
-public class HideTurtle implements ICommand {
+public class HideTurtle extends NoParameterCommand {
 
     @Override
-    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        if (parameters.length != 0) {
-            throw new SyntaxException();
-        }
-        else {
-            turtle.setInvisible();
-            return 0.0;
-        }
+    public double move (Model model, int turtleNumber) throws SyntaxException {
+
+        model.getMyTurtle(turtleNumber).setInvisible();
+        return 0;
 
     }
 

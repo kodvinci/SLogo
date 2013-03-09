@@ -1,6 +1,6 @@
 package behavior;
 
-import object.Turtle;
+import slogo.Model;
 import exceptions.SyntaxException;
 
 
@@ -10,12 +10,12 @@ import exceptions.SyntaxException;
  * 
  */
 
-public class LessP implements ICommand {
+public class LessP extends TwoParameterCommand {
 
     @Override
-    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        if (parameters.length != 2) { throw new SyntaxException(); }
-        return (parameters[0] < parameters[1]) ? 1 : 0;
+    public double move (Model model, int turtleNumber) throws SyntaxException {
+
+        return (getMyFirstValue() < getMySecondValue()) ? 1 : 0;
     }
 
 }

@@ -1,6 +1,6 @@
 package behavior;
 
-import object.Turtle;
+import slogo.Model;
 import exceptions.SyntaxException;
 
 
@@ -10,18 +10,15 @@ import exceptions.SyntaxException;
  * 
  */
 
-public class SetHeading implements ICommand {
+public class SetHeading extends OneParameterCommand {
 
     @Override
-    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        if (parameters.length != 1) {
-            throw new SyntaxException();
-        }
-        else {
-            double angle = parameters[0];
-            turtle.setMyAngle(angle);
-            return angle - turtle.getMyAngle();
-        }
+    public double move (Model model, int turtleNumber) throws SyntaxException {
+
+        double originAngle = model.getMyTurtle(turtleNumber).getMyAngle();
+        model.getMyTurtle(turtleNumber).setMyAngle(getMyValue());
+        return getMyValue() - originAngle;
+
     }
 
 }

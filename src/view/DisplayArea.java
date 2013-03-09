@@ -20,6 +20,9 @@ import object.Turtle;
  * 
  */
 public class DisplayArea extends Window {
+    /**
+     * Default size
+     */
     public static final Dimension DEFAULT_AREA_SIZE = new Dimension(200, 600);
 
     private static final long serialVersionUID = 1L;
@@ -96,8 +99,7 @@ public class DisplayArea extends Window {
         showMessage(Y_LABEL +
                     myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getY()));
         showMessage(ANGLE_LABEL +
-                    myTurtle.get(FIRST_TURTLE)
-                            .toString(myTurtle.get(FIRST_TURTLE).getMyAngle()));
+                    myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getMyAngle()));
         showMessage("\n");
     }
 

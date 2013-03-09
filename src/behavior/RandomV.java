@@ -1,7 +1,7 @@
 package behavior;
 
 import java.util.Random;
-import object.Turtle;
+import slogo.Model;
 import exceptions.SyntaxException;
 
 
@@ -11,13 +11,13 @@ import exceptions.SyntaxException;
  * 
  */
 
-public class RandomV implements ICommand {
+public class RandomV extends OneParameterCommand {
 
     @Override
-    public double move (Turtle turtle, double[] parameters) throws SyntaxException {
-        if (parameters.length != 1) { throw new SyntaxException(); }
+    public double move (Model model, int turtleNumber) throws SyntaxException {
+
         Random myRandom = new Random();
-        int maxValue = (int) Math.floor(parameters[0]);
+        int maxValue = (int) Math.floor(getMyValue());
         int result = myRandom.nextInt() % maxValue;
         return result;
     }
