@@ -4,6 +4,7 @@ import behavior.CommandEntities;
 import behavior.ICommand;
 
 import exceptions.NoSuchCommandException;
+import exceptions.NoSuchVariableException;
 import exceptions.SyntaxException;
 import behavior.To;
 import java.util.Map;
@@ -45,8 +46,8 @@ public class Interpreter {
    
     
     
-    public void parse (String command, List<ICommand> myCommandList) throws SyntaxException, NoSuchCommandException {
-        myParser.parseIfElse(command, myCommandList);
+    public void parse (String command, List<ICommand> myCommandList,Model model) throws SyntaxException, NoSuchCommandException, NumberFormatException, NoSuchVariableException {
+        myParser.parseOneBracket(command, myCommandList, model);
     }
 
     /**
@@ -66,13 +67,15 @@ public class Interpreter {
      * @param commands input of user
      * @throws SyntaxException Syntax exception
      * @throws NoSuchCommandException
+     * @throws NoSuchVariableException 
+     * @throws NumberFormatException 
      */
     public void process (Model model, int turtleNumber, String commands) throws SyntaxException,
-                                                                        NoSuchCommandException {
+                                                                        NoSuchCommandException, NumberFormatException, NoSuchVariableException {
 
         List<ICommand> myCommandList = new ArrayList<ICommand>();
 
-        parse(commands,myCommandList);
+        parse(commands,myCommandList,model);
         //System.out.println(myCommandList.size());
         for (ICommand ic : myCommandList) {
 

@@ -1,6 +1,7 @@
 package slogo;
 
 import exceptions.NoSuchCommandException;
+import exceptions.NoSuchVariableException;
 import exceptions.SyntaxException;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -72,6 +73,10 @@ public class Controller {
 
         try {
             myInterpreter.process(myModels.get(seq), 0, string);
+        }
+        catch(NoSuchVariableException e) {
+         // myModels.get(seq).showMessage("NoSuchVariable");
+            System.out.println("NoSuchVariable");
         }
         catch (SyntaxException e) {
             // myModels.get(seq).showMessage("Syntax Error, please check your commands");

@@ -244,7 +244,7 @@ public class Parser {
      * @throws SyntaxException          Syntax Exeception
      * @throws NoSuchCommandException   NoCommand exceptoin
      */
-    public void parseIfElse (String command, List<ICommand> myCommandList) throws SyntaxException,
+    public void parseIfEle (String command, List<ICommand> myCommandList) throws SyntaxException,
                                                                           NoSuchCommandException {
         int position = command.indexOf("IFELSE");
         if (position == -1) {
@@ -283,20 +283,20 @@ public class Parser {
         int toAndIf = 0;
         int repeatAndIfElse = 0;
         for(int i = 0 ; i< command.length()-1 ; i++){
-            if(myFlows.containsKey(command.substring(i, i+2))){
+            if(myFlows.containsKey(command.substring(i, i+2).toUpperCase())){
                 toAndIf = i;
             }
         }
         for(int i = 0 ; i< command.length()-5 ; i++){
-            if(myFlows.containsKey(command.substring(i, i+6))){
+            if(myFlows.containsKey(command.substring(i, i+6).toUpperCase())){
                 repeatAndIfElse = i;
             }
         }
         if(toAndIf < repeatAndIfElse){
-            flowName = command.substring(toAndIf, toAndIf+2);
+            flowName = command.substring(toAndIf, toAndIf+2).toUpperCase();
             return toAndIf;
         }else if (toAndIf > repeatAndIfElse){
-            flowName = command.substring(repeatAndIfElse, repeatAndIfElse+2);
+            flowName = command.substring(repeatAndIfElse, repeatAndIfElse+2).toUpperCase();
             return toAndIf;
         }else return -1;
     }
