@@ -86,24 +86,5 @@ public class Interpreter {
 
     }
 
-    /**
-     * Makes a variable from user input
-     * 
-     * @param model the slogo model
-     * @param currentCommand current command
-     * @throws SyntaxException syntax exception
-     */
-    public void makeVariable (Model model, String[] currentCommand) throws SyntaxException {
-
-        if (currentCommand.length < 2) { throw new SyntaxException(); }
-        String name = currentCommand[0];
-        String value = currentCommand[1];
-        if (!(myStrPattern.matcher(name).matches() && myNumPattern.matcher(value).matches())) {
-            throw new SyntaxException();
-        }
-        else {
-            model.addVariable(name, Double.parseDouble(value));
-        }
-    }
 
 }
