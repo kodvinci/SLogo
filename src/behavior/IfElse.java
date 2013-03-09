@@ -60,7 +60,7 @@ public class IfElse implements ICommand {
         return myCommandList.size();
     }
     
-    public void initialize(String[] string) {
+    public void initialize(String[] string, Model model) {
         
     }
     

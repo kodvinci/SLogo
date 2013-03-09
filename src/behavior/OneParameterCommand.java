@@ -15,7 +15,7 @@ public abstract class OneParameterCommand implements ICommand {
     }
 
     @Override
-    public void initialize (String[] information) throws SyntaxException {
+    public void initialize (String[] information, Model model) throws SyntaxException {
         if(information.length != 1 || !myNumPattern.matcher(information[0]).matches()) throw new SyntaxException();
         myValue = Double.parseDouble(information[0]);
     }

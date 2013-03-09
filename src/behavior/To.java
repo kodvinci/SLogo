@@ -61,7 +61,7 @@ public class To implements ICommand {
         return myCommandList.size();
     }
     
-    public void initialize(String[] string) {
+    public void initialize(String[] string, Model model) {
         
     }
     

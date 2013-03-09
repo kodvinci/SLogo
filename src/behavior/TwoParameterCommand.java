@@ -16,7 +16,7 @@ public abstract class TwoParameterCommand implements ICommand {
     }
 
     @Override
-    public void initialize (String[] information) throws SyntaxException {
+    public void initialize (String[] information, Model model) throws SyntaxException {
         if(information.length != 2 || !myNumPattern.matcher(information[0]).matches() || 
                 !myNumPattern.matcher(information[1]).matches()) throw new SyntaxException();
         myFirstValue = Double.parseDouble(information[0]);

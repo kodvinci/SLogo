@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 import behavior.CommandEntities;
 import behavior.ICommand;
-import behavior.Repeat;
 import exceptions.NoSuchCommandException;
 import exceptions.SyntaxException;
 import behavior.To;
+import behavior.flow.Repeat;
 import java.util.Map;
 import java.util.HashMap;
 

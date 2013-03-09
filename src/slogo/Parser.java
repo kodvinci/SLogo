@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import behavior.ICommand;
-import behavior.Repeat;
+import behavior.flow.Repeat;
 import exceptions.NoSuchCommandException;
 import exceptions.SyntaxException;
 
@@ -93,7 +93,7 @@ public class Parser {
                 e.printStackTrace();
             }
             ICommand myCommand = (ICommand) o;
-            myCommand.initialize(subArray);
+            myCommand.initialize(subArray, null);
             return myCommand;
             
         }

@@ -11,7 +11,7 @@ public abstract class NoParameterCommand implements ICommand {
     }
 
     @Override
-    public void initialize (String[] information) throws SyntaxException {
+    public void initialize (String[] information, Model model) throws SyntaxException {
         if(information.length != 0) throw new SyntaxException();
     }
 }
