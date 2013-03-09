@@ -7,10 +7,12 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import behavior.ICommand;
+import behavior.flow.If;
 import behavior.flow.IfElse;
 import behavior.flow.Repeat;
 import behavior.flow.To;
 import exceptions.NoSuchCommandException;
+import exceptions.NoSuchVariableException;
 import exceptions.SyntaxException;
 
 
@@ -32,6 +34,7 @@ public class Parser {
         myStrPattern = Pattern.compile("[a-zA-Z]*");
         mySpacePattern = Pattern.compile("[\\s]+");
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
+        myFlows = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "flow");
     }
 
     public ArrayList<String[]> split (String commands) {
@@ -152,8 +155,12 @@ public class Parser {
     public void parseOneBracket (String command, List<ICommand> myCommandList, Model model)
                                                                               throws NumberFormatException,
                                                                               NoSuchCommandException,
-                                                                              SyntaxException {
-        int position = command.indexOf("REPEAT");
+
+                                                                              SyntaxException, NoSuchVariableException{
+        
+        
+        int position = findFirstFlow(command);
+
         if (position == -1) {
             myCommandList.addAll(buildMultipleCommands(split(command), model));
         }
@@ -174,9 +181,14 @@ public class Parser {
             String repeatString = command.substring(position, bracketPosition);
 
             List<String[]> repeatBuffer = split(repeatString);
+            String flowName = repeatBuffer.get(0)[0].toUpperCase();
             String recursionString = command.substring(bracketPosition + 1, end - 1);
             System.out.println("recursionString : " + recursionString);
-            myCommandList.add(new Repeat(recursionString, Integer.parseInt(repeatBuffer.get(0)[1]), model));
+            if (flowName.equals("REPEAT")){
+                myCommandList.add(new Repeat(recursionString, Integer.parseInt(repeatBuffer.get(0)[1]),model));
+            }else if (flowName.equals("IF")){
+                myCommandList.add(new If(recursionString, Integer.parseInt(repeatBuffer.get(0)[1]),model));
+            }
             if (postString.length() != 0 && !mySpacePattern.matcher(postString).matches()) {
                 parseOneBracket(postString, myCommandList, model);
             }
@@ -277,8 +289,8 @@ public class Parser {
             }
         }
     }
+    public int findFirstFlow(String command){
 
-    public int findFirstFlow(String command, String flowName){
         int toAndIf = 0;
         int repeatAndIfElse = 0;
         for(int i = 0 ; i< command.length()-1 ; i++){
@@ -292,10 +304,9 @@ public class Parser {
             }
         }
         if(toAndIf < repeatAndIfElse){
-            flowName = command.substring(toAndIf, toAndIf+2).toUpperCase();
             return toAndIf;
         }else if (toAndIf > repeatAndIfElse){
-            flowName = command.substring(repeatAndIfElse, repeatAndIfElse+2).toUpperCase();
+ 
             return toAndIf;
         }else return -1;
     }

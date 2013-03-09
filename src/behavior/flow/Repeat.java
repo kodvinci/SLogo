@@ -7,6 +7,7 @@ import behavior.ICommand;
 import slogo.Model;
 import slogo.Parser;
 import exceptions.NoSuchCommandException;
+import exceptions.NoSuchVariableException;
 import exceptions.SyntaxException;
 
 public class Repeat implements ICommand {
@@ -19,7 +20,7 @@ public class Repeat implements ICommand {
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     
     
-    public Repeat(String subCommands, int time, Model model) throws NoSuchCommandException, SyntaxException{
+    public Repeat(String subCommands, int time, Model model) throws NoSuchCommandException, SyntaxException, NumberFormatException, NoSuchVariableException{
         
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
        
