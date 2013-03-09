@@ -111,7 +111,6 @@ public class Parser {
 
         return allCommands;
     }
-<<<<<<< HEAD
    /**
     * build a command through string we got
     * @param str splited input commands
@@ -120,18 +119,7 @@ public class Parser {
     * @throws NoSuchCommandException
     * @throws SyntaxException
     */
-=======
 
-    /**
-     * Builds a command
-     * 
-     * @param str string
-     * @param model model
-     * @return
-     * @throws NoSuchCommandException no command exception
-     * @throws SyntaxException syntax exception
-     */
->>>>>>> 0124c9c34bf406d2012bea16f1f0d42f7c1c9dec
     public ICommand buildCommand (String[] str, Model model) throws NoSuchCommandException,
                                                             SyntaxException {
         if (!myResources.containsKey(str[0].toUpperCase())) {
@@ -164,7 +152,6 @@ public class Parser {
 
         }
     }
-<<<<<<< HEAD
     /**
      * build multiple commands
      * @param commands command strings
@@ -172,18 +159,9 @@ public class Parser {
      * @return
      * @throws SyntaxException
      * @throws NoSuchCommandException
-=======
-
-    /**
-     * build multiple commands
-     * 
-     * @param commands commands
-     * @param model model
-     * @return
-     * @throws SyntaxException syntax exception
-     * @throws NoSuchCommandException no such command exception
->>>>>>> 0124c9c34bf406d2012bea16f1f0d42f7c1c9dec
      */
+
+   
     public List<ICommand> buildMultipleCommands (List<String[]> commands, Model model)
                                                                                       throws SyntaxException,
                                                                                       NoSuchCommandException {
@@ -195,18 +173,10 @@ public class Parser {
         }
         return myCommandList;
     }
-<<<<<<< HEAD
+
     /**
      * delete first element of a string
      * @param str input string
-=======
-
-    /**
-     * Creates subsrring
-     * 
-     * @param str string
->>>>>>> 0124c9c34bf406d2012bea16f1f0d42f7c1c9dec
-     * @return
      */
     public String[] subStringArray (String[] str) {
         int size = str.length;
@@ -217,23 +187,12 @@ public class Parser {
 
         return subArray;
     }
-<<<<<<< HEAD
     /**
      * find brackets that are in pair
      * @param str input string
      * @param position position of "["
      * @return position of "]"
      * @throws SyntaxException
-=======
-
-    /**
-     * find related brackets
-     * 
-     * @param str string
-     * @param position position
-     * @return
-     * @throws SyntaxException exception
->>>>>>> 0124c9c34bf406d2012bea16f1f0d42f7c1c9dec
      */
     public int findRelatedBrackets (String str, int position) throws SyntaxException {
         if (str.charAt(position) != '[') {
@@ -256,7 +215,7 @@ public class Parser {
             return i;
         }
     }
-<<<<<<< HEAD
+    
     /**
      * parse commands that need one bracket
      * @param command command we want to parse
@@ -268,25 +227,7 @@ public class Parser {
      * @throws NoSuchVariableException
      */
     public void parseOneBracket (String command, List<ICommand> myCommandList, Model model)
-                                                                                           throws
-=======
-
-    /**
-     * Parse one bracket
-     * 
-     * @param command command
-     * @param myCommandList list
-     * @param model model
-     * @throws NumberFormatException exception
-     * @throws NoSuchCommandException exception
-     * @throws SyntaxException exception
-     * @throws NoSuchVariableException exception
-     */
-    public void parseOneBracket (String command, List<ICommand> myCommandList, Model model)
-                                                                                           throws NumberFormatException,
->>>>>>> 0124c9c34bf406d2012bea16f1f0d42f7c1c9dec
-                                                                                           NoSuchCommandException,
-
+                                                                                           throws NoSuchCommandException,
                                                                                            SyntaxException,
                                                                                            NoSuchVariableException {
 
@@ -430,19 +371,10 @@ public class Parser {
             }
         }
     }
-<<<<<<< HEAD
     /**
      * find first flow word in a string
      * @param command input command
      * @return position of first flow string
-=======
-
-    /**
-     * Find first flow behavior
-     * 
-     * @param command command
-     * @return
->>>>>>> 0124c9c34bf406d2012bea16f1f0d42f7c1c9dec
      */
     public int findFirstFlow (String command) {
 
@@ -453,10 +385,6 @@ public class Parser {
                 toAndIf = i;
             }
         }
-<<<<<<< HEAD
-=======
-        System.out.println(toAndIf);
->>>>>>> 0124c9c34bf406d2012bea16f1f0d42f7c1c9dec
         for (int i = 0; i < command.length() - 5; i++) {
             if (myFlows.containsKey(command.substring(i, i + 6).toUpperCase())) {
                 repeatAndIfElse = i;

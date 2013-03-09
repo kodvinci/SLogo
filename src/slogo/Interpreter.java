@@ -38,34 +38,22 @@ public class Interpreter {
 
     /**
      * parse user input
-<<<<<<< HEAD
      * 
-     * @param command
-     * @param myCommandList
-     * @param model
+     * @param command command we want to parse
+     * @param myCommandList command list after parsed
+     * @param model model we want to operate
      * @throws SyntaxException
      * @throws NoSuchCommandException
      * @throws NumberFormatException
      * @throws NoSuchVariableException
      */
 
-=======
-     * @param command               Command
-     * @param myCommandList         command list
-     * @param model                     model
-     * @throws SyntaxException              exception   
-     * @throws NoSuchCommandException          exception    
-     * @throws NumberFormatException            exception
-     * @throws NoSuchVariableException      exception
-     */
->>>>>>> 0124c9c34bf406d2012bea16f1f0d42f7c1c9dec
+     
     public void parse (String command, List<ICommand> myCommandList, Model model)
                                                                                  throws SyntaxException,
                                                                                  NoSuchCommandException,
                                                                                  NumberFormatException,
                                                                                  NoSuchVariableException {
-
-<<<<<<< HEAD
         myParser.parseOneBracket(command, myCommandList, model);
 
         // int repeatIndex = myParser.findFirstFlow(command, "REPEAT");
@@ -97,7 +85,6 @@ public class Interpreter {
         // myParser.parseTo(command, myCommandList, model);
         // }
         // System.out.println("index" + index);
-=======
         if (command.contains("REPEAT")) {
             myParser.parseOneBracket(command, myCommandList, model);
         }
@@ -114,7 +101,6 @@ public class Interpreter {
             myParser.parseOneBracket(command, myCommandList, model);
         }
         
->>>>>>> 0124c9c34bf406d2012bea16f1f0d42f7c1c9dec
 
     }
 
@@ -138,11 +124,9 @@ public class Interpreter {
      * @throws NoSuchVariableException
      * @throws NumberFormatException
      */
-    public void process (Model model, int turtleNumber, String commands) throws SyntaxException,
+    public void process ( Model model, int turtleNumber, String commands) throws SyntaxException,
                                                                         NoSuchCommandException,
-                                                                        NumberFormatException,
                                                                         NoSuchVariableException {
-
         List<ICommand> myCommandList = new ArrayList<ICommand>();
 
         parse(commands, myCommandList, model);
