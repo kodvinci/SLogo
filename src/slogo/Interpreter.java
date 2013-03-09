@@ -13,17 +13,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+
 /**
  * 
  * @author Richard Yang & Jerry Li
  * 
  */
 public class Interpreter {
-    
+
     private static final int TO_LENGTH = 3;
     private static final int IFELSE_LENGTH = 7;
     private static final String END_BRACKET = "]";
-    
+
     private CommandEntities myCommands;
     private Pattern myNumPattern;
     private Pattern myStrPattern;
@@ -48,8 +49,8 @@ public class Interpreter {
      * 
      * @param commands user input
      * @return
-     *
-     */ 
+     * 
+     */
     public ArrayList<String[]> split (String commands) {
 
         ArrayList<String[]> allCommands = new ArrayList<String[]>();
@@ -61,7 +62,7 @@ public class Interpreter {
         buffer.append(cutBySpace[0]);
         for (int i = 1; i < cutBySpace.length; i++) {
             if (myStrPattern.matcher(cutBySpace[i]).matches() ||
-                    myListPattern.matcher(cutBySpace[i]).matches()) {
+                myListPattern.matcher(cutBySpace[i]).matches()) {
 
                 allBuffers.add(buffer);
                 buffer = new StringBuffer();
@@ -92,51 +93,55 @@ public class Interpreter {
      * @throws NoSuchCommandException
      */
     // have to throw exception
-    public void parse ( String command, List<ICommand> myCommandList) throws SyntaxException, NoSuchCommandException {
+    public void parse (String command, List<ICommand> myCommandList) throws SyntaxException,
+                                                                    NoSuchCommandException {
 
         int position = command.indexOf("REPEAT");
-        if( position == -1 ){
+        if (position == -1) {
             myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(command)));
-        }else{
+        }
+        else {
             String formerString = command.substring(0, position);
-            if(formerString.length() != 0){
+            if (formerString.length() != 0) {
                 myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(formerString)));
             }
             int bracketPosition = command.indexOf("[");
-            int end = myParser.findRelatedBrackets(command,bracketPosition);
+            int end = myParser.findRelatedBrackets(command, bracketPosition);
 
             String postString = null;
 
-            if(end != command.length()){
-                postString = command.substring(end+1);
+            if (end != command.length()) {
+                postString = command.substring(end + 1);
             }
 
             String repeatString = command.substring(position, bracketPosition);
 
             List<String[]> repeatBuffer = myParser.split(repeatString);
-            String recursionString = command.substring(bracketPosition+1,end-1);
+            String recursionString = command.substring(bracketPosition + 1, end - 1);
             System.out.println("recursionString : " + recursionString);
-            myCommandList.add(new Repeat(recursionString ,Integer.parseInt(repeatBuffer.get(0)[1])));
-            if(postString != null){
+            myCommandList.add(new Repeat(recursionString, Integer.parseInt(repeatBuffer.get(0)[1])));
+            if (postString != null) {
                 parse(postString, myCommandList);
             }
-            //System.out.println(myCommandList.size());
+            // System.out.println(myCommandList.size());
         }
 
     }
 
-    //addCommands(split(commands));
+    // addCommands(split(commands));
 
     /**
      * Parses to
+     * 
      * @param command The user input
      * @param myCommandList list of I command
      * @return
      * @throws SyntaxException if synatx is wrong
      * @throws NoSuchCommandException if no command exists
      */
-    public int parseTo (String command, List<ICommand> myCommandList) 
-            throws SyntaxException, NoSuchCommandException {
+    public int parseTo (String command, List<ICommand> myCommandList)
+                                                                     throws SyntaxException,
+                                                                     NoSuchCommandException {
 
         int position = command.indexOf("TO");
         if (position == -1) {
@@ -167,15 +172,17 @@ public class Interpreter {
 
         return 0;
     }
-    
+
     /**
      * Parses IFElse statements
-     * @param command                   the user command
-     * @param myCommandList             list of commands
-     * @throws SyntaxException          if syntax is wrong
-     * @throws NoSuchCommandException   if command is not existent 
+     * 
+     * @param command the user command
+     * @param myCommandList list of commands
+     * @throws SyntaxException if syntax is wrong
+     * @throws NoSuchCommandException if command is not existent
      */
-    public void parseIfElse (String command, List<ICommand> myCommandList) throws SyntaxException, NoSuchCommandException {
+    public void parseIfElse (String command, List<ICommand> myCommandList) throws SyntaxException,
+                                                                          NoSuchCommandException {
         int position = command.indexOf("IFELSE");
         if (position == -1) {
             myCommandList.addAll(myParser.buildMultipleCommands(myParser.split(command)));
@@ -199,7 +206,6 @@ public class Interpreter {
         }
     }
 
-
     /**
      * this method can finish the process of input commands.
      * 
@@ -208,28 +214,21 @@ public class Interpreter {
      * @throws SyntaxException Syntax exception
      * @throws NoSuchCommandException
      */
-    public void process (Model model, int turtleNumber , String commands) throws SyntaxException,
-    NoSuchCommandException {
-
+    public void process (Model model, int turtleNumber, String commands) throws SyntaxException,
+                                                                        NoSuchCommandException {
 
         List<ICommand> myCommandList = new ArrayList<ICommand>();
-        parseTo(commands , myCommandList);
+        parseTo(commands, myCommandList);
         System.out.println(myCommandList.size());
-        for(ICommand ic : myCommandList){
+        for (ICommand ic : myCommandList) {
 
             System.out.println(myUserToCommands.size());
 
             System.out.println("list size :" + myCommandList.size());
             ic.move(model, turtleNumber);
-        } 
+        }
 
     }
-
-
-
-
-
-
 
     /**
      * Makes a variable from user input
@@ -252,4 +251,3 @@ public class Interpreter {
     }
 
 }
-
