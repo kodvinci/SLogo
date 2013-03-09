@@ -46,17 +46,18 @@ public class Interpreter {
     
     public void parse (String command, List<ICommand> myCommandList,Model model) throws SyntaxException, NoSuchCommandException, NumberFormatException, NoSuchVariableException {
         
-        int repeatIndex = myParser.findFirstFlow(command, "REPEAT");
-        int toIndex = myParser.findFirstFlow(command, "TO");
-        int ifIndex = myParser.findFirstFlow(command, "IF");
-        int elseifIndex = myParser.findFirstFlow(command, "ELSEIF");
-        
-        myFlowOrder.add(repeatIndex);
-        myFlowOrder.add(toIndex);
-        myFlowOrder.add(ifIndex);
-        
-        
-        myParser.parseTo(command, myCommandList, model);
+        myParser.parseOneBracket(command, myCommandList, model);
+//        int repeatIndex = myParser.findFirstFlow(command, "REPEAT");
+//        int toIndex = myParser.findFirstFlow(command, "TO");
+//        int ifIndex = myParser.findFirstFlow(command, "IF");
+//        int elseifIndex = myParser.findFirstFlow(command, "ELSEIF");
+//        
+//        myFlowOrder.add(repeatIndex);
+//        myFlowOrder.add(toIndex);
+//        myFlowOrder.add(ifIndex);
+//        
+//        
+//        myParser.parseTo(command, myCommandList, model);
     }
 
     /**

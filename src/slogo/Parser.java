@@ -79,13 +79,14 @@ public class Parser {
     }
 
     public ICommand buildCommand (String[] str, Model model) throws NoSuchCommandException, SyntaxException {
-        if (!myResources.containsKey(str[0])) {
+        if (!myResources.containsKey(str[0].toUpperCase())) {
             throw new NoSuchCommandException();
         }
         else {
-            System.out.println("test");
             String[] subArray = subStringArray(str);
-            String commandName = myResources.getString(str[0]);
+            System.out.println(str[0]);
+            String commandName = myResources.getString(str[0].toUpperCase());
+            
             Class<?> commandClass = null;
             try {
                 commandClass = Class.forName("behavior." + commandName);
