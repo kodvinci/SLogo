@@ -3,6 +3,7 @@ package slogo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -73,45 +74,52 @@ public class Parser {
      * 
 >>>>>>> 0b9ccc6ce78591a46d0a6f2849f954e9db33bc8e
      */
-    public ArrayList<String[]> split (String commands) {
 
-        if (commands == null) { return null; }
-
-        ArrayList<String[]> allCommands = new ArrayList<String[]>();
-        ArrayList<StringBuffer> allBuffers = new ArrayList<StringBuffer>();
-
-        for (int i = 0; i < commands.length(); i++) {
-            if (commands.charAt(i) != ' ') {
-                commands = commands.substring(i);
-                break;
+    public List<String[]> split(String s){
+        List<String> l = new LinkedList<String>();
+        int depth=0;
+        StringBuilder sb = new StringBuilder();
+        for(int i=0; i<s.length(); i++){
+            char c = s.charAt(i);
+            if(c=='['){
+                depth += 1;
+            }else if(c==']'){
+                depth -= 1;
+            }else if(c==' ' && depth==0){
+                l.add(sb.toString());
+                sb = new StringBuilder();
+                continue;
             }
+            sb.append(c);
         }
-
-        String[] cutBySpace = mySpacePattern.split(commands);
-        if (cutBySpace.length == 0) { return null; }
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(cutBySpace[0]);
-        for (int i = 1; i < cutBySpace.length; i++) {
-            if (myStrPattern.matcher(cutBySpace[i]).matches()) {
-
-                allBuffers.add(buffer);
-                buffer = new StringBuffer();
-                buffer.append(cutBySpace[i]);
-            }
-            else if (myNumPattern.matcher(cutBySpace[i]).matches()) {
-                buffer.append(" ");
-                buffer.append(cutBySpace[i]);
-            }
+        l.add(sb.toString());
+        
+        for (int i = 0; i < l.size(); i++ )
+        {
+            System.out.println("presplit: " + l.get(i));
         }
-        allBuffers.add(buffer);
-
-        for (int i = 0; i < allBuffers.size(); i++) {
-            String[] str = mySpacePattern.split(allBuffers.get(i).toString());
-            allCommands.add(str);
-            str = null;
-        }
-
-        return allCommands;
+        List<String[]> commandArray = new ArrayList<String[]>();
+        
+//        for (int i = 0; i < l.size(); i++) {
+//            String[] simpleCommand = new String[2];
+//            String[] oneBracketCommand = new String[3];
+//            String[] twoBracketCommand = new String[4];
+//            if (myResources.containsKey(l.get(i))) {
+//                simpleCommand[0] = l.get(i);
+//                simpleCommand[1] = l.get(i+1);
+//                commandArray.add(simpleCommand);
+//            }
+//            else if (l.get(i).equals("IFELSE") || l.get(i).equals("TO")) {
+//                twoBracketCommand[0] = l.get(i);
+//                twoBracketCommand[1] = l.get(i + 1);
+//                twoBracketCommand[2] = l.get(i + 2);
+//                twoBracketCommand[3] = l.get(i + 3);
+//                i += 3;
+//                commandArray.add(twoBracketCommand);
+//             }
+//        }
+        
+        return commandArray;
     }
 
     /**
@@ -175,10 +183,9 @@ public class Parser {
         List<ICommand> myCommandList = new ArrayList<ICommand>();
         for (int i = 0; i < commands.size(); i++) {
             String[] str = commands.get(i);
-            if (str[0].equals("IFELSE") || str[0].equals("TO")) {
-                myCommandList.add(buildTwoBracketFlowCommand(str, commands.get(commands.indexOf(str)+1),
-                                                             commands.get(commands.indexOf(str)+2), model));
-                i += 2;
+            if (str[0].equals("IFELSE")) {
+                parseIfElse(str[0], str[1], str[2], str[3], myCommandList, model);
+                i += 3;
             }
             else if (str[0].equals("REPEAT") || str[0].equals("IF")) {
               
@@ -192,56 +199,7 @@ public class Parser {
     
    
     
-    public ICommand buildTwoBracketFlowCommand (String[] name, String[] firstBracket, String[] secondBracket, Model model)
-            throws SyntaxException,
-            NoSuchCommandException {
-        
-        if (name[0].equals("IFELSE")) {
-            String command = "";
-            for (int i = 0; i < name.length; i++) {
-                command += name[i] + " ";
-            }
-            command += "[";
-            for (int i = 0; i < firstBracket.length; i++) {
-                command += firstBracket[i] + " ";
-            }
-            command += "]";
-            command += "[";
-            for (int i = 0; i< secondBracket.length; i++) {
-                command += secondBracket[i] + " ";
-            }
-            command += "]";
-            System.out.println(command);
-            return new IfElse(command, model);
-        }
-        else if (name[0].equals("TO")) {
-            String command = "";
-            for (int i = 0; i < name.length; i++) {
-                command += name[i] + " ";
-            }
-            for (int i = 0; i < firstBracket.length; i++) {
-                if (i == 0) {
-                    command += firstBracket[i] + "[";
-                }
-                else {
-                    command += firstBracket[i] + " ";
-                }
-            }
-            command += "]";
-            command += "[";
-            for (int i = 0; i < secondBracket.length; i++) {
-                command += secondBracket[i] + " ";
-            }
-            command += "]";
-            System.out.println(command + " Second bracket size: " + secondBracket.length);
-            return new To(command, model);
-        
-        }
-        else {
-            return null;
-        }
-    }
-
+    
     /**
      * delete first element of a string
      * 
@@ -293,10 +251,11 @@ public class Parser {
         SyntaxException,
         NoSuchVariableException {
         
-        ArrayList<String[]> splits = split(command);
-        for (int i = 0; i < splits.size(); i++) {
-            System.out.println(Arrays.toString(splits.get(i)));
-        }
+//        List<String[]> test = split(command);
+//        for (String[] s : test) {
+//            System.out.println("The user input split " + Arrays.toString(s));
+//        }
+//        
         myCommandList.addAll(buildMultipleCommands(split(command), model));
        
     }
@@ -388,10 +347,10 @@ public class Parser {
      * @throws NoSuchCommandException NoCommand exceptoin
      */
 
-    public void parseIfElse (String command, List<ICommand> myCommandList, Model model)
+    public void parseIfElse (String command, String value, String firstBracket, String secondBracket, List<ICommand> myCommandList, Model model)
                                                                                        throws SyntaxException,
                                                                                        NoSuchCommandException {
-       IfElse currentIfElse = new IfElse(command, model);
+       IfElse currentIfElse = new IfElse(command, value, firstBracket, secondBracket, model);
        myCommandList.add(currentIfElse);
        
     }

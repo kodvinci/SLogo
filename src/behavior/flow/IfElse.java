@@ -1,6 +1,7 @@
 package behavior.flow;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import slogo.Model;
@@ -30,7 +31,7 @@ public class IfElse implements ICommand {
     private Parser myParser = new Parser();
     private double myValue;
     private double myFinalValue;
-    private String myRecurse;
+
     
     
 
@@ -46,11 +47,11 @@ public class IfElse implements ICommand {
      * @throws NoSuchCommandException
      * @throws SyntaxException
      */
-    public IfElse (String command,
+    public IfElse (String command, String value, String firstBracket, String secondBracket,
                    Model model)
                                throws NoSuchCommandException, SyntaxException {
         
-        myRecurse = parse(command);
+        parse(value, firstBracket, secondBracket);
 //        myStringTrueCommands = trueCommands;
 //        myStringFalseCommands = falseCommands;
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
@@ -60,25 +61,25 @@ public class IfElse implements ICommand {
         map(myStringTrueCommands, myStringFalseCommands, model);
     }
     
-    public String getRecurse() {
-        return myRecurse;
-    }
-    
-    public String parse(String command) {
-        int position = command.indexOf("IFELSE");
-        int bracketPosition = command.indexOf("[");
-        String value = command.substring(position + 7, bracketPosition);
-        String post = command.substring(bracketPosition + 1, command.length());
-        String trueCommand = post.substring(0, post.indexOf("]"));
-        String temp = post.substring(post.indexOf("[") + 1, post.length());
-        String falseCommand = temp.substring(0, temp.indexOf("]"));
-        String recurse = temp.substring(temp.indexOf("]") + 1, temp.length());
-
-        myStringTrueCommands = myParser.split(trueCommand);
-        myStringFalseCommands = myParser.split(falseCommand);
+  
+    public void parse(String value, String firstBracket, String secondBracket) {
+        String firstBracketPruned = "";
+        String secondBracketPruned = "";
+        for (int i = 0; i < firstBracket.length(); i++) {
+            if (firstBracket.charAt(i) != '[' && firstBracket.charAt(i) != ']') {
+                firstBracketPruned += firstBracket.charAt(i);
+            }
+        }
+        for (int i = 0; i < secondBracket.length(); i++) {
+            if (secondBracket.charAt(i) != '[' && secondBracket.charAt(i) != ']') {
+                secondBracketPruned += secondBracket.charAt(i);
+            }
+        }
+        System.out.println("without brackets " + firstBracketPruned);
+        System.out.println("without brackets " + secondBracketPruned);
+        myStringTrueCommands = myParser.split(firstBracketPruned);
+        myStringFalseCommands = myParser.split(secondBracketPruned);
         myValue = Double.parseDouble(value);
-        System.out.println(myValue);
-        return recurse;
        
     }
 
@@ -157,10 +158,11 @@ public class IfElse implements ICommand {
             for (int i = 0; i < myTrueCommands.size(); i++) {
                 myTrueCommands.get(i).move(model, turtleNumber);
             }
+            System.out.println("size of true commands " + myTrueCommands.size());
             double myLastValue =
                     Double.parseDouble(myStringFalseCommands.get(myStringFalseCommands.size()
                             - 1)[1]);
-            return myLastValue;
+            return 0;
         }
 
     }
