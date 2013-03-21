@@ -47,7 +47,7 @@ public class Canvas {
     private JPanel myPanel;
     private JFrame myFrame;
     private List<Turtle> myTurtle;
-
+    private TurtleArea myTurtleArea;
     /**
      * 
      * @param controller constructor
@@ -72,7 +72,7 @@ public class Canvas {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // for turtle sprite display
-        TurtleArea myTurtleArea = new TurtleArea(TURTLE_AREA_SIZE, myTurtle, this);
+        myTurtleArea = new TurtleArea(TURTLE_AREA_SIZE, myTurtle, this);
         myFrame.getContentPane().add(myTurtleArea, BorderLayout.CENTER);
 
         // for turtle status display
@@ -99,5 +99,13 @@ public class Canvas {
         myPanel.setSize(new Dimension(myWidth + rand.nextInt(myRange), myHeight));
         myFrame.validate();
     }
-
+    
+    /**
+     * 
+     * @return 
+     *      turtle view area
+     */
+    public TurtleArea getTurtleArea() {
+        return myTurtleArea;
+    }
 }

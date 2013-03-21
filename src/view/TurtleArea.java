@@ -21,7 +21,7 @@ import util.Location;
  */
 public class TurtleArea extends Window {
 
-    private static final String RESOURCE = "/images/";
+    private static final String RESOURCE = "/images/background/";
     private static final long serialVersionUID = 1L;
     private static final int FIRST_TURTLE = 0;
     private static final int GRID_VALUE = 100;
@@ -52,7 +52,7 @@ public class TurtleArea extends Window {
         setFocusable(true);
 
         myBackgroundImage =
-                new ImageIcon(getClass().getResource(RESOURCE + "background.gif")).getImage();
+                new ImageIcon(getClass().getResource(RESOURCE + "dukeblue.gif")).getImage();
 
         myView = canvas;
         myTurtles = turtles;
@@ -178,4 +178,16 @@ public class TurtleArea extends Window {
         });
 
     }
+
+    /**
+     * 
+     * @param filename 
+     *      name of new background
+     */
+    public void changeBackgroundImage (String filename) {
+        myBackgroundImage =
+                new ImageIcon(getClass().getResource(RESOURCE + filename)).getImage();
+        repaint();
+    }
+
 }

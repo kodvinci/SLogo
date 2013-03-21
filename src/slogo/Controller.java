@@ -199,4 +199,13 @@ public class Controller {
     public List<Turtle> getMyTurtles () {
         return myModels.get(0).getMyTurtles();
     }
+    
+    /**
+     * 
+     * @return
+     *      the Canvas area
+     */
+    public Canvas getView() {
+        return myView;
+    }
 }
