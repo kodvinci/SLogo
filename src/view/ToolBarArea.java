@@ -1,8 +1,10 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -80,6 +82,21 @@ public class ToolBarArea extends JMenuBar {
                 }
             }
         });
+        	result.add(new AbstractAction(myResources.getString("HelpCommand")) {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+            public void actionPerformed (ActionEvent e) {
+            	String htmlPath = "https://www.cs.duke.edu/courses/cps108/compsci308/cps108/spring13/assign/03_slogo/commands.php"; // path to your new file
+            	
+            	try {
+            		 java.awt.Desktop.getDesktop().browse(java.net.URI.create(htmlPath));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+            }
+        });
         result.add(new JSeparator());
         result.add(new AbstractAction(myResources.getString("QuitCommand")) {
             private static final long serialVersionUID = 1L;
@@ -131,8 +148,10 @@ public class ToolBarArea extends JMenuBar {
                 myController.getMyTurtle().changeTurtleImage("turtle.gif");
             }
         });
+     
         
         return result;
     }
+    
 
 }
