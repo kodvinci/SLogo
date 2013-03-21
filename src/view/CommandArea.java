@@ -1,9 +1,14 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 import slogo.Controller;
 
@@ -24,6 +29,7 @@ public class CommandArea extends Window {
     private static final int FIELD_SIZE = 30;
     private static final String EMPTY_STRING = "";
     private static final Dimension BUTTON_SIZE = new Dimension(70, 30);
+    
     private JTextField myTextField;
     private Controller myController;
     private ActionListener myActionListener;
@@ -36,6 +42,7 @@ public class CommandArea extends Window {
      */
     public CommandArea (Dimension size, Controller control) {
         super(size, "English");
+        
         makeListeners();
         add(makeTextField());
         add(makeButton());

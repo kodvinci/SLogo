@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.List;
+import javax.swing.ImageIcon;
 import object.Trail;
 import object.Turtle;
 import util.Location;
@@ -18,13 +20,15 @@ import util.Location;
  */
 public class TurtleArea extends Window {
 
+    private static final String RESOURCE = "/images/";
     private static final long serialVersionUID = 1L;
     private static final int FIRST_TURTLE = 0;
     private static final Color TRAIL_COLOR = Color.BLACK;
     private Trail myTrail;
     private Canvas myView;
     private List<Turtle> myTurtles;
-
+    private java.awt.Image myBackgroundImage;
+    
     /**
      * 
      * @param size
@@ -38,12 +42,15 @@ public class TurtleArea extends Window {
     public TurtleArea (Dimension size, List<Turtle> turtles, Canvas canvas) {
         super(size, "English");
         setFocusable(true);
+        
+        myBackgroundImage = new ImageIcon(getClass().getResource(RESOURCE + "background.gif")).getImage();
 
         myView = canvas;
         myTurtles = turtles;
         myTrail = myTurtles.get(FIRST_TURTLE).getTrail();
+        setVisible(true);
     }
-
+    
     /**
      * Paints turtle and trail
      * 
@@ -53,6 +60,11 @@ public class TurtleArea extends Window {
     @Override
     public void paint (Graphics pen) {
         super.paintComponent(pen);
+        
+        if (myBackgroundImage != null) {
+            pen.drawImage(myBackgroundImage, 0, 0, null);
+        }
+        
         paintTurtle((Graphics2D) pen);
         paintTrails((Graphics2D) pen);
 
