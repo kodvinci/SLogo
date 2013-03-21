@@ -7,17 +7,22 @@ import slogo.Model;
 import slogo.Parser;
 import behavior.ICommand;
 import exceptions.NoSuchCommandException;
+import exceptions.ParameterException;
 import exceptions.SyntaxException;
 
 
 /**
  * Implements IFELSE statement
  * 
- * @author Jerry
+ * @author Jerry Li
  * 
  */
 public class IfElse implements ICommand {
 
+    /**
+     * Resources for commands
+     */
+    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private List<String[]> myStringTrueCommands;
     private List<String[]> myStringFalseCommands;
     private List<ICommand> myTrueCommands;
@@ -25,13 +30,12 @@ public class IfElse implements ICommand {
     private Parser myParser = new Parser();
     private double myValue;
     private double myFinalValue;
+    private String myRecurse;
+    
+    
 
     private ResourceBundle myResources;
 
-    /**
-     * Resources for commands
-     */
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
 
     /**
      * Constructs the command
@@ -42,19 +46,40 @@ public class IfElse implements ICommand {
      * @throws NoSuchCommandException
      * @throws SyntaxException
      */
-    public IfElse (List<String[]> trueCommands,
-                   List<String[]> falseCommands,
-                   double value,
+    public IfElse (String command,
                    Model model)
                                throws NoSuchCommandException, SyntaxException {
-
-        myStringTrueCommands = trueCommands;
-        myStringFalseCommands = falseCommands;
+        
+        myRecurse = parse(command);
+//        myStringTrueCommands = trueCommands;
+//        myStringFalseCommands = falseCommands;
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
         myTrueCommands = new ArrayList<ICommand>();
         myFalseCommands = new ArrayList<ICommand>();
-        myValue = value;
-        map(trueCommands, falseCommands, model);
+        
+        map(myStringTrueCommands, myStringFalseCommands, model);
+    }
+    
+    public String getRecurse() {
+        return myRecurse;
+    }
+    
+    public String parse(String command) {
+        int position = command.indexOf("IFELSE");
+        int bracketPosition = command.indexOf("[");
+        String value = command.substring(position + 7, bracketPosition);
+        String post = command.substring(bracketPosition + 1, command.length());
+        String trueCommand = post.substring(0, post.indexOf("]"));
+        String temp = post.substring(post.indexOf("[") + 1, post.length());
+        String falseCommand = temp.substring(0, temp.indexOf("]"));
+        String recurse = temp.substring(temp.indexOf("]") + 1, temp.length());
+
+        myStringTrueCommands = myParser.split(trueCommand);
+        myStringFalseCommands = myParser.split(falseCommand);
+        myValue = Double.parseDouble(value);
+        System.out.println(myValue);
+        return recurse;
+       
     }
 
     /**
@@ -92,12 +117,7 @@ public class IfElse implements ICommand {
     public List<ICommand> buildCommands (List<String[]> commands, Model model)
                                                                               throws NoSuchCommandException,
                                                                               SyntaxException {
-        List<ICommand> theCommands = new ArrayList<ICommand>();
-        for (int i = 0; i < commands.size(); i++) {
-            String[] command = commands.get(i);
-            ICommand myCommand = myParser.buildCommand(command, model);
-            theCommands.add(myCommand);
-        }
+        List<ICommand> theCommands = myParser.buildMultipleCommands(commands, model);
         return theCommands;
     }
 

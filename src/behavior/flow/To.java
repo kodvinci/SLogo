@@ -8,6 +8,7 @@ import slogo.Model;
 import slogo.Parser;
 import behavior.ICommand;
 import exceptions.NoSuchCommandException;
+import exceptions.ParameterException;
 import exceptions.SyntaxException;
 
 
@@ -24,6 +25,8 @@ public class To implements ICommand {
     private List<String[]> myCommands;
     private String myName;
     private Parser myParser = new Parser();
+    private String myRecurse;
+    
 
     private ResourceBundle myResources;
 
@@ -41,16 +44,51 @@ public class To implements ICommand {
      * @throws NoSuchCommandException No command exception
      * @throws SyntaxException Wrong syntax exception
      */
-    public To (String name, List<String[]> variables, List<String[]> commands, Model model)
+    public To (String name, Model model)
                                                                                            throws NoSuchCommandException,
                                                                                            SyntaxException {
-
+        
+        
+        myRecurse = parse(name);
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
-        myVariables = variables;
-        myCommands = commands;
-        myName = name;
-        System.out.println(myVariables.get(0).length + " " + myCommands.size());
-        map(variables, commands, model);
+//        myVariables = variables;
+//        myCommands = commands;
+       
+//        System.out.println(myVariables.get(0).length + " " + myCommands.size());
+        int bool = checkLength();
+        
+        map(myVariables, myCommands, model);
+        
+    }
+    
+    public String getRecurse() {
+        return myRecurse;
+    }
+    
+    
+    public int checkLength() {
+        if (myVariables.size() == myCommands.size()) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+    
+    public String parse(String command) {
+        int position = command.indexOf("TO");
+        int bracketPosition = command.indexOf("[");
+        myName = command.substring(position + 2, bracketPosition);
+        String post = command.substring(bracketPosition + 1, command.length());
+        String variable = post.substring(0, post.indexOf("]"));
+        String temp = post.substring(post.indexOf("[") + 1, post.length());
+        String commandsBracket = temp.substring(0, temp.indexOf("]"));
+        String recurse = temp.substring(temp.indexOf("]") + 1, temp.length());
+
+        myVariables = myParser.split(variable);
+        myCommands = myParser.split(commandsBracket);
+        
+        return recurse;
     }
 
     /**
@@ -75,14 +113,14 @@ public class To implements ICommand {
                                                                                     SyntaxException {
         for (int i = 0; i < commands.size(); i++) {
             String[] command = commands.get(i);
-            System.out.println(Arrays.toString(command));
+           // System.out.println(Arrays.toString(command));
             String[] variable = variables.get(0);
-            System.out.println(Arrays.toString(variable));
+           // System.out.println(Arrays.toString(variable));
             String var = variable[i];
             String[] str = { command[0], var };
             ICommand myCommand = myParser.buildCommand(str, model);
             myCommandList.add(myCommand);
-            System.out.println(myCommandList.size());
+            //System.out.println(myCommandList.size());
         }
     }
 
