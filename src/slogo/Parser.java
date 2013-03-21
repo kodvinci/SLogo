@@ -286,7 +286,7 @@ public class Parser {
             return i;
         }
     }
-<<<<<<< HEAD
+
     
     
     public void parse(String command, List<ICommand> myCommandList, Model model)  throws NoSuchCommandException,
@@ -301,9 +301,7 @@ public class Parser {
        
     }
     
-=======
 
->>>>>>> 0b9ccc6ce78591a46d0a6f2849f954e9db33bc8e
     /**
      * parse commands that need one bracket
      * 
@@ -389,42 +387,16 @@ public class Parser {
      * @throws SyntaxException Syntax Exeception
      * @throws NoSuchCommandException NoCommand exceptoin
      */
-<<<<<<< HEAD
-   
-=======
+
     public void parseIfElse (String command, List<ICommand> myCommandList, Model model)
                                                                                        throws SyntaxException,
                                                                                        NoSuchCommandException {
-        int position = command.indexOf("IFELSE");
-        if (position == -1) {
-            myCommandList.addAll(buildMultipleCommands(split(command), model));
-        }
-        else {
-            String formerString = command.substring(0, position);
-            if (formerString.length() != 0) {
-                myCommandList.addAll(buildMultipleCommands(split(formerString), model));
-            }
-            int bracketPosition = command.indexOf("[");
-            String value = command.substring(position + IFELSE_LENGTH, bracketPosition);
-            String post = command.substring(bracketPosition + 1, command.length());
-            String trueCommand = post.substring(0, post.indexOf("]"));
-            String temp = post.substring(post.indexOf("[") + 1, post.length());
-            String falseCommand = temp.substring(0, temp.indexOf("]"));
-            String recurse = temp.substring(temp.indexOf("]") + 1, temp.length());
-
-            List<String[]> trueCommands = split(trueCommand);
-            List<String[]> falseCommands = split(falseCommand);
-            double doubleValue = Double.parseDouble(value);
-            System.out.println(doubleValue);
-            ICommand currentIfElse = new IfElse(trueCommands, falseCommands, doubleValue, model);
-            myCommandList.add(currentIfElse);
-            if (recurse.length() != 0) {
-                parseIfElse(recurse, myCommandList, model);
-            }
-        }
+       IfElse currentIfElse = new IfElse(command, model);
+       myCommandList.add(currentIfElse);
+       
     }
 
->>>>>>> 0b9ccc6ce78591a46d0a6f2849f954e9db33bc8e
+
     /**
      * find first flow word in a string
      * 
