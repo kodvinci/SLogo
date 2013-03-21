@@ -47,6 +47,8 @@ public class ToolBarArea extends JMenuBar {
         this.add(makeFileMenu());
         this.add(makeTurtleMenu());
         this.add(makeBackgroundMenu());
+        this.add(makePenMenu());
+        this.add(makeGridMenu());
     }
 
     /**
@@ -216,6 +218,52 @@ public class ToolBarArea extends JMenuBar {
         });
 
         result.add(subMenu);
+        return result;
+    }
+
+    private JMenu makePenMenu () {
+        JMenu result = new JMenu(myResources.getString("PenMenu"));
+
+        JMenu subMenu = new JMenu(myResources.getString("PenProperties"));
+        subMenu.add(new AbstractAction(myResources.getString("Dash")) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getView().getTurtleArea().setDashed();
+            }
+        });
+        subMenu.add(new AbstractAction(myResources.getString("Solid")) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getView().getTurtleArea().setSolid();
+            }
+        });
+        result.add(subMenu);
+        return result;
+    }
+
+    private JMenu makeGridMenu () {
+        JMenu result = new JMenu(myResources.getString("GridMenu"));
+
+        result.add(new AbstractAction(myResources.getString("OnCommand")) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getView().getTurtleArea().toggleGridOn();
+            }
+        });
+        result.add(new AbstractAction(myResources.getString("OffCommand")) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getView().getTurtleArea().toggleGridOff();
+            }
+        });
         return result;
     }
 }

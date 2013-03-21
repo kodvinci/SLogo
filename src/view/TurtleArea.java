@@ -1,12 +1,15 @@
 package view;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.lang.reflect.Field;
 import java.util.List;
 import javax.swing.ImageIcon;
 import object.Trail;
@@ -29,11 +32,13 @@ public class TurtleArea extends Window {
     private static final long serialVersionUID = 1L;
     private static final int FIRST_TURTLE = 0;
     private static final int GRID_VALUE = 100;
-    private static final Color TRAIL_COLOR = Color.BLACK;
+    private Color trailColor = Color.BLACK;
     private static final Color GRID_COLOR = Color.BLACK;
     private static final int GRID_LABEL_OFFSET = 20;
     private static final int TOGGLE_KEY = KeyEvent.VK_SPACE;
     private boolean myToggledOn = true;
+    private boolean toggledOn = true;
+    private boolean dashed = true;
     private Trail myTrail;
     private Canvas myView;
     private List<Turtle> myTurtles;
@@ -63,7 +68,6 @@ public class TurtleArea extends Window {
 
         setVisible(true);
 
-        setInputListeners();
     }
 
     /**
@@ -82,7 +86,6 @@ public class TurtleArea extends Window {
 
         paintTurtle((Graphics2D) pen);
         paintTrails((Graphics2D) pen);
-        toggleGrid();
         paintGrid((Graphics2D) pen);
 
         if (myTurtles.get(FIRST_TURTLE).getAngle() != 0.0) {
@@ -132,7 +135,15 @@ public class TurtleArea extends Window {
      * Paints all trails that the turtle has traveled
      */
     private void paintTrails (Graphics2D pen) {
-        pen.setColor(TRAIL_COLOR);
+        pen.setColor(trailColor);
+        if (dashed){
+        	Stroke drawingStroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+        	pen.setStroke(drawingStroke);
+        }
+        //Sets to default stroke 
+        else{
+        	pen.setStroke(new BasicStroke());
+        }
         List<Location> trails = myTrail.getTrails();
         if (!(trails.isEmpty())) {
             Location prevLocation = myTrail.getTrails().get(FIRST_TURTLE);
@@ -145,10 +156,15 @@ public class TurtleArea extends Window {
             }
         }
     }
+    
+    
 
     private void paintGrid (Graphics2D pen) {
         pen.setColor(GRID_COLOR);
         if (myToggledOn) {
+        pen.setColor(trailColor);
+        pen.setStroke(new BasicStroke());
+        if (toggledOn) {
             for (int i = 0; i < getWidth(); i += GRID_VALUE) {
                 pen.drawLine(i, 0, i, getHeight());
                 pen.drawString(Integer.toString(i), i, GRID_LABEL_OFFSET);
@@ -159,8 +175,9 @@ public class TurtleArea extends Window {
             }
         }
 
+        }
     }
-
+    
     private void toggleGrid () {
         System.out.println("test");
         if (myLastKeyPressed == TOGGLE_KEY) {
@@ -176,15 +193,8 @@ public class TurtleArea extends Window {
             public void keyPressed (KeyEvent e) {
                 myLastKeyPressed = e.getKeyCode();
             }
-
-            @Override
-            public void keyReleased (KeyEvent e) {
-                myLastKeyPressed = NO_KEY_PRESSED;
-            }
         });
-
     }
-
     /**
      * 
      * @param filename
@@ -194,6 +204,34 @@ public class TurtleArea extends Window {
         myBackgroundImage =
                 new ImageIcon(getClass().getResource(RESOURCE + filename)).getImage();
         repaint();
+    }
+    
+    public void setDashed()
+    {
+    	dashed=true;
+    	repaint();
+    }
+    public void setSolid(){
+    	dashed=false;
+    	repaint();
+    }
+    
+    public void toggleGridOff(){
+    	toggledOn=false;
+    	repaint();
+    }
+    public void toggleGridOn(){
+    	toggledOn=true; 
+    	repaint();
+    }
+    
+    public void setTrailColor(String color){
+    	try {
+    	    Field field = Class.forName("java.awt.Color").getField(color);
+    	    trailColor = (Color)field.get(null);
+    	} catch (Exception e) {
+    	    trailColor=Color.BLACK; // Not defined
+    	}
     }
 
 }

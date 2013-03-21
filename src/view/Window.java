@@ -128,4 +128,5 @@ public class Window extends JPanel {
     public int getHeight () {
         return getSize().height;
     }
+
 }
