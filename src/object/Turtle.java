@@ -10,7 +10,7 @@ import view.Canvas;
 /**
  * 
  * @author Richard Yang
- * 
+ * @author Leonard
  */
 
 public class Turtle extends Animal {
@@ -20,15 +20,12 @@ public class Turtle extends Animal {
      */
     public static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
 
-    /**
-     * Default turtle image;
-     */
     private static final Pixmap TURTLE_IMAGE = new Pixmap("turtle.gif");
-
     private double myAngle;
     private boolean myLeftTrail;
     private Trail myTrail;
     private boolean myVisible;
+    private String myTurtleName = "turtle.gif";
 
     /**
      * Constructs turtle object
@@ -170,5 +167,6 @@ public class Turtle extends Animal {
      */
     public void changeTurtleImage (String image) {
         setView(new Pixmap(image));
+        myTurtleName = image;
     }
 }

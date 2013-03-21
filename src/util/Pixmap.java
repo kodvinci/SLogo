@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
  * Note, Java only supports the formats: png, jpg, gif.
  * 
  * @author Robert C. Duvall
+ * @author Leonard
  */
 public class Pixmap {
     // OS-independent relative resource locations (like URLs)
@@ -46,8 +47,17 @@ public class Pixmap {
      * @param fileName the file
      */
     public void setImage (String fileName) {
-        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
         myFileName = fileName;
+        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
+    }
+
+    /**
+     * 
+     * @return
+     *         image filename
+     */
+    public String getImageFileName () {
+        return myFileName;
     }
 
     /**
@@ -70,6 +80,7 @@ public class Pixmap {
      * @param angle angle
      */
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
+        System.out.println("Pixmap " + angle);
         // save current state of the graphics area
         AffineTransform old = new AffineTransform(pen.getTransform());
         // move graphics area to center of this shape

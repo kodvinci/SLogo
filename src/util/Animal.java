@@ -60,7 +60,9 @@ public abstract class Animal {
         myOriginalCenter = new Location(center);
         myOriginalSize = new Dimension(size);
         myOriginalView = new Pixmap(image);
-        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION)).getImage();
+        myImage =
+                new ImageIcon(getClass().getResource(RESOURCE_LOCATION + image.getImageFileName()))
+                        .getImage();
         reset();
 
         resetBounds();
@@ -246,7 +248,7 @@ public abstract class Animal {
      * @param angle angle
      */
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
-        System.out.println("rotated");
+        System.out.println("rotated turtle");
         // save current state of the graphics area
         AffineTransform old = new AffineTransform(pen.getTransform());
         // move graphics area to center of this shape

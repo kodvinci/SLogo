@@ -20,6 +20,10 @@ import util.Location;
  * 
  */
 public class TurtleArea extends Window {
+    /**
+     * 
+     */
+    public static final int NO_KEY_PRESSED = -1;
 
     private static final String RESOURCE = "/images/background/";
     private static final long serialVersionUID = 1L;
@@ -28,14 +32,13 @@ public class TurtleArea extends Window {
     private static final Color TRAIL_COLOR = Color.BLACK;
     private static final Color GRID_COLOR = Color.BLACK;
     private static final int GRID_LABEL_OFFSET = 20;
-    private boolean toggledOn = true;
+    private static final int TOGGLE_KEY = KeyEvent.VK_SPACE;
+    private boolean myToggledOn = true;
     private Trail myTrail;
     private Canvas myView;
     private List<Turtle> myTurtles;
     private java.awt.Image myBackgroundImage;
-    private static final int TOGGLE_KEY = KeyEvent.VK_SPACE;
     private int myLastKeyPressed;
-    public static final int NO_KEY_PRESSED = -1;
 
     /**
      * 
@@ -82,17 +85,20 @@ public class TurtleArea extends Window {
         toggleGrid();
         paintGrid((Graphics2D) pen);
 
-        // rotation
-        rotatePen((Graphics2D) pen);
-
+        if (myTurtles.get(FIRST_TURTLE).getAngle() != 0.0) {
+            rotateImage((Graphics2D) pen);
+        }
+        
         Toolkit.getDefaultToolkit().sync();
         pen.dispose();
     }
 
-    private void rotatePen (Graphics2D pen) {
+    private void rotateImage (Graphics2D pen) {
         for (Turtle t : myTurtles) {
             t.paint(pen, t.getCenter(), t.getSize(), t.getAngle());
+            System.out.println("Turn by: " + t.getAngle());
         }
+        myView.update();
     }
 
     /**
@@ -142,7 +148,7 @@ public class TurtleArea extends Window {
 
     private void paintGrid (Graphics2D pen) {
         pen.setColor(GRID_COLOR);
-        if (toggledOn) {
+        if (myToggledOn) {
             for (int i = 0; i < getWidth(); i += GRID_VALUE) {
                 pen.drawLine(i, 0, i, getHeight());
                 pen.drawString(Integer.toString(i), i, GRID_LABEL_OFFSET);
@@ -158,7 +164,7 @@ public class TurtleArea extends Window {
     private void toggleGrid () {
         System.out.println("test");
         if (myLastKeyPressed == TOGGLE_KEY) {
-            toggledOn = !toggledOn;
+            myToggledOn = !myToggledOn;
         }
     }
 
