@@ -33,14 +33,17 @@ public class ToolBarArea extends JMenuBar {
     private Controller myController;
     private JFileChooser myChooser;
     private ResourceBundle myResources;
+    private ResourceBundle myTurtles;
 
     ToolBarArea (Controller control) {
         myController = control;
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
-
+        myTurtles = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Turtles");
+        
         setBackground(BACKGROUND_COLOR);
         this.add(makeFileMenu());
+        this.add(makeTurtleMenu());
     }
 
     /**
@@ -113,6 +116,23 @@ public class ToolBarArea extends JMenuBar {
         catch (IOException e) {
             showError(e.toString());
         }
+    }
+    
+    private JMenu makeTurtleMenu(){
+        JMenu result = new JMenu(myResources.getString("TurtleMenu"));
+        result.add(new AbstractAction(myResources.getString("ChangeImageCommand")) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                //change image of turtle
+                //System.out.println("Image will change");
+                //myController.getMyTurtle().changeTurtleImage(myTurtles.getString("turtle.gif"));
+                myController.getMyTurtle().changeTurtleImage("turtle.gif");
+            }
+        });
+        
+        return result;
     }
 
 }

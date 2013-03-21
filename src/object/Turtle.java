@@ -163,4 +163,12 @@ public class Turtle extends Animal {
     public Dimension getSize () {
         return DEFAULT_SIZE;
     }
+    
+    /**
+     * 
+     * @param image     Turtle's image
+     */
+    public void changeTurtleImage(String image){
+        setView(new Pixmap(image));
+    }
 }
