@@ -19,12 +19,6 @@ import exceptions.SyntaxException;
 
 
 /**
-<<<<<<< HEAD
- * parse the command
- * 
- * @author Richard Yang
-=======
->>>>>>> 0b9ccc6ce78591a46d0a6f2849f954e9db33bc8e
  * Parses input
  * 
  * @author Richard, Jerry
@@ -45,10 +39,6 @@ public class Parser {
     private ResourceBundle myFlows;
 
     /**
-<<<<<<< HEAD
-     * constructor
-=======
->>>>>>> 0b9ccc6ce78591a46d0a6f2849f954e9db33bc8e
      * Constructs parser
      */
     public Parser () {
@@ -64,14 +54,6 @@ public class Parser {
      * 
      * @param commands commands we want to split
      * @return splited string
-<<<<<<< HEAD
-     * Splits commands
-     * 
-     * @param commands commands
-     * @return
-=======
-     * 
->>>>>>> 0b9ccc6ce78591a46d0a6f2849f954e9db33bc8e
      */
     public ArrayList<String[]> split (String commands) {
 
@@ -285,9 +267,7 @@ public class Parser {
             }
             return i;
         }
-    }
-<<<<<<< HEAD
-    
+    } 
     
     public void parse(String command, List<ICommand> myCommandList, Model model)  throws NoSuchCommandException,
         SyntaxException,
@@ -301,9 +281,6 @@ public class Parser {
        
     }
     
-=======
-
->>>>>>> 0b9ccc6ce78591a46d0a6f2849f954e9db33bc8e
     /**
      * parse commands that need one bracket
      * 
@@ -389,9 +366,6 @@ public class Parser {
      * @throws SyntaxException Syntax Exeception
      * @throws NoSuchCommandException NoCommand exceptoin
      */
-<<<<<<< HEAD
-   
-=======
     public void parseIfElse (String command, List<ICommand> myCommandList, Model model)
                                                                                        throws SyntaxException,
                                                                                        NoSuchCommandException {
@@ -424,7 +398,6 @@ public class Parser {
         }
     }
 
->>>>>>> 0b9ccc6ce78591a46d0a6f2849f954e9db33bc8e
     /**
      * find first flow word in a string
      * 
