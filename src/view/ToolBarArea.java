@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,6 +28,7 @@ import slogo.Controller;
 public class ToolBarArea extends JMenuBar {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+    private static final String DEFAULT_IMAGES_PACKAGE = "images";
     private static final String USER_DIR = "user.dir";
     private static final Color BACKGROUND_COLOR = Color.GREEN;
     private static final long serialVersionUID = 1L;
@@ -39,8 +41,8 @@ public class ToolBarArea extends JMenuBar {
         myController = control;
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
-        myTurtles = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Turtles");
-        
+        // myTurtles = ResourceBundle.getBundle(DEFAULT_IMAGES_PACKAGE);
+
         setBackground(BACKGROUND_COLOR);
         this.add(makeFileMenu());
         this.add(makeTurtleMenu());
@@ -117,21 +119,24 @@ public class ToolBarArea extends JMenuBar {
             showError(e.toString());
         }
     }
-    
-    private JMenu makeTurtleMenu(){
+
+    private JMenu makeTurtleMenu () {
         JMenu result = new JMenu(myResources.getString("TurtleMenu"));
         result.add(new AbstractAction(myResources.getString("ChangeImageCommand")) {
             private static final long serialVersionUID = 1L;
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                //change image of turtle
-                //System.out.println("Image will change");
-                //myController.getMyTurtle().changeTurtleImage(myTurtles.getString("turtle.gif"));
-                myController.getMyTurtle().changeTurtleImage("turtle.gif");
+                // change image of turtle
+                // myController.getMyTurtle().changeTurtleImage("turtle.gif");
+                int response = myChooser.showOpenDialog(null);
+                if (response == JFileChooser.APPROVE_OPTION) {
+                    String myImage = myChooser.getSelectedFile().toString();
+                    myController.getMyTurtle().changeTurtleImage(myImage);
+                }
             }
         });
-        
+
         return result;
     }
 
