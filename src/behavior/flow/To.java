@@ -21,11 +21,10 @@ import exceptions.SyntaxException;
 public class To implements ICommand {
 
     private List<ICommand> myCommandList = new ArrayList<ICommand>();
-    private List<String[]> myVariables;
-    private List<String[]> myCommands;
+    private String[] myVariables;
+    private String[] myCommands;
     private String myName;
     private Parser myParser = new Parser();
-    private String myRecurse;
     
 
     private ResourceBundle myResources;
@@ -44,30 +43,23 @@ public class To implements ICommand {
      * @throws NoSuchCommandException No command exception
      * @throws SyntaxException Wrong syntax exception
      */
-    public To (String name, Model model)
+    public To (String name, String value, String firstBracket, String secondBracket, Model model)
                                                                                            throws NoSuchCommandException,
                                                                                            SyntaxException {
         
         
-        myRecurse = parse(name);
+        parse(name, value, firstBracket, secondBracket);
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
-//        myVariables = variables;
-//        myCommands = commands;
        
 //        System.out.println(myVariables.get(0).length + " " + myCommands.size());
-        int bool = checkLength();
         
         map(myVariables, myCommands, model);
         
     }
     
-    public String getRecurse() {
-        return myRecurse;
-    }
-    
     
     public int checkLength() {
-        if (myVariables.size() == myCommands.size()) {
+        if (myVariables.length == myCommands.length) {
             return 1;
         }
         else {
@@ -75,20 +67,14 @@ public class To implements ICommand {
         }
     }
     
-    public String parse(String command) {
-        int position = command.indexOf("TO");
-        int bracketPosition = command.indexOf("[");
-        myName = command.substring(position + 2, bracketPosition);
-        String post = command.substring(bracketPosition + 1, command.length());
-        String variable = post.substring(0, post.indexOf("]"));
-        String temp = post.substring(post.indexOf("[") + 1, post.length());
-        String commandsBracket = temp.substring(0, temp.indexOf("]"));
-        String recurse = temp.substring(temp.indexOf("]") + 1, temp.length());
-
-        myVariables = myParser.split(variable);
-        myCommands = myParser.split(commandsBracket);
+    public void parse(String name, String value, String firstBracket, String secondBracket) {
         
-        return recurse;
+        String firstBracketPruned = firstBracket.substring(1, firstBracket.length()-1);
+        String secondBracketPruned = secondBracket.substring(1, secondBracket.length()-1);
+        myVariables = firstBracketPruned.split("\\s+");
+        myCommands = secondBracketPruned.split("\\s+");
+        System.out.println(firstBracketPruned);
+        System.out.println(secondBracketPruned);
     }
 
     /**
@@ -108,16 +94,19 @@ public class To implements ICommand {
      * @throws NoSuchCommandException NoSuchCommandException
      * @throws SyntaxException SyntaxException
      */
-    public void map (List<String[]> variables, List<String[]> commands, Model model)
+    public void map (String[] variables, String[] commands, Model model)
                                                                                     throws NoSuchCommandException,
-                                                                                    SyntaxException {
-        for (int i = 0; i < commands.size(); i++) {
-            String[] command = commands.get(i);
+                                                                                 SyntaxException {
+        if (checkLength() == 0) {
+            throw new NoSuchCommandException();
+        }
+        for (int i = 0; i < commands.length; i++) {
+            String command = commands[i];
            // System.out.println(Arrays.toString(command));
-            String[] variable = variables.get(0);
+            String variable = variables[i];
            // System.out.println(Arrays.toString(variable));
-            String var = variable[i];
-            String[] str = { command[0], var };
+            
+            String[] str = { command, variable };
             ICommand myCommand = myParser.buildCommand(str, model);
             myCommandList.add(myCommand);
             //System.out.println(myCommandList.size());

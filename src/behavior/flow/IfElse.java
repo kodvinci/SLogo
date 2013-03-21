@@ -63,20 +63,11 @@ public class IfElse implements ICommand {
     
   
     public void parse(String value, String firstBracket, String secondBracket) {
-        String firstBracketPruned = "";
-        String secondBracketPruned = "";
-        for (int i = 0; i < firstBracket.length(); i++) {
-            if (firstBracket.charAt(i) != '[' && firstBracket.charAt(i) != ']') {
-                firstBracketPruned += firstBracket.charAt(i);
-            }
-        }
-        for (int i = 0; i < secondBracket.length(); i++) {
-            if (secondBracket.charAt(i) != '[' && secondBracket.charAt(i) != ']') {
-                secondBracketPruned += secondBracket.charAt(i);
-            }
-        }
-        System.out.println("without brackets " + firstBracketPruned);
-        System.out.println("without brackets " + secondBracketPruned);
+        String firstBracketPruned = firstBracket.substring(1, firstBracket.length()-1);
+        String secondBracketPruned = secondBracket.substring(1, secondBracket.length()-1);
+        
+//        System.out.println("first without brackets " + firstBracketPruned);
+//        System.out.println("second without brackets " + secondBracketPruned);
         myStringTrueCommands = myParser.split(firstBracketPruned);
         myStringFalseCommands = myParser.split(secondBracketPruned);
         myValue = Double.parseDouble(value);
@@ -149,19 +140,18 @@ public class IfElse implements ICommand {
         if (value == 0) {
             for (int i = 0; i < myFalseCommands.size(); i++) {
                 myFalseCommands.get(i).move(model, turtleNumber);
+                System.out.println(myFalseCommands.size());
             }
             double myLastValue =
-                    Double.parseDouble(myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1]);
+                    Double.parseDouble(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1]);
             return myLastValue;
         }
         else {
             for (int i = 0; i < myTrueCommands.size(); i++) {
                 myTrueCommands.get(i).move(model, turtleNumber);
             }
-            System.out.println("size of true commands " + myTrueCommands.size());
             double myLastValue =
-                    Double.parseDouble(myStringFalseCommands.get(myStringFalseCommands.size()
-                            - 1)[1]);
+                    Double.parseDouble(myStringTrueCommands.get(myStringTrueCommands.size()-1)[1]);
             return 0;
         }
 
