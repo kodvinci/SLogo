@@ -118,4 +118,12 @@ public class Window extends JPanel {
     public ResourceBundle getResourceBundle () {
         return myResources;
     }
+    
+    public int getWidth(){
+    	return getSize().width;
+    }
+    
+    public int getHeight(){
+    	return getSize().height;
+    }
 }
