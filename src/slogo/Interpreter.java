@@ -9,6 +9,7 @@ import behavior.CommandEntities;
 import behavior.ICommand;
 import exceptions.NoSuchCommandException;
 import exceptions.NoSuchVariableException;
+import exceptions.ParameterException;
 import exceptions.SyntaxException;
 
 
@@ -46,6 +47,7 @@ public class Interpreter {
      * @throws NoSuchCommandException
      * @throws NumberFormatException
      * @throws NoSuchVariableException
+     * @throws ParameterException 
      */
 
     public void parse (String command, List<ICommand> myCommandList, Model model)
@@ -54,23 +56,13 @@ public class Interpreter {
                                                                                  NumberFormatException,
                                                                                  NoSuchVariableException {
 
-        int index = myParser.findFirstFlow(command);
-        System.out.println("index" + index);
-        if (command.contains("REPEAT")) {
-            myParser.parseOneBracket(command, myCommandList, model);
-        }
-        else if (command.contains("IFELSE")) {
-            myParser.parseIfElse(command, myCommandList, model);
-        }
-        else if (command.contains("IF")) {
-            myParser.parseOneBracket(command, myCommandList, model);
-        }
-        else if (command.contains("TO")) {
-            myParser.parseTo(command, myCommandList, model);
-        }
-        else {
-            myParser.parseOneBracket(command, myCommandList, model);
-        }
+        myParser.parse(command, myCommandList, model);
+      
+        
+
+
+
+     
 
     }
 
