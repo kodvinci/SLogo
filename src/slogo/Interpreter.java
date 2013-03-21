@@ -47,7 +47,7 @@ public class Interpreter {
      * @throws NoSuchCommandException
      * @throws NumberFormatException
      * @throws NoSuchVariableException
-     * @throws ParameterException 
+     * @throws ParameterException
      */
 
     public void parse (String command, List<ICommand> myCommandList, Model model)
@@ -57,12 +57,6 @@ public class Interpreter {
                                                                                  NoSuchVariableException {
 
         myParser.parse(command, myCommandList, model);
-      
-        
-
-
-
-     
 
     }
 

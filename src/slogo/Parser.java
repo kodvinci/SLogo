@@ -14,7 +14,6 @@ import behavior.flow.Repeat;
 import behavior.flow.To;
 import exceptions.NoSuchCommandException;
 import exceptions.NoSuchVariableException;
-import exceptions.ParameterException;
 import exceptions.SyntaxException;
 
 
@@ -158,12 +157,15 @@ public class Parser {
         for (int i = 0; i < commands.size(); i++) {
             String[] str = commands.get(i);
             if (str[0].equals("IFELSE") || str[0].equals("TO")) {
-                myCommandList.add(buildTwoBracketFlowCommand(str, commands.get(commands.indexOf(str)+1),
-                                                             commands.get(commands.indexOf(str)+2), model));
+                myCommandList
+                        .add(buildTwoBracketFlowCommand(str,
+                                                        commands.get(commands.indexOf(str) + 1),
+                                                        commands.get(commands.indexOf(str) + 2),
+                                                        model));
                 i += 2;
             }
             else if (str[0].equals("REPEAT") || str[0].equals("IF")) {
-              
+
             }
             else {
                 myCommandList.add(buildCommand(str, model));
@@ -171,26 +173,27 @@ public class Parser {
         }
         return myCommandList;
     }
-    
-   
-    
-    public ICommand buildTwoBracketFlowCommand (String[] name, String[] firstBracket, String[] secondBracket, Model model)
-            throws SyntaxException,
-            NoSuchCommandException {
-        
+
+    public ICommand buildTwoBracketFlowCommand (String[] name,
+                                                String[] firstBracket,
+                                                String[] secondBracket,
+                                                Model model)
+                                                            throws SyntaxException,
+                                                            NoSuchCommandException {
+
         if (name[0].equals("IFELSE")) {
             String command = "";
-            for (int i = 0; i < name.length; i++) {
-                command += name[i] + " ";
+            for (String element : name) {
+                command += element + " ";
             }
             command += "[";
-            for (int i = 0; i < firstBracket.length; i++) {
-                command += firstBracket[i] + " ";
+            for (String element : firstBracket) {
+                command += element + " ";
             }
             command += "]";
             command += "[";
-            for (int i = 0; i< secondBracket.length; i++) {
-                command += secondBracket[i] + " ";
+            for (String element : secondBracket) {
+                command += element + " ";
             }
             command += "]";
             System.out.println(command);
@@ -198,8 +201,8 @@ public class Parser {
         }
         else if (name[0].equals("TO")) {
             String command = "";
-            for (int i = 0; i < name.length; i++) {
-                command += name[i] + " ";
+            for (String element : name) {
+                command += element + " ";
             }
             for (int i = 0; i < firstBracket.length; i++) {
                 if (i == 0) {
@@ -211,13 +214,13 @@ public class Parser {
             }
             command += "]";
             command += "[";
-            for (int i = 0; i < secondBracket.length; i++) {
-                command += secondBracket[i] + " ";
+            for (String element : secondBracket) {
+                command += element + " ";
             }
             command += "]";
             System.out.println(command + " Second bracket size: " + secondBracket.length);
             return new To(command, model);
-        
+
         }
         else {
             return null;
@@ -267,20 +270,21 @@ public class Parser {
             }
             return i;
         }
-    } 
-    
-    public void parse(String command, List<ICommand> myCommandList, Model model)  throws NoSuchCommandException,
-        SyntaxException,
-        NoSuchVariableException {
-        
+    }
+
+    public void parse (String command, List<ICommand> myCommandList, Model model)
+                                                                                 throws NoSuchCommandException,
+                                                                                 SyntaxException,
+                                                                                 NoSuchVariableException {
+
         ArrayList<String[]> splits = split(command);
         for (int i = 0; i < splits.size(); i++) {
             System.out.println(Arrays.toString(splits.get(i)));
         }
         myCommandList.addAll(buildMultipleCommands(split(command), model));
-       
+
     }
-    
+
     /**
      * parse commands that need one bracket
      * 
@@ -297,9 +301,9 @@ public class Parser {
                                                                                            SyntaxException,
                                                                                            NoSuchVariableException {
 
-        //System.out.println(command);
+        // System.out.println(command);
         int position = findFirstFlow(command);
-        //System.out.println(position);
+        // System.out.println(position);
 
         if (position == -1) {
             myCommandList.addAll(buildMultipleCommands(split(command), model));
@@ -322,7 +326,7 @@ public class Parser {
 
             List<String[]> repeatBuffer = split(repeatString);
             String flowName = repeatBuffer.get(0)[0].toUpperCase();
-            //System.out.println(flowName);
+            // System.out.println(flowName);
             String recursionString = command.substring(bracketPosition + 1, end - 1);
             System.out.println("recursionString : " + recursionString);
             if (flowName.equals("REPEAT")) {
@@ -349,9 +353,10 @@ public class Parser {
      * @throws SyntaxException Syntax Exception
      * @throws NoSuchCommandException No command exception
      */
-   
-    
-    public int parseTo (String command, List<ICommand> myCommandList, Model model) throws NoSuchCommandException, SyntaxException {
+
+    public int parseTo (String command, List<ICommand> myCommandList, Model model)
+                                                                                  throws NoSuchCommandException,
+                                                                                  SyntaxException {
         To currentTo = new To(command, model);
         myCommandList.add(currentTo);
         myUserToCommands.put(currentTo.getName(), currentTo);
