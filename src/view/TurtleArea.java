@@ -172,8 +172,8 @@ public class TurtleArea extends Window {
 
     /**
      * 
-     * @param filename 
-     *      name of new background
+     * @param filename
+     *        name of new background
      */
     public void changeBackgroundImage (String filename) {
         myBackgroundImage =

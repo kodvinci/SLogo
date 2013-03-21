@@ -27,7 +27,6 @@ import slogo.Controller;
 public class ToolBarArea extends JMenuBar {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
-    private static final String DEFAULT_IMAGES_PACKAGE = "images";
     private static final String USER_DIR = "user.dir";
     private static final Color BACKGROUND_COLOR = Color.GREEN;
     private static final long serialVersionUID = 1L;
@@ -42,7 +41,7 @@ public class ToolBarArea extends JMenuBar {
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
         myBackgroundImages = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Background");
-        // myTurtles = ResourceBundle.getBundle(DEFAULT_IMAGES_PACKAGE);
+        myTurtles = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Turtles");
 
         setBackground(BACKGROUND_COLOR);
         this.add(makeFileMenu());
@@ -147,63 +146,77 @@ public class ToolBarArea extends JMenuBar {
 
     private JMenu makeTurtleMenu () {
         JMenu result = new JMenu(myResources.getString("TurtleMenu"));
-        result.add(new AbstractAction(myResources.getString("ChangeImageCommand")) {
+        JMenu subMenu = new JMenu(myResources.getString("TurtleSubMenu"));
+
+        subMenu.add(new AbstractAction(myTurtles.getString("Turtle1")) {
             private static final long serialVersionUID = 1L;
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                // change image of turtle
-                // myController.getMyTurtle().changeTurtleImage("turtle.gif");
-                int response = myChooser.showOpenDialog(null);
-                if (response == JFileChooser.APPROVE_OPTION) {
-                    String myImage = myChooser.getSelectedFile().toString();
-                    myController.getMyTurtle().changeTurtleImage(myImage);
-                }
+                myController.getMyTurtle().changeTurtleImage("turtle.gif");
+                myController.getView().update();
             }
         });
+
+        subMenu.add(new AbstractAction(myTurtles.getString("Turtle2")) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getMyTurtle().changeTurtleImage("turtle2.gif");
+                myController.getView().update();
+            }
+        });
+
+        result.add(subMenu);
         return result;
     }
 
     private JMenu makeBackgroundMenu () {
         JMenu result = new JMenu(myResources.getString("BackgroundMenu"));
         JMenu subMenu = new JMenu(myResources.getString("BackgroundSubMenu"));
-        
+
         subMenu.add(new AbstractAction(myBackgroundImages.getString("Brown")) {
             private static final long serialVersionUID = 1L;
+
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed (ActionEvent e) {
                 myController.getView().getTurtleArea().changeBackgroundImage("brown.gif");
             }
         });
         subMenu.add(new AbstractAction(myBackgroundImages.getString("CarolinaBlue")) {
             private static final long serialVersionUID = 1L;
+
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed (ActionEvent e) {
                 myController.getView().getTurtleArea().changeBackgroundImage("carolinablue.gif");
             }
         });
         subMenu.add(new AbstractAction(myBackgroundImages.getString("DukeBlue")) {
             private static final long serialVersionUID = 1L;
+
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed (ActionEvent e) {
                 myController.getView().getTurtleArea().changeBackgroundImage("dukeblue.gif");
             }
         });
         subMenu.add(new AbstractAction(myBackgroundImages.getString("Green")) {
             private static final long serialVersionUID = 1L;
+
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed (ActionEvent e) {
                 myController.getView().getTurtleArea().changeBackgroundImage("green.gif");
             }
         });
         subMenu.add(new AbstractAction(myBackgroundImages.getString("Wooden")) {
             private static final long serialVersionUID = 1L;
+
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed (ActionEvent e) {
                 myController.getView().getTurtleArea().changeBackgroundImage("wooden.gif");
             }
         });
-        
+
         result.add(subMenu);
         return result;
     }

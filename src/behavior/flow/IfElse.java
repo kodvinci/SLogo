@@ -7,7 +7,6 @@ import slogo.Model;
 import slogo.Parser;
 import behavior.ICommand;
 import exceptions.NoSuchCommandException;
-import exceptions.ParameterException;
 import exceptions.SyntaxException;
 
 
@@ -31,11 +30,8 @@ public class IfElse implements ICommand {
     private double myValue;
     private double myFinalValue;
     private String myRecurse;
-    
-    
 
     private ResourceBundle myResources;
-
 
     /**
      * Constructs the command
@@ -49,22 +45,22 @@ public class IfElse implements ICommand {
     public IfElse (String command,
                    Model model)
                                throws NoSuchCommandException, SyntaxException {
-        
+
         myRecurse = parse(command);
-//        myStringTrueCommands = trueCommands;
-//        myStringFalseCommands = falseCommands;
+        // myStringTrueCommands = trueCommands;
+        // myStringFalseCommands = falseCommands;
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
         myTrueCommands = new ArrayList<ICommand>();
         myFalseCommands = new ArrayList<ICommand>();
-        
+
         map(myStringTrueCommands, myStringFalseCommands, model);
     }
-    
-    public String getRecurse() {
+
+    public String getRecurse () {
         return myRecurse;
     }
-    
-    public String parse(String command) {
+
+    public String parse (String command) {
         int position = command.indexOf("IFELSE");
         int bracketPosition = command.indexOf("[");
         String value = command.substring(position + 7, bracketPosition);
@@ -79,7 +75,7 @@ public class IfElse implements ICommand {
         myValue = Double.parseDouble(value);
         System.out.println(myValue);
         return recurse;
-       
+
     }
 
     /**

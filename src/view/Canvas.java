@@ -48,6 +48,7 @@ public class Canvas {
     private JFrame myFrame;
     private List<Turtle> myTurtle;
     private TurtleArea myTurtleArea;
+
     /**
      * 
      * @param controller constructor
@@ -99,13 +100,13 @@ public class Canvas {
         myPanel.setSize(new Dimension(myWidth + rand.nextInt(myRange), myHeight));
         myFrame.validate();
     }
-    
+
     /**
      * 
-     * @return 
-     *      turtle view area
+     * @return
+     *         turtle view area
      */
-    public TurtleArea getTurtleArea() {
+    public TurtleArea getTurtleArea () {
         return myTurtleArea;
     }
 }

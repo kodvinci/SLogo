@@ -7,7 +7,6 @@ import slogo.Parser;
 import behavior.ICommand;
 import exceptions.NoSuchCommandException;
 import exceptions.NoSuchVariableException;
-import exceptions.ParameterException;
 import exceptions.SyntaxException;
 
 
