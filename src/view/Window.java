@@ -28,17 +28,17 @@ public class Window extends JPanel {
      */
     public static final String USER_DIR = "user.dir";
 
-    public ResourceBundle myResources;
-
-    private static final Color BACKGROUND_COLOR = Color.WHITE;
+    private static final long serialVersionUID = 1L;
     private static final int FIRST_TURTLE = 0;
     private static final int X_INDEX = 0;
     private static final int Y_INDEX = 0;
-    private static final long serialVersionUID = 1L;
+    private static final Color BACKGROUND_COLOR = Color.WHITE;
+
     private JFileChooser myChooser;
     private Controller myController;
     private List<Turtle> myTurtle;
     private Canvas myView;
+    private ResourceBundle myResources;
 
     /**
      * 
@@ -54,7 +54,6 @@ public class Window extends JPanel {
     }
 
     /**
-     * 
      * @param size
      *        display size
      * @param language
@@ -96,6 +95,9 @@ public class Window extends JPanel {
 
     /**
      * Paints window
+     * 
+     * @param pen
+     *        Graphics pen used for drawing
      */
 
     @Override
@@ -109,4 +111,21 @@ public class Window extends JPanel {
         }
     }
 
+    /**
+     * 
+     * @return the resource Bundle
+     */
+    public ResourceBundle getResourceBundle () {
+        return myResources;
+    }
+
+    @Override
+    public int getWidth () {
+        return getSize().width;
+    }
+
+    @Override
+    public int getHeight () {
+        return getSize().height;
+    }
 }

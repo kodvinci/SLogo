@@ -14,7 +14,7 @@ public class Heading extends NoParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
-        return model.getMyTurtle(0).getMyAngle();
+        return model.getMyTurtle(0).getAngle();
     }
 
 }

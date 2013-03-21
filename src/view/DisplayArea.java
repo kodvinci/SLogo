@@ -99,7 +99,7 @@ public class DisplayArea extends Window {
         showMessage(Y_LABEL +
                     myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getY()));
         showMessage(ANGLE_LABEL +
-                    myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getMyAngle()));
+                    myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getAngle()));
         showMessage("\n");
     }
 
@@ -115,7 +115,7 @@ public class DisplayArea extends Window {
     }
 
     private JButton clearDisplayArea () {
-        JButton result = new JButton(myResources.getString("ClearCommand"));
+        JButton result = new JButton(getResourceBundle().getString("ClearCommand"));
         result.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {

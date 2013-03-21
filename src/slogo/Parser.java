@@ -19,9 +19,12 @@ import exceptions.SyntaxException;
 
 
 /**
+<<<<<<< HEAD
  * parse the command
  * 
  * @author Richard Yang
+=======
+>>>>>>> 0b9ccc6ce78591a46d0a6f2849f954e9db33bc8e
  * Parses input
  * 
  * @author Richard, Jerry
@@ -34,7 +37,6 @@ public class Parser {
     private static final String LEFT_BRACKET = "[";
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
-    
 
     private Pattern myNumPattern;
     private Pattern myStrPattern;
@@ -43,7 +45,10 @@ public class Parser {
     private ResourceBundle myFlows;
 
     /**
+<<<<<<< HEAD
      * constructor
+=======
+>>>>>>> 0b9ccc6ce78591a46d0a6f2849f954e9db33bc8e
      * Constructs parser
      */
     public Parser () {
@@ -59,10 +64,14 @@ public class Parser {
      * 
      * @param commands commands we want to split
      * @return splited string
+<<<<<<< HEAD
      * Splits commands
      * 
      * @param commands commands
      * @return
+=======
+     * 
+>>>>>>> 0b9ccc6ce78591a46d0a6f2849f954e9db33bc8e
      */
     public ArrayList<String[]> split (String commands) {
 
@@ -104,14 +113,16 @@ public class Parser {
 
         return allCommands;
     }
-   /**
-    * build a command through string we got
-    * @param str splited input commands
-    * @param model model we want to operate
-    * @return command
-    * @throws NoSuchCommandException
-    * @throws SyntaxException
-    */
+
+    /**
+     * build a command through string we got
+     * 
+     * @param str splited input commands
+     * @param model model we want to operate
+     * @return command
+     * @throws NoSuchCommandException
+     * @throws SyntaxException
+     */
 
     public ICommand buildCommand (String[] str, Model model) throws NoSuchCommandException,
                                                             SyntaxException {
@@ -128,16 +139,16 @@ public class Parser {
                 commandClass = Class.forName("behavior." + commandName);
             }
             catch (ClassNotFoundException e) {
-                //model.showMessage("class not found");
+                // model.showMessage("class not found");
             }
             Object o = null;
             try {
                 o = commandClass.newInstance();
             }
             catch (InstantiationException | IllegalAccessException e) {
-                
-                //model.showMessage("illegal access");
-             
+
+                // model.showMessage("illegal access");
+
             }
             ICommand myCommand = (ICommand) o;
             myCommand.initialize(subArray, null);
@@ -145,8 +156,10 @@ public class Parser {
 
         }
     }
+
     /**
      * build multiple commands
+     * 
      * @param commands command strings
      * @param model mode we want to operate
      * @return
@@ -154,7 +167,6 @@ public class Parser {
      * @throws NoSuchCommandException
      */
 
-   
     public List<ICommand> buildMultipleCommands (List<String[]> commands, Model model)
                                                                                       throws SyntaxException,
                                                                                       NoSuchCommandException {
@@ -232,6 +244,7 @@ public class Parser {
 
     /**
      * delete first element of a string
+     * 
      * @param str input string
      */
     public String[] subStringArray (String[] str) {
@@ -243,8 +256,10 @@ public class Parser {
 
         return subArray;
     }
+
     /**
      * find brackets that are in pair
+     * 
      * @param str input string
      * @param position position of "["
      * @return position of "]"
@@ -271,6 +286,7 @@ public class Parser {
             return i;
         }
     }
+<<<<<<< HEAD
     
     
     public void parse(String command, List<ICommand> myCommandList, Model model)  throws NoSuchCommandException,
@@ -285,8 +301,12 @@ public class Parser {
        
     }
     
+=======
+
+>>>>>>> 0b9ccc6ce78591a46d0a6f2849f954e9db33bc8e
     /**
      * parse commands that need one bracket
+     * 
      * @param command command we want to parse
      * @param myCommandList our commandlist, used for recursion
      * @param model model we want to operation
@@ -369,9 +389,45 @@ public class Parser {
      * @throws SyntaxException Syntax Exeception
      * @throws NoSuchCommandException NoCommand exceptoin
      */
+<<<<<<< HEAD
    
+=======
+    public void parseIfElse (String command, List<ICommand> myCommandList, Model model)
+                                                                                       throws SyntaxException,
+                                                                                       NoSuchCommandException {
+        int position = command.indexOf("IFELSE");
+        if (position == -1) {
+            myCommandList.addAll(buildMultipleCommands(split(command), model));
+        }
+        else {
+            String formerString = command.substring(0, position);
+            if (formerString.length() != 0) {
+                myCommandList.addAll(buildMultipleCommands(split(formerString), model));
+            }
+            int bracketPosition = command.indexOf("[");
+            String value = command.substring(position + IFELSE_LENGTH, bracketPosition);
+            String post = command.substring(bracketPosition + 1, command.length());
+            String trueCommand = post.substring(0, post.indexOf("]"));
+            String temp = post.substring(post.indexOf("[") + 1, post.length());
+            String falseCommand = temp.substring(0, temp.indexOf("]"));
+            String recurse = temp.substring(temp.indexOf("]") + 1, temp.length());
+
+            List<String[]> trueCommands = split(trueCommand);
+            List<String[]> falseCommands = split(falseCommand);
+            double doubleValue = Double.parseDouble(value);
+            System.out.println(doubleValue);
+            ICommand currentIfElse = new IfElse(trueCommands, falseCommands, doubleValue, model);
+            myCommandList.add(currentIfElse);
+            if (recurse.length() != 0) {
+                parseIfElse(recurse, myCommandList, model);
+            }
+        }
+    }
+
+>>>>>>> 0b9ccc6ce78591a46d0a6f2849f954e9db33bc8e
     /**
      * find first flow word in a string
+     * 
      * @param command input command
      * @return position of first flow string
      */

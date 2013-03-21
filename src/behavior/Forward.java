@@ -17,7 +17,7 @@ public class Forward extends OneParameterCommand {
     public double move (Model model, int turtleNumber) throws SyntaxException {
         double currentX = model.getMyTurtle(turtleNumber).getX();
         double currentY = model.getMyTurtle(turtleNumber).getY();
-        double angle = model.getMyTurtle(turtleNumber).getMyAngle();
+        double angle = model.getMyTurtle(turtleNumber).getAngle();
         Location newLocation =
                 new Location(currentX + getMyValue() * Math.sin(angle), currentY + getMyValue() *
                                                                         Math.cos(angle));

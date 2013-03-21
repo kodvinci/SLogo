@@ -3,7 +3,9 @@ package util;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import javax.swing.ImageIcon;
 
 
 /**
@@ -33,6 +35,7 @@ public abstract class Animal {
      */
     public static final int UP_DIRECTION = 270;
 
+    private static final String RESOURCE_LOCATION = "/images/";
     // state
     private Location myCenter;
     private Dimension mySize;
@@ -43,6 +46,7 @@ public abstract class Animal {
     private Pixmap myOriginalView;
     // cached for efficiency
     private Rectangle myBounds;
+    private java.awt.Image myImage;
 
     /**
      * Create a shape at the given position, with the given size, velocity, and color.
@@ -56,6 +60,7 @@ public abstract class Animal {
         myOriginalCenter = new Location(center);
         myOriginalSize = new Dimension(size);
         myOriginalView = new Pixmap(image);
+        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION)).getImage();
         reset();
 
         resetBounds();
@@ -79,6 +84,14 @@ public abstract class Animal {
      */
     public void setCenter (Location center) {
         setCenter(center.getX(), center.getY());
+    }
+
+    /**
+     * 
+     * @return center of image
+     */
+    public Location getCenter () {
+        return myCenter;
     }
 
     /**
@@ -222,6 +235,28 @@ public abstract class Animal {
      */
     public void paint (Graphics2D pen) {
         myView.paint(pen, myCenter, mySize);
+    }
+
+    /**
+     * Describes how to draw the image rotated on the screen.
+     * 
+     * @param pen graphics pen
+     * @param center center of image
+     * @param size size of image
+     * @param angle angle
+     */
+    public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
+        System.out.println("rotated");
+        // save current state of the graphics area
+        AffineTransform old = new AffineTransform(pen.getTransform());
+        // move graphics area to center of this shape
+        pen.translate(center.getX(), center.getY());
+        // rotate area about this shape
+        pen.rotate(angle);
+        // draw as usual (i.e., rotated)
+        pen.drawImage(myImage, -size.width / 2, -size.height / 2, size.width, size.height, null);
+        // restore graphics area to its old state, so our changes have no lasting effects
+        pen.setTransform(old);
     }
 
     /**

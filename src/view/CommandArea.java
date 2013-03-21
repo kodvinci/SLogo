@@ -24,6 +24,7 @@ public class CommandArea extends Window {
     private static final int FIELD_SIZE = 30;
     private static final String EMPTY_STRING = "";
     private static final Dimension BUTTON_SIZE = new Dimension(70, 30);
+
     private JTextField myTextField;
     private Controller myController;
     private ActionListener myActionListener;
@@ -36,6 +37,7 @@ public class CommandArea extends Window {
      */
     public CommandArea (Dimension size, Controller control) {
         super(size, "English");
+
         makeListeners();
         add(makeTextField());
         add(makeButton());
@@ -80,7 +82,7 @@ public class CommandArea extends Window {
 
     private JButton makeButton () {
 
-        JButton result = new JButton(myResources.getString("ActionCommand"));
+        JButton result = new JButton(getResourceBundle().getString("ActionCommand"));
         result.setPreferredSize(BUTTON_SIZE);
         result.addActionListener(myActionListener);
 

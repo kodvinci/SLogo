@@ -19,34 +19,36 @@ import slogo.Controller;
 
 
 /**
- * Creates ToolBar area
+ * Provides the tool bar area where menus can be added
  * 
- * @author Alan and Leonard
+ * @author Leonard
  * 
  */
 public class ToolBarArea extends JMenuBar {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+    private static final String DEFAULT_IMAGES_PACKAGE = "images";
     private static final String USER_DIR = "user.dir";
     private static final Color BACKGROUND_COLOR = Color.GREEN;
     private static final long serialVersionUID = 1L;
     private Controller myController;
     private JFileChooser myChooser;
     private ResourceBundle myResources;
+    private ResourceBundle myTurtles;
 
     ToolBarArea (Controller control) {
         myController = control;
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
+        // myTurtles = ResourceBundle.getBundle(DEFAULT_IMAGES_PACKAGE);
 
         setBackground(BACKGROUND_COLOR);
         this.add(makeFileMenu());
+        this.add(makeTurtleMenu());
     }
 
     /**
-     * make file menu
-     * 
-     * @return
+     * make a file menu for opening and saving files
      */
     private JMenu makeFileMenu () {
         JMenu result = new JMenu(myResources.getString("FileMenu"));
@@ -76,6 +78,27 @@ public class ToolBarArea extends JMenuBar {
                 }
                 catch (IOException io) {
                     showError(io.toString());
+                }
+            }
+        });
+        result.add(new AbstractAction(myResources.getString("HelpCommand")) {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                String htmlPath =
+                        "https://www.cs.duke.edu/courses/cps108/compsci308/cps108/spring13/assign/03_slogo/commands.php"; // path
+                                                                                                                          // to
+                                                                                                                          // your
+                                                                                                                          // new
+                                                                                                                          // file
+
+                try {
+                    java.awt.Desktop.getDesktop().browse(java.net.URI.create(htmlPath));
+                }
+                catch (IOException e1) {
+                    e1.printStackTrace();
                 }
             }
         });
@@ -115,6 +138,25 @@ public class ToolBarArea extends JMenuBar {
         catch (IOException e) {
             showError(e.toString());
         }
+    }
+
+    private JMenu makeTurtleMenu () {
+        JMenu result = new JMenu(myResources.getString("TurtleMenu"));
+        result.add(new AbstractAction(myResources.getString("ChangeImageCommand")) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                // change image of turtle
+                // myController.getMyTurtle().changeTurtleImage("turtle.gif");
+                int response = myChooser.showOpenDialog(null);
+                if (response == JFileChooser.APPROVE_OPTION) {
+                    String myImage = myChooser.getSelectedFile().toString();
+                    myController.getMyTurtle().changeTurtleImage(myImage);
+                }
+            }
+        });
+        return result;
     }
 
 }

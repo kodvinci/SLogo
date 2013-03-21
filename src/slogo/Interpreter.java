@@ -50,46 +50,21 @@ public class Interpreter {
      * @throws ParameterException 
      */
 
-     
     public void parse (String command, List<ICommand> myCommandList, Model model)
                                                                                  throws SyntaxException,
                                                                                  NoSuchCommandException,
                                                                                  NumberFormatException,
                                                                                  NoSuchVariableException {
+
         myParser.parse(command, myCommandList, model);
       
         
-//        int index = myParser.findFirstFlow(command);
-//        System.out.println("index" + index);
-//        if (command.contains("REPEAT")) {
-//            myParser.parseOneBracket(command, myCommandList, model);
-//        }
-//        else if (command.contains("IFELSE")) {
-//            myParser.parseIfElse(command, myCommandList, model);
-//        }
-//        else if (command.contains("IF")) {
-//            myParser.parseOneBracket(command, myCommandList, model);
-//        }
-//        else if (command.contains("TO")) {
-//            myParser.parseTo(command, myCommandList, model);
-//        }
-//        else {
-//            myParser.parseOneBracket(command, myCommandList, model);
-//        }
-//        
-          
+
+
+
+     
 
     }
-
-    /**
-     * Parses to
-     * 
-     * @param command The user input
-     * @param myCommandList list of I command
-     * @return
-     * @throws SyntaxException if synatx is wrong
-     * @throws NoSuchCommandException if no command exists
-     */
 
     /**
      * this method can finish the process of input commands.
@@ -101,7 +76,7 @@ public class Interpreter {
      * @throws NoSuchVariableException
      * @throws NumberFormatException
      */
-    public void process ( Model model, int turtleNumber, String commands) throws SyntaxException,
+    public void process (Model model, int turtleNumber, String commands) throws SyntaxException,
                                                                         NoSuchCommandException,
                                                                         NoSuchVariableException {
         List<ICommand> myCommandList = new ArrayList<ICommand>();
