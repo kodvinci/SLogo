@@ -45,16 +45,18 @@ public class Interpreter {
      * @param model model we want to operate
      * @throws SyntaxException
      * @throws NoSuchCommandException
-     * @throws NumberFormatException
      * @throws NoSuchVariableException
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
      * @throws ParameterException 
      */
 
     public void parse (String command, List<ICommand> myCommandList, Model model)
                                                                                  throws SyntaxException,
                                                                                  NoSuchCommandException,
-                                                                                 NumberFormatException,
-                                                                                 NoSuchVariableException {
+                                                                                 NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 
         myParser.parse(command, myCommandList, model);
       
@@ -74,11 +76,14 @@ public class Interpreter {
      * @throws SyntaxException Syntax exception
      * @throws NoSuchCommandException
      * @throws NoSuchVariableException
-     * @throws NumberFormatException
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
      */
     public void process (Model model, int turtleNumber, String commands) throws SyntaxException,
                                                                         NoSuchCommandException,
-                                                                        NoSuchVariableException {
+                                                                        NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         List<ICommand> myCommandList = new ArrayList<ICommand>();
 
         parse(commands, myCommandList, model);

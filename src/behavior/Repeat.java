@@ -42,7 +42,7 @@ public class Repeat implements ICommand {
     public void construct (String value, String bracket, Model model)
                                                              throws NoSuchCommandException,
                                                              SyntaxException,
-                                                             NoSuchVariableException {
+                                                             NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         myValue = Integer.parseInt(value); 
         myPrunedStringCommands = prune (bracket);
         myBracketCommandsList = createCommandsList(myPrunedStringCommands, model);
@@ -51,7 +51,7 @@ public class Repeat implements ICommand {
     }
     
    
-    public List<ICommand> createCommandsList (String commands, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException {
+    public List<ICommand> createCommandsList (String commands, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
          myListOfCommands = myParser.split(myPrunedStringCommands, model);
          return myParser.buildMultipleCommands(myListOfCommands, model);
     }
@@ -72,7 +72,7 @@ public class Repeat implements ICommand {
     }
 
     @Override
-    public void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException {
+    public void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         System.out.println("REPEAT Initialization Successful");
         construct(information[0], information[1], model);
     }

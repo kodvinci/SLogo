@@ -17,7 +17,8 @@ import exceptions.SyntaxException;
  * 
  */
 public class To implements ICommand {
-
+    
+    public static final int PARAMETER_NUMBER = 3;
     private List<ICommand> myCommandList = new ArrayList<ICommand>();
     private String[] myVariables;
     private String[] myCommands;
@@ -48,7 +49,7 @@ public class To implements ICommand {
     
     public void construct (String value, String firstBracket, String secondBracket, Model model)
                                                                                            throws NoSuchCommandException,
-                                                                                           SyntaxException, NoSuchVariableException {
+                                                                                           SyntaxException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         
         
         parse(value, firstBracket, secondBracket);
@@ -94,10 +95,14 @@ public class To implements ICommand {
      * @throws NoSuchCommandException NoSuchCommandException
      * @throws SyntaxException SyntaxException
      * @throws NoSuchVariableException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     public void map (String[] variables, String[] commands, Model model)
                                                                                     throws NoSuchCommandException,
-                                                                                 SyntaxException, NoSuchVariableException {
+                                                                                 SyntaxException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         if (checkLength() == 0) {
             throw new NoSuchCommandException();
         }
@@ -131,7 +136,7 @@ public class To implements ICommand {
     }
 
     @Override
-    public void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException {
+    public void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         System.out.println("initialize successful");
         System.out.println("subarray size" + information.length);
         construct(information[0], information[1], information[2], model);

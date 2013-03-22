@@ -1,5 +1,6 @@
 package slogo;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,8 +38,7 @@ public class Parser {
     private Pattern myNumPattern;
     private Pattern myStrPattern;
     private Pattern mySpacePattern;
-    private ResourceBundle myResources;
-    private ResourceBundle myFlows;
+    public ResourceBundle myResources;
     
 
 
@@ -51,7 +51,6 @@ public class Parser {
         myStrPattern = Pattern.compile("[a-zA-Z]*");
         mySpacePattern = Pattern.compile("[\\s]+");
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
-        myFlows = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "flow");
     }
 
     /**
@@ -63,12 +62,15 @@ public class Parser {
      * 
      * @param commands commands
      * @return
+     * @throws NoSuchFieldException 
      * @throws SecurityException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
      * @throws NoSuchMethodException 
      * 
      */
 
-    public List<String[]> split(String s, Model model) {
+    public List<String[]> split(String s, Model model) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         List<String> l = new LinkedList<String>();
         int depth=0;
         StringBuilder sb = new StringBuilder();
@@ -93,47 +95,32 @@ public class Parser {
         return addCommands(l, model);
     }
     
-    public List<String[]> addCommands(List<String> l, Model model) {
+    public List<String[]> addCommands(List<String> l, Model model) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         List<String[]> commandArray = new ArrayList<String[]>();
         for (int i = 0; i < l.size(); i++) {
-            String[] simpleCommand = new String[2];
-            String[] oneBracketCommand = new String[3];
-            String[] twoBracketCommand = new String[4];
-            if (l.get(i).equals("IFELSE") || l.get(i).equals("TO")) {
-                twoBracketCommand[0] = l.get(i);
-                twoBracketCommand[1] = l.get(i + 1);
-                twoBracketCommand[2] = l.get(i + 2);
-                twoBracketCommand[3] = l.get(i + 3);
-                System.out.println(twoBracketCommand[3]);
-                commandArray.add(twoBracketCommand);
-             }
-            else if (l.get(i).equals("REPEAT") || l.get(i).equals("IF")) {
-                oneBracketCommand[0] = l.get(i);
-                oneBracketCommand[1] = l.get(i+1);
-                oneBracketCommand[2] = l.get(i+2);
-                System.out.println("did repeat add it? " +oneBracketCommand[2]);
-                commandArray.add(oneBracketCommand);
+
+            ArrayList<String> temp = new ArrayList<String>();
+            if (myResources.containsKey(l.get(i))) {
+                String commandName = myResources.getString(l.get(i).toUpperCase());
+
+                Class<?> commandClass = null;
+                try {
+                    commandClass = Class.forName("behavior." + commandName);
+                }
+                catch (ClassNotFoundException e) {
+                    // model.showMessage("class not found");
+                }
+
+                Field field = commandClass.getDeclaredField("PARAMETER_NUMBER");
+                int parameter = field.getInt(commandClass);
+                for (int j = 0; j < parameter; j++) {
+                    temp.add(l.get(i+j));
+                }
             }
-            else if (model.getUserCommands().containsKey(l.get(i))) {
-                simpleCommand[0] = l.get(i);
-                commandArray.add(simpleCommand);
-            }
-            else if (myResources.containsKey(l.get(i))) {
-                simpleCommand[0] = l.get(i);
-                simpleCommand[1] = l.get(i+1);
-                commandArray.add(simpleCommand);
-            }
-//            Class<?> commandClass = null;
-//            try {
-//                commandClass = Class.forName("behavior." + l.get(i));
-//                System.out.println(l.get(i) + "success");
-//            }
-//            catch (ClassNotFoundException e) {
-//                // model.showMessage("class not found");
-//            }
-//            
-//            Method getParameter = commandClass.getMethod("getParameterNumber", null);
-//            Object returnValue = getParameter.invoke(null, )
+            String command[] = new String[temp.size()];
+            temp.toArray(command);
+            commandArray.add(command);
+            
         }
         
         for (int i = 0; i < commandArray.size(); i++) {
@@ -151,9 +138,13 @@ public class Parser {
      * @throws NoSuchCommandException
      * @throws SyntaxException
      * @throws NoSuchVariableException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
      */
 
-    public ICommand buildCommand (String[] str, Model model) throws SyntaxException, NoSuchVariableException, NoSuchCommandException {
+    public ICommand buildCommand (String[] str, Model model) throws SyntaxException, NoSuchVariableException, NoSuchCommandException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         if (model.getUserCommands().containsKey(str[0])) {
             return (ICommand) model.getUserCommands().get(str[0]);
         }
@@ -167,7 +158,6 @@ public class Parser {
             Class<?> commandClass = null;
             try {
                 commandClass = Class.forName("behavior." + commandName);
-                System.out.println(commandName + "success");
             }
             catch (ClassNotFoundException e) {
                 // model.showMessage("class not found");
@@ -175,7 +165,7 @@ public class Parser {
             Object o = null;
             try {
                 o = commandClass.newInstance();
-                System.out.println("object success");
+                
             }
             catch (InstantiationException | IllegalAccessException e) {
 
@@ -198,11 +188,15 @@ public class Parser {
      * @throws SyntaxException
      * @throws NoSuchCommandException
      * @throws NoSuchVariableException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
      */
 
     public List<ICommand> buildMultipleCommands (List<String[]> commands, Model model)
                                                                                       throws SyntaxException,
-                                                                                      NoSuchCommandException, NoSuchVariableException {
+                                                                                      NoSuchCommandException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         if (commands == null) { return null; }
 
         List<ICommand> myCommandList = new ArrayList<ICommand>();
@@ -227,7 +221,6 @@ public class Parser {
         String[] subArray = new String[size - 1];
         for (int i = 0; i < size-1; i++) {
             subArray[i] = str[i + 1];
-            System.out.println("Subarray: " + subArray[i]);
         }
         
         return subArray;
@@ -240,12 +233,16 @@ public class Parser {
      * @param position position of "["
      * @return position of "]"
      * @throws SyntaxException
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
      */
    
     
     public void parse(String command, List<ICommand> myCommandList, Model model)  throws NoSuchCommandException,
         SyntaxException,
-        NoSuchVariableException {
+        NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         
         
         myCommandList.addAll(buildMultipleCommands(split(command, model), model));

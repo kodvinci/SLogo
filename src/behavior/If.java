@@ -17,7 +17,7 @@ import exceptions.SyntaxException;
  */
 public class If implements ICommand {
     
-    private static final int PARAMETER_NUMBER = 2;
+    public static final int PARAMETER_NUMBER = 3;
     private List<ICommand> myCommands = new ArrayList<ICommand>();
     private Parser myParser = new Parser();
     private int myStatement;
@@ -34,7 +34,7 @@ public class If implements ICommand {
     
     public void construct (String value, String bracket, Model model) throws NoSuchCommandException,
                                                               SyntaxException,
-                                                              NoSuchVariableException {
+                                                              NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         myStatement = Integer.parseInt(value);
         myPrunedStringCommands = prune (bracket);
         myCommands = createCommandsList(myPrunedStringCommands, model);
@@ -46,7 +46,7 @@ public class If implements ICommand {
         return bracket.substring(1, bracket.length()-1);
     }
     
-    public List<ICommand> createCommandsList (String commands, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException {
+    public List<ICommand> createCommandsList (String commands, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         myListOfCommands = myParser.split(myPrunedStringCommands, model);
         return myParser.buildMultipleCommands(myListOfCommands, model);
     }
@@ -62,7 +62,7 @@ public class If implements ICommand {
     }
 
     @Override
-    public void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException {
+    public void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         System.out.println("IF initialization successful");
         construct(information[0], information[1], model);
     }

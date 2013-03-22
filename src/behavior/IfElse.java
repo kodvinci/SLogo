@@ -46,10 +46,14 @@ public class IfElse implements ICommand {
      * @throws NoSuchCommandException
      * @throws SyntaxException
      * @throws NoSuchVariableException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     public void construct (String value, String firstBracket, String secondBracket,
                    Model model)
-                               throws NoSuchCommandException, SyntaxException, NoSuchVariableException {
+                               throws NoSuchCommandException, SyntaxException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         
         parse(value, firstBracket, secondBracket, model);
 //        myStringTrueCommands = trueCommands;
@@ -65,7 +69,7 @@ public class IfElse implements ICommand {
     }
     
   
-    public void parse(String value, String firstBracket, String secondBracket, Model model) {
+    public void parse(String value, String firstBracket, String secondBracket, Model model) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         String firstBracketPruned = firstBracket.substring(1, firstBracket.length()-1);
         String secondBracketPruned = secondBracket.substring(1, secondBracket.length()-1);
         
@@ -94,10 +98,14 @@ public class IfElse implements ICommand {
      * @throws NoSuchCommandException
      * @throws SyntaxException
      * @throws NoSuchVariableException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     public void map (List<String[]> trueCommands, List<String[]> falseCommands, Model model)
                                                                                             throws NoSuchCommandException,
-                                                                                            SyntaxException, NoSuchVariableException {
+                                                                                            SyntaxException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         myTrueCommands = buildCommands(trueCommands, model);
         myFalseCommands = buildCommands(falseCommands, model);
     }
@@ -110,10 +118,14 @@ public class IfElse implements ICommand {
      * @throws NoSuchCommandException
      * @throws SyntaxException
      * @throws NoSuchVariableException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     public List<ICommand> buildCommands (List<String[]> commands, Model model)
                                                                               throws NoSuchCommandException,
-                                                                              SyntaxException, NoSuchVariableException {
+                                                                              SyntaxException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         List<ICommand> theCommands = myParser.buildMultipleCommands(commands, model);
         return theCommands;
     }
@@ -159,7 +171,7 @@ public class IfElse implements ICommand {
     }
 
     @Override
-    public void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException {
+    public void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         System.out.println("initialize successful");
         System.out.println("subarray size" + information.length);
         construct(information[0], information[1], information[2], model);

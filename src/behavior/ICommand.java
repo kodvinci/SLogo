@@ -30,8 +30,12 @@ public interface ICommand {
      * @throws SyntaxException wrong syntax
      * @throws NoSuchCommandException 
      * @throws NoSuchVariableException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
      */
-    public abstract void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException;
+    public abstract void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException;
     
    
 }

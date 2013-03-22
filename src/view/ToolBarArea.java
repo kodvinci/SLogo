@@ -66,6 +66,26 @@ public class ToolBarArea extends JMenuBar {
                 catch (IOException io) {
                     showError(io.toString());
                 }
+                catch (NumberFormatException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                catch (NoSuchFieldException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                catch (SecurityException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                catch (IllegalArgumentException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                catch (IllegalAccessException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
             }
         });
         result.add(new AbstractAction(myResources.getString("SaveCommand")) {
@@ -122,7 +142,7 @@ public class ToolBarArea extends JMenuBar {
                                       JOptionPane.ERROR_MESSAGE);
     }
 
-    private void echo (FileReader fileReader) {
+    private void echo (FileReader fileReader) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         try {
             BufferedReader input = new BufferedReader(fileReader);
             String line = input.readLine();

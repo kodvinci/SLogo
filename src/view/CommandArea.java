@@ -55,7 +55,21 @@ public class CommandArea extends Window {
         myActionListener = new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                myController.processUserInput(0, myTextField.getText());
+                try {
+                    myController.processUserInput(0, myTextField.getText());
+                }
+                catch (NumberFormatException | NoSuchFieldException | SecurityException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                catch (IllegalArgumentException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                catch (IllegalAccessException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
                 myTextField.setText(EMPTY_STRING);
             }
         };
