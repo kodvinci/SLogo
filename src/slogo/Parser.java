@@ -99,8 +99,8 @@ public class Parser {
         List<String[]> commandArray = new ArrayList<String[]>();
         for (int i = 0; i < l.size(); i++) {
 
-            ArrayList<String> temp = new ArrayList<String>();
             if (myResources.containsKey(l.get(i))) {
+                ArrayList<String> temp = new ArrayList<String>();
                 String commandName = myResources.getString(l.get(i).toUpperCase());
 
                 Class<?> commandClass = null;
@@ -116,10 +116,10 @@ public class Parser {
                 for (int j = 0; j < parameter; j++) {
                     temp.add(l.get(i+j));
                 }
+                String command[] = new String[temp.size()];
+                temp.toArray(command);
+                commandArray.add(command);
             }
-            String command[] = new String[temp.size()];
-            temp.toArray(command);
-            commandArray.add(command);
             
         }
         
