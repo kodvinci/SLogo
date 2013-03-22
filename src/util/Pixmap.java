@@ -80,7 +80,6 @@ public class Pixmap {
      * @param angle angle
      */
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
-        System.out.println("Pixmap " + angle);
         // save current state of the graphics area
         AffineTransform old = new AffineTransform(pen.getTransform());
         // move graphics area to center of this shape

@@ -67,7 +67,14 @@ public class ToolBarArea extends JMenuBar {
                 try {
                     int response = myChooser.showOpenDialog(null);
                     if (response == JFileChooser.APPROVE_OPTION) {
-                        echo(new FileReader(myChooser.getSelectedFile()));
+                        try {
+                            echo(new FileReader(myChooser.getSelectedFile()));
+                        }
+                        catch (NoSuchFieldException | SecurityException | IllegalArgumentException
+                                | IllegalAccessException e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        }
                     }
                 }
                 catch (IOException io) {
@@ -129,7 +136,7 @@ public class ToolBarArea extends JMenuBar {
                                       JOptionPane.ERROR_MESSAGE);
     }
 
-    private void echo (FileReader fileReader) {
+    private void echo (FileReader fileReader) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         try {
             BufferedReader input = new BufferedReader(fileReader);
             String line = input.readLine();

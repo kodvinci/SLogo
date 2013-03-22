@@ -30,7 +30,7 @@ public class DisplayArea extends Window {
     private static final String X_LABEL = "x coordinate: ";
     private static final String Y_LABEL = "y coordinate: ";
     private static final String ANGLE_LABEL = "turtle angle: ";
-    private static final int FIELD_SIZE = 30;
+    private static final int FIELD_SIZE = 15;
     private static final int FIELD_SIZE_TWO = 18;
     private List<Turtle> myTurtle;
     private MouseListener myMouseListener;
@@ -60,6 +60,7 @@ public class DisplayArea extends Window {
         myTextArea = new JTextArea(FIELD_SIZE, FIELD_SIZE_TWO);
         myTextArea.setEditable(false);
         myTextArea.addMouseListener(myMouseListener);
+        myTextArea.setText("Turtle Status");
         return new JScrollPane(myTextArea);
     }
 

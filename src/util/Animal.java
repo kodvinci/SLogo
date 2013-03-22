@@ -244,8 +244,6 @@ public abstract class Animal {
      * @param pen graphics pen
      */
     public void paint (Graphics2D pen) {
-        // pen.setBackground(Color.clearColor);
-        //pen.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC));
         myView.paint(pen, myCenter, mySize);
     }
 
@@ -258,7 +256,6 @@ public abstract class Animal {
      * @param angle angle
      */
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
-
         // save current state of the graphics area
         AffineTransform old = new AffineTransform(pen.getTransform());
         //pen.setBackground(new Color(0, 0, 0));
@@ -270,6 +267,7 @@ public abstract class Animal {
         pen.drawImage(myImage, -size.width / 2, -size.height / 2, size.width, size.height, null);
         // restore graphics area to its old state, so our changes have no lasting effects
         pen.setTransform(old);
+       
     }
 
     /**

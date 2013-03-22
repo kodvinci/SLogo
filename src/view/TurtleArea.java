@@ -99,7 +99,6 @@ public class TurtleArea extends Window {
     private void rotateImage (Graphics2D pen) {
         for (Turtle t : myTurtles) {
             t.paint(pen, t.getCenter(), t.getSize(), t.getAngle());
-            System.out.println("Turn by: " + t.getAngle());
         }
         myView.update();
     }

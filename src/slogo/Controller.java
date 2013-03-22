@@ -68,8 +68,15 @@ public class Controller {
      * 
      * @param seq sequence
      * @param string string
+     * @throws SecurityException
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
      */
-    public void processUserInput (int seq, String string) {
+    public void processUserInput (int seq, String string) throws NoSuchFieldException,
+                                                         SecurityException,
+                                                         IllegalArgumentException,
+                                                         IllegalAccessException {
 
         try {
             myInterpreter.process(myModels.get(seq), 0, string);
@@ -199,7 +206,7 @@ public class Controller {
     public List<Turtle> getMyTurtles () {
         return myModels.get(0).getMyTurtles();
     }
-
+    
     /**
      * 
      * @return
@@ -208,4 +215,5 @@ public class Controller {
     public Canvas getView () {
         return myView;
     }
+
 }

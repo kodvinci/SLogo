@@ -41,6 +41,7 @@ public abstract class OneParameterCommand implements ICommand {
      */
     public void inverseMyValue () {
         myValue = -myValue;
+        System.out.println("Did it inverse correctly? " + myValue);
     }
 
 }
