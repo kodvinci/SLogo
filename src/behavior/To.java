@@ -1,13 +1,12 @@
 package behavior;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import slogo.Model;
 import slogo.Parser;
 import exceptions.NoSuchCommandException;
-import exceptions.ParameterException;
+import exceptions.NoSuchVariableException;
 import exceptions.SyntaxException;
 
 
@@ -49,16 +48,13 @@ public class To implements ICommand {
     
     public void construct (String value, String firstBracket, String secondBracket, Model model)
                                                                                            throws NoSuchCommandException,
-                                                                                           SyntaxException {
+                                                                                           SyntaxException, NoSuchVariableException {
         
         
         parse(value, firstBracket, secondBracket);
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
-       
-//        System.out.println(myVariables.get(0).length + " " + myCommands.size());
-        
         map(myVariables, myCommands, model);
-        
+        model.addUserCommands(value, this);
     }
     
     
@@ -97,10 +93,11 @@ public class To implements ICommand {
      * @param commands commands
      * @throws NoSuchCommandException NoSuchCommandException
      * @throws SyntaxException SyntaxException
+     * @throws NoSuchVariableException 
      */
     public void map (String[] variables, String[] commands, Model model)
                                                                                     throws NoSuchCommandException,
-                                                                                 SyntaxException {
+                                                                                 SyntaxException, NoSuchVariableException {
         if (checkLength() == 0) {
             throw new NoSuchCommandException();
         }
@@ -134,7 +131,7 @@ public class To implements ICommand {
     }
 
     @Override
-    public void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException {
+    public void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException {
         System.out.println("initialize successful");
         System.out.println("subarray size" + information.length);
         construct(information[0], information[1], information[2], model);

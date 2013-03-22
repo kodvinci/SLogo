@@ -1,5 +1,6 @@
 package slogo;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,12 +21,9 @@ import exceptions.SyntaxException;
 
 
 /**
-<<<<<<< HEAD
  * parse the command
  * 
  * @author Richard Yang
-=======
->>>>>>> 0b9ccc6ce78591a46d0a6f2849f954e9db33bc8e
  * Parses input
  * 
  * @author Richard, Jerry
@@ -33,9 +31,6 @@ import exceptions.SyntaxException;
  */
 public class Parser {
 
-    private static final int TO_LENGTH = 3;
-    private static final int IFELSE_LENGTH = 7;
-    private static final String LEFT_BRACKET = "[";
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
 
@@ -48,10 +43,7 @@ public class Parser {
 
 
     /**
-<<<<<<< HEAD
      * constructor
-=======
->>>>>>> 0b9ccc6ce78591a46d0a6f2849f954e9db33bc8e
      * Constructs parser
      */
     public Parser () {
@@ -71,10 +63,12 @@ public class Parser {
      * 
      * @param commands commands
      * @return
+     * @throws SecurityException 
+     * @throws NoSuchMethodException 
      * 
      */
 
-    public List<String[]> split(String s){
+    public List<String[]> split(String s, Model model) {
         List<String> l = new LinkedList<String>();
         int depth=0;
         StringBuilder sb = new StringBuilder();
@@ -96,10 +90,10 @@ public class Parser {
         for (String g : l) {
             System.out.println("presplit: " + g);
         }
-        return addCommands(l);
+        return addCommands(l, model);
     }
     
-    public List<String[]> addCommands(List<String> l) {
+    public List<String[]> addCommands(List<String> l, Model model) {
         List<String[]> commandArray = new ArrayList<String[]>();
         for (int i = 0; i < l.size(); i++) {
             String[] simpleCommand = new String[2];
@@ -113,13 +107,35 @@ public class Parser {
                 System.out.println(twoBracketCommand[3]);
                 commandArray.add(twoBracketCommand);
              }
+            else if (l.get(i).equals("REPEAT") || l.get(i).equals("IF")) {
+                oneBracketCommand[0] = l.get(i);
+                oneBracketCommand[1] = l.get(i+1);
+                oneBracketCommand[2] = l.get(i+2);
+                System.out.println("did repeat add it? " +oneBracketCommand[2]);
+                commandArray.add(oneBracketCommand);
+            }
+            else if (model.getUserCommands().containsKey(l.get(i))) {
+                simpleCommand[0] = l.get(i);
+                commandArray.add(simpleCommand);
+            }
             else if (myResources.containsKey(l.get(i))) {
                 simpleCommand[0] = l.get(i);
                 simpleCommand[1] = l.get(i+1);
                 commandArray.add(simpleCommand);
             }
+//            Class<?> commandClass = null;
+//            try {
+//                commandClass = Class.forName("behavior." + l.get(i));
+//                System.out.println(l.get(i) + "success");
+//            }
+//            catch (ClassNotFoundException e) {
+//                // model.showMessage("class not found");
+//            }
+//            
+//            Method getParameter = commandClass.getMethod("getParameterNumber", null);
+//            Object returnValue = getParameter.invoke(null, )
         }
-     
+        
         for (int i = 0; i < commandArray.size(); i++) {
             System.out.println("User input: " + Arrays.toString(commandArray.get(i)));
         }
@@ -134,11 +150,14 @@ public class Parser {
      * @return command
      * @throws NoSuchCommandException
      * @throws SyntaxException
+     * @throws NoSuchVariableException 
      */
 
-    public ICommand buildCommand (String[] str, Model model) throws NoSuchCommandException,
-                                                            SyntaxException {
-        if (!myResources.containsKey(str[0].toUpperCase())) {
+    public ICommand buildCommand (String[] str, Model model) throws SyntaxException, NoSuchVariableException, NoSuchCommandException {
+        if (model.getUserCommands().containsKey(str[0])) {
+            return (ICommand) model.getUserCommands().get(str[0]);
+        }
+        else if (!myResources.containsKey(str[0].toUpperCase())) {
             throw new NoSuchCommandException();
         }
         else {
@@ -178,11 +197,12 @@ public class Parser {
      * @return
      * @throws SyntaxException
      * @throws NoSuchCommandException
+     * @throws NoSuchVariableException 
      */
 
     public List<ICommand> buildMultipleCommands (List<String[]> commands, Model model)
                                                                                       throws SyntaxException,
-                                                                                      NoSuchCommandException {
+                                                                                      NoSuchCommandException, NoSuchVariableException {
         if (commands == null) { return null; }
 
         List<ICommand> myCommandList = new ArrayList<ICommand>();
@@ -228,37 +248,9 @@ public class Parser {
         NoSuchVariableException {
         
         
-        myCommandList.addAll(buildMultipleCommands(split(command), model));
+        myCommandList.addAll(buildMultipleCommands(split(command, model), model));
     }
     
 
-    /**
-     * parse commands that need one bracket
-     * 
-     * @param command command we want to parse
-     * @param myCommandList our commandlist, used for recursion
-     * @param model model we want to operation
-     * @throws NumberFormatException
-     * @throws NoSuchCommandException
-     * @throws SyntaxException
-     * @throws NoSuchVariableException
-     */
-    public void parseOneBracket (String command, List<ICommand> myCommandList, Model model)
-                                                                                           throws NoSuchCommandException,
-                                                                                           SyntaxException,
-                                                                                           NoSuchVariableException {
-
-      
-    }
-
    
- 
-
-    /**
-     * find first flow word in a string
-     * 
-     * @param command input command
-     * @return position of first flow string
-     */
-  
 }

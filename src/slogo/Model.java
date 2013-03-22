@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import behavior.ICommand;
 import object.Turtle;
 import view.DisplayArea;
 import exceptions.NoSuchVariableException;
@@ -32,7 +33,9 @@ public class Model {
     /**
      * String title
      */
-
+    
+    private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
+    
     public static final String TITLE = "SLOGO";
 
     private List<Turtle> myTurtles;
@@ -51,7 +54,14 @@ public class Model {
         myVariables = new HashMap<String, Double>();
 
     }
-
+    
+    public void addUserCommands(String string, ICommand command) {
+        myUserToCommands.put(string, command);
+    }
+    
+    public Map getUserCommands() {
+        return myUserToCommands;
+    }
     /**
      * Return specific turtle
      * 

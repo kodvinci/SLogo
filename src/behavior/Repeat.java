@@ -1,12 +1,10 @@
 package behavior;
 
-import java.util.ArrayList;
 import java.util.List;
 import slogo.Model;
 import slogo.Parser;
 import exceptions.NoSuchCommandException;
 import exceptions.NoSuchVariableException;
-import exceptions.ParameterException;
 import exceptions.SyntaxException;
 
 
@@ -20,13 +18,11 @@ public class Repeat implements ICommand {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
 
-    private List<ICommand> myCommands = new ArrayList<ICommand>();
     private Parser myParser = new Parser();
     private int myValue;
-    private String myBracketStringCommand;
     private String myPrunedStringCommands;
-    private List<String[]> myBracketCommandsList; 
-    private List<ICommand> myBracketCommands;
+    private List<String[]> myListOfCommands;
+    private List<ICommand> myBracketCommandsList; 
 
     /**
      * constructor for repeat
@@ -39,22 +35,25 @@ public class Repeat implements ICommand {
      * @throws NumberFormatException
      * @throws NoSuchVariableException
      */
-    public Repeat (String name, String value, String bracket, int time, Model model)
+    public Repeat() {
+        
+    }
+    
+    public void construct (String value, String bracket, Model model)
                                                              throws NoSuchCommandException,
                                                              SyntaxException,
                                                              NoSuchVariableException {
         myValue = Integer.parseInt(value); 
         myPrunedStringCommands = prune (bracket);
-        myBracketCommandsList = createCommandsList(myPrunedStringCommands);
-        myBracketCommands = createCommands(myBracketCommandsList);
+        myBracketCommandsList = createCommandsList(myPrunedStringCommands, model);
+        
 
     }
     
-    public List<ICommand> createCommands (List<String[]> commands) {
-        return null;
-    }
-    public List<String[]> createCommandsList (String commands) {
-        return myParser.split(myPrunedStringCommands);
+   
+    public List<ICommand> createCommandsList (String commands, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException {
+         myListOfCommands = myParser.split(myPrunedStringCommands, model);
+         return myParser.buildMultipleCommands(myListOfCommands, model);
     }
     
     public String prune (String bracket) {
@@ -64,14 +63,18 @@ public class Repeat implements ICommand {
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
         while (myValue > 0) {
-            
+            for (int i = 0; i < myBracketCommandsList.size(); i++) {
+                myBracketCommandsList.get(i).move(model, turtleNumber);
+            }
+            myValue--;
         }
-        return 0;
+        return Double.parseDouble(myListOfCommands.get(myListOfCommands.size()-1)[1]);
     }
 
     @Override
-    public void initialize (String[] information, Model model) throws SyntaxException {
-
+    public void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException {
+        System.out.println("REPEAT Initialization Successful");
+        construct(information[0], information[1], model);
     }
 
 }

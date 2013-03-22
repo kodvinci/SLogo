@@ -1,13 +1,12 @@
 package behavior;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import slogo.Model;
 import slogo.Parser;
 import exceptions.NoSuchCommandException;
-import exceptions.ParameterException;
+import exceptions.NoSuchVariableException;
 import exceptions.SyntaxException;
 
 
@@ -46,12 +45,13 @@ public class IfElse implements ICommand {
      * @param value value
      * @throws NoSuchCommandException
      * @throws SyntaxException
+     * @throws NoSuchVariableException 
      */
     public void construct (String value, String firstBracket, String secondBracket,
                    Model model)
-                               throws NoSuchCommandException, SyntaxException {
+                               throws NoSuchCommandException, SyntaxException, NoSuchVariableException {
         
-        parse(value, firstBracket, secondBracket);
+        parse(value, firstBracket, secondBracket, model);
 //        myStringTrueCommands = trueCommands;
 //        myStringFalseCommands = falseCommands;
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
@@ -65,14 +65,14 @@ public class IfElse implements ICommand {
     }
     
   
-    public void parse(String value, String firstBracket, String secondBracket) {
+    public void parse(String value, String firstBracket, String secondBracket, Model model) {
         String firstBracketPruned = firstBracket.substring(1, firstBracket.length()-1);
         String secondBracketPruned = secondBracket.substring(1, secondBracket.length()-1);
         
 //        System.out.println("first without brackets " + firstBracketPruned);
 //        System.out.println("second without brackets " + secondBracketPruned);
-        myStringTrueCommands = myParser.split(firstBracketPruned);
-        myStringFalseCommands = myParser.split(secondBracketPruned);
+        myStringTrueCommands = myParser.split(firstBracketPruned, model);
+        myStringFalseCommands = myParser.split(secondBracketPruned, model);
         myValue = Double.parseDouble(value);
        
     }
@@ -93,10 +93,11 @@ public class IfElse implements ICommand {
      * @param falseCommands false commands
      * @throws NoSuchCommandException
      * @throws SyntaxException
+     * @throws NoSuchVariableException 
      */
     public void map (List<String[]> trueCommands, List<String[]> falseCommands, Model model)
                                                                                             throws NoSuchCommandException,
-                                                                                            SyntaxException {
+                                                                                            SyntaxException, NoSuchVariableException {
         myTrueCommands = buildCommands(trueCommands, model);
         myFalseCommands = buildCommands(falseCommands, model);
     }
@@ -108,10 +109,11 @@ public class IfElse implements ICommand {
      * @return
      * @throws NoSuchCommandException
      * @throws SyntaxException
+     * @throws NoSuchVariableException 
      */
     public List<ICommand> buildCommands (List<String[]> commands, Model model)
                                                                               throws NoSuchCommandException,
-                                                                              SyntaxException {
+                                                                              SyntaxException, NoSuchVariableException {
         List<ICommand> theCommands = myParser.buildMultipleCommands(commands, model);
         return theCommands;
     }
@@ -145,23 +147,19 @@ public class IfElse implements ICommand {
                 myFalseCommands.get(i).move(model, turtleNumber);
                 System.out.println(myFalseCommands.size());
             }
-            double myLastValue =
-                    Double.parseDouble(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1]);
-            return myLastValue;
+            return Double.parseDouble(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1]);
         }
         else {
             for (int i = 0; i < myTrueCommands.size(); i++) {
                 myTrueCommands.get(i).move(model, turtleNumber);
             }
-            double myLastValue =
-                    Double.parseDouble(myStringTrueCommands.get(myStringTrueCommands.size()-1)[1]);
-            return 0;
+            return Double.parseDouble(myStringTrueCommands.get(myStringTrueCommands.size()-1)[1]);
         }
 
     }
 
     @Override
-    public void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException {
+    public void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException {
         System.out.println("initialize successful");
         System.out.println("subarray size" + information.length);
         construct(information[0], information[1], information[2], model);
