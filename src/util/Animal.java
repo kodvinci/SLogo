@@ -1,5 +1,7 @@
 package util;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -194,9 +196,11 @@ public abstract class Animal {
         if (image != null) {
             myOriginalView = new Pixmap(image);
             myImage =
-                    new ImageIcon(getClass().getResource(RESOURCE_LOCATION + image.getImageFileName()))
+                    new ImageIcon(getClass().getResource(RESOURCE_LOCATION +
+                                                                 image.getImageFileName()))
                             .getImage();
             myView = image;
+            resetBounds();
         }
     }
 
@@ -240,6 +244,8 @@ public abstract class Animal {
      * @param pen graphics pen
      */
     public void paint (Graphics2D pen) {
+        // pen.setBackground(Color.clearColor);
+        //pen.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC));
         myView.paint(pen, myCenter, mySize);
     }
 
@@ -252,9 +258,10 @@ public abstract class Animal {
      * @param angle angle
      */
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
-        System.out.println("rotated turtle");
+
         // save current state of the graphics area
         AffineTransform old = new AffineTransform(pen.getTransform());
+        //pen.setBackground(new Color(0, 0, 0));
         // move graphics area to center of this shape
         pen.translate(center.getX(), center.getY());
         // rotate area about this shape
