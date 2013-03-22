@@ -51,7 +51,7 @@ public class Repeat implements ICommand {
                                                                      IllegalAccessException {
         myValue = Integer.parseInt(value);
         myPrunedStringCommands = prune(bracket);
-        myBracketCommandsList = createCommandsList(myPrunedStringCommands, model);
+        //myBracketCommandsList = createCommandsList(myPrunedStringCommands, model);
 
     }
 
@@ -71,9 +71,17 @@ public class Repeat implements ICommand {
     }
 
     @Override
-    public double move (Model model, int turtleNumber) throws SyntaxException {
+    public double move (Model model, int turtleNumber) throws SyntaxException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchCommandException, NoSuchVariableException {
         while (myValue > 0) {
+            try {
+                myBracketCommandsList = createCommandsList(myPrunedStringCommands, model);
+            }
+            catch (NoSuchCommandException e) {
+                // TODO Auto-generated catch block
+                //e.printStackTrace();
+            }
             for (int i = 0; i < myBracketCommandsList.size(); i++) {
+                System.out.println("Is repeat repeating? " + myValue);
                 myBracketCommandsList.get(i).move(model, turtleNumber);
             }
             myValue--;

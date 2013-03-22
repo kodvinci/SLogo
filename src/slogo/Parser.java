@@ -232,19 +232,7 @@ public class Parser {
         return subArray;
     }
 
-    /**
-     * find brackets that are in pair
-     * 
-     * @param str input string
-     * @param position position of "["
-     * @return position of "]"
-     * @throws SyntaxException
-     * @throws SecurityException
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
-     */
-
+   
     public void parse (String command, List<ICommand> myCommandList, Model model)
                                                                                  throws NoSuchCommandException,
                                                                                  SyntaxException,

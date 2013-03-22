@@ -15,7 +15,8 @@ public class HideTurtle extends NoParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
-
+        
+        System.out.println("hide turtle successful");
         model.getMyTurtle(turtleNumber).setInvisible();
         return 0;
 

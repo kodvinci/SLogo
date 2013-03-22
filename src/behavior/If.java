@@ -61,7 +61,7 @@ public class If implements ICommand {
     }
 
     @Override
-    public double move (Model model, int turtleNumber) throws SyntaxException {
+    public double move (Model model, int turtleNumber) throws SyntaxException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchCommandException, NoSuchVariableException {
         if (myStatement != 0) {
             for (ICommand command : myCommands) {
                 command.move(model, turtleNumber);

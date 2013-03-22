@@ -150,10 +150,16 @@ public class IfElse implements ICommand {
      * @param model the model
      * @param turtleNumber the turtle
      * @throws SyntaxException SyntaxException
+     * @throws NoSuchVariableException 
+     * @throws NoSuchCommandException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * 
      */
     @Override
-    public double move (Model model, int turtleNumber) throws SyntaxException {
+    public double move (Model model, int turtleNumber) throws SyntaxException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchCommandException, NoSuchVariableException {
         myFinalValue = move(model, turtleNumber, myValue);
         return myFinalValue;
     }
@@ -166,8 +172,14 @@ public class IfElse implements ICommand {
      * @param value the value
      * @return
      * @throws SyntaxException SyntaxException
+     * @throws NoSuchVariableException 
+     * @throws NoSuchCommandException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
-    public double move (Model model, int turtleNumber, double value) throws SyntaxException {
+    public double move (Model model, int turtleNumber, double value) throws SyntaxException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchCommandException, NoSuchVariableException {
         if (value == 0) {
             for (int i = 0; i < myFalseCommands.size(); i++) {
                 myFalseCommands.get(i).move(model, turtleNumber);
