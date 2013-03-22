@@ -160,7 +160,7 @@ public class TurtleArea extends Window {
     
 
     private void paintGrid (Graphics2D pen) {
-        pen.setColor(GRID_COLOR);
+      
         if (myToggledOn) {
         pen.setColor(trailColor);
         pen.setStroke(new BasicStroke());
@@ -225,13 +225,24 @@ public class TurtleArea extends Window {
     	repaint();
     }
     
-    public void setTrailColor(String color){
-    	try {
-    	    Field field = Class.forName("java.awt.Color").getField(color);
-    	    trailColor = (Color)field.get(null);
-    	} catch (Exception e) {
-    	    trailColor=Color.BLACK; // Not defined
+    public void setTrailColor(int color){
+    	switch (color){
+    	    case 1:
+    	        trailColor= Color.BLACK;
+    	        break;
+    	    case 2:
+    	        trailColor= Color.BLUE;
+    	        break;
+    	    case 3:
+    	        trailColor=Color.GREEN;
+    	        break;
+    	    case 4:  	        
+    	        trailColor=Color.RED; 
+    	        break;
+    	    case 5:
+    	        trailColor=Color.YELLOW;
     	}
+    	repaint();
     }
 
 }
