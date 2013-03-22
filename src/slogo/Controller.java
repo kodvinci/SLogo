@@ -68,12 +68,15 @@ public class Controller {
      * 
      * @param seq sequence
      * @param string string
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
+     * @throws SecurityException
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
      */
-    public void processUserInput (int seq, String string) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    public void processUserInput (int seq, String string) throws NoSuchFieldException,
+                                                         SecurityException,
+                                                         IllegalArgumentException,
+                                                         IllegalAccessException {
 
         try {
             myInterpreter.process(myModels.get(seq), 0, string);

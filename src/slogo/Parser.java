@@ -1,7 +1,6 @@
 package slogo;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,13 +10,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import behavior.ICommand;
-import behavior.If;
-import behavior.IfElse;
-import behavior.Repeat;
-import behavior.To;
 import exceptions.NoSuchCommandException;
 import exceptions.NoSuchVariableException;
-import exceptions.ParameterException;
 import exceptions.SyntaxException;
 
 
@@ -25,7 +19,7 @@ import exceptions.SyntaxException;
  * parse the command
  * 
  * @author Richard Yang
- * Parses input
+ *         Parses input
  * 
  * @author Richard, Jerry
  * 
@@ -39,8 +33,6 @@ public class Parser {
     private Pattern myStrPattern;
     private Pattern mySpacePattern;
     public ResourceBundle myResources;
-    
-
 
     /**
      * constructor
@@ -58,29 +50,33 @@ public class Parser {
      * 
      * @param commands commands we want to split
      * @return splited string
-     * Splits commands
+     *         Splits commands
      * 
      * @param commands commands
      * @return
-     * @throws NoSuchFieldException 
-     * @throws SecurityException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws NoSuchMethodException 
+     * @throws NoSuchFieldException
+     * @throws SecurityException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws NoSuchMethodException
      * 
      */
 
-    public List<String[]> split(String s, Model model) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    public List<String[]> split (String s, Model model) throws NoSuchFieldException,
+                                                       SecurityException, IllegalArgumentException,
+                                                       IllegalAccessException {
         List<String> l = new LinkedList<String>();
-        int depth=0;
+        int depth = 0;
         StringBuilder sb = new StringBuilder();
-        for(int i=0; i<s.length(); i++){
+        for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            if(c=='['){
+            if (c == '[') {
                 depth += 1;
-            }else if(c==']'){
+            }
+            else if (c == ']') {
                 depth -= 1;
-            }else if(c==' ' && depth==0){
+            }
+            else if (c == ' ' && depth == 0) {
                 l.add(sb.toString());
                 sb = new StringBuilder();
                 continue;
@@ -88,14 +84,17 @@ public class Parser {
             sb.append(c);
         }
         l.add(sb.toString());
-        
+
         for (String g : l) {
             System.out.println("presplit: " + g);
         }
         return addCommands(l, model);
     }
-    
-    public List<String[]> addCommands(List<String> l, Model model) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+
+    public List<String[]> addCommands (List<String> l, Model model) throws NoSuchFieldException,
+                                                                   SecurityException,
+                                                                   IllegalArgumentException,
+                                                                   IllegalAccessException {
         List<String[]> commandArray = new ArrayList<String[]>();
         for (int i = 0; i < l.size(); i++) {
 
@@ -114,15 +113,15 @@ public class Parser {
                 Field field = commandClass.getDeclaredField("PARAMETER_NUMBER");
                 int parameter = field.getInt(commandClass);
                 for (int j = 0; j < parameter; j++) {
-                    temp.add(l.get(i+j));
+                    temp.add(l.get(i + j));
                 }
                 String command[] = new String[temp.size()];
                 temp.toArray(command);
                 commandArray.add(command);
             }
-            
+
         }
-        
+
         for (int i = 0; i < commandArray.size(); i++) {
             System.out.println("User input: " + Arrays.toString(commandArray.get(i)));
         }
@@ -137,14 +136,19 @@ public class Parser {
      * @return command
      * @throws NoSuchCommandException
      * @throws SyntaxException
-     * @throws NoSuchVariableException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
+     * @throws NoSuchVariableException
+     * @throws SecurityException
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
      */
 
-    public ICommand buildCommand (String[] str, Model model) throws SyntaxException, NoSuchVariableException, NoSuchCommandException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    public ICommand buildCommand (String[] str, Model model) throws SyntaxException,
+                                                            NoSuchVariableException,
+                                                            NoSuchCommandException,
+                                                            NoSuchFieldException, SecurityException,
+                                                            IllegalArgumentException,
+                                                            IllegalAccessException {
         if (model.getUserCommands().containsKey(str[0])) {
             return (ICommand) model.getUserCommands().get(str[0]);
         }
@@ -165,7 +169,7 @@ public class Parser {
             Object o = null;
             try {
                 o = commandClass.newInstance();
-                
+
             }
             catch (InstantiationException | IllegalAccessException e) {
 
@@ -187,30 +191,32 @@ public class Parser {
      * @return
      * @throws SyntaxException
      * @throws NoSuchCommandException
-     * @throws NoSuchVariableException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
+     * @throws NoSuchVariableException
+     * @throws SecurityException
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
      */
 
     public List<ICommand> buildMultipleCommands (List<String[]> commands, Model model)
                                                                                       throws SyntaxException,
-                                                                                      NoSuchCommandException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+                                                                                      NoSuchCommandException,
+                                                                                      NoSuchVariableException,
+                                                                                      NoSuchFieldException,
+                                                                                      SecurityException,
+                                                                                      IllegalArgumentException,
+                                                                                      IllegalAccessException {
         if (commands == null) { return null; }
 
         List<ICommand> myCommandList = new ArrayList<ICommand>();
         for (int i = 0; i < commands.size(); i++) {
             String[] str = commands.get(i);
-                myCommandList.add(buildCommand(str, model));
+            myCommandList.add(buildCommand(str, model));
         }
-        
+
         return myCommandList;
     }
-    
-   
-    
-    
+
     /**
      * delete first element of a string
      * 
@@ -219,10 +225,10 @@ public class Parser {
     public String[] subStringArray (String[] str) {
         int size = str.length;
         String[] subArray = new String[size - 1];
-        for (int i = 0; i < size-1; i++) {
+        for (int i = 0; i < size - 1; i++) {
             subArray[i] = str[i + 1];
         }
-        
+
         return subArray;
     }
 
@@ -233,21 +239,22 @@ public class Parser {
      * @param position position of "["
      * @return position of "]"
      * @throws SyntaxException
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
+     * @throws SecurityException
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
      */
-   
-    
-    public void parse(String command, List<ICommand> myCommandList, Model model)  throws NoSuchCommandException,
-        SyntaxException,
-        NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-        
-        
+
+    public void parse (String command, List<ICommand> myCommandList, Model model)
+                                                                                 throws NoSuchCommandException,
+                                                                                 SyntaxException,
+                                                                                 NoSuchVariableException,
+                                                                                 NoSuchFieldException,
+                                                                                 SecurityException,
+                                                                                 IllegalArgumentException,
+                                                                                 IllegalAccessException {
+
         myCommandList.addAll(buildMultipleCommands(split(command, model), model));
     }
-    
 
-   
 }

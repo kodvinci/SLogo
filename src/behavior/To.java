@@ -17,14 +17,13 @@ import exceptions.SyntaxException;
  * 
  */
 public class To implements ICommand {
-    
+
     public static final int PARAMETER_NUMBER = 3;
     private List<ICommand> myCommandList = new ArrayList<ICommand>();
     private String[] myVariables;
     private String[] myCommands;
     private String myName;
     private Parser myParser = new Parser();
-    
 
     private ResourceBundle myResources;
 
@@ -42,24 +41,27 @@ public class To implements ICommand {
      * @throws NoSuchCommandException No command exception
      * @throws SyntaxException Wrong syntax exception
      */
-    
+
     public To () {
-        
+
     }
-    
+
     public void construct (String value, String firstBracket, String secondBracket, Model model)
-                                                                                           throws NoSuchCommandException,
-                                                                                           SyntaxException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-        
-        
+                                                                                                throws NoSuchCommandException,
+                                                                                                SyntaxException,
+                                                                                                NoSuchVariableException,
+                                                                                                NoSuchFieldException,
+                                                                                                SecurityException,
+                                                                                                IllegalArgumentException,
+                                                                                                IllegalAccessException {
+
         parse(value, firstBracket, secondBracket);
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
         map(myVariables, myCommands, model);
         model.addUserCommands(value, this);
     }
-    
-    
-    public int checkLength() {
+
+    public int checkLength () {
         if (myVariables.length == myCommands.length) {
             return 1;
         }
@@ -67,11 +69,11 @@ public class To implements ICommand {
             return 0;
         }
     }
-    
-    public void parse(String value, String firstBracket, String secondBracket) {
-        
-        String firstBracketPruned = firstBracket.substring(1, firstBracket.length()-1);
-        String secondBracketPruned = secondBracket.substring(1, secondBracket.length()-1);
+
+    public void parse (String value, String firstBracket, String secondBracket) {
+
+        String firstBracketPruned = firstBracket.substring(1, firstBracket.length() - 1);
+        String secondBracketPruned = secondBracket.substring(1, secondBracket.length() - 1);
         myVariables = firstBracketPruned.split("\\s+");
         myCommands = secondBracketPruned.split("\\s+");
         System.out.println(firstBracketPruned);
@@ -94,28 +96,31 @@ public class To implements ICommand {
      * @param commands commands
      * @throws NoSuchCommandException NoSuchCommandException
      * @throws SyntaxException SyntaxException
-     * @throws NoSuchVariableException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     * @throws NoSuchVariableException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws SecurityException
+     * @throws NoSuchFieldException
      */
     public void map (String[] variables, String[] commands, Model model)
-                                                                                    throws NoSuchCommandException,
-                                                                                 SyntaxException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-        if (checkLength() == 0) {
-            throw new NoSuchCommandException();
-        }
+                                                                        throws NoSuchCommandException,
+                                                                        SyntaxException,
+                                                                        NoSuchVariableException,
+                                                                        NoSuchFieldException,
+                                                                        SecurityException,
+                                                                        IllegalArgumentException,
+                                                                        IllegalAccessException {
+        if (checkLength() == 0) { throw new NoSuchCommandException(); }
         for (int i = 0; i < commands.length; i++) {
             String command = commands[i];
-           // System.out.println(Arrays.toString(command));
+            // System.out.println(Arrays.toString(command));
             String variable = variables[i];
-           // System.out.println(Arrays.toString(variable));
-            
+            // System.out.println(Arrays.toString(variable));
+
             String[] str = { command, variable };
             ICommand myCommand = myParser.buildCommand(str, model);
             myCommandList.add(myCommand);
-            //System.out.println(myCommandList.size());
+            // System.out.println(myCommandList.size());
         }
     }
 
@@ -136,7 +141,13 @@ public class To implements ICommand {
     }
 
     @Override
-    public void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    public void initialize (String[] information, Model model) throws SyntaxException,
+                                                              NoSuchCommandException,
+                                                              NoSuchVariableException,
+                                                              NoSuchFieldException,
+                                                              SecurityException,
+                                                              IllegalArgumentException,
+                                                              IllegalAccessException {
         System.out.println("initialize successful");
         System.out.println("subarray size" + information.length);
         construct(information[0], information[1], information[2], model);

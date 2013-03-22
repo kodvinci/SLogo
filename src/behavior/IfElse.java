@@ -17,12 +17,13 @@ import exceptions.SyntaxException;
  * 
  */
 public class IfElse implements ICommand {
-
+    
+    
     /**
      * Resources for commands
      */
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
-    public static final int PARAMETER_NUMBER = 3;
+    public static final int PARAMETER_NUMBER = 4;
     private List<String[]> myStringTrueCommands;
     private List<String[]> myStringFalseCommands;
     private List<ICommand> myTrueCommands;
@@ -31,11 +32,7 @@ public class IfElse implements ICommand {
     private double myValue;
     private double myFinalValue;
 
-    
-    
-
     private ResourceBundle myResources;
-
 
     /**
      * Constructs the command
@@ -45,40 +42,47 @@ public class IfElse implements ICommand {
      * @param value value
      * @throws NoSuchCommandException
      * @throws SyntaxException
-     * @throws NoSuchVariableException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     * @throws NoSuchVariableException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws SecurityException
+     * @throws NoSuchFieldException
      */
     public void construct (String value, String firstBracket, String secondBracket,
-                   Model model)
-                               throws NoSuchCommandException, SyntaxException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-        
+                           Model model)
+                                       throws NoSuchCommandException, SyntaxException,
+                                       NoSuchVariableException, NoSuchFieldException,
+                                       SecurityException, IllegalArgumentException,
+                                       IllegalAccessException {
+
         parse(value, firstBracket, secondBracket, model);
-//        myStringTrueCommands = trueCommands;
-//        myStringFalseCommands = falseCommands;
+        // myStringTrueCommands = trueCommands;
+        // myStringFalseCommands = falseCommands;
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
         myTrueCommands = new ArrayList<ICommand>();
         myFalseCommands = new ArrayList<ICommand>();
-        
+
         map(myStringTrueCommands, myStringFalseCommands, model);
     }
+
     public IfElse () {
-          
+
     }
-    
-  
-    public void parse(String value, String firstBracket, String secondBracket, Model model) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-        String firstBracketPruned = firstBracket.substring(1, firstBracket.length()-1);
-        String secondBracketPruned = secondBracket.substring(1, secondBracket.length()-1);
-        
-//        System.out.println("first without brackets " + firstBracketPruned);
-//        System.out.println("second without brackets " + secondBracketPruned);
+
+    public void parse (String value, String firstBracket, String secondBracket, Model model)
+                                                                                            throws NoSuchFieldException,
+                                                                                            SecurityException,
+                                                                                            IllegalArgumentException,
+                                                                                            IllegalAccessException {
+        String firstBracketPruned = firstBracket.substring(1, firstBracket.length() - 1);
+        String secondBracketPruned = secondBracket.substring(1, secondBracket.length() - 1);
+
+        // System.out.println("first without brackets " + firstBracketPruned);
+        // System.out.println("second without brackets " + secondBracketPruned);
         myStringTrueCommands = myParser.split(firstBracketPruned, model);
         myStringFalseCommands = myParser.split(secondBracketPruned, model);
         myValue = Double.parseDouble(value);
-       
+
     }
 
     /**
@@ -97,15 +101,20 @@ public class IfElse implements ICommand {
      * @param falseCommands false commands
      * @throws NoSuchCommandException
      * @throws SyntaxException
-     * @throws NoSuchVariableException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     * @throws NoSuchVariableException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws SecurityException
+     * @throws NoSuchFieldException
      */
     public void map (List<String[]> trueCommands, List<String[]> falseCommands, Model model)
                                                                                             throws NoSuchCommandException,
-                                                                                            SyntaxException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+                                                                                            SyntaxException,
+                                                                                            NoSuchVariableException,
+                                                                                            NoSuchFieldException,
+                                                                                            SecurityException,
+                                                                                            IllegalArgumentException,
+                                                                                            IllegalAccessException {
         myTrueCommands = buildCommands(trueCommands, model);
         myFalseCommands = buildCommands(falseCommands, model);
     }
@@ -117,15 +126,20 @@ public class IfElse implements ICommand {
      * @return
      * @throws NoSuchCommandException
      * @throws SyntaxException
-     * @throws NoSuchVariableException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     * @throws NoSuchVariableException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws SecurityException
+     * @throws NoSuchFieldException
      */
     public List<ICommand> buildCommands (List<String[]> commands, Model model)
                                                                               throws NoSuchCommandException,
-                                                                              SyntaxException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+                                                                              SyntaxException,
+                                                                              NoSuchVariableException,
+                                                                              NoSuchFieldException,
+                                                                              SecurityException,
+                                                                              IllegalArgumentException,
+                                                                              IllegalAccessException {
         List<ICommand> theCommands = myParser.buildMultipleCommands(commands, model);
         return theCommands;
     }
@@ -159,19 +173,26 @@ public class IfElse implements ICommand {
                 myFalseCommands.get(i).move(model, turtleNumber);
                 System.out.println(myFalseCommands.size());
             }
-            return Double.parseDouble(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1]);
+            return Double
+                    .parseDouble(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1]);
         }
         else {
             for (int i = 0; i < myTrueCommands.size(); i++) {
                 myTrueCommands.get(i).move(model, turtleNumber);
             }
-            return Double.parseDouble(myStringTrueCommands.get(myStringTrueCommands.size()-1)[1]);
+            return Double.parseDouble(myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1]);
         }
 
     }
 
     @Override
-    public void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    public void initialize (String[] information, Model model) throws SyntaxException,
+                                                              NoSuchCommandException,
+                                                              NoSuchVariableException,
+                                                              NoSuchFieldException,
+                                                              SecurityException,
+                                                              IllegalArgumentException,
+                                                              IllegalAccessException {
         System.out.println("initialize successful");
         System.out.println("subarray size" + information.length);
         construct(information[0], information[1], information[2], model);

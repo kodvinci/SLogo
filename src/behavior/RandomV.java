@@ -12,6 +12,8 @@ import exceptions.SyntaxException;
  */
 
 public class RandomV extends OneParameterCommand {
+    
+    public static final int PARAMETER_NUMBER = 2;
 
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {

@@ -13,7 +13,8 @@ import exceptions.SyntaxException;
  */
 
 public class Make implements ICommand {
-
+    
+    public static final int PARAMETER_NUMBER = 3;
     private Pattern myNumPattern = Pattern.compile("[0-9]*");
     private String myVariableName;
     private double myValue;

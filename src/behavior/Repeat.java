@@ -15,6 +15,8 @@ import exceptions.SyntaxException;
  * 
  */
 public class Repeat implements ICommand {
+    
+    public static final int PARAMETER_NUMBER = 3;
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
 
@@ -22,7 +24,7 @@ public class Repeat implements ICommand {
     private int myValue;
     private String myPrunedStringCommands;
     private List<String[]> myListOfCommands;
-    private List<ICommand> myBracketCommandsList; 
+    private List<ICommand> myBracketCommandsList;
 
     /**
      * constructor for repeat
@@ -35,29 +37,37 @@ public class Repeat implements ICommand {
      * @throws NumberFormatException
      * @throws NoSuchVariableException
      */
-    public Repeat() {
-        
-    }
-    
-    public void construct (String value, String bracket, Model model)
-                                                             throws NoSuchCommandException,
-                                                             SyntaxException,
-                                                             NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-        myValue = Integer.parseInt(value); 
-        myPrunedStringCommands = prune (bracket);
-        myBracketCommandsList = createCommandsList(myPrunedStringCommands, model);
-        
+    public Repeat () {
 
     }
-    
-   
-    public List<ICommand> createCommandsList (String commands, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-         myListOfCommands = myParser.split(myPrunedStringCommands, model);
-         return myParser.buildMultipleCommands(myListOfCommands, model);
+
+    public void construct (String value, String bracket, Model model)
+                                                                     throws NoSuchCommandException,
+                                                                     SyntaxException,
+                                                                     NoSuchVariableException,
+                                                                     NoSuchFieldException,
+                                                                     SecurityException,
+                                                                     IllegalArgumentException,
+                                                                     IllegalAccessException {
+        myValue = Integer.parseInt(value);
+        myPrunedStringCommands = prune(bracket);
+        myBracketCommandsList = createCommandsList(myPrunedStringCommands, model);
+
     }
-    
+
+    public List<ICommand> createCommandsList (String commands, Model model) throws SyntaxException,
+                                                                           NoSuchCommandException,
+                                                                           NoSuchVariableException,
+                                                                           NoSuchFieldException,
+                                                                           SecurityException,
+                                                                           IllegalArgumentException,
+                                                                           IllegalAccessException {
+        myListOfCommands = myParser.split(myPrunedStringCommands, model);
+        return myParser.buildMultipleCommands(myListOfCommands, model);
+    }
+
     public String prune (String bracket) {
-        return bracket.substring(1, bracket.length()-1);
+        return bracket.substring(1, bracket.length() - 1);
     }
 
     @Override
@@ -68,11 +78,17 @@ public class Repeat implements ICommand {
             }
             myValue--;
         }
-        return Double.parseDouble(myListOfCommands.get(myListOfCommands.size()-1)[1]);
+        return Double.parseDouble(myListOfCommands.get(myListOfCommands.size() - 1)[1]);
     }
 
     @Override
-    public void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    public void initialize (String[] information, Model model) throws SyntaxException,
+                                                              NoSuchCommandException,
+                                                              NoSuchVariableException,
+                                                              NoSuchFieldException,
+                                                              SecurityException,
+                                                              IllegalArgumentException,
+                                                              IllegalAccessException {
         System.out.println("REPEAT Initialization Successful");
         construct(information[0], information[1], model);
     }

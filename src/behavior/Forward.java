@@ -12,9 +12,9 @@ import exceptions.SyntaxException;
  */
 
 public class Forward extends OneParameterCommand {
-    
+
     public static final int PARAMETER_NUMBER = 2;
-    
+
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
         double currentX = model.getMyTurtle(turtleNumber).getX();

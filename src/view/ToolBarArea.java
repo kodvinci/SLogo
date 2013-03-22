@@ -142,7 +142,8 @@ public class ToolBarArea extends JMenuBar {
                                       JOptionPane.ERROR_MESSAGE);
     }
 
-    private void echo (FileReader fileReader) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    private void echo (FileReader fileReader) throws NoSuchFieldException, SecurityException,
+                                             IllegalArgumentException, IllegalAccessException {
         try {
             BufferedReader input = new BufferedReader(fileReader);
             String line = input.readLine();

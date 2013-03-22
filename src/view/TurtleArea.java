@@ -8,7 +8,6 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
-import javax.swing.ImageIcon;
 import object.Trail;
 import object.Turtle;
 import util.Location;
@@ -51,8 +50,8 @@ public class TurtleArea extends Window {
         super(size, "English");
         setFocusable(true);
 
-        //myBackgroundImage =
-                //new ImageIcon(getClass().getResource(RESOURCE + "background.gif")).getImage();
+        // myBackgroundImage =
+        // new ImageIcon(getClass().getResource(RESOURCE + "background.gif")).getImage();
 
         myView = canvas;
         myTurtles = turtles;
@@ -156,7 +155,7 @@ public class TurtleArea extends Window {
     }
 
     private void toggleGrid () {
-        //System.out.println("test");
+        // System.out.println("test");
         if (myLastKeyPressed == TOGGLE_KEY) {
             toggledOn = !toggledOn;
         }

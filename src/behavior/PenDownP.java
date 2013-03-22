@@ -11,6 +11,8 @@ import exceptions.SyntaxException;
  */
 
 public class PenDownP extends NoParameterCommand {
+    
+    public static final int PARAMETER_NUMBER = 1;
 
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {

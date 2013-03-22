@@ -28,14 +28,19 @@ public interface ICommand {
      * @param information information used to initialize
      * @param model model we want to operate
      * @throws SyntaxException wrong syntax
-     * @throws NoSuchCommandException 
-     * @throws NoSuchVariableException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
+     * @throws NoSuchCommandException
+     * @throws NoSuchVariableException
+     * @throws SecurityException
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
      */
-    public abstract void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException, NoSuchVariableException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException;
-    
-   
+    public abstract void initialize (String[] information, Model model) throws SyntaxException,
+                                                                       NoSuchCommandException,
+                                                                       NoSuchVariableException,
+                                                                       NoSuchFieldException,
+                                                                       SecurityException,
+                                                                       IllegalArgumentException,
+                                                                       IllegalAccessException;
+
 }
