@@ -1,6 +1,7 @@
 package behavior;
 
 import slogo.Model;
+import exceptions.NoSuchCommandException;
 import exceptions.SyntaxException;
 
 
@@ -26,6 +27,7 @@ public interface ICommand {
      * @param information information used to initialize
      * @param model model we want to operate
      * @throws SyntaxException wrong syntax
+     * @throws NoSuchCommandException 
      */
-    public abstract void initialize (String[] information, Model model) throws SyntaxException;
+    public abstract void initialize (String[] information, Model model) throws SyntaxException, NoSuchCommandException;
 }

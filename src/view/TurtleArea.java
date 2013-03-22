@@ -51,8 +51,8 @@ public class TurtleArea extends Window {
         super(size, "English");
         setFocusable(true);
 
-        myBackgroundImage =
-                new ImageIcon(getClass().getResource(RESOURCE + "background.gif")).getImage();
+        //myBackgroundImage =
+                //new ImageIcon(getClass().getResource(RESOURCE + "background.gif")).getImage();
 
         myView = canvas;
         myTurtles = turtles;
@@ -156,7 +156,7 @@ public class TurtleArea extends Window {
     }
 
     private void toggleGrid () {
-        System.out.println("test");
+        //System.out.println("test");
         if (myLastKeyPressed == TOGGLE_KEY) {
             toggledOn = !toggledOn;
         }

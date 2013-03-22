@@ -9,10 +9,10 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import behavior.ICommand;
-import behavior.flow.If;
-import behavior.flow.IfElse;
-import behavior.flow.Repeat;
-import behavior.flow.To;
+import behavior.If;
+import behavior.IfElse;
+import behavior.Repeat;
+import behavior.To;
 import exceptions.NoSuchCommandException;
 import exceptions.NoSuchVariableException;
 import exceptions.ParameterException;
@@ -44,6 +44,8 @@ public class Parser {
     private Pattern mySpacePattern;
     private ResourceBundle myResources;
     private ResourceBundle myFlows;
+    
+
 
     /**
 <<<<<<< HEAD
@@ -65,14 +67,11 @@ public class Parser {
      * 
      * @param commands commands we want to split
      * @return splited string
-<<<<<<< HEAD
      * Splits commands
      * 
      * @param commands commands
      * @return
-=======
      * 
->>>>>>> 0b9ccc6ce78591a46d0a6f2849f954e9db33bc8e
      */
 
     public List<String[]> split(String s){
@@ -94,34 +93,36 @@ public class Parser {
         }
         l.add(sb.toString());
         
-        for (int i = 0; i < l.size(); i++ )
-        {
-            System.out.println("presplit: " + l.get(i));
+        for (String g : l) {
+            System.out.println("presplit: " + g);
         }
         return addCommands(l);
     }
     
     public List<String[]> addCommands(List<String> l) {
         List<String[]> commandArray = new ArrayList<String[]>();
-        
         for (int i = 0; i < l.size(); i++) {
             String[] simpleCommand = new String[2];
             String[] oneBracketCommand = new String[3];
             String[] twoBracketCommand = new String[4];
-            if (myResources.containsKey(l.get(i))) {
-                simpleCommand[0] = l.get(i);
-                simpleCommand[1] = l.get(i+1);
-                commandArray.add(simpleCommand);
-            }
-            else if (l.get(i).equals("IFELSE") || l.get(i).equals("TO")) {
+            if (l.get(i).equals("IFELSE") || l.get(i).equals("TO")) {
                 twoBracketCommand[0] = l.get(i);
                 twoBracketCommand[1] = l.get(i + 1);
                 twoBracketCommand[2] = l.get(i + 2);
                 twoBracketCommand[3] = l.get(i + 3);
+                System.out.println(twoBracketCommand[3]);
                 commandArray.add(twoBracketCommand);
              }
+            else if (myResources.containsKey(l.get(i))) {
+                simpleCommand[0] = l.get(i);
+                simpleCommand[1] = l.get(i+1);
+                commandArray.add(simpleCommand);
+            }
         }
-//        System.out.println("comandArray size: " + commandArray.size());
+     
+        for (int i = 0; i < commandArray.size(); i++) {
+            System.out.println("User input: " + Arrays.toString(commandArray.get(i)));
+        }
         return commandArray;
     }
 
@@ -142,12 +143,12 @@ public class Parser {
         }
         else {
             String[] subArray = subStringArray(str);
-            System.out.println(str[0]);
             String commandName = myResources.getString(str[0].toUpperCase());
 
             Class<?> commandClass = null;
             try {
                 commandClass = Class.forName("behavior." + commandName);
+                System.out.println(commandName + "success");
             }
             catch (ClassNotFoundException e) {
                 // model.showMessage("class not found");
@@ -155,6 +156,7 @@ public class Parser {
             Object o = null;
             try {
                 o = commandClass.newInstance();
+                System.out.println("object success");
             }
             catch (InstantiationException | IllegalAccessException e) {
 
@@ -162,7 +164,7 @@ public class Parser {
 
             }
             ICommand myCommand = (ICommand) o;
-            myCommand.initialize(subArray, null);
+            myCommand.initialize(subArray, model);
             return myCommand;
 
         }
@@ -186,21 +188,9 @@ public class Parser {
         List<ICommand> myCommandList = new ArrayList<ICommand>();
         for (int i = 0; i < commands.size(); i++) {
             String[] str = commands.get(i);
-            if (str[0].equals("IFELSE")) {
-                parseIfElse(str[0], str[1], str[2], str[3], myCommandList, model);
-                i += 3;
-            }
-            else if (str[0].equals("TO")) {
-                parseTo(str[0], str[1], str[2], str[3], myCommandList, model);
-            }
-            else if (str[0].equals("REPEAT") || str[0].equals("IF")) {
-              
-            }
-            else if (myResources.containsKey(str[0].toUpperCase())) {
                 myCommandList.add(buildCommand(str, model));
-            }
-            
         }
+        
         return myCommandList;
     }
     
@@ -215,10 +205,11 @@ public class Parser {
     public String[] subStringArray (String[] str) {
         int size = str.length;
         String[] subArray = new String[size - 1];
-        for (int i = 0; i < size - 1; i++) {
+        for (int i = 0; i < size-1; i++) {
             subArray[i] = str[i + 1];
+            System.out.println("Subarray: " + subArray[i]);
         }
-
+        
         return subArray;
     }
 
@@ -236,8 +227,8 @@ public class Parser {
         SyntaxException,
         NoSuchVariableException {
         
+        
         myCommandList.addAll(buildMultipleCommands(split(command), model));
-       
     }
     
 
@@ -260,42 +251,8 @@ public class Parser {
       
     }
 
-    /**
-     * Parses TO command
-     * 
-     * @param command String command
-     * @param myCommandList command LIst
-     * @return
-     * @throws SyntaxException Syntax Exception
-     * @throws NoSuchCommandException No command exception
-     */
    
-    
-    public int parseTo (String name, String value, String firstBracket, String secondBracket, 
-                        List<ICommand> myCommandList, Model model) throws NoSuchCommandException, SyntaxException {
-        To currentTo = new To(name, value, firstBracket, secondBracket, model);
-        myCommandList.add(currentTo);
-        myUserToCommands.put(currentTo.getName(), currentTo);
-        return currentTo.checkLength();
-    }
-
-    /**
-     * parse ifelse statements
-     * 
-     * @param command Command
-     * @param myCommandList command list
-     * @throws SyntaxException Syntax Exeception
-     * @throws NoSuchCommandException NoCommand exceptoin
-     */
-
-    public void parseIfElse (String command, String value, String firstBracket, String secondBracket, List<ICommand> myCommandList, Model model)
-                                                                                       throws SyntaxException,
-                                                                                       NoSuchCommandException {
-       IfElse currentIfElse = new IfElse(command, value, firstBracket, secondBracket, model);
-       myCommandList.add(currentIfElse);
-       
-    }
-
+ 
 
     /**
      * find first flow word in a string

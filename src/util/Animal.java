@@ -246,7 +246,7 @@ public abstract class Animal {
      * @param angle angle
      */
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
-        System.out.println("rotated");
+        //System.out.println("rotated");
         // save current state of the graphics area
         AffineTransform old = new AffineTransform(pen.getTransform());
         // move graphics area to center of this shape
