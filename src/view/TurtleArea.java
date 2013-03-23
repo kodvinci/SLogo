@@ -10,7 +10,11 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import javax.swing.ImageIcon;
 import object.Trail;
 import object.Turtle;
@@ -42,6 +46,7 @@ public class TurtleArea extends Window {
     private Trail myTrail;
     private Canvas myView;
     private List<Turtle> myTurtles;
+    private Set <Integer> unpaintedTrails; 
     private java.awt.Image myBackgroundImage;
 
     /**
@@ -64,6 +69,7 @@ public class TurtleArea extends Window {
         myView = canvas;
         myTurtles = turtles;
         myTrail = myTurtles.get(FIRST_TURTLE).getTrail();
+        unpaintedTrails= new HashSet<Integer>(); 
 
         setVisible(true);
 
@@ -117,8 +123,9 @@ public class TurtleArea extends Window {
 
         for (Turtle t : myTurtles) {
             t.paint(pen);
-            if(penIsDown){
-                t.addTrail(); 
+            t.addTrail();
+            if (!penIsDown){
+            	unpaintedTrails.add(myTrail.getTrails().size());
             }
         }
 
@@ -145,10 +152,12 @@ public class TurtleArea extends Window {
             Location prevLocation = myTrail.getTrails().get(FIRST_TURTLE);
             Location newLocation;
             for (int i = 1; i < trails.size(); i++) {
-                newLocation = trails.get(i);
-                pen.drawLine((int) prevLocation.getX(), (int) prevLocation.getY(),
-                             (int) newLocation.getX(), (int) newLocation.getY());
-                prevLocation = newLocation;
+            	newLocation = trails.get(i);
+            	if (!unpaintedTrails.contains(i)){ 
+	                pen.drawLine((int) prevLocation.getX(), (int) prevLocation.getY(),
+	                             (int) newLocation.getX(), (int) newLocation.getY());       
+            	}
+            	prevLocation = newLocation;
             }
         }
     }
