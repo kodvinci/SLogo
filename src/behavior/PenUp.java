@@ -17,7 +17,7 @@ public class PenUp extends NoParameterCommand {
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {
 
-        model.getMyTurtle(turtleNumber).leftTrail();
+        model.getController().getView().getTurtleArea().penUp();
         return 0;
 
     }

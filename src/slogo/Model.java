@@ -41,6 +41,7 @@ public class Model {
     private List<Turtle> myTurtles;
     private DisplayArea myDisplayArea;
     private Map<String, Double> myVariables;
+    private Controller myController;
 
     /**
      * Constructs model that holds objects
@@ -52,7 +53,12 @@ public class Model {
 
         myTurtles = new ArrayList<Turtle>();
         myVariables = new HashMap<String, Double>();
+        myController = controller;
 
+    }
+    
+    public Controller getController() {
+        return myController;
     }
 
     public void addUserCommands (String string, ICommand command) {

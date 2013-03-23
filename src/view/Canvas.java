@@ -61,6 +61,7 @@ public class Canvas {
 
         createGUI();
     }
+    
 
     /**
      * Creates the Toolbar and Display, Turtle and Command Areas
