@@ -18,7 +18,7 @@ import exceptions.SyntaxException;
  */
 public class To implements ICommand {
 
-    public static final int PARAMETER_NUMBER = 3;
+    public static final int PARAMETER_NUMBER = 4;
     private List<ICommand> myCommandList = new ArrayList<ICommand>();
     private String[] myVariables;
     private String[] myCommands;
@@ -61,7 +61,7 @@ public class To implements ICommand {
         model.addUserCommands(value, this);
     }
 
-    public int checkLength () {
+    public int checkLegal () {
         if (myVariables.length == myCommands.length) {
             return 1;
         }
@@ -110,7 +110,7 @@ public class To implements ICommand {
                                                                         SecurityException,
                                                                         IllegalArgumentException,
                                                                         IllegalAccessException {
-        if (checkLength() == 0) { throw new NoSuchCommandException(); }
+        if (checkLegal() == 0) { throw new NoSuchCommandException(); }
         for (int i = 0; i < commands.length; i++) {
             String command = commands[i];
             // System.out.println(Arrays.toString(command));
@@ -147,7 +147,7 @@ public class To implements ICommand {
             myCommandList.get(i).move(model, turtleNumber);
         }
 
-        return myCommandList.size();
+        return checkLegal();
     }
 
     @Override

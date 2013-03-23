@@ -194,14 +194,23 @@ public class IfElse implements ICommand {
                 myFalseCommands.get(i).move(model, turtleNumber);
                 System.out.println(myFalseCommands.size());
             }
-            return Double
-                    .parseDouble(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1]);
+            if (model.getUserVariables().containsKey(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1])) {
+                return Double.parseDouble(model.getUserVariables().get(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1]));
+            }
+            else {
+                return Double.parseDouble(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1]);
+            }
         }
         else {
             for (int i = 0; i < myTrueCommands.size(); i++) {
                 myTrueCommands.get(i).move(model, turtleNumber);
             }
-            return Double.parseDouble(myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1]);
+            if (model.getUserVariables().containsKey(myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1])) {
+                return Double.parseDouble(model.getUserVariables().get(myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1]));
+            }
+            else {
+                return Double.parseDouble(myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1]);
+            }
         }
 
     }

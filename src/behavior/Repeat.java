@@ -90,7 +90,12 @@ public class Repeat implements ICommand {
             }
             myValue--;
         }
-        return Double.parseDouble(myListOfCommands.get(myListOfCommands.size() - 1)[1]);
+        if (model.getUserVariables().containsKey(myListOfCommands.get(myListOfCommands.size() - 1)[1])) {
+            return Double.parseDouble(model.getUserVariables().get(myListOfCommands.get(myListOfCommands.size() - 1)[1]));
+        }
+        else {
+            return Double.parseDouble(myListOfCommands.get(myListOfCommands.size() - 1)[1]);
+        }
     }
 
     @Override

@@ -77,13 +77,13 @@ public class Parser {
                 depth -= 1;
             }
             else if (c == ' ' && depth == 0) {
-                l.add(sb.toString());
+                l.add(sb.toString().toUpperCase());
                 sb = new StringBuilder();
                 continue;
             }
             sb.append(c);
         }
-        l.add(sb.toString());
+        l.add(sb.toString().toUpperCase());
 
         for (String g : l) {
             System.out.println("presplit: " + g);
@@ -97,8 +97,15 @@ public class Parser {
                                                                    IllegalAccessException {
         List<String[]> commandArray = new ArrayList<String[]>();
         for (int i = 0; i < l.size(); i++) {
-
-            if (myResources.containsKey(l.get(i))) {
+            
+            if (model.getUserCommands().containsKey(l.get(i))) {
+                System.out.println("contains user command: " + l.get(i));
+                String[] userCommand = new String[1];
+                userCommand[0] = l.get(i).toUpperCase();
+                commandArray.add(userCommand);
+                
+            }
+            else if (myResources.containsKey(l.get(i))) {
                 ArrayList<String> temp = new ArrayList<String>();
                 String commandName = myResources.getString(l.get(i).toUpperCase());
 
@@ -150,14 +157,14 @@ public class Parser {
                                                             NoSuchFieldException, SecurityException,
                                                             IllegalArgumentException,
                                                             IllegalAccessException {
-        if (model.getUserCommands().containsKey(str[0])) {
-            return (ICommand) model.getUserCommands().get(str[0]);
+        if (model.getUserCommands().containsKey(str[0].toUpperCase())) {
+            return (ICommand) model.getUserCommands().get(str[0].toUpperCase());
         }
         else if (!myResources.containsKey(str[0].toUpperCase())) {
             throw new NoSuchCommandException();
         }
         else {
-            String[] subArray = subStringArray(str);
+            String[] subArray = subStringArray(str, model);
             String commandName = myResources.getString(str[0].toUpperCase());
 
             Class<?> commandClass = null;
@@ -223,13 +230,21 @@ public class Parser {
      * 
      * @param str input string
      */
-    public String[] subStringArray (String[] str) {
+    public String[] subStringArray (String[] str, Model model) {
         int size = str.length;
         String[] subArray = new String[size - 1];
+        System.out.println("subarray stage, User variable size: " + model.getUserVariables().size());
         for (int i = 0; i < size - 1; i++) {
-            subArray[i] = str[i + 1];
+            if (model.getUserVariables().containsKey(str[i+1])) {
+                System.out.println("model contains user defined variable");
+                System.out.println("subarray stage: the value of variable: " + model.getUserVariables().get(str[i + 1]));
+                subArray[i] = model.getUserVariables().get(str[i + 1]);
+            }
+            else {
+                subArray[i] = str[i + 1];
+            }
         }
-
+        System.out.println(Arrays.toString(subArray));
         return subArray;
     }
 

@@ -40,7 +40,7 @@ public class Model {
 
     private List<Turtle> myTurtles;
     private DisplayArea myDisplayArea;
-    private Map<String, Double> myVariables;
+    private Map<String, String> myVariables;
     private Controller myController;
 
     /**
@@ -52,7 +52,7 @@ public class Model {
     public Model (Controller controller, int id) {
 
         myTurtles = new ArrayList<Turtle>();
-        myVariables = new HashMap<String, Double>();
+        myVariables = new HashMap<String, String>();
         myController = controller;
 
     }
@@ -103,7 +103,7 @@ public class Model {
      * @param name the variable
      * @param value the value
      */
-    public void addVariable (String name, Double value) {
+    public void addVariable (String name, String value) {
         myVariables.put(name, value);
     }
 
@@ -125,7 +125,11 @@ public class Model {
      */
     public double getVariableValue (String name) throws NoSuchVariableException {
         if (!myVariables.containsKey(name)) { throw new NoSuchVariableException(); }
-        return myVariables.get(name);
+        return Double.parseDouble(myVariables.get(name));
+    }
+    
+    public Map<String, String> getUserVariables() {
+        return myVariables;
     }
 
     /**
