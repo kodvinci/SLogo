@@ -165,7 +165,7 @@ public class Parser {
             throw new NoSuchCommandException();
         }
         else {
-            String[] subArray = subStringArray(str);
+            String[] subArray = subStringArray(str, model);
             String commandName = myResources.getString(str[0].toUpperCase());
 
             Class<?> commandClass = null;
@@ -231,7 +231,7 @@ public class Parser {
      * 
      * @param str input string
      */
-    public String[] subStringArray (String[] str) {
+    public String[] subStringArray (String[] str, Model model) {
         int size = str.length;
         String[] subArray = new String[size - 1];
         for (int i = 0; i < size - 1; i++) {
