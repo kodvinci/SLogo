@@ -106,7 +106,6 @@ public class TurtleArea extends Window {
      * Updates turtles' trails and their location
      */
     public void update () {
-        revalidate();
         myView.update();
 
     }
