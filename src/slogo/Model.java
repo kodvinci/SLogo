@@ -90,7 +90,10 @@ public class Model {
     public void showMessage (String message) {
         myDisplayArea.showMessage(message);
     }
-
+    
+    public Map<String, Double> getMyVariables() {
+        return myVariables;
+    }
     /**
      * Add a variable
      * 
