@@ -7,9 +7,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.Toolkit;
-import java.util.HashSet;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Set;
 import javax.swing.ImageIcon;
 import object.Trail;
 import object.Turtle;
@@ -34,16 +35,15 @@ public class TurtleArea extends Window {
     private Color trailColor = Color.BLACK;
     private static final Color GRID_COLOR = Color.BLACK;
     private static final int GRID_LABEL_OFFSET = 20;
+    private static final int TOGGLE_KEY = KeyEvent.VK_SPACE;
     private boolean myToggledOn = true;
     private boolean toggledOn = true;
     private boolean dashed = true;
-    private boolean penIsDown = true;
     private Trail myTrail;
     private Canvas myView;
     private List<Turtle> myTurtles;
-    private Set<Turtle> isActive;
-    private Set<Integer> unpaintedTrails;
     private java.awt.Image myBackgroundImage;
+    private int myLastKeyPressed;
 
     /**
      * 
@@ -65,9 +65,6 @@ public class TurtleArea extends Window {
         myView = canvas;
         myTurtles = turtles;
         myTrail = myTurtles.get(FIRST_TURTLE).getTrail();
-        unpaintedTrails = new HashSet<Integer>();
-        isActive = new HashSet<Turtle>();
-        isActive.add(myTurtles.get(FIRST_TURTLE));
 
         setVisible(true);
 
@@ -94,7 +91,7 @@ public class TurtleArea extends Window {
         if (myTurtles.get(FIRST_TURTLE).getAngle() != 0.0) {
             rotateImage((Graphics2D) pen);
         }
-
+        
         Toolkit.getDefaultToolkit().sync();
         pen.dispose();
     }
@@ -102,6 +99,7 @@ public class TurtleArea extends Window {
     private void rotateImage (Graphics2D pen) {
         for (Turtle t : myTurtles) {
             t.paint(pen, t.getCenter(), t.getSize(), t.getAngle());
+            System.out.println("Turn by: " + t.getAngle());
         }
         myView.update();
     }
@@ -110,6 +108,12 @@ public class TurtleArea extends Window {
      * Updates turtles' trails and their location
      */
     public void update () {
+        for (Turtle t : myTurtles) {
+            t.addTrail();
+        }
+
+        myTurtles.get(FIRST_TURTLE).addTrail();
+        revalidate();
         myView.update();
 
     }
@@ -120,18 +124,10 @@ public class TurtleArea extends Window {
     private void paintTurtle (Graphics2D pen) {
 
         for (Turtle t : myTurtles) {
-            if (isActive.contains(t)) {
-                t.changeTurtleImage("turtle2.gif");
-            }
             t.paint(pen);
-            if (penIsDown) {
-                t.addTrail();
-            }
             t.addTrail();
-            if (!penIsDown) {
-                unpaintedTrails.add(myTrail.getTrails().size());
-            }
         }
+
     }
 
     /**
@@ -140,15 +136,13 @@ public class TurtleArea extends Window {
      */
     private void paintTrails (Graphics2D pen) {
         pen.setColor(trailColor);
-        if (dashed) {
-            Stroke drawingStroke =
-                    new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0,
-                                    new float[] { 9 }, 0);
-            pen.setStroke(drawingStroke);
+        if (dashed){
+        	Stroke drawingStroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+        	pen.setStroke(drawingStroke);
         }
-        // Sets to default stroke
-        else {
-            pen.setStroke(new BasicStroke());
+        //Sets to default stroke 
+        else{
+        	pen.setStroke(new BasicStroke());
         }
         List<Location> trails = myTrail.getTrails();
         if (!(trails.isEmpty())) {
@@ -156,34 +150,51 @@ public class TurtleArea extends Window {
             Location newLocation;
             for (int i = 1; i < trails.size(); i++) {
                 newLocation = trails.get(i);
-                if (!unpaintedTrails.contains(i)) {
-                    pen.drawLine((int) prevLocation.getX(), (int) prevLocation.getY(),
-                                 (int) newLocation.getX(), (int) newLocation.getY());
-                }
+                pen.drawLine((int) prevLocation.getX(), (int) prevLocation.getY(),
+                             (int) newLocation.getX(), (int) newLocation.getY());
                 prevLocation = newLocation;
             }
         }
     }
+    
+    
 
     private void paintGrid (Graphics2D pen) {
-
+        pen.setColor(GRID_COLOR);
         if (myToggledOn) {
-            pen.setColor(GRID_COLOR);
-            pen.setStroke(new BasicStroke());
-            if (toggledOn) {
-                for (int i = 0; i < getWidth(); i += GRID_VALUE) {
-                    pen.drawLine(i, 0, i, getHeight());
-                    pen.drawString(Integer.toString(i), i, GRID_LABEL_OFFSET);
-                }
-                for (int i = 0; i < getWidth(); i += GRID_VALUE) {
-                    pen.drawLine(0, i, getWidth(), i);
-                    pen.drawString(Integer.toString(i), 0, i);
-                }
+        pen.setColor(trailColor);
+        pen.setStroke(new BasicStroke());
+        if (toggledOn) {
+            for (int i = 0; i < getWidth(); i += GRID_VALUE) {
+                pen.drawLine(i, 0, i, getHeight());
+                pen.drawString(Integer.toString(i), i, GRID_LABEL_OFFSET);
             }
+            for (int i = 0; i < getWidth(); i += GRID_VALUE) {
+                pen.drawLine(0, i, getWidth(), i);
+                pen.drawString(Integer.toString(i), 0, i);
+            }
+        }
 
         }
     }
+    
+    private void toggleGrid () {
+        System.out.println("test");
+        if (myLastKeyPressed == TOGGLE_KEY) {
+            myToggledOn = !myToggledOn;
+        }
+    }
 
+    private void setInputListeners () {
+        // initialize input state
+        myLastKeyPressed = NO_KEY_PRESSED;
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed (KeyEvent e) {
+                myLastKeyPressed = e.getKeyCode();
+            }
+        });
+    }
     /**
      * 
      * @param filename
@@ -194,60 +205,33 @@ public class TurtleArea extends Window {
                 new ImageIcon(getClass().getResource(RESOURCE + filename)).getImage();
         repaint();
     }
-
-    /**
-     * 
-     */
-    public void setDashed () {
-        dashed = true;
-        repaint();
+    
+    public void setDashed()
+    {
+    	dashed=true;
+    	repaint();
     }
-
-    public void setSolid () {
-        dashed = false;
-        repaint();
+    public void setSolid(){
+    	dashed=false;
+    	repaint();
     }
-
-    public void toggleGridOff () {
-        toggledOn = false;
-        repaint();
+    
+    public void toggleGridOff(){
+    	toggledOn=false;
+    	repaint();
     }
-
-    public void toggleGridOn () {
-        toggledOn = true;
-        repaint();
+    public void toggleGridOn(){
+    	toggledOn=true; 
+    	repaint();
     }
-
-    public void penDown () {
-        penIsDown = true;
-    }
-
-    public void penUp () {
-        penIsDown = false;
-    }
-
-    /**
-     * 
-     * @param color
-     */
-    public void setTrailColor (int color) {
-        switch (color) {
-            case 1:
-                trailColor = Color.BLACK;
-                break;
-            case 2:
-                trailColor = Color.BLUE;
-                break;
-            case 3:
-                trailColor = Color.GREEN;
-                break;
-            case 4:
-                trailColor = Color.RED;
-                break;
-            case 5:
-                trailColor = Color.YELLOW;
-        }
-        repaint();
+    
+    public void setTrailColor(String color){
+    	try {
+    	    Field field = Class.forName("java.awt.Color").getField(color);
+    	    trailColor = (Color)field.get(null);
+    	} catch (Exception e) {
+    	    trailColor=Color.BLACK; // Not defined
+    	}
     }
 
 }
