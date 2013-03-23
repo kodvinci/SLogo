@@ -236,7 +236,26 @@ public class ToolBarArea extends JMenuBar {
         JMenu result = new JMenu(myResources.getString("PenMenu"));
 
         JMenu subMenu = new JMenu(myResources.getString("PenProperties"));
+
         JMenu colorMenu = new JMenu(myResources.getString("Colors"));
+
+        result.add(new AbstractAction(myResources.getString("UpCommand")) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getView().getTurtleArea().penUp();
+            }
+        });
+        result.add(new AbstractAction(myResources.getString("DownCommand")) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getView().getTurtleArea().penDown();
+            }
+        });
+
         subMenu.add(new AbstractAction(myResources.getString("Dash")) {
             private static final long serialVersionUID = 1L;
 

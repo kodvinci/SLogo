@@ -7,7 +7,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.Toolkit;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.ImageIcon;
 import object.Trail;
 import object.Turtle;
@@ -39,6 +41,8 @@ public class TurtleArea extends Window {
     private Trail myTrail;
     private Canvas myView;
     private List<Turtle> myTurtles;
+    private Set<Turtle> isActive;
+    private Set<Integer> unpaintedTrails;
     private java.awt.Image myBackgroundImage;
 
     /**
@@ -61,6 +65,9 @@ public class TurtleArea extends Window {
         myView = canvas;
         myTurtles = turtles;
         myTrail = myTurtles.get(FIRST_TURTLE).getTrail();
+        unpaintedTrails = new HashSet<Integer>();
+        isActive = new HashSet<Turtle>();
+        isActive.add(myTurtles.get(FIRST_TURTLE));
 
         setVisible(true);
 
@@ -113,12 +120,18 @@ public class TurtleArea extends Window {
     private void paintTurtle (Graphics2D pen) {
 
         for (Turtle t : myTurtles) {
+            if (isActive.contains(t)) {
+                t.changeTurtleImage("turtle2.gif");
+            }
             t.paint(pen);
             if (penIsDown) {
                 t.addTrail();
             }
+            t.addTrail();
+            if (!penIsDown) {
+                unpaintedTrails.add(myTrail.getTrails().size());
+            }
         }
-
     }
 
     /**
@@ -143,8 +156,10 @@ public class TurtleArea extends Window {
             Location newLocation;
             for (int i = 1; i < trails.size(); i++) {
                 newLocation = trails.get(i);
-                pen.drawLine((int) prevLocation.getX(), (int) prevLocation.getY(),
-                             (int) newLocation.getX(), (int) newLocation.getY());
+                if (!unpaintedTrails.contains(i)) {
+                    pen.drawLine((int) prevLocation.getX(), (int) prevLocation.getY(),
+                                 (int) newLocation.getX(), (int) newLocation.getY());
+                }
                 prevLocation = newLocation;
             }
         }

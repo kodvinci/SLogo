@@ -55,6 +55,7 @@ public class Turtle extends Animal {
     public void initialize () {
         super.setCenter(new Location(Canvas.TURTLE_AREA_SIZE.width / 2,
                                      Canvas.TURTLE_AREA_SIZE.height / 2));
+        // super.setCenter(new Location(0, 0));
     }
 
     /**

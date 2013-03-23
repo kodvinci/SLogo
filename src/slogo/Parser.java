@@ -77,7 +77,7 @@ public class Parser {
                 depth -= 1;
             }
             else if (c == ' ' && depth == 0) {
-                l.add(sb.toString().toUpperCase());
+                l.add(sb.toString());
                 sb = new StringBuilder();
                 continue;
             }
