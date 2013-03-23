@@ -262,7 +262,7 @@ public abstract class Animal {
         // move graphics area to center of this shape
         pen.translate(center.getX(), center.getY());
         // rotate area about this shape
-        pen.rotate(angle);
+        pen.rotate(-angle);
         // draw as usual (i.e., rotated)
         pen.drawImage(myImage, -size.width / 2, -size.height / 2, size.width, size.height, null);
         // restore graphics area to its old state, so our changes have no lasting effects
