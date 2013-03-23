@@ -46,6 +46,7 @@ public class TurtleArea extends Window {
     private Trail myTrail;
     private Canvas myView;
     private List<Turtle> myTurtles;
+    private Set<Turtle> isActive; 
     private Set <Integer> unpaintedTrails; 
     private java.awt.Image myBackgroundImage;
 
@@ -70,6 +71,8 @@ public class TurtleArea extends Window {
         myTurtles = turtles;
         myTrail = myTurtles.get(FIRST_TURTLE).getTrail();
         unpaintedTrails= new HashSet<Integer>(); 
+        isActive= new HashSet<Turtle>();
+        isActive.add(myTurtles.get(FIRST_TURTLE));
 
         setVisible(true);
 
@@ -122,6 +125,9 @@ public class TurtleArea extends Window {
     private void paintTurtle (Graphics2D pen) {
 
         for (Turtle t : myTurtles) {
+        	if (isActive.contains(t)){
+        		t.changeTurtleImage("turtle2.gif");
+        	}
             t.paint(pen);
             t.addTrail();
             if (!penIsDown){
