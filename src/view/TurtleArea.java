@@ -35,15 +35,14 @@ public class TurtleArea extends Window {
     private Color trailColor = Color.BLACK;
     private static final Color GRID_COLOR = Color.BLACK;
     private static final int GRID_LABEL_OFFSET = 20;
-    private static final int TOGGLE_KEY = KeyEvent.VK_SPACE;
     private boolean myToggledOn = true;
     private boolean toggledOn = true;
     private boolean dashed = true;
+    private boolean penIsDown=true;
     private Trail myTrail;
     private Canvas myView;
     private List<Turtle> myTurtles;
     private java.awt.Image myBackgroundImage;
-    private int myLastKeyPressed;
 
     /**
      * 
@@ -118,7 +117,9 @@ public class TurtleArea extends Window {
 
         for (Turtle t : myTurtles) {
             t.paint(pen);
-            t.addTrail();
+            if(penIsDown){
+                t.addTrail(); 
+            }
         }
 
     }
@@ -155,7 +156,7 @@ public class TurtleArea extends Window {
     private void paintGrid (Graphics2D pen) {
       
         if (myToggledOn) {
-            pen.setColor(trailColor);
+            pen.setColor(GRID_COLOR);
             pen.setStroke(new BasicStroke());
             if (toggledOn) {
                 for (int i = 0; i < getWidth(); i += GRID_VALUE) {
@@ -171,23 +172,6 @@ public class TurtleArea extends Window {
         }
     }
 
-    private void toggleGrid () {
-        System.out.println("test");
-        if (myLastKeyPressed == TOGGLE_KEY) {
-            myToggledOn = !myToggledOn;
-        }
-    }
-
-    private void setInputListeners () {
-        // initialize input state
-        myLastKeyPressed = NO_KEY_PRESSED;
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed (KeyEvent e) {
-                myLastKeyPressed = e.getKeyCode();
-            }
-        });
-    }
 
     /**
      * 
@@ -221,6 +205,14 @@ public class TurtleArea extends Window {
     public void toggleGridOn () {
         toggledOn = true;
         repaint();
+    }
+    
+    public void penDown(){
+        penIsDown=true;
+    }
+    
+    public void penUp(){
+        penIsDown=false; 
     }
     /**
      * 
