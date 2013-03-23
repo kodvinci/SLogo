@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -46,7 +47,7 @@ public class Canvas {
     private Controller myController;
     private JPanel myPanel;
     private JFrame myFrame;
-    private List<Turtle> myTurtle;
+    private Map<Integer, Turtle> myTurtle;
     private TurtleArea myTurtleArea;
 
     /**

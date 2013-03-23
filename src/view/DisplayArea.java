@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
@@ -32,7 +33,7 @@ public class DisplayArea extends Window {
     private static final String ANGLE_LABEL = "turtle angle: ";
     private static final int FIELD_SIZE = 30;
     private static final int FIELD_SIZE_TWO = 18;
-    private List<Turtle> myTurtle;
+    private Map<Integer, Turtle> myTurtle;
     private MouseListener myMouseListener;
     private JTextArea myTextArea;
 
@@ -44,7 +45,7 @@ public class DisplayArea extends Window {
      *        the pens
      *        DisplayArea constructor, starts listeners
      */
-    public DisplayArea (Dimension size, List<Turtle> myTurtles) {
+    public DisplayArea (Dimension size, Map<Integer, Turtle> myTurtles) {
         super(size, "English");
         myTurtle = myTurtles;
 

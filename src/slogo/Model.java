@@ -30,18 +30,18 @@ public class Model {
      * Default Frame size
      */
     public static final Dimension SIZE = new Dimension(1100, 700);
-    /**
-     * String title
-     */
+    
+    private static int myGlobalModelID = -1;
 
     private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
-
+    
     public static final String TITLE = "SLOGO";
 
-    private List<Turtle> myTurtles;
+    private Map<Integer, Turtle> myTurtles;
     private DisplayArea myDisplayArea;
     private Map<String, String> myVariables;
     private Controller myController;
+    private int myModelID;
 
     /**
      * Constructs model that holds objects
@@ -51,10 +51,16 @@ public class Model {
      */
     public Model (Controller controller, int id) {
 
-        myTurtles = new ArrayList<Turtle>();
+        myTurtles = new HashMap<Integer, Turtle>();
         myVariables = new HashMap<String, String>();
         myController = controller;
+        myGlobalModelID++;
+        myModelID = myGlobalModelID;
 
+    }
+    
+    public int getID() {
+        return myModelID;
     }
     
     public Controller getController() {
@@ -84,7 +90,7 @@ public class Model {
      * 
      * @return
      */
-    public List<Turtle> getMyTurtles () {
+    public Map<Integer, Turtle> getMyTurtles () {
         return myTurtles;
     }
 

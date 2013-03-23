@@ -11,6 +11,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import javax.swing.ImageIcon;
 import object.Trail;
 import object.Turtle;
@@ -41,7 +42,7 @@ public class TurtleArea extends Window {
     private boolean dashed = true;
     private Trail myTrail;
     private Canvas myView;
-    private List<Turtle> myTurtles;
+    private Map<Integer, Turtle> myTurtles;
     private java.awt.Image myBackgroundImage;
     private int myLastKeyPressed;
 
@@ -55,7 +56,7 @@ public class TurtleArea extends Window {
      *        view
      *        Constructs TurtleArea
      */
-    public TurtleArea (Dimension size, List<Turtle> turtles, Canvas canvas) {
+    public TurtleArea (Dimension size, Map<Integer, Turtle> turtles, Canvas canvas) {
         super(size, "English");
         setFocusable(true);
 
@@ -97,7 +98,7 @@ public class TurtleArea extends Window {
     }
 
     private void rotateImage (Graphics2D pen) {
-        for (Turtle t : myTurtles) {
+        for (Turtle t : myTurtles.values()) {
             t.paint(pen, t.getCenter(), t.getSize(), t.getAngle());
             System.out.println("Turn by: " + t.getAngle());
         }
@@ -108,7 +109,7 @@ public class TurtleArea extends Window {
      * Updates turtles' trails and their location
      */
     public void update () {
-        for (Turtle t : myTurtles) {
+        for (Turtle t : myTurtles.values()) {
             t.addTrail();
         }
 
@@ -123,7 +124,7 @@ public class TurtleArea extends Window {
      */
     private void paintTurtle (Graphics2D pen) {
 
-        for (Turtle t : myTurtles) {
+        for (Turtle t : myTurtles.values()) {
             t.paint(pen);
             t.addTrail();
         }

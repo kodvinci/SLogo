@@ -2,7 +2,9 @@ package slogo;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import object.Turtle;
 import util.Location;
 import view.Canvas;
@@ -27,7 +29,7 @@ public class Controller {
      */
     public static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
 
-    private List<Model> myModels = new ArrayList<Model>();
+    private Map<Integer, Model> myModels = new HashMap<Integer, Model>();
 
     private Interpreter myInterpreter;
     private Factory myFactory;
@@ -73,13 +75,16 @@ public class Controller {
      * @throws IllegalAccessException
      * @throws IllegalArgumentException
      */
-    public void processUserInput (int seq, String string) throws NoSuchFieldException,
+    public void processUserInput (String string) throws NoSuchFieldException,
                                                          SecurityException,
                                                          IllegalArgumentException,
                                                          IllegalAccessException {
 
+        Map<Integer, Turtle> myTurtles = myModels.get(myModels.size()-1).getMyTurtles();
         try {
-            myInterpreter.process(myModels.get(seq), 0, string);
+            for (Model m : myModels.values()) {
+                myInterpreter.process(m, m.getMyTurtles().size()-1, string);
+            }
         }
         catch (NoSuchVariableException e) {
             // myModels.get(seq).showMessage("NoSuchVariable");
@@ -93,8 +98,7 @@ public class Controller {
             // myModels.get(seq).showMessage("Syntax Error, please check your commands");
             System.out.println("No such command");
         }
-        List<Turtle> myTurtles = myModels.get(seq).getMyTurtles();
-        for (Turtle t : myTurtles) {
+        for (Turtle t : myTurtles.values()) {
             checkBounds(t);
         }
         // update view
@@ -131,7 +135,8 @@ public class Controller {
      * Add a model
      */
     public void addModel () {
-        myModels.add(new Model(this, myModels.size()));
+        Model currentModel =new Model(this, myModels.size());
+        myModels.put(currentModel.getID(), currentModel);
     }
 
     /**
@@ -140,7 +145,7 @@ public class Controller {
      * @param model the model to add
      */
     public void addModel (Model model) {
-        myModels.add(model);
+        myModels.put(model.getID(), model);
     }
 
     /**
@@ -167,8 +172,8 @@ public class Controller {
      * @param seq the index
      * @return the model
      */
-    public Model getModel (int seq) {
-        return myModels.get(seq);
+    public Model getModel (Model model) {
+        return myModels.get(model.getID());
     }
 
     /**
@@ -176,7 +181,7 @@ public class Controller {
      * 
      * @return list of models
      */
-    public List<Model> getMyModels () {
+    public Map<Integer, Model> getMyModels () {
         return myModels;
     }
 
@@ -194,8 +199,8 @@ public class Controller {
      * 
      * @return
      */
-    public Turtle getMyTurtle () {
-        return myModels.get(0).getMyTurtle(0);
+    public Turtle getMyTurtle (int modelIndex, int turtleIndex) {
+        return myModels.get(modelIndex).getMyTurtle(turtleIndex);
     }
 
     /**
@@ -203,8 +208,8 @@ public class Controller {
      * 
      * @return
      */
-    public List<Turtle> getMyTurtles () {
-        return myModels.get(0).getMyTurtles();
+    public Map<Integer, Turtle> getMyTurtles (int modelIndex) {
+        return myModels.get(modelIndex).getMyTurtles();
     }
 
     /**

@@ -120,6 +120,7 @@ public class To implements ICommand {
             String[] str = { command, variable };
             ICommand myCommand = myParser.buildCommand(str, model);
             myCommandList.add(myCommand);
+            model.addVariable(":TO" + Integer.toString(i), variable);
             // System.out.println(myCommandList.size());
         }
     }

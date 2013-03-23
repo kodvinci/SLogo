@@ -90,7 +90,7 @@ public class Repeat implements ICommand {
                 myBracketCommandsList.get(i).move(model, turtleNumber);
             }
             model.addVariable(":repcount", Integer.toString(count));
-            myValue++;
+            count++;
         }
         if (model.getUserVariables().containsKey(myListOfCommands.get(myListOfCommands.size() - 1)[1])) {
             return Double.parseDouble(model.getUserVariables().get(myListOfCommands.get(myListOfCommands.size() - 1)[1]));
