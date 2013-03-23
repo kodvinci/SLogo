@@ -31,8 +31,13 @@ public class Make implements ICommand {
             throw new SyntaxException();
         }
         else if (myNumPattern.matcher(information[1]).matches()) { throw new SyntaxException(); }
-        myVariableName = information[0].substring(1);
-        myValue = Double.parseDouble(information[1]);
+        if (information[0].charAt(0) == ':') {
+            myVariableName = information[0];
+            myValue = Double.parseDouble(information[1]);
+        }
+        else {
+            throw new SyntaxException("Need semi colon");
+        }
     }
 
 }

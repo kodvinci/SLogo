@@ -18,7 +18,7 @@ import exceptions.SyntaxException;
  */
 public class To implements ICommand {
 
-    public static final int PARAMETER_NUMBER = 3;
+    public static final int PARAMETER_NUMBER = 4;
     private List<ICommand> myCommandList = new ArrayList<ICommand>();
     private String[] myVariables;
     private String[] myCommands;
@@ -58,7 +58,9 @@ public class To implements ICommand {
         parse(value, firstBracket, secondBracket);
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
         map(myVariables, myCommands, model);
+        System.out.println("Name of user command: " + value);
         model.addUserCommands(value, this);
+        System.out.println("Size of user commands: " + model.getUserCommands().size());
     }
 
     public int checkLength () {
