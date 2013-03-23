@@ -76,7 +76,8 @@ public class Repeat implements ICommand {
                                                       IllegalAccessException,
                                                       NoSuchCommandException,
                                                       NoSuchVariableException {
-        while (myValue > 0) {
+        int count = 0;
+        while (count < myValue) {
             try {
                 myBracketCommandsList = createCommandsList(myPrunedStringCommands, model);
             }
@@ -88,7 +89,8 @@ public class Repeat implements ICommand {
                 System.out.println("Is repeat repeating? " + myValue);
                 myBracketCommandsList.get(i).move(model, turtleNumber);
             }
-            myValue--;
+            model.addVariable(":repcount", Integer.toString(count));
+            myValue++;
         }
         if (model.getUserVariables().containsKey(myListOfCommands.get(myListOfCommands.size() - 1)[1])) {
             return Double.parseDouble(model.getUserVariables().get(myListOfCommands.get(myListOfCommands.size() - 1)[1]));
