@@ -11,7 +11,7 @@ import exceptions.SyntaxException;
  */
 
 public class Minus extends OneParameterCommand {
-    
+
     public static final int PARAMETER_NUMBER = 2;
 
     @Override

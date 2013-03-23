@@ -1,7 +1,5 @@
 package util;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -197,7 +195,7 @@ public abstract class Animal {
             myOriginalView = new Pixmap(image);
             myImage =
                     new ImageIcon(getClass().getResource(RESOURCE_LOCATION +
-                                                                 image.getImageFileName()))
+                                                         image.getImageFileName()))
                             .getImage();
             myView = image;
             resetBounds();
@@ -258,7 +256,7 @@ public abstract class Animal {
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
         // save current state of the graphics area
         AffineTransform old = new AffineTransform(pen.getTransform());
-        //pen.setBackground(new Color(0, 0, 0));
+        // pen.setBackground(new Color(0, 0, 0));
         // move graphics area to center of this shape
         pen.translate(center.getX(), center.getY());
         // rotate area about this shape
@@ -267,7 +265,7 @@ public abstract class Animal {
         pen.drawImage(myImage, -size.width / 2, -size.height / 2, size.width, size.height, null);
         // restore graphics area to its old state, so our changes have no lasting effects
         pen.setTransform(old);
-       
+
     }
 
     /**

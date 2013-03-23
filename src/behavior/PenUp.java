@@ -11,7 +11,7 @@ import exceptions.SyntaxException;
  */
 
 public class PenUp extends NoParameterCommand {
-    
+
     public static final int PARAMETER_NUMBER = 1;
 
     @Override

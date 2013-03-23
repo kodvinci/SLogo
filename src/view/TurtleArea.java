@@ -7,9 +7,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.Toolkit;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.lang.reflect.Field;
 import java.util.List;
 import javax.swing.ImageIcon;
 import object.Trail;
@@ -38,7 +35,7 @@ public class TurtleArea extends Window {
     private boolean myToggledOn = true;
     private boolean toggledOn = true;
     private boolean dashed = true;
-    private boolean penIsDown=true;
+    private boolean penIsDown = true;
     private Trail myTrail;
     private Canvas myView;
     private List<Turtle> myTurtles;
@@ -117,8 +114,8 @@ public class TurtleArea extends Window {
 
         for (Turtle t : myTurtles) {
             t.paint(pen);
-            if(penIsDown){
-                t.addTrail(); 
+            if (penIsDown) {
+                t.addTrail();
             }
         }
 
@@ -154,7 +151,7 @@ public class TurtleArea extends Window {
     }
 
     private void paintGrid (Graphics2D pen) {
-      
+
         if (myToggledOn) {
             pen.setColor(GRID_COLOR);
             pen.setStroke(new BasicStroke());
@@ -171,7 +168,6 @@ public class TurtleArea extends Window {
 
         }
     }
-
 
     /**
      * 
@@ -206,36 +202,37 @@ public class TurtleArea extends Window {
         toggledOn = true;
         repaint();
     }
-    
-    public void penDown(){
-        penIsDown=true;
+
+    public void penDown () {
+        penIsDown = true;
     }
-    
-    public void penUp(){
-        penIsDown=false; 
+
+    public void penUp () {
+        penIsDown = false;
     }
+
     /**
      * 
      * @param color
      */
-    public void setTrailColor(int color){
-    	switch (color){
-    	    case 1:
-    	        trailColor= Color.BLACK;
-    	        break;
-    	    case 2:
-    	        trailColor= Color.BLUE;
-    	        break;
-    	    case 3:
-    	        trailColor=Color.GREEN;
-    	        break;
-    	    case 4:  	        
-    	        trailColor=Color.RED; 
-    	        break;
-    	    case 5:
-    	        trailColor=Color.YELLOW;
-    	}
-    	repaint();
+    public void setTrailColor (int color) {
+        switch (color) {
+            case 1:
+                trailColor = Color.BLACK;
+                break;
+            case 2:
+                trailColor = Color.BLUE;
+                break;
+            case 3:
+                trailColor = Color.GREEN;
+                break;
+            case 4:
+                trailColor = Color.RED;
+                break;
+            case 5:
+                trailColor = Color.YELLOW;
+        }
+        repaint();
     }
 
 }

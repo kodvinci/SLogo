@@ -130,15 +130,19 @@ public class To implements ICommand {
      * @param model the model
      * @param turtleNumber the turtle
      * @throws SyntaxException SyntaxException
-     * @throws NoSuchVariableException 
-     * @throws NoSuchCommandException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     * @throws NoSuchVariableException
+     * @throws NoSuchCommandException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws SecurityException
+     * @throws NoSuchFieldException
      */
     @Override
-    public double move (Model model, int turtleNumber) throws SyntaxException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchCommandException, NoSuchVariableException {
+    public double move (Model model, int turtleNumber) throws SyntaxException, NoSuchFieldException,
+                                                      SecurityException, IllegalArgumentException,
+                                                      IllegalAccessException,
+                                                      NoSuchCommandException,
+                                                      NoSuchVariableException {
         for (int i = 0; i < myCommandList.size(); i++) {
             myCommandList.get(i).move(model, turtleNumber);
         }

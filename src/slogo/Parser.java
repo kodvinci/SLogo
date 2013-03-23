@@ -233,7 +233,6 @@ public class Parser {
         return subArray;
     }
 
-   
     public void parse (String command, List<ICommand> myCommandList, Model model)
                                                                                  throws NoSuchCommandException,
                                                                                  SyntaxException,

@@ -11,7 +11,7 @@ import exceptions.SyntaxException;
  */
 
 public class Production extends TwoParameterCommand {
-    
+
     public static final int PARAMETER_NUMBER = 3;
 
     @Override

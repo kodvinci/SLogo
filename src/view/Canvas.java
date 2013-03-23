@@ -46,8 +46,9 @@ public class Canvas {
     private Controller myController;
     private JPanel myPanel;
     private JFrame myFrame;
-    private List<Turtle> myTurtle;
+    private List<Turtle> myTurtles;
     private TurtleArea myTurtleArea;
+    private DisplayArea myDisplayArea;
 
     /**
      * 
@@ -56,7 +57,7 @@ public class Canvas {
      */
     public Canvas (Controller controller) {
         myController = controller;
-        myTurtle = myController.getMyModels().get(0).getMyTurtles();
+        myTurtles = myController.getMyModels().get(0).getMyTurtles();
 
         createGUI();
     }
@@ -73,12 +74,12 @@ public class Canvas {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // for turtle sprite display
-        myTurtleArea = new TurtleArea(TURTLE_AREA_SIZE, myTurtle, this);
+        myTurtleArea = new TurtleArea(TURTLE_AREA_SIZE, myTurtles, this);
         myFrame.getContentPane().add(myTurtleArea, BorderLayout.CENTER);
 
         // for turtle status display
-        DisplayArea myDisplay = new DisplayArea(DISPLAY_AREA_SIZE, myTurtle);
-        myFrame.getContentPane().add(myDisplay, BorderLayout.EAST);
+        myDisplayArea = new DisplayArea(DISPLAY_AREA_SIZE, myTurtles, myController);
+        myFrame.getContentPane().add(myDisplayArea, BorderLayout.EAST);
 
         // for user input display
         CommandArea myInput = new CommandArea(COMMAND_AREA_SIZE, myController);
@@ -108,5 +109,13 @@ public class Canvas {
      */
     public TurtleArea getTurtleArea () {
         return myTurtleArea;
+    }
+
+    /**
+     * 
+     * @return display area
+     */
+    public DisplayArea getDisplayArea () {
+        return myDisplayArea;
     }
 }

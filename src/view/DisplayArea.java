@@ -12,6 +12,7 @@ import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import object.Turtle;
+import slogo.Controller;
 
 
 /**
@@ -36,6 +37,7 @@ public class DisplayArea extends Window {
     private MouseListener myMouseListener;
     private JTextArea myTextArea;
     private JTextArea myPrevCommands;
+    private Controller myController;
 
     /**
      * 
@@ -43,11 +45,15 @@ public class DisplayArea extends Window {
      *        display area size
      * @param myTurtles
      *        the pens
+     * @param control
+     *        controller
+     * 
      *        DisplayArea constructor, starts listeners
      */
-    public DisplayArea (Dimension size, List<Turtle> myTurtles) {
+    public DisplayArea (Dimension size, List<Turtle> myTurtles, Controller control) {
         super(size, "English");
         myTurtle = myTurtles;
+        myController = control;
 
         makeListeners();
         add(clearDisplayArea(), BorderLayout.NORTH);
@@ -62,16 +68,44 @@ public class DisplayArea extends Window {
         myTextArea = new JTextArea(FIELD_SIZE, FIELD_SIZE_TWO);
         myTextArea.setEditable(false);
         myTextArea.addMouseListener(myMouseListener);
-        myTextArea.setText("Turtle Status \n");
+        //myTextArea.setText("Turtle Status \n");
         return new JScrollPane(myTextArea);
     }
-    
-    private JComponent makePreviousCommandsDisplay() {
+
+    private JComponent makePreviousCommandsDisplay () {
         myPrevCommands = new JTextArea(FIELD_SIZE, FIELD_SIZE_TWO);
         myPrevCommands.setEditable(false);
-        myPrevCommands.setText("Previous Commands \n");
+        // myPrevCommands.setText("Previous Commands \n");
+        myPrevCommands.addMouseListener(myMouseListener);
 
         return new JScrollPane(myPrevCommands);
+    }
+
+    /**
+     * 
+     * @param commands previous commands
+     */
+    public void showprevCommands (String commands) {
+        myPrevCommands.append(commands + "\n");
+        myPrevCommands.setCaretPosition(myPrevCommands.getText().length());
+    }
+
+    private void prevCommandClicked (MouseEvent e) {
+        System.out.println("Previous Commands: " + myPrevCommands.getText());
+
+        String[] input = myPrevCommands.getText().split("\n");
+
+        try {
+            for (String prevComm : input) {
+                myController.processUserInput(0, prevComm.trim());
+            }
+
+        }
+        catch (NoSuchFieldException | SecurityException | IllegalArgumentException
+                | IllegalAccessException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
     }
 
     private void makeListeners () {
@@ -80,6 +114,7 @@ public class DisplayArea extends Window {
             @Override
             public void mouseClicked (MouseEvent e) {
                 echo("clicked", e);
+                prevCommandClicked(e);
             }
 
             @Override

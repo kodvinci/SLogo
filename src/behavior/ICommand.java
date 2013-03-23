@@ -20,14 +20,20 @@ public interface ICommand {
      * @param turtleNumber which turtle we want to operate
      * @return return value
      * @throws SyntaxException wrong syntax format
-     * @throws NoSuchVariableException 
-     * @throws NoSuchCommandException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     * @throws NoSuchVariableException
+     * @throws NoSuchCommandException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws SecurityException
+     * @throws NoSuchFieldException
      */
-    public abstract double move (Model model, int turtleNumber) throws SyntaxException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchCommandException, NoSuchVariableException;
+    public abstract double move (Model model, int turtleNumber) throws SyntaxException,
+                                                               NoSuchFieldException,
+                                                               SecurityException,
+                                                               IllegalArgumentException,
+                                                               IllegalAccessException,
+                                                               NoSuchCommandException,
+                                                               NoSuchVariableException;
 
     /**
      * 

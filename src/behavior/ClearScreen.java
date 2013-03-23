@@ -13,7 +13,7 @@ import exceptions.SyntaxException;
  */
 
 public class ClearScreen extends Home {
-    
+
     public static final int PARAMETER_NUMBER = 1;
 
     @Override

@@ -63,6 +63,9 @@ public class CommandArea extends Window {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
+
+                myController.getView().getDisplayArea().showprevCommands(myTextField.getText());
+
                 myTextField.setText(EMPTY_STRING);
             }
         };

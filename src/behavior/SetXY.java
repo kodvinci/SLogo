@@ -12,7 +12,7 @@ import exceptions.SyntaxException;
  */
 
 public class SetXY extends TwoParameterCommand {
-    
+
     public static final int PARAMETER_NUMBER = 3;
 
     @Override

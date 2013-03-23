@@ -136,7 +136,8 @@ public class ToolBarArea extends JMenuBar {
                                       JOptionPane.ERROR_MESSAGE);
     }
 
-    private void echo (FileReader fileReader) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    private void echo (FileReader fileReader) throws NoSuchFieldException, SecurityException,
+                                             IllegalArgumentException, IllegalAccessException {
         try {
             BufferedReader input = new BufferedReader(fileReader);
             String line = input.readLine();
@@ -235,7 +236,7 @@ public class ToolBarArea extends JMenuBar {
         JMenu result = new JMenu(myResources.getString("PenMenu"));
 
         JMenu subMenu = new JMenu(myResources.getString("PenProperties"));
-        JMenu colorMenu= new JMenu(myResources.getString("Colors"));
+        JMenu colorMenu = new JMenu(myResources.getString("Colors"));
         subMenu.add(new AbstractAction(myResources.getString("Dash")) {
             private static final long serialVersionUID = 1L;
 
@@ -253,13 +254,13 @@ public class ToolBarArea extends JMenuBar {
             }
         });
         colorMenu.add(new AbstractAction(myColors.getString("Black")) {
-                private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
-                @Override
-                public void actionPerformed (ActionEvent e) {
-                    myController.getView().getTurtleArea().setTrailColor(1);
-                }
-            });
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getView().getTurtleArea().setTrailColor(1);
+            }
+        });
         colorMenu.add(new AbstractAction(myColors.getString("Blue")) {
             private static final long serialVersionUID = 1L;
 
@@ -292,11 +293,11 @@ public class ToolBarArea extends JMenuBar {
                 myController.getView().getTurtleArea().setTrailColor(5);
             }
         });
-        
+
         result.add(colorMenu);
         result.add(subMenu);
         return result;
-    
+
     }
 
     private JMenu makeGridMenu () {
