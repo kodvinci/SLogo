@@ -30,11 +30,12 @@ public class DisplayArea extends Window {
     private static final String X_LABEL = "x coordinate: ";
     private static final String Y_LABEL = "y coordinate: ";
     private static final String ANGLE_LABEL = "turtle angle: ";
-    private static final int FIELD_SIZE = 15;
+    private static final int FIELD_SIZE = 14;
     private static final int FIELD_SIZE_TWO = 18;
     private List<Turtle> myTurtle;
     private MouseListener myMouseListener;
     private JTextArea myTextArea;
+    private JTextArea myPrevCommands;
 
     /**
      * 
@@ -50,18 +51,27 @@ public class DisplayArea extends Window {
 
         makeListeners();
         add(clearDisplayArea(), BorderLayout.NORTH);
-        add(makeDisplay(), BorderLayout.CENTER);
+        add(makeTurtleStatusDisplay(), BorderLayout.CENTER);
+        add(makePreviousCommandsDisplay(), BorderLayout.CENTER);
         setVisible(true);
         revalidate();
 
     }
 
-    private JComponent makeDisplay () {
+    private JComponent makeTurtleStatusDisplay () {
         myTextArea = new JTextArea(FIELD_SIZE, FIELD_SIZE_TWO);
         myTextArea.setEditable(false);
         myTextArea.addMouseListener(myMouseListener);
-        myTextArea.setText("Turtle Status");
+        myTextArea.setText("Turtle Status \n");
         return new JScrollPane(myTextArea);
+    }
+    
+    private JComponent makePreviousCommandsDisplay() {
+        myPrevCommands = new JTextArea(FIELD_SIZE, FIELD_SIZE_TWO);
+        myPrevCommands.setEditable(false);
+        myPrevCommands.setText("Previous Commands \n");
+
+        return new JScrollPane(myPrevCommands);
     }
 
     private void makeListeners () {
