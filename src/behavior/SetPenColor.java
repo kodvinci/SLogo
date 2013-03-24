@@ -8,7 +8,7 @@ public class SetPenColor extends OneParameterCommand {
     
     public double move (Model model, int turtleNumber) {
         
-        // TO DO : call method in model to change the pen color
+        model.getController().getView().getTurtleArea().setTrailColor((int) getMyValue());
         return 0;
     }
 }
