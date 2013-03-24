@@ -27,9 +27,6 @@ public class Turtle extends Animal {
     private Trail undoneTrails; 
     private boolean myVisible;
     private String myTurtleName = "turtle.gif";
-    private static int myGlobalTurtleID = -1;
-    private int myTurtleID;
-
     /**
      * Constructs turtle object
      * 
@@ -41,8 +38,6 @@ public class Turtle extends Animal {
         myAngle = angle;
         myTrail = new Trail();
         undoneTrails=new Trail(); 
-        myGlobalTurtleID++;
-        myTurtleID = myGlobalTurtleID;
     }
 
     /**
@@ -54,10 +49,6 @@ public class Turtle extends Animal {
         myAngle = 0;
         myTrail = new Trail();
         undoneTrails= new Trail();
-    }
-    
-    public int getID() {
-        return myTurtleID;
     }
     
     /**

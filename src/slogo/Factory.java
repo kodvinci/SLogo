@@ -27,9 +27,13 @@ public class Factory {
      * @param model the model id to identify model turtle is created in
      */
     public void createTurtle (int model) {
-        Turtle turtle = new Turtle();
-        myController.getMyModels().get(model).getMyTurtles().put(turtle.getID(), turtle);
-        myController.getMyModels().get(model).addActivatedTurtles(0);
+        myController.getMyModels().get(model).addNewTurtle();
+        myController.getMyModels().get(model).addNewTurtle();
+        myController.getMyModels().get(model).addNewTurtle();
+        myController.getMyModels().get(model).addCurrentActivatedTurtles(0);
+        myController.getMyModels().get(model).addCurrentActivatedTurtles(1);
+        myController.getMyModels().get(model).addCurrentActivatedTurtles(2);
+        System.out.println("turtle number : " + myController.getMyModels().get(model).getMyTurtles().size());
     }
 
 }
