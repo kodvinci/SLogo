@@ -110,7 +110,7 @@ public class Model {
      * @param message the message
      */
     public void showMessage (String message) {
-        myDisplayArea.showMessage(message);
+        myDisplayArea.showTurtleStatus();
     }
 
     /**
