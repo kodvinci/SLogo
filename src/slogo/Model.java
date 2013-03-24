@@ -7,6 +7,7 @@ import object.Turtle;
 import view.DisplayArea;
 import behavior.ICommand;
 import exceptions.NoSuchVariableException;
+import exceptions.TurtleOutOfBoundaryException;
 
 
 /**
@@ -40,6 +41,7 @@ public class Model {
     private Map<String, String> myVariables;
     private Controller myController;
     private int myModelID;
+    private int myDefalultTurtleIndex;
 
     /**
      * Constructs model that holds objects
@@ -134,6 +136,15 @@ public class Model {
     
     public void setVariableValue(String key, Double value) {
         myVariables.put(key, value+"");
+    }
+    
+    public int getMyDefaultTurtleIndex() {
+        return myDefalultTurtleIndex;
+    }
+    
+    public void setMyDefaultTurtleIndex(int turtleIndex) throws TurtleOutOfBoundaryException {
+        if( turtleIndex>= myTurtles.size()) throw new TurtleOutOfBoundaryException("turtle of of boundary");
+        myDefalultTurtleIndex = turtleIndex;
     }
     
     public Map<String, String> getUserVariables() {
