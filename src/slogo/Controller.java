@@ -72,19 +72,19 @@ public class Controller {
         Map<Integer, Turtle> myTurtles = myModels.get(myModels.size()-1).getMyTurtles();
         
         for (Model m : myModels.values()) {
-            
-             try {
-                myInterpreter.process(m, m.getMyDefaultTurtleIndex(), string);
-            }
-            catch (Exception e) {
-//                if(e.getMessage() != null) {
-//                    myModels.get(modelIndex).showMessage(e.getMessage());
-//                } else {
-//                    myModels.get(modelIndex).showMessage(e.getClass().toString());
-//                }
-                e.printStackTrace();
-            }
-            
+           for(int i : m.getMyActivatedTurtles()) {
+               try {
+                  myInterpreter.process(m, i , string);
+               }
+               catch (Exception e) {
+//                   if(e.getMessage() != null) {
+//                       myModels.get(modelIndex).showMessage(e.getMessage());
+//                   } else {
+//                       myModels.get(modelIndex).showMessage(e.getClass().toString());
+//                   }
+                   e.printStackTrace();
+               }
+           }
             
         }
         
