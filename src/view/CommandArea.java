@@ -55,8 +55,16 @@ public class CommandArea extends Window {
         myActionListener = new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                
-                myController.processUserInput(myTextField.getText());
+                try {
+                    myController.processUserInput(myTextField.getText());
+                }
+                catch (SecurityException | IllegalArgumentException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+
+                myController.getView().getDisplayArea().showprevCommands(myTextField.getText());
+                myController.getView().getDisplayArea().showTurtleStatus();
                 
                 myTextField.setText(EMPTY_STRING);
             }

@@ -79,7 +79,6 @@ public class TurtleArea extends Window {
         lastUndid= new ArrayList<Turtle>(); 
         isActive.add(myTurtles.get(FIRST_TURTLE));
         colorPalette=new HashMap<Integer,Color>(); 
-
         setVisible(true);
 
     }
@@ -93,7 +92,7 @@ public class TurtleArea extends Window {
     @Override
     public void paint (Graphics pen) {
         super.paintComponent(pen);
-
+        
         if (myBackgroundImage != null) {
             pen.drawImage(myBackgroundImage, 0, 0, null);
         }
@@ -247,25 +246,24 @@ public class TurtleArea extends Window {
      * @param color
      */
     public void setTrailColor (int color) {
-        switch (color) {
-            case 1:
-                trailColor = Color.BLACK;
-                break;
-            case 2:
-                trailColor = Color.BLUE;
-                break;
-            case 3:
-                trailColor = Color.GREEN;
-                break;
-            case 4:
-                trailColor = Color.RED;
-                break;
-            case 5:
-                trailColor = Color.YELLOW;
-        }
+        trailColor = new Color(color);
         repaint();
     }
+
+    /**
+     * Removes the background image and sets a new background color
+     * 
+     * @param colorIndex    The Color index for the background color
+     */
+    public void changeBackgroundColor(int colorIndex) {
+        resetBackgroundImage();
+        setBackgroundColor(colorIndex);
+    }
     
+    private void resetBackgroundImage() {
+        myBackgroundImage = null;
+    }
+        
     public void undo(){
         Turtle toUndo=lastEdited.get(lastEdited.size()-1);
     	toUndo.undoMove();

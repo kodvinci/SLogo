@@ -1,7 +1,9 @@
 package slogo;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import object.Turtle;
 import view.DisplayArea;
@@ -37,11 +39,11 @@ public class Model {
     public static final String TITLE = "SLOGO";
 
     private Map<Integer, Turtle> myTurtles;
+    private List<Integer> myActivatedTurtles;
     private DisplayArea myDisplayArea;
     private Map<String, String> myVariables;
     private Controller myController;
     private int myModelID;
-    private int myDefalultTurtleIndex;
 
     /**
      * Constructs model that holds objects
@@ -52,6 +54,7 @@ public class Model {
     public Model (Controller controller, int id) {
 
         myTurtles = new HashMap<Integer, Turtle>();
+        myActivatedTurtles = new ArrayList<Integer>();
         myVariables = new HashMap<String, String>();
         myController = controller;
         myGlobalModelID++;
@@ -100,7 +103,7 @@ public class Model {
      * @param message the message
      */
     public void showMessage (String message) {
-        myDisplayArea.showMessage(message);
+        myDisplayArea.showTurtleStatus();
     }
 
     /**
@@ -138,14 +141,7 @@ public class Model {
         myVariables.put(key, value+"");
     }
     
-    public int getMyDefaultTurtleIndex() {
-        return myDefalultTurtleIndex;
-    }
     
-    public void setMyDefaultTurtleIndex(int turtleIndex) throws TurtleOutOfBoundaryException {
-        if( turtleIndex>= myTurtles.size()) throw new TurtleOutOfBoundaryException("turtle of of boundary");
-        myDefalultTurtleIndex = turtleIndex;
-    }
     
     public Map<String, String> getUserVariables() {
         return myVariables;
@@ -156,6 +152,18 @@ public class Model {
      */
     public void clearVariable () {
         myVariables.clear();
+    }
+    
+    public void clearActivatedTurtles() {
+        myActivatedTurtles.clear();
+    }
+    
+    public void addActivatedTurtles(int turtleIndex) {
+        myActivatedTurtles.add(turtleIndex);
+    }
+
+    public List<Integer> getMyActivatedTurtles () {
+        return myActivatedTurtles;
     }
     
     

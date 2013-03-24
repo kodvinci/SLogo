@@ -28,7 +28,7 @@ public class ToolBarArea extends JMenuBar {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private static final String USER_DIR = "user.dir";
-    private static final Color BACKGROUND_COLOR = Color.GREEN;
+    private static final Color TOOLBARCOLOR = Color.GREEN;
     private static final long serialVersionUID = 1L;
     private Controller myController;
     private JFileChooser myChooser;
@@ -36,7 +36,9 @@ public class ToolBarArea extends JMenuBar {
     private ResourceBundle myTurtles;
     private ResourceBundle myBackgroundImages;
     private ResourceBundle myColors;
-
+    private String myBackgroundColor;
+    private String myBackgroundImage;
+    
     ToolBarArea (Controller control) {
         myController = control;
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
@@ -46,7 +48,7 @@ public class ToolBarArea extends JMenuBar {
         myColors = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Colors");
         myTurtles = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Turtles");
 
-        setBackground(BACKGROUND_COLOR);
+        setBackground(TOOLBARCOLOR);
         this.add(makeFileMenu());
         this.add(makeTurtleMenu());
         this.add(makeBackgroundMenu());
@@ -200,51 +202,69 @@ public class ToolBarArea extends JMenuBar {
 
     private JMenu makeBackgroundMenu () {
         JMenu result = new JMenu(myResources.getString("BackgroundMenu"));
-        JMenu subMenu = new JMenu(myResources.getString("BackgroundSubMenu"));
+        
+        JMenu imageSubMenu = new JMenu(myResources.getString("BackgroundSubMenu"));
+        myBackgroundImage = myBackgroundImages.getString("Brown");
+        imageSubMenu.add(setBackgroundImage(myBackgroundImage));
+        
+        myBackgroundImage = myBackgroundImages.getString("CarolinaBlue");
+        imageSubMenu.add(setBackgroundImage(myBackgroundImage));
+        
+        myBackgroundImage = myBackgroundImages.getString("DukeBlue");
+        imageSubMenu.add(setBackgroundImage(myBackgroundImage));
+        
+        myBackgroundImage = myBackgroundImages.getString("Green");
+        imageSubMenu.add(setBackgroundImage(myBackgroundImage));
+        
+        myBackgroundImage = myBackgroundImages.getString("Wooden");
+        imageSubMenu.add(setBackgroundImage(myBackgroundImage));
+        
 
-        subMenu.add(new AbstractAction(myBackgroundImages.getString("Brown")) {
-            private static final long serialVersionUID = 1L;
+        JMenu colorSubMenu = new JMenu(myResources.getString("BackgroundColor"));
+        myBackgroundColor = myBackgroundImages.getString("Color1");
+        colorSubMenu.add(setBackgroundColor(myBackgroundColor));
+        
+        myBackgroundColor = myBackgroundImages.getString("Color2");
+        colorSubMenu.add(setBackgroundColor(myBackgroundColor));
 
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getView().getTurtleArea().changeBackgroundImage("brown.gif");
-            }
-        });
-        subMenu.add(new AbstractAction(myBackgroundImages.getString("CarolinaBlue")) {
-            private static final long serialVersionUID = 1L;
+        myBackgroundColor = myBackgroundImages.getString("Color3");
+        colorSubMenu.add(setBackgroundColor(myBackgroundColor));
 
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getView().getTurtleArea().changeBackgroundImage("carolinablue.gif");
-            }
-        });
-        subMenu.add(new AbstractAction(myBackgroundImages.getString("DukeBlue")) {
-            private static final long serialVersionUID = 1L;
+        myBackgroundColor = myBackgroundImages.getString("Color4");
+        colorSubMenu.add(setBackgroundColor(myBackgroundColor));
 
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getView().getTurtleArea().changeBackgroundImage("dukeblue.gif");
-            }
-        });
-        subMenu.add(new AbstractAction(myBackgroundImages.getString("Green")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getView().getTurtleArea().changeBackgroundImage("green.gif");
-            }
-        });
-        subMenu.add(new AbstractAction(myBackgroundImages.getString("Wooden")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getView().getTurtleArea().changeBackgroundImage("wooden.gif");
-            }
-        });
-
-        result.add(subMenu);
+        myBackgroundColor = myBackgroundImages.getString("Color5");
+        colorSubMenu.add(setBackgroundColor(myBackgroundColor));
+        
+        result.add(imageSubMenu);
+        result.add(colorSubMenu);
         return result;
+    }
+    
+    private AbstractAction setBackgroundImage(String backgroundImage) {
+        final String BACKGROUND_IMAGE = backgroundImage;
+        AbstractAction action = new AbstractAction(backgroundImage) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getView().getTurtleArea().changeBackgroundImage(BACKGROUND_IMAGE);
+            }
+        };
+        return action;
+    }
+    
+    private AbstractAction setBackgroundColor(String backgroundColor) {
+        final int COLORINT = Integer.parseInt(backgroundColor);
+        AbstractAction action = new AbstractAction(backgroundColor) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getView().getTurtleArea().changeBackgroundColor(COLORINT);
+            }
+        };
+        return action;
     }
 
     private JMenu makePenMenu () {

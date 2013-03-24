@@ -7,7 +7,7 @@ public static final int PARAMETER_NUMBER = 1;
     
     public double move (Model model, int turtleNumber) {
         
-     // TO DO : call method in model to change the pen size
+        model.getController().getView().getTurtleArea().editPenWidth((int) getMyValue());
         return 0;
     }
 
