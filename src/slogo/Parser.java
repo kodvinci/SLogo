@@ -256,8 +256,21 @@ public class Parser {
                                                                                  SecurityException,
                                                                                  IllegalArgumentException,
                                                                                  IllegalAccessException {
+        System.out.println("command with extra spaces: " + command);
+        String parsedCommand = parseExtraSpaces(command, model);
 
-        myCommandList.addAll(buildMultipleCommands(split(command, model), model));
+        myCommandList.addAll(buildMultipleCommands(split(parsedCommand, model), model));
+    }
+    
+    public String parseExtraSpaces (String command, Model model) {
+        String delim = "[ ]+";
+        String[] parsedCommandArray = command.split(delim);
+        String parsedCommand = "";
+        for (int i = 0; i < parsedCommandArray.length; i++) {
+            parsedCommand += parsedCommandArray[i] + " ";
+        }
+        System.out.println("command without extra spaces:" + parsedCommand);
+        return parsedCommand;
     }
 
 }
