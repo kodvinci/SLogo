@@ -100,7 +100,13 @@ public class DisplayArea extends Window {
      * @param commands previous commands
      */
     public void showprevCommands (String commands) {
-        myPrevCommands.append(commands + "\n");
+        String delim = "[ ]+";
+        String[] parsedCommandArray = commands.split(delim);
+        String parsedCommand = "";
+        for (int i = 0 ; i < parsedCommandArray.length; i++) {
+            parsedCommand += parsedCommandArray[i] + " ";
+        }
+        myPrevCommands.append(parsedCommand + "\n");
         myPrevCommands.setCaretPosition(myPrevCommands.getText().length());
     }
 
