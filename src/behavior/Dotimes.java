@@ -6,7 +6,11 @@ import exceptions.ParameterException;
 import slogo.Model;
 import slogo.Parser;
 
-
+/**
+ * 
+ * @author Richard Yang
+ *
+ */
 
 public class Dotimes extends Repeat {
     

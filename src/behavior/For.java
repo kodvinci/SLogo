@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import slogo.Model;
 import exceptions.ParameterException;
 
+ /**
+  * 
+  * @author Richard Yang
+  *
+  */
+
 public class For extends Dotimes {
    
     public static final int PARAMETER_NUMBER = 2;
