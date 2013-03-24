@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +50,8 @@ public class TurtleArea extends Window {
     private List<Turtle> lastUndid; 
     private java.awt.Image myBackgroundImage;
     private int penWidth=4;  
+    private Map <Integer, Color> colorPalette; 
+    private int currentColorIndex=0; 
 
     /**
      * 
@@ -75,6 +78,7 @@ public class TurtleArea extends Window {
         lastEdited= new ArrayList<Turtle>(); 
         lastUndid= new ArrayList<Turtle>(); 
         isActive.add(myTurtles.get(FIRST_TURTLE));
+        colorPalette=new HashMap<Integer,Color>(); 
 
         setVisible(true);
 
@@ -202,7 +206,11 @@ public class TurtleArea extends Window {
                 new ImageIcon(getClass().getResource(RESOURCE + filename)).getImage();
         repaint();
     }
-
+    
+    
+    public void addToColorPalette(){
+    	
+    }
     /**
      * 
      */
@@ -273,5 +281,19 @@ public class TurtleArea extends Window {
     public void editPenWidth(int newWidth){
     	penWidth=newWidth;
     	repaint(); 
+    }
+    
+    public void addToColorPalette (int index, float r, float g, float b){
+    	colorPalette.put (index, new Color(r, g, b));
+    	setPenColor(index);
+    }
+    public void setPenColor(int index){
+    	trailColor= colorPalette.get(index);
+    	currentColorIndex=index;
+    	repaint();
+    }
+    
+    public int getCurentColorIndex(){
+    	return currentColorIndex; 
     }
 }
