@@ -72,7 +72,7 @@ public class Controller {
         Map<Integer, Turtle> myTurtles = myModels.get(myModels.size()-1).getMyTurtles();
         
         for (Model m : myModels.values()) {
-           for(int i : m.getMyActivatedTurtles()) {
+           for(int i : m.getMyCurrentActivatedTurtles()) {
                try {
                   myInterpreter.process(m, i , string);
                }
@@ -84,6 +84,7 @@ public class Controller {
 //                   }
                    e.printStackTrace();
                }
+               m.replaceActivatedTurtles();
            }
             
         }
