@@ -21,22 +21,22 @@ public class Canvas {
     /**
      * default turtle size
      */
-    public static final Dimension TURTLE_AREA_SIZE = new Dimension(800, 500);
+    public static final Dimension TURTLE_AREA_SIZE = new Dimension(800, 600);
     private static final int WIDTH = 1050;
     private static final int HEIGHT = 700;
     private static final int RANGE = 10;
     /**
      * default display area size
      */
-    private static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
+    private static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 600);
     /**
      * default command area size
      */
-    private static final Dimension COMMAND_AREA_SIZE = new Dimension(1000, 40);
+    private static final Dimension COMMAND_AREA_SIZE = new Dimension(800, 40);
     /**
      * default size
      */
-    private static final Dimension SIZE = new Dimension(1100, 700);
+    private static final Dimension SIZE = new Dimension(1100, 750);
     /**
      * title
      */
@@ -49,7 +49,10 @@ public class Canvas {
     private JFrame myFrame;
     private Map<Integer, Turtle> myTurtle;
     private TurtleArea myTurtleArea;
-
+    private DisplayArea myDisplayArea;
+    private CommandArea myInputArea;
+    private ToolBarArea myMenusArea;
+    
     /**
      * 
      * @param controller constructor
@@ -78,16 +81,16 @@ public class Canvas {
         myFrame.getContentPane().add(myTurtleArea, BorderLayout.CENTER);
 
         // for turtle status display
-        DisplayArea myDisplay = new DisplayArea(DISPLAY_AREA_SIZE, myTurtle);
-        myFrame.getContentPane().add(myDisplay, BorderLayout.EAST);
+        myDisplayArea = new DisplayArea(DISPLAY_AREA_SIZE, myTurtle, myController);
+        myFrame.getContentPane().add(myDisplayArea, BorderLayout.EAST);
 
         // for user input display
-        CommandArea myInput = new CommandArea(COMMAND_AREA_SIZE, myController);
-        myFrame.getContentPane().add(myInput, BorderLayout.SOUTH);
+        myInputArea = new CommandArea(COMMAND_AREA_SIZE, myController);
+        myFrame.getContentPane().add(myInputArea, BorderLayout.SOUTH);
 
         // add tool bar area
-        ToolBarArea myMenu = new ToolBarArea(myController);
-        myFrame.setJMenuBar(myMenu);
+        myMenusArea = new ToolBarArea(myController);
+        myFrame.setJMenuBar(myMenusArea);
 
         myFrame.pack();
         myFrame.setVisible(true);
@@ -110,4 +113,21 @@ public class Canvas {
     public TurtleArea getTurtleArea () {
         return myTurtleArea;
     }
+
+    /**
+     * 
+     * @return display area
+     */
+    public DisplayArea getDisplayArea () {
+        return myDisplayArea;
+    }
+    
+    /**
+     * 
+     * @return  area where the user types the input commands
+     */
+    public CommandArea getCommandArea () {
+        return myInputArea;
+    }
+
 }
