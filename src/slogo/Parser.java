@@ -146,8 +146,10 @@ public class Parser {
             Class<?> commandClass = null;
             try {
                 commandClass = Class.forName("behavior." + commandName);
+                System.out.println("class found");
             }
             catch (ClassNotFoundException e) {
+                System.out.println("class not found");
                 // model.showMessage("class not found");
             }
             Object o = null;
@@ -158,6 +160,7 @@ public class Parser {
             catch (InstantiationException | IllegalAccessException e) {
 
                 // model.showMessage("illegal access");
+                System.out.print("cannot create a instance");
 
             }
             ICommand myCommand = (ICommand) o;
@@ -199,9 +202,11 @@ public class Parser {
         String[] subArray = new String[size - 1];
         System.out.println("subarray stage, User variable size: " + model.getUserVariables().size());
         for (int i = 0; i < size - 1; i++) {
-            if(str[i+1].charAt(0) == ':') {
+            if(str[i+1].charAt(0) == ':' && !str[i].toUpperCase().equals("SET")) {
                 if (!model.getUserVariables().containsKey(str[i+1])) {
                     model.addVariable(str[i+1], 0+""); 
+                    model.getUserVariables();
+                    System.out.println(str[i+1]);
                     System.out.println("have to create a variable");
                     
                 } else {

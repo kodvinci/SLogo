@@ -48,6 +48,7 @@ public class TurtleArea extends Window {
     private List<Turtle> lastEdited; 
     private List<Turtle> lastUndid; 
     private java.awt.Image myBackgroundImage;
+    private int penWidth=4;  
 
     /**
      * 
@@ -148,13 +149,13 @@ public class TurtleArea extends Window {
         pen.setColor(trailColor);
         if (dashed) {
             Stroke drawingStroke =
-                    new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0,
+                    new BasicStroke(penWidth, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0,
                                     new float[] { 9 }, 0);
             pen.setStroke(drawingStroke);
         }
         // Sets to default stroke
         else {
-            pen.setStroke(new BasicStroke());
+            pen.setStroke(new BasicStroke(penWidth));
         }
         List<Location> trails = myTrail.getTrails();
         if (!(trails.isEmpty())) {
@@ -281,5 +282,9 @@ public class TurtleArea extends Window {
     	toRedo.redoMove();
     	lastEdited.add(toRedo);
     	repaint();
+    }
+    public void editPenWidth(int newWidth){
+    	penWidth=newWidth;
+    	repaint(); 
     }
 }
