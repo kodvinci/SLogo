@@ -7,8 +7,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.swing.ImageIcon;
 import object.Trail;
@@ -40,22 +42,24 @@ public class TurtleArea extends Window {
     private boolean penIsDown = true;
     private Trail myTrail;
     private Canvas myView;
-    private List<Turtle> myTurtles;
+    private Map<Integer, Turtle> myTurtles;
     private Set<Turtle> isActive;
     private Set<Integer> unpaintedTrails;
+    private List<Turtle> lastEdited; 
+    private List<Turtle> lastUndid; 
     private java.awt.Image myBackgroundImage;
 
     /**
      * 
      * @param size
      *        size of display area
-     * @param turtles
+     * @param myTurtle
      *        pen image
      * @param canvas
      *        view
      *        Constructs TurtleArea
      */
-    public TurtleArea (Dimension size, List<Turtle> turtles, Canvas canvas) {
+    public TurtleArea (Dimension size, Map<Integer, Turtle> myTurtle, Canvas canvas) {
         super(size, "English");
         setFocusable(true);
 
@@ -63,10 +67,12 @@ public class TurtleArea extends Window {
                 new ImageIcon(getClass().getResource(RESOURCE + "dukeblue.gif")).getImage();
 
         myView = canvas;
-        myTurtles = turtles;
+        myTurtles = myTurtle;
         myTrail = myTurtles.get(FIRST_TURTLE).getTrail();
         unpaintedTrails = new HashSet<Integer>();
         isActive = new HashSet<Turtle>();
+        lastEdited= new ArrayList<Turtle>(); 
+        lastUndid= new ArrayList<Turtle>(); 
         isActive.add(myTurtles.get(FIRST_TURTLE));
         setVisible(true);
 
@@ -99,7 +105,7 @@ public class TurtleArea extends Window {
     }
 
     private void rotateImage (Graphics2D pen) {
-        for (Turtle t : myTurtles) {
+        for (Turtle t : myTurtles.values()) {
             t.paint(pen, t.getCenter(), t.getSize(), t.getAngle());
         }
         myView.update();
@@ -118,15 +124,16 @@ public class TurtleArea extends Window {
      */
     private void paintTurtle (Graphics2D pen) {
 
-        for (Turtle t : myTurtles) {
+        for (Turtle t : myTurtles.values()) {
             if (isActive.contains(t)) {
                 t.changeTurtleImage("turtle2.gif");
             }
             t.paint(pen);
+            lastEdited.add(t);
             if (penIsDown) {
                 t.addTrail();
             }
-            t.addTrail();
+            
             if (!penIsDown) {
                 unpaintedTrails.add(myTrail.getTrails().size());
             }
@@ -248,6 +255,7 @@ public class TurtleArea extends Window {
         }
         repaint();
     }
+
     /**
      * Removes the background image and sets a new background color
      * 
@@ -260,5 +268,18 @@ public class TurtleArea extends Window {
     
     private void resetBackgroundImage() {
         myBackgroundImage = null;
+    }
+        
+    public void undo(){
+        Turtle toUndo=lastEdited.get(lastEdited.size()-1);
+    	toUndo.undoMove();
+    	lastUndid.add(toUndo);
+    	repaint();
+    }
+    public void redo(){
+    	Turtle toRedo=lastUndid.get(lastUndid.size()-1);
+    	toRedo.redoMove();
+    	lastEdited.add(toRedo);
+    	repaint();
     }
 }

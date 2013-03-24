@@ -3,16 +3,12 @@ package slogo;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import behavior.ICommand;
 import exceptions.NoSuchCommandException;
-import exceptions.NoSuchVariableException;
-import exceptions.SyntaxException;
 
 
 /**
@@ -27,7 +23,6 @@ import exceptions.SyntaxException;
 public class Parser {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
-    private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
 
     private Pattern myNumPattern;
     private Pattern myStrPattern;
@@ -54,17 +49,12 @@ public class Parser {
      * 
      * @param commands commands
      * @return
-     * @throws NoSuchFieldException
-     * @throws SecurityException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
+     * @throws Exception 
      * @throws NoSuchMethodException
      * 
      */
 
-    public List<String[]> split (String s, Model model) throws NoSuchFieldException,
-                                                       SecurityException, IllegalArgumentException,
-                                                       IllegalAccessException {
+    public List<String[]> split (String s, Model model) throws Exception {
         List<String> l = new LinkedList<String>();
         int depth = 0;
         StringBuilder sb = new StringBuilder();
@@ -77,13 +67,13 @@ public class Parser {
                 depth -= 1;
             }
             else if (c == ' ' && depth == 0) {
-                l.add(sb.toString());
+                l.add(sb.toString().toUpperCase());
                 sb = new StringBuilder();
                 continue;
             }
             sb.append(c);
         }
-        l.add(sb.toString());
+        l.add(sb.toString().toUpperCase());
 
         for (String g : l) {
             System.out.println("presplit: " + g);
@@ -91,14 +81,18 @@ public class Parser {
         return addCommands(l, model);
     }
 
-    public List<String[]> addCommands (List<String> l, Model model) throws NoSuchFieldException,
-                                                                   SecurityException,
-                                                                   IllegalArgumentException,
-                                                                   IllegalAccessException {
+    public List<String[]> addCommands (List<String> l, Model model) throws Exception {
         List<String[]> commandArray = new ArrayList<String[]>();
         for (int i = 0; i < l.size(); i++) {
-
-            if (myResources.containsKey(l.get(i))) {
+            
+            if (model.getUserCommands().containsKey(l.get(i))) {
+                System.out.println("contains user command: " + l.get(i));
+                String[] userCommand = new String[1];
+                userCommand[0] = l.get(i).toUpperCase();
+                commandArray.add(userCommand);
+                
+            }
+            else if (myResources.containsKey(l.get(i))) {
                 ArrayList<String> temp = new ArrayList<String>();
                 String commandName = myResources.getString(l.get(i).toUpperCase());
 
@@ -113,7 +107,7 @@ public class Parser {
 
                 Field field = commandClass.getDeclaredField("PARAMETER_NUMBER");
                 int parameter = field.getInt(commandClass);
-                for (int j = 0; j < parameter; j++) {
+                for (int j = 0; j < parameter +1 ; j++) {
                     temp.add(l.get(i + j));
                 }
                 String command[] = new String[temp.size()];
@@ -135,29 +129,18 @@ public class Parser {
      * @param str splited input commands
      * @param model model we want to operate
      * @return command
-     * @throws NoSuchCommandException
-     * @throws SyntaxException
-     * @throws NoSuchVariableException
-     * @throws SecurityException
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
+     * @throws Exception 
      */
 
-    public ICommand buildCommand (String[] str, Model model) throws SyntaxException,
-                                                            NoSuchVariableException,
-                                                            NoSuchCommandException,
-                                                            NoSuchFieldException, SecurityException,
-                                                            IllegalArgumentException,
-                                                            IllegalAccessException {
-        if (model.getUserCommands().containsKey(str[0])) {
-            return (ICommand) model.getUserCommands().get(str[0]);
+    public ICommand buildCommand (String[] str, Model model) throws Exception {
+        if (model.getUserCommands().containsKey(str[0].toUpperCase())) {
+            return (ICommand) model.getUserCommands().get(str[0].toUpperCase());
         }
         else if (!myResources.containsKey(str[0].toUpperCase())) {
             throw new NoSuchCommandException();
         }
         else {
-            String[] subArray = subStringArray(str);
+            String[] subArray = subStringArray(str, model);
             String commandName = myResources.getString(str[0].toUpperCase());
 
             Class<?> commandClass = null;
@@ -190,23 +173,11 @@ public class Parser {
      * @param commands command strings
      * @param model mode we want to operate
      * @return
-     * @throws SyntaxException
-     * @throws NoSuchCommandException
-     * @throws NoSuchVariableException
-     * @throws SecurityException
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
+     * @throws Exception 
      */
 
     public List<ICommand> buildMultipleCommands (List<String[]> commands, Model model)
-                                                                                      throws SyntaxException,
-                                                                                      NoSuchCommandException,
-                                                                                      NoSuchVariableException,
-                                                                                      NoSuchFieldException,
-                                                                                      SecurityException,
-                                                                                      IllegalArgumentException,
-                                                                                      IllegalAccessException {
+                                                                                      throws Exception {
         if (commands == null) { return null; }
 
         List<ICommand> myCommandList = new ArrayList<ICommand>();
@@ -223,26 +194,61 @@ public class Parser {
      * 
      * @param str input string
      */
-    public String[] subStringArray (String[] str) {
+    public String[] subStringArray (String[] str, Model model) {
         int size = str.length;
         String[] subArray = new String[size - 1];
+        System.out.println("subarray stage, User variable size: " + model.getUserVariables().size());
         for (int i = 0; i < size - 1; i++) {
-            subArray[i] = str[i + 1];
+            if(str[i+1].charAt(0) == ':') {
+                if (!model.getUserVariables().containsKey(str[i+1])) {
+                    model.addVariable(str[i+1], 0+""); 
+                    System.out.println("have to create a variable");
+                    
+                } else {
+                    System.out.println("model contains user defined variable");
+                    System.out.println("subarray stage: the value of variable: " + model.getUserVariables().get(str[i + 1]));
+                    
+                }
+                subArray[i] = model.getUserVariables().get(str[i + 1]);
+            }
+            else {
+                subArray[i] = str[i + 1];
+            }
         }
-
+        System.out.println(Arrays.toString(subArray));
         return subArray;
     }
 
     public void parse (String command, List<ICommand> myCommandList, Model model)
-                                                                                 throws NoSuchCommandException,
-                                                                                 SyntaxException,
-                                                                                 NoSuchVariableException,
-                                                                                 NoSuchFieldException,
-                                                                                 SecurityException,
-                                                                                 IllegalArgumentException,
-                                                                                 IllegalAccessException {
+                                                                                 throws Exception {
+        System.out.println("command with extra spaces: " + command);
+        String parsedCommand = parseExtraSpaces(command, model);
 
-        myCommandList.addAll(buildMultipleCommands(split(command, model), model));
+        myCommandList.addAll(buildMultipleCommands(split(parsedCommand, model), model));
+    }
+    
+    public String parseExtraSpaces (String command, Model model) {
+        String delim = "[ ]+";
+        String[] parsedCommandArray = command.split(delim);
+        String parsedCommand = "";
+        for (int i = 0; i < parsedCommandArray.length; i++) {
+            parsedCommand += parsedCommandArray[i] + " ";
+        }
+        System.out.println("command without extra spaces:" + parsedCommand);
+        return parsedCommand;
+    }
+    
+    public Pattern getNumPattern() {
+        return myNumPattern;
+    }
+    
+    public boolean judgeNumeric(String str) {
+        if(myNumPattern.matcher(str).matches()) return true;
+        return false;
+    }
+    
+    public Pattern getSpacePattern() {
+        return mySpacePattern;
     }
 
 }

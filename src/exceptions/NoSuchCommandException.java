@@ -6,7 +6,7 @@ package exceptions;
  * @author Richard
  * 
  */
-public class NoSuchCommandException extends Exception {
+public class NoSuchCommandException extends SyntaxException {
 
     private static final long serialVersionUID = 1L;
 

@@ -2,7 +2,6 @@ package behavior;
 
 import slogo.Model;
 import view.Canvas;
-import exceptions.SyntaxException;
 
 
 /**
@@ -14,10 +13,10 @@ import exceptions.SyntaxException;
 
 public class ClearScreen extends Home {
 
-    public static final int PARAMETER_NUMBER = 1;
+    public static final int PARAMETER_NUMBER = 0;
 
     @Override
-    public double move (Model model, int turtleNumber) throws SyntaxException {
+    public double move (Model model, int turtleNumber) {
 
         model.getMyTurtle(turtleNumber).clearTrail();
         model.getMyTurtle(turtleNumber).initialize();

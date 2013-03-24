@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
@@ -35,7 +36,7 @@ public class Window extends JPanel {
 
     private JFileChooser myChooser;
     private Controller myController;
-    private List<Turtle> myTurtle;
+    private Map<Integer, Turtle> myTurtle;
     private Canvas myView;
     private ResourceBundle myResources;
     private Color myBackgroundColor = Color.WHITE;
@@ -47,7 +48,7 @@ public class Window extends JPanel {
      */
     public Window (Controller controller) {
         myController = controller;
-        myTurtle = myController.getMyTurtles();
+        myTurtle = myController.getMyTurtles(0);
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
     }

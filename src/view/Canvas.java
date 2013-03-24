@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -46,7 +47,7 @@ public class Canvas {
     private Controller myController;
     private JPanel myPanel;
     private JFrame myFrame;
-    private List<Turtle> myTurtles;
+    private Map<Integer, Turtle> myTurtle;
     private TurtleArea myTurtleArea;
     private DisplayArea myDisplayArea;
     private CommandArea myInputArea;
@@ -59,7 +60,7 @@ public class Canvas {
      */
     public Canvas (Controller controller) {
         myController = controller;
-        myTurtles = myController.getMyModels().get(0).getMyTurtles();
+        myTurtle = myController.getMyModels().get(0).getMyTurtles();
 
         createGUI();
     }
@@ -76,11 +77,11 @@ public class Canvas {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // for turtle sprite display
-        myTurtleArea = new TurtleArea(TURTLE_AREA_SIZE, myTurtles, this);
+        myTurtleArea = new TurtleArea(TURTLE_AREA_SIZE, myTurtle, this);
         myFrame.getContentPane().add(myTurtleArea, BorderLayout.CENTER);
 
         // for turtle status display
-        myDisplayArea = new DisplayArea(DISPLAY_AREA_SIZE, myTurtles, myController);
+        myDisplayArea = new DisplayArea(DISPLAY_AREA_SIZE, myTurtle, myController);
         myFrame.getContentPane().add(myDisplayArea, BorderLayout.EAST);
 
         // for user input display
@@ -128,4 +129,5 @@ public class Canvas {
     public CommandArea getCommandArea () {
         return myInputArea;
     }
+
 }

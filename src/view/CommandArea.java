@@ -56,10 +56,9 @@ public class CommandArea extends Window {
             @Override
             public void actionPerformed (ActionEvent e) {
                 try {
-                    myController.processUserInput(0, myTextField.getText());
+                    myController.processUserInput(myTextField.getText());
                 }
-                catch (NoSuchFieldException | SecurityException | IllegalArgumentException
-                        | IllegalAccessException e1) {
+                catch (SecurityException | IllegalArgumentException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }

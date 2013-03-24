@@ -1,8 +1,6 @@
 package behavior;
 
 import slogo.Model;
-import exceptions.SyntaxException;
-
 
 /**
  * Moves Back
@@ -12,10 +10,10 @@ import exceptions.SyntaxException;
  */
 public class Back extends Forward {
 
-    public static final int PARAMETER_NUMBER = 2;
+    public static final int PARAMETER_NUMBER = 1;
 
     @Override
-    public double move (Model model, int turtleNumber) throws SyntaxException {
+    public double move (Model model, int turtleNumber) {
         inverseMyValue();
         super.move(model, turtleNumber);
         return getMyValue();

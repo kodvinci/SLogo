@@ -1,14 +1,13 @@
 package slogo;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import object.Turtle;
 import view.DisplayArea;
 import behavior.ICommand;
 import exceptions.NoSuchVariableException;
+import exceptions.TurtleOutOfBoundaryException;
 
 
 /**
@@ -30,17 +29,19 @@ public class Model {
      * Default Frame size
      */
     public static final Dimension SIZE = new Dimension(1100, 700);
-    /**
-     * String title
-     */
+    
+    private static int myGlobalModelID = -1;
 
     private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
-
+    
     public static final String TITLE = "SLOGO";
 
-    private List<Turtle> myTurtles;
+    private Map<Integer, Turtle> myTurtles;
     private DisplayArea myDisplayArea;
-    private Map<String, Double> myVariables;
+    private Map<String, String> myVariables;
+    private Controller myController;
+    private int myModelID;
+    private int myDefalultTurtleIndex;
 
     /**
      * Constructs model that holds objects
@@ -50,16 +51,27 @@ public class Model {
      */
     public Model (Controller controller, int id) {
 
-        myTurtles = new ArrayList<Turtle>();
-        myVariables = new HashMap<String, Double>();
+        myTurtles = new HashMap<Integer, Turtle>();
+        myVariables = new HashMap<String, String>();
+        myController = controller;
+        myGlobalModelID++;
+        myModelID = myGlobalModelID;
 
+    }
+    
+    public int getID() {
+        return myModelID;
+    }
+    
+    public Controller getController() {
+        return myController;
     }
 
     public void addUserCommands (String string, ICommand command) {
         myUserToCommands.put(string, command);
     }
 
-    public Map getUserCommands () {
+    public Map<String, ICommand> getUserCommands () {
         return myUserToCommands;
     }
 
@@ -78,7 +90,7 @@ public class Model {
      * 
      * @return
      */
-    public List<Turtle> getMyTurtles () {
+    public Map<Integer, Turtle> getMyTurtles () {
         return myTurtles;
     }
 
@@ -97,7 +109,7 @@ public class Model {
      * @param name the variable
      * @param value the value
      */
-    public void addVariable (String name, Double value) {
+    public void addVariable (String name, String value) {
         myVariables.put(name, value);
     }
 
@@ -119,7 +131,24 @@ public class Model {
      */
     public double getVariableValue (String name) throws NoSuchVariableException {
         if (!myVariables.containsKey(name)) { throw new NoSuchVariableException(); }
-        return myVariables.get(name);
+        return Double.parseDouble(myVariables.get(name));
+    }
+    
+    public void setVariableValue(String key, Double value) {
+        myVariables.put(key, value+"");
+    }
+    
+    public int getMyDefaultTurtleIndex() {
+        return myDefalultTurtleIndex;
+    }
+    
+    public void setMyDefaultTurtleIndex(int turtleIndex) throws TurtleOutOfBoundaryException {
+        if( turtleIndex>= myTurtles.size()) throw new TurtleOutOfBoundaryException("turtle of of boundary");
+        myDefalultTurtleIndex = turtleIndex;
+    }
+    
+    public Map<String, String> getUserVariables() {
+        return myVariables;
     }
 
     /**
@@ -128,5 +157,7 @@ public class Model {
     public void clearVariable () {
         myVariables.clear();
     }
+    
+    
 
 }

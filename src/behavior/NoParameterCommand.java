@@ -13,7 +13,7 @@ import exceptions.SyntaxException;
 public abstract class NoParameterCommand implements ICommand {
 
     @Override
-    public double move (Model model, int turtleNumber) throws SyntaxException {
+    public double move (Model model, int turtleNumber) {
         return 0;
     }
 

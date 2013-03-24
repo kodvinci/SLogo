@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -35,7 +36,7 @@ public class DisplayArea extends Window {
     private static final String ANGLE_LABEL = "turtle angle: ";
     private static final int HEIGHT_FIELD_SIZE = 10;
     private static final int WIDTH_FIELD_SIZE_TWO = 16;
-    private List<Turtle> myTurtle;
+    private Map<Integer, Turtle> myTurtle;
     private MouseListener myMouseListener;
     private JTextArea myTextArea;
     private JTextArea myPrevCommands;
@@ -53,7 +54,7 @@ public class DisplayArea extends Window {
      * 
      *        DisplayArea constructor, starts listeners
      */
-    public DisplayArea (Dimension size, List<Turtle> myTurtles, Controller control) {
+    public DisplayArea (Dimension size, Map<Integer, Turtle> myTurtles, Controller control) {
         super(size, "English");
         myTurtle = myTurtles;
         myController = control;
@@ -110,12 +111,11 @@ public class DisplayArea extends Window {
 
         try {
             for (String prevComm : input) {
-                myController.processUserInput(0, prevComm.trim());
+                myController.processUserInput(prevComm.trim());
             }
 
         }
-        catch (NoSuchFieldException | SecurityException | IllegalArgumentException
-                | IllegalAccessException e1) {
+        catch (SecurityException | IllegalArgumentException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }

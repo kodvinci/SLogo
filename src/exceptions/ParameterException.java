@@ -5,7 +5,7 @@ package exceptions;
  * @author Richard
  * 
  */
-public class ParameterException extends Exception {
+public class ParameterException extends SyntaxException {
 
     /**
      * set serial version ID

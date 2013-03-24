@@ -24,8 +24,11 @@ public class Turtle extends Animal {
     private double myAngle;
     private boolean myLeftTrail;
     private Trail myTrail;
+    private Trail undoneTrails; 
     private boolean myVisible;
     private String myTurtleName = "turtle.gif";
+    private static int myGlobalTurtleID = -1;
+    private int myTurtleID;
 
     /**
      * Constructs turtle object
@@ -37,6 +40,9 @@ public class Turtle extends Animal {
         super(TURTLE_IMAGE, myLocation, DEFAULT_SIZE);
         myAngle = angle;
         myTrail = new Trail();
+        undoneTrails=new Trail(); 
+        myGlobalTurtleID++;
+        myTurtleID = myGlobalTurtleID;
     }
 
     /**
@@ -48,14 +54,16 @@ public class Turtle extends Animal {
         myAngle = 0;
         myTrail = new Trail();
     }
-
+    
+    public int getID() {
+        return myTurtleID;
+    }
+    
     /**
      * initialize turtle at center
      */
     public void initialize () {
-        super.setCenter(new Location(Canvas.TURTLE_AREA_SIZE.width / 2,
-                                     Canvas.TURTLE_AREA_SIZE.height / 2));
-        // super.setCenter(new Location(0, 0));
+        super.setCenter(new Location(0, 0));
     }
 
     /**
@@ -170,5 +178,25 @@ public class Turtle extends Animal {
     public void changeTurtleImage (String image) {
         setView(new Pixmap(image));
         myTurtleName = image;
+    }
+    
+    public void undoMove(){
+        System.out.println(myTrail.getTrails().size());
+    	if (myTrail.getTrails().size()>1){
+	    	Location lastTrail=myTrail.getTrails().get(myTrail.getTrails().size()-1);
+	    	undoneTrails.addTrail(lastTrail);
+	    	myTrail.removeTrail(lastTrail);
+	    	System.out.println(myTrail.getTrails().get(myTrail.getTrails().size()-1));
+	    	setCenter(myTrail.getTrails().get(myTrail.getTrails().size()-1));
+    	}
+    }
+    
+    public void redoMove(){
+    	if (undoneTrails.getTrails().size()>0){
+	    	Location lastUndoneTrail=undoneTrails.getTrails().get(undoneTrails.getTrails().size()-1);
+	    	myTrail.addTrail(lastUndoneTrail);
+	    	undoneTrails.removeTrail(lastUndoneTrail);
+	    	setCenter(lastUndoneTrail);
+    	}
     }
 }
