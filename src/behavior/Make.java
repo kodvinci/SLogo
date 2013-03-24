@@ -38,9 +38,6 @@ public class Make implements ICommand {
         } else if ( !myParser.getNumPattern().matcher(information[1]).matches()) {
             throw new ParameterException("Parameter Exception");
         }
-        else if (information[0].charAt(0) != ':') { 
-            throw new SyntaxException("Need semi colon"); 
-        }
         
         myVariableName = information[0];
         myValueString = information[1];
