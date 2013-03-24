@@ -58,10 +58,24 @@ public class To implements ICommand {
 
         String firstBracketPruned = firstBracket.substring(1, firstBracket.length() - 1);
         String secondBracketPruned = secondBracket.substring(1, secondBracket.length() - 1);
-        myVariables = firstBracketPruned.split("\\s+");
-        myCommands = secondBracketPruned.split("\\s+");
-        System.out.println(firstBracketPruned);
-        System.out.println(secondBracketPruned);
+        myVariables = splitFirstBracket(firstBracketPruned);
+        myCommands = splitFirstBracket(secondBracketPruned);
+        
+    }
+    
+    public String[] splitFirstBracket(String myFirstPrunedCommand) {
+        String[] myContent= myParser.getSpacePattern().split(myFirstPrunedCommand);
+        List<String> buffer = new ArrayList<String>();
+        for(int i = 0 ; i<myContent.length ; i++) {
+            if(!myParser.getSpacePattern().matcher(myContent[i]).matches() && !myContent[i].equals("")) {
+                buffer.add(myContent[i]);
+            }
+        }
+        String[] myNewContent = new String[buffer.size()];
+        for(int i = 0 ; i<buffer.size() ; i++) {
+            myNewContent[i] = buffer.get(i);
+        }
+        return myNewContent;
     }
 
     /**

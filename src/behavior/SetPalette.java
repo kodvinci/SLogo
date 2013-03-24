@@ -5,6 +5,7 @@ import slogo.Model;
 public class SetPalette implements ICommand {
     
     public static final int PARAMETER_NUMBER = 4;
+    
     private int myColorIndex;
     private float myRedValue;
     private float myGreenValue;
@@ -17,6 +18,7 @@ public class SetPalette implements ICommand {
     }
     
     public void initialize (String[] information, Model model) {
+        System.out.println("setpallete initiazlied");
         myColorIndex = Integer.parseInt(information[0]);
         myRedValue = Float.parseFloat(information[1]);
         myGreenValue = Float.parseFloat(information[2]);
