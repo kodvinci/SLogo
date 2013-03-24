@@ -50,6 +50,7 @@ public class Canvas {
     private TurtleArea myTurtleArea;
     private DisplayArea myDisplayArea;
     private CommandArea myInputArea;
+    private ToolBarArea myMenusArea;
     
     /**
      * 
@@ -87,8 +88,8 @@ public class Canvas {
         myFrame.getContentPane().add(myInputArea, BorderLayout.SOUTH);
 
         // add tool bar area
-        ToolBarArea myMenu = new ToolBarArea(myController);
-        myFrame.setJMenuBar(myMenu);
+        myMenusArea = new ToolBarArea(myController);
+        myFrame.setJMenuBar(myMenusArea);
 
         myFrame.pack();
         myFrame.setVisible(true);
