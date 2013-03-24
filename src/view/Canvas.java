@@ -20,22 +20,22 @@ public class Canvas {
     /**
      * default turtle size
      */
-    public static final Dimension TURTLE_AREA_SIZE = new Dimension(800, 500);
+    public static final Dimension TURTLE_AREA_SIZE = new Dimension(800, 600);
     private static final int WIDTH = 1050;
     private static final int HEIGHT = 700;
     private static final int RANGE = 10;
     /**
      * default display area size
      */
-    private static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 500);
+    private static final Dimension DISPLAY_AREA_SIZE = new Dimension(200, 600);
     /**
      * default command area size
      */
-    private static final Dimension COMMAND_AREA_SIZE = new Dimension(1000, 40);
+    private static final Dimension COMMAND_AREA_SIZE = new Dimension(800, 40);
     /**
      * default size
      */
-    private static final Dimension SIZE = new Dimension(1100, 700);
+    private static final Dimension SIZE = new Dimension(1100, 750);
     /**
      * title
      */
@@ -49,7 +49,8 @@ public class Canvas {
     private List<Turtle> myTurtles;
     private TurtleArea myTurtleArea;
     private DisplayArea myDisplayArea;
-
+    private CommandArea myInputArea;
+    
     /**
      * 
      * @param controller constructor
@@ -82,8 +83,8 @@ public class Canvas {
         myFrame.getContentPane().add(myDisplayArea, BorderLayout.EAST);
 
         // for user input display
-        CommandArea myInput = new CommandArea(COMMAND_AREA_SIZE, myController);
-        myFrame.getContentPane().add(myInput, BorderLayout.SOUTH);
+        myInputArea = new CommandArea(COMMAND_AREA_SIZE, myController);
+        myFrame.getContentPane().add(myInputArea, BorderLayout.SOUTH);
 
         // add tool bar area
         ToolBarArea myMenu = new ToolBarArea(myController);
@@ -117,5 +118,13 @@ public class Canvas {
      */
     public DisplayArea getDisplayArea () {
         return myDisplayArea;
+    }
+    
+    /**
+     * 
+     * @return  area where the user types the input commands
+     */
+    public CommandArea getCommandArea () {
+        return myInputArea;
     }
 }

@@ -68,7 +68,6 @@ public class TurtleArea extends Window {
         unpaintedTrails = new HashSet<Integer>();
         isActive = new HashSet<Turtle>();
         isActive.add(myTurtles.get(FIRST_TURTLE));
-
         setVisible(true);
 
     }
@@ -82,7 +81,7 @@ public class TurtleArea extends Window {
     @Override
     public void paint (Graphics pen) {
         super.paintComponent(pen);
-
+        
         if (myBackgroundImage != null) {
             pen.drawImage(myBackgroundImage, 0, 0, null);
         }
@@ -249,5 +248,17 @@ public class TurtleArea extends Window {
         }
         repaint();
     }
-
+    /**
+     * Removes the background image and sets a new background color
+     * 
+     * @param colorIndex    The Color index for the background color
+     */
+    public void changeBackgroundColor(int colorIndex) {
+        resetBackgroundImage();
+        setBackgroundColor(colorIndex);
+    }
+    
+    private void resetBackgroundImage() {
+        myBackgroundImage = null;
+    }
 }

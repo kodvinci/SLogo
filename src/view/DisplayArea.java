@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +10,7 @@ import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import object.Turtle;
@@ -31,12 +33,13 @@ public class DisplayArea extends Window {
     private static final String X_LABEL = "x coordinate: ";
     private static final String Y_LABEL = "y coordinate: ";
     private static final String ANGLE_LABEL = "turtle angle: ";
-    private static final int FIELD_SIZE = 15;
-    private static final int FIELD_SIZE_TWO = 18;
+    private static final int HEIGHT_FIELD_SIZE = 10;
+    private static final int WIDTH_FIELD_SIZE_TWO = 16;
     private List<Turtle> myTurtle;
     private MouseListener myMouseListener;
     private JTextArea myTextArea;
     private JTextArea myPrevCommands;
+    private JTextArea myUserDefinedVars;
     private Controller myController;
 
     /**
@@ -56,29 +59,39 @@ public class DisplayArea extends Window {
         myController = control;
 
         makeListeners();
+        add(labelText("TURTLE STATUS "));
         add(clearDisplayArea(), BorderLayout.NORTH);
         add(makeDisplay(), BorderLayout.CENTER);
+        add(labelText("PREVIOUS COMMANDS"));
         add(makePreviousCommandsDisplay(), BorderLayout.CENTER);
+        add(labelText("USER-DEFINED PROCEDURES"));
+        add(makeUserDefinedProceduresDisplay(), BorderLayout.CENTER);
         setVisible(true);
         revalidate();
 
     }
 
     private JComponent makeDisplay () {
-        myTextArea = new JTextArea(FIELD_SIZE, FIELD_SIZE_TWO);
+        myTextArea = new JTextArea(HEIGHT_FIELD_SIZE, WIDTH_FIELD_SIZE_TWO);
         myTextArea.setEditable(false);
         myTextArea.addMouseListener(myMouseListener);
-        // myTextArea.setText("Turtle Status \n");
         return new JScrollPane(myTextArea);
     }
 
     private JComponent makePreviousCommandsDisplay () {
-        myPrevCommands = new JTextArea(FIELD_SIZE, FIELD_SIZE_TWO);
+        myPrevCommands = new JTextArea(HEIGHT_FIELD_SIZE, WIDTH_FIELD_SIZE_TWO);
         myPrevCommands.setEditable(false);
-        // myPrevCommands.setText("Previous Commands \n");
         myPrevCommands.addMouseListener(myMouseListener);
 
         return new JScrollPane(myPrevCommands);
+    }
+    
+    private JComponent makeUserDefinedProceduresDisplay () {
+        myUserDefinedVars = new JTextArea(HEIGHT_FIELD_SIZE, WIDTH_FIELD_SIZE_TWO);
+        myUserDefinedVars.setEditable(false);
+        myUserDefinedVars.addMouseListener(myMouseListener);
+
+        return new JScrollPane(myUserDefinedVars);
     }
 
     /**
@@ -170,5 +183,8 @@ public class DisplayArea extends Window {
         });
         return result;
     }
-
+    
+    private JLabel labelText (String text) {
+        return new JLabel(text);
+    }
 }

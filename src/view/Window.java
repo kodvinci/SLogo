@@ -32,14 +32,13 @@ public class Window extends JPanel {
     private static final int FIRST_TURTLE = 0;
     private static final int X_INDEX = 0;
     private static final int Y_INDEX = 0;
-    private static final Color BACKGROUND_COLOR = Color.WHITE;
 
     private JFileChooser myChooser;
     private Controller myController;
     private List<Turtle> myTurtle;
     private Canvas myView;
     private ResourceBundle myResources;
-
+    private Color myBackgroundColor = Color.WHITE;
     /**
      * 
      * @param controller
@@ -103,7 +102,7 @@ public class Window extends JPanel {
     @Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
-        pen.setColor(BACKGROUND_COLOR);
+        pen.setColor(myBackgroundColor);
         pen.fillRect(X_INDEX, Y_INDEX, getSize().width, getSize().height);
 
         if (myTurtle != null) {
@@ -128,5 +127,14 @@ public class Window extends JPanel {
     public int getHeight () {
         return getSize().height;
     }
-
+    
+    /**
+     * 
+     * @param colorIndex
+     *      The Color index for the background color
+     */
+    public void setBackgroundColor(int colorIndex) {
+        myBackgroundColor = new Color(colorIndex);
+        repaint();
+    }
 }
