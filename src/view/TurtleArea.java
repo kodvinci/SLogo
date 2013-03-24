@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.swing.ImageIcon;
 import object.Trail;
@@ -41,7 +42,7 @@ public class TurtleArea extends Window {
     private boolean penIsDown = true;
     private Trail myTrail;
     private Canvas myView;
-    private List<Turtle> myTurtles;
+    private Map<Integer, Turtle> myTurtles;
     private Set<Turtle> isActive;
     private Set<Integer> unpaintedTrails;
     private List<Turtle> lastEdited; 
@@ -52,13 +53,13 @@ public class TurtleArea extends Window {
      * 
      * @param size
      *        size of display area
-     * @param turtles
+     * @param myTurtle
      *        pen image
      * @param canvas
      *        view
      *        Constructs TurtleArea
      */
-    public TurtleArea (Dimension size, List<Turtle> turtles, Canvas canvas) {
+    public TurtleArea (Dimension size, Map<Integer, Turtle> myTurtle, Canvas canvas) {
         super(size, "English");
         setFocusable(true);
 
@@ -66,7 +67,7 @@ public class TurtleArea extends Window {
                 new ImageIcon(getClass().getResource(RESOURCE + "dukeblue.gif")).getImage();
 
         myView = canvas;
-        myTurtles = turtles;
+        myTurtles = myTurtle;
         myTrail = myTurtles.get(FIRST_TURTLE).getTrail();
         unpaintedTrails = new HashSet<Integer>();
         isActive = new HashSet<Turtle>();
@@ -105,7 +106,7 @@ public class TurtleArea extends Window {
     }
 
     private void rotateImage (Graphics2D pen) {
-        for (Turtle t : myTurtles) {
+        for (Turtle t : myTurtles.values()) {
             t.paint(pen, t.getCenter(), t.getSize(), t.getAngle());
         }
         myView.update();
@@ -124,7 +125,7 @@ public class TurtleArea extends Window {
      */
     private void paintTurtle (Graphics2D pen) {
 
-        for (Turtle t : myTurtles) {
+        for (Turtle t : myTurtles.values()) {
             if (isActive.contains(t)) {
                 t.changeTurtleImage("turtle2.gif");
             }
