@@ -14,26 +14,22 @@ public class Dotimes extends Repeat {
     
     public static final int PARAMETER_NUMBER = 2;
   
-    private Parser myParser = new Parser();
-    private String myVariable;
-    private double myVariableValue;
-    private int myEndValue;
-    private List<ICommand> myBracketCommandsList;
+    protected Parser myParser = new Parser();
+    protected String myVariable;
+    protected double myVariableValue;
+    protected int myEndValue;
+    protected List<ICommand> myBracketCommandsList;
 
     @Override
     public double move(Model model, int turtleNumber) throws Exception{
-        while  (myVariableValue<myEndValue ) {
-            for(ICommand c : myBracketCommandsList) {
-                c.move(model, turtleNumber);
-            }
-            myVariableValue ++;
-            model.setVariableValue(myVariable, myVariableValue);
-        }
+   
+         for(ICommand c : myBracketCommandsList) {
+             c.move(model, turtleNumber);
+         }
         return 0;
     } 
     
-    @Override
-    public void construct(String firstBracket, String secondBracket, Model model) throws Exception{
+    public void construct(String firstBracket, String secondBracket, Model model,int initialValue,int step) throws Exception{
         String myFirstPrunedCommand = prune(firstBracket);
         String mySecondPrunedCommand = prune(secondBracket);
         System.out.println(myFirstPrunedCommand);
@@ -53,10 +49,15 @@ public class Dotimes extends Repeat {
         else if (myNewContent[0].length()<2 ) throw new NoSuchVariableException("cannot find a variable");
         else if (!myParser.judgeNumeric(myNewContent[1])) throw new ParameterException("parameter Exception");
         myVariable = myNewContent[0];
-        myVariableValue = 0;
         model.addVariable(myVariable, myVariableValue+"");
         myEndValue = Integer.parseInt(myNewContent[1]); 
-        myBracketCommandsList = myParser.buildMultipleCommands(myParser.split(mySecondPrunedCommand, model),model);
+        for(int i = initialValue ; i< myEndValue ; i += step) {
+            Double tmp = new Double(i);
+            model.setVariableValue(myVariable, tmp);
+            myBracketCommandsList = myParser.buildMultipleCommands(myParser.split(mySecondPrunedCommand, model),model);    
+        }
+        
+        
     }
     
     @Override
@@ -65,7 +66,7 @@ public class Dotimes extends Repeat {
         System.out.println("DOTimes Initialization Successful");
         System.out.println(information[0]);
         System.out.println(information[1]);
-        construct(information[0], information[1], model);
+        construct(information[0], information[1], model,0,1);
     }
     
     
