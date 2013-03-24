@@ -64,7 +64,8 @@ public class CommandArea extends Window {
                 }
 
                 myController.getView().getDisplayArea().showprevCommands(myTextField.getText());
-
+                myController.getView().getDisplayArea().showTurtleStatus();
+                
                 myTextField.setText(EMPTY_STRING);
             }
         };

@@ -111,8 +111,6 @@ public class DisplayArea extends Window {
     }
 
     private void prevCommandClicked (MouseEvent e) {
-        System.out.println("Previous Commands: " + myPrevCommands.getText());
-
         String[] input = myPrevCommands.getText().split("\n");
 
         try {
@@ -132,7 +130,7 @@ public class DisplayArea extends Window {
         myMouseListener = new MouseListener() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                echo("clicked", e);
+                showTurtleStatus();
                 prevCommandClicked(e);
             }
 
@@ -156,26 +154,17 @@ public class DisplayArea extends Window {
     }
 
     /**
-     * Prints current X and Y Location and Angle
-     */
-    private void echo (String s, MouseEvent e) {
-        showMessage(X_LABEL +
-                    myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getX()));
-        showMessage(Y_LABEL +
-                    myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getY()));
-        showMessage(ANGLE_LABEL +
-                    myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getAngle()));
-        showMessage("\n");
-    }
-
-    /**
      * 
      * @param message
      *        message to be displayed
      *        Displays message in display area
      */
-    public void showMessage (String message) {
-        myTextArea.append(message + "\n");
+    public void showTurtleStatus () {
+        String xCoord = X_LABEL + myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getX());
+        String yCoord = Y_LABEL + myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getY());
+        String angle = ANGLE_LABEL + myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getAngle());
+        
+        myTextArea.append(xCoord + "\n" + yCoord + "\n" + angle + "\n" + "\n");
         myTextArea.setCaretPosition(myTextArea.getText().length());
     }
 
