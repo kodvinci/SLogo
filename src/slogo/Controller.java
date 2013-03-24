@@ -74,7 +74,7 @@ public class Controller {
         for (Model m : myModels.values()) {
             
              try {
-                myInterpreter.process(m, m.getMyTurtles().size()-1, string);
+                myInterpreter.process(m, m.getMyDefaultTurtleIndex(), string);
             }
             catch (Exception e) {
 //                if(e.getMessage() != null) {
