@@ -53,6 +53,7 @@ public class Turtle extends Animal {
                                          Canvas.TURTLE_AREA_SIZE.height / 2), DEFAULT_SIZE);
         myAngle = 0;
         myTrail = new Trail();
+        undoneTrails= new Trail();
     }
     
     public int getID() {
