@@ -1,6 +1,5 @@
 package behavior;
 
-import java.util.regex.Pattern;
 import slogo.Model;
 import exceptions.ParameterException;
 import exceptions.SyntaxException;
@@ -15,7 +14,6 @@ import exceptions.SyntaxException;
 public abstract class OneParameterCommand implements ICommand {
 
     private double myValue;
-    private Pattern myNumPattern = Pattern.compile("[0-9]*");
 
     @Override
     public double move (Model model, int turtleNumber) {

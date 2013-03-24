@@ -30,6 +30,7 @@ public class Dotimes extends Repeat {
     } 
     
     public void construct(String firstBracket, String secondBracket, Model model,int initialValue,int step) throws Exception{
+        myBracketCommandsList =  new ArrayList<ICommand>();
         String myFirstPrunedCommand = prune(firstBracket);
         String mySecondPrunedCommand = prune(secondBracket);
         System.out.println(myFirstPrunedCommand);
@@ -51,12 +52,13 @@ public class Dotimes extends Repeat {
         myVariable = myNewContent[0];
         model.addVariable(myVariable, myVariableValue+"");
         myEndValue = Integer.parseInt(myNewContent[1]); 
-        for(int i = initialValue ; i< myEndValue ; i += step) {
+        
+        for(int i = initialValue ; i< myEndValue+1 ; i += step) {
             Double tmp = new Double(i);
             model.setVariableValue(myVariable, tmp);
-            myBracketCommandsList = myParser.buildMultipleCommands(myParser.split(mySecondPrunedCommand, model),model);    
+            myBracketCommandsList.addAll(myParser.buildMultipleCommands(myParser.split(mySecondPrunedCommand, model),model));    
         }
-        
+        System.out.println(myBracketCommandsList.size());
         
     }
     
