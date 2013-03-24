@@ -2,7 +2,6 @@ package behavior;
 
 import java.util.Random;
 import slogo.Model;
-import exceptions.SyntaxException;
 
 
 /**
@@ -13,10 +12,10 @@ import exceptions.SyntaxException;
 
 public class RandomV extends OneParameterCommand {
 
-    public static final int PARAMETER_NUMBER = 2;
+    public static final int PARAMETER_NUMBER = 1;
 
     @Override
-    public double move (Model model, int turtleNumber) throws SyntaxException {
+    public double move (Model model, int turtleNumber) {
 
         Random myRandom = new Random();
         int maxValue = (int) Math.floor(getMyValue());

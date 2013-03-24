@@ -1,7 +1,6 @@
 package behavior;
 
 import slogo.Model;
-import exceptions.SyntaxException;
 
 
 /**
@@ -12,10 +11,10 @@ import exceptions.SyntaxException;
 
 public class Difference extends TwoParameterCommand {
 
-    public static final int PARAMETER_NUMBER = 3;
+    public static final int PARAMETER_NUMBER = 2;
 
     @Override
-    public double move (Model model, int turtleNumber) throws SyntaxException {
+    public double move (Model model, int turtleNumber) {
 
         return getMyFirstValue() - getMySecondValue();
     }

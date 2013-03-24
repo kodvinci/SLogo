@@ -2,7 +2,6 @@ package behavior;
 
 import slogo.Model;
 import util.Location;
-import exceptions.SyntaxException;
 
 
 /**
@@ -13,10 +12,10 @@ import exceptions.SyntaxException;
 
 public class Forward extends OneParameterCommand {
 
-    public static final int PARAMETER_NUMBER = 2;
+    public static final int PARAMETER_NUMBER = 1;
 
     @Override
-    public double move (Model model, int turtleNumber) throws SyntaxException {
+    public double move (Model model, int turtleNumber) {
         double currentX = model.getMyTurtle(turtleNumber).getX();
         double currentY = model.getMyTurtle(turtleNumber).getY();
         double angle = model.getMyTurtle(turtleNumber).getAngle();

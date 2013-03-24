@@ -12,7 +12,7 @@ import exceptions.SyntaxException;
 
 public class Or extends TwoParameterCommand {
 
-    public static final int PARAMETER_NUMBER = 3;
+    public static final int PARAMETER_NUMBER = 2;
 
     @Override
     public double move (Model model, int turtleNumber) throws SyntaxException {

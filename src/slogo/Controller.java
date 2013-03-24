@@ -1,16 +1,11 @@
 package slogo;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import object.Turtle;
 import util.Location;
 import view.Canvas;
-import exceptions.NoSuchCommandException;
-import exceptions.NoSuchVariableException;
-import exceptions.SyntaxException;
 
 
 /**
@@ -70,34 +65,29 @@ public class Controller {
      * 
      * @param seq sequence
      * @param string string
-     * @throws SecurityException
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
+     * 
      */
-    public void processUserInput (String string) throws NoSuchFieldException,
-                                                         SecurityException,
-                                                         IllegalArgumentException,
-                                                         IllegalAccessException {
+    public void processUserInput (String string) {
 
         Map<Integer, Turtle> myTurtles = myModels.get(myModels.size()-1).getMyTurtles();
-        try {
-            for (Model m : myModels.values()) {
+        
+        for (Model m : myModels.values()) {
+            
+             try {
                 myInterpreter.process(m, m.getMyTurtles().size()-1, string);
             }
+            catch (Exception e) {
+//                if(e.getMessage() != null) {
+//                    myModels.get(modelIndex).showMessage(e.getMessage());
+//                } else {
+//                    myModels.get(modelIndex).showMessage(e.getClass().toString());
+//                }
+                e.printStackTrace();
+            }
+            
+            
         }
-        catch (NoSuchVariableException e) {
-            // myModels.get(seq).showMessage("NoSuchVariable");
-            System.out.println("NoSuchVariable");
-        }
-        catch (SyntaxException e) {
-            // myModels.get(seq).showMessage("Syntax Error, please check your commands");
-            System.out.println("Syntax Error");
-        }
-        catch (NoSuchCommandException e) {
-            // myModels.get(seq).showMessage("Syntax Error, please check your commands");
-            System.out.println("No such command");
-        }
+        
         for (Turtle t : myTurtles.values()) {
             checkBounds(t);
         }

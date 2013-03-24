@@ -2,11 +2,9 @@ package behavior;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 import slogo.Model;
 import slogo.Parser;
 import exceptions.NoSuchCommandException;
-import exceptions.NoSuchVariableException;
 import exceptions.SyntaxException;
 
 
@@ -18,19 +16,12 @@ import exceptions.SyntaxException;
  */
 public class To implements ICommand {
 
-    public static final int PARAMETER_NUMBER = 4;
+    public static final int PARAMETER_NUMBER = 3;
     private List<ICommand> myCommandList = new ArrayList<ICommand>();
     private String[] myVariables;
     private String[] myCommands;
     private String myName;
     private Parser myParser = new Parser();
-
-    private ResourceBundle myResources;
-
-    /**
-     * resources of commands
-     */
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
 
     /**
      * Initializes TO command
@@ -47,16 +38,9 @@ public class To implements ICommand {
     }
 
     public void construct (String value, String firstBracket, String secondBracket, Model model)
-                                                                                                throws NoSuchCommandException,
-                                                                                                SyntaxException,
-                                                                                                NoSuchVariableException,
-                                                                                                NoSuchFieldException,
-                                                                                                SecurityException,
-                                                                                                IllegalArgumentException,
-                                                                                                IllegalAccessException {
+                                                                                                throws Exception {
 
         parse(value, firstBracket, secondBracket);
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "commands");
         map(myVariables, myCommands, model);
         model.addUserCommands(value, this);
     }
@@ -94,22 +78,10 @@ public class To implements ICommand {
      * 
      * @param variables variables
      * @param commands commands
-     * @throws NoSuchCommandException NoSuchCommandException
-     * @throws SyntaxException SyntaxException
-     * @throws NoSuchVariableException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
-     * @throws NoSuchFieldException
+     * @throws Exception 
      */
     public void map (String[] variables, String[] commands, Model model)
-                                                                        throws NoSuchCommandException,
-                                                                        SyntaxException,
-                                                                        NoSuchVariableException,
-                                                                        NoSuchFieldException,
-                                                                        SecurityException,
-                                                                        IllegalArgumentException,
-                                                                        IllegalAccessException {
+                                                                        throws Exception {
         if (checkLegal() == 0) { throw new NoSuchCommandException(); }
         for (int i = 0; i < commands.length; i++) {
             String command = commands[i];
@@ -130,20 +102,10 @@ public class To implements ICommand {
      * 
      * @param model the model
      * @param turtleNumber the turtle
-     * @throws SyntaxException SyntaxException
-     * @throws NoSuchVariableException
-     * @throws NoSuchCommandException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
-     * @throws NoSuchFieldException
+     * @throws Exception 
      */
     @Override
-    public double move (Model model, int turtleNumber) throws SyntaxException, NoSuchFieldException,
-                                                      SecurityException, IllegalArgumentException,
-                                                      IllegalAccessException,
-                                                      NoSuchCommandException,
-                                                      NoSuchVariableException {
+    public double move (Model model, int turtleNumber) throws Exception {
         for (int i = 0; i < myCommandList.size(); i++) {
             myCommandList.get(i).move(model, turtleNumber);
         }
@@ -152,13 +114,7 @@ public class To implements ICommand {
     }
 
     @Override
-    public void initialize (String[] information, Model model) throws SyntaxException,
-                                                              NoSuchCommandException,
-                                                              NoSuchVariableException,
-                                                              NoSuchFieldException,
-                                                              SecurityException,
-                                                              IllegalArgumentException,
-                                                              IllegalAccessException {
+    public void initialize (String[] information, Model model) throws Exception {
         System.out.println("initialize successful");
         System.out.println("subarray size" + information.length);
         construct(information[0], information[1], information[2], model);

@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import slogo.Model;
 import slogo.Parser;
-import exceptions.NoSuchCommandException;
-import exceptions.NoSuchVariableException;
-import exceptions.SyntaxException;
+import exceptions.ParameterException;
+
 
 
 /**
@@ -17,7 +16,7 @@ import exceptions.SyntaxException;
  */
 public class If implements ICommand {
 
-    public static final int PARAMETER_NUMBER = 3;
+    public static final int PARAMETER_NUMBER = 2;
     private List<ICommand> myCommands = new ArrayList<ICommand>();
     private Parser myParser = new Parser();
     private int myStatement;
@@ -32,13 +31,8 @@ public class If implements ICommand {
         return PARAMETER_NUMBER;
     }
 
-    public void construct (String value, String bracket, Model model) throws NoSuchCommandException,
-                                                                     SyntaxException,
-                                                                     NoSuchVariableException,
-                                                                     NoSuchFieldException,
-                                                                     SecurityException,
-                                                                     IllegalArgumentException,
-                                                                     IllegalAccessException {
+    public void construct (String value, String bracket, Model model) throws Exception {
+        if( !myParser.getNumPattern().matcher(value).matches()) throw new ParameterException("parameterException");
         myStatement = Integer.parseInt(value);
         myPrunedStringCommands = prune(bracket);
         myCommands = createCommandsList(myPrunedStringCommands, model);
@@ -49,23 +43,14 @@ public class If implements ICommand {
         return bracket.substring(1, bracket.length() - 1);
     }
 
-    public List<ICommand> createCommandsList (String commands, Model model) throws SyntaxException,
-                                                                           NoSuchCommandException,
-                                                                           NoSuchVariableException,
-                                                                           NoSuchFieldException,
-                                                                           SecurityException,
-                                                                           IllegalArgumentException,
-                                                                           IllegalAccessException {
+    public List<ICommand> createCommandsList (String commands, Model model) throws Exception {
         myListOfCommands = myParser.split(myPrunedStringCommands, model);
         return myParser.buildMultipleCommands(myListOfCommands, model);
     }
 
+    
     @Override
-    public double move (Model model, int turtleNumber) throws SyntaxException, NoSuchFieldException,
-                                                      SecurityException, IllegalArgumentException,
-                                                      IllegalAccessException,
-                                                      NoSuchCommandException,
-                                                      NoSuchVariableException {
+    public double move (Model model, int turtleNumber) throws Exception {
         if (myStatement != 0) {
             for (ICommand command : myCommands) {
                 command.move(model, turtleNumber);
@@ -80,13 +65,7 @@ public class If implements ICommand {
     }
 
     @Override
-    public void initialize (String[] information, Model model) throws SyntaxException,
-                                                              NoSuchCommandException,
-                                                              NoSuchVariableException,
-                                                              NoSuchFieldException,
-                                                              SecurityException,
-                                                              IllegalArgumentException,
-                                                              IllegalAccessException {
+    public void initialize (String[] information, Model model) throws Exception {
         System.out.println("IF initialization successful");
         construct(information[0], information[1], model);
     }

@@ -1,7 +1,8 @@
 package behavior;
 
-import java.util.regex.Pattern;
 import slogo.Model;
+import slogo.Parser;
+import exceptions.ParameterException;
 import exceptions.SyntaxException;
 
 
@@ -14,14 +15,15 @@ import exceptions.SyntaxException;
 
 public class Make implements ICommand {
 
-    public static final int PARAMETER_NUMBER = 3;
-    private Pattern myNumPattern = Pattern.compile("[0-9]*");
+    public static final int PARAMETER_NUMBER = 2;
+    
+    private Parser myParser = new Parser();
     private String myVariableName;
     private String myValueString;
     private Double myValue;
 
     @Override
-    public double move (Model model, int turtleNumber) throws SyntaxException {
+    public double move (Model model, int turtleNumber) {
         model.addVariable(myVariableName, myValueString);
         System.out.println("User variable map size: " + model.getUserVariables().size());
         System.out.print("Variable succesfully made, name: " + myVariableName + ", and value: " + myValueString);
@@ -32,10 +34,13 @@ public class Make implements ICommand {
     public void initialize (String[] information, Model model) throws SyntaxException {
         if (information.length != 2) {
             System.out.println("this is the error");
-            throw new SyntaxException();
+            throw new SyntaxException("Syntax Error");
+        } else if ( !myParser.getNumPattern().matcher(information[1]).matches()) {
+            throw new ParameterException("Parameter Exception");
         }
-        
-        else if (information[0].charAt(0) != ':') { throw new SyntaxException("Need semi colon"); }
+        else if (information[0].charAt(0) != ':') { 
+            throw new SyntaxException("Need semi colon"); 
+        }
         
         myVariableName = information[0];
         myValueString = information[1];

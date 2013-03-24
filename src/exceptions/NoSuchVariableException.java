@@ -6,7 +6,7 @@ package exceptions;
  * 
  */
 
-public class NoSuchVariableException extends Exception {
+public class NoSuchVariableException extends SyntaxException {
 
     /**
      * 

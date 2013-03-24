@@ -1,9 +1,7 @@
 package slogo;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import object.Turtle;
 import view.DisplayArea;
@@ -71,7 +69,7 @@ public class Model {
         myUserToCommands.put(string, command);
     }
 
-    public Map getUserCommands () {
+    public Map<String, ICommand> getUserCommands () {
         return myUserToCommands;
     }
 
@@ -134,6 +132,10 @@ public class Model {
         return Double.parseDouble(myVariables.get(name));
     }
     
+    public void setVariableValue(String key, Double value) {
+        myVariables.put(key, value+"");
+    }
+    
     public Map<String, String> getUserVariables() {
         return myVariables;
     }
@@ -144,5 +146,7 @@ public class Model {
     public void clearVariable () {
         myVariables.clear();
     }
+    
+    
 
 }

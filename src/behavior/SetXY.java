@@ -2,7 +2,6 @@ package behavior;
 
 import slogo.Model;
 import view.Canvas;
-import exceptions.SyntaxException;
 
 
 /**
@@ -13,10 +12,10 @@ import exceptions.SyntaxException;
 
 public class SetXY extends TwoParameterCommand {
 
-    public static final int PARAMETER_NUMBER = 3;
+    public static final int PARAMETER_NUMBER = 2;
 
     @Override
-    public double move (Model model, int turtleNumber) throws SyntaxException {
+    public double move (Model model, int turtleNumber) {
 
         double newX = getMyFirstValue() + Canvas.TURTLE_AREA_SIZE.width / 2;
         double newY = getMySecondValue() + Canvas.TURTLE_AREA_SIZE.height / 2;

@@ -1,13 +1,12 @@
 package behavior;
 
 import slogo.Model;
-import exceptions.SyntaxException;
 
 public class SetBackground extends OneParameterCommand {
     
-    public static final int PARAMETER_NUMBER = 2;
+    public static final int PARAMETER_NUMBER = 1;
     
-    public double move (Model model, int turtleNumber) throws SyntaxException {
+    public double move (Model model, int turtleNumber) {
         
         
         return 0;

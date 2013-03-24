@@ -17,7 +17,7 @@ public abstract class OneParameterCommand implements ICommand {
     private Pattern myNumPattern = Pattern.compile("[0-9]*");
 
     @Override
-    public double move (Model model, int turtleNumber) throws SyntaxException {
+    public double move (Model model, int turtleNumber) {
         return 0;
     }
 
