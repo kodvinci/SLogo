@@ -1,5 +1,7 @@
 package exceptions;
 
+import slogo.Controller;
+
 /**
  * Syntax exceptions when wrong commands are typed
  * 
@@ -13,12 +15,14 @@ public class NoClassException extends Exception {
      * set serial version ID
      */
     private static final long serialVersionUID = 1L;
+    private Controller myController;
 
     /**
      * Syntax exception
      */
     public NoClassException () {
         super();
+        myController = new Controller();
     }
 
     /**
@@ -28,6 +32,7 @@ public class NoClassException extends Exception {
      */
     public NoClassException (String message) {
         super(message);
+        myController.showMessage(message);
     }
 
 }
