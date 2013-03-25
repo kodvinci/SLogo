@@ -327,7 +327,7 @@ public class TurtleArea extends Window {
         repaint();
     }
 
-    public int getCurentColorIndex () {
+    public int getCurrentColorIndex () {
         return currentColorIndex;
     }
 
@@ -336,10 +336,8 @@ public class TurtleArea extends Window {
         myStamps.add(new Stamp(t));
         repaint();
     }
-    /*
-=======
+
     /**
->>>>>>> 71f3ab082e100f8fb58c62cc5f71a9bd50bc0bb3
      * Clears stamps
      */
     public void clearStamps () {
