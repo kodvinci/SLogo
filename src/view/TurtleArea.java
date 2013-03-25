@@ -86,6 +86,14 @@ public class TurtleArea extends Window {
         setVisible(true);
 
     }
+    
+    public Map<Integer, Turtle> getMyTurtles() {
+        return myTurtles;
+    }
+    
+    public Turtle getTurtle(int index) {
+        return myTurtles.get(index);
+    }
 
     /**
      * Paints turtle and trail
@@ -316,9 +324,9 @@ public class TurtleArea extends Window {
         currentColorIndex = index;
         repaint();
     }
-
-    public int getCurentColorIndex () {
-        return currentColorIndex;
+    
+    public int getCurrentColorIndex(){
+    	return currentColorIndex; 
     }
 
     /**
