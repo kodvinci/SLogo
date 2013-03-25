@@ -6,6 +6,7 @@ import java.util.Map;
 import object.Turtle;
 import util.Location;
 import view.Canvas;
+import view.MessageWindow;
 
 
 /**
@@ -29,6 +30,7 @@ public class Controller {
     private Interpreter myInterpreter;
     private Factory myFactory;
     private Canvas myView;
+    private MessageWindow myMessageWindow;
 
     /**
      * Initialize a model view controller
@@ -212,4 +214,7 @@ public class Controller {
         return myView;
     }
 
+    public void showMessage (String message) {
+        myMessageWindow = new MessageWindow(this, message);
+    }
 }
