@@ -86,6 +86,14 @@ public class TurtleArea extends Window {
         setVisible(true);
 
     }
+    
+    public Map<Integer, Turtle> getMyTurtles() {
+        return myTurtles;
+    }
+    
+    public Turtle getTurtle(int index) {
+        return myTurtles.get(index);
+    }
 
     /**
      * Paints turtle and trail
@@ -150,7 +158,8 @@ public class TurtleArea extends Window {
         }
     }
 
-    /*
+
+    /**
      * Paints all stamps
      */
     private void paintStamps (Graphics2D pen) {
@@ -192,7 +201,6 @@ public class TurtleArea extends Window {
     }
 
     private void paintGrid (Graphics2D pen) {
-
         if (myToggledOn) {
             pen.setColor(GRID_COLOR);
             pen.setStroke(new BasicStroke());
@@ -211,7 +219,6 @@ public class TurtleArea extends Window {
     }
 
     /**
-     * 
      * @param filename
      *        name of new background
      */
@@ -236,7 +243,7 @@ public class TurtleArea extends Window {
     }
 
     /**
-     * 
+     * paints a dashed line
      */
     public void setDashed () {
         dashed = true;
@@ -324,15 +331,15 @@ public class TurtleArea extends Window {
         return currentColorIndex;
     }
 
-    /*
-     * Creates stamp
-     */
+
     public void createStamp (Turtle t) {
         myStamps.add(new Stamp(t));
         repaint();
     }
-
     /*
+=======
+    /**
+>>>>>>> 71f3ab082e100f8fb58c62cc5f71a9bd50bc0bb3
      * Clears stamps
      */
     public void clearStamps () {

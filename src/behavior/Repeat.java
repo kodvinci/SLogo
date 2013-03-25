@@ -67,6 +67,7 @@ public class Repeat implements ICommand {
         if (model.getUserVariables()
                 .containsKey(myListOfCommands.get(myListOfCommands.size() - 1)[1])) {
             return Double.parseDouble(model.getUserVariables().get(myListOfCommands
+
                                                                            .get(myListOfCommands
                                                                                    .size() - 1)[1]));
         }

@@ -276,6 +276,7 @@ public class Parser {
         return myNewContent;
     }
 
+
     public Pattern getNumPattern () {
         return myNumPattern;
     }

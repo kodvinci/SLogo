@@ -9,6 +9,7 @@ import slogo.Model;
 import slogo.Parser;
 
 
+
 /**
  * 
  * @author Richard Yang
@@ -38,9 +39,12 @@ public class Dotimes extends Repeat {
 
         for (ICommand c : myBracketCommandsList) {
             c.move(model, turtleNumber);
+
         }
         return 0;
     }
+
+    
 
     /**
      * construct the command list in second bracket
@@ -71,6 +75,7 @@ public class Dotimes extends Repeat {
         String myFirstPrunedCommand = prune(information[0]);
         System.out.println(myFirstPrunedCommand);
         String[] mySplitedContent = myParser.splitBlanksInsideBracket((prune(myFirstPrunedCommand)));
+
         if (mySplitedContent.length != PARAMETER_IN_FIRST_BRACKET ||
             !myParser.judgeNumeric(mySplitedContent[1])) { throw new ParameterException(
                                                                                         "ParameterException"); }

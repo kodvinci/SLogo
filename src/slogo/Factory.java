@@ -28,6 +28,10 @@ public class Factory {
     public void createTurtle (int model) {
         myController.getMyModels().get(model).addNewTurtle();
         myController.getMyModels().get(model).addCurrentActivatedTurtles(0);
+        myController.getMyModels().get(model).addCurrentActivatedTurtles(1);
+        myController.getMyModels().get(model).addCurrentActivatedTurtles(2);
+        System.out.println("turtle number : " +
+                           myController.getMyModels().get(model).getMyTurtles().size());
         myController.getMyModels().get(model).addFutureActivatedTurtles(0);
         System.out.println("turtle number : " +
                            myController.getMyModels().get(model).getMyTurtles().size());

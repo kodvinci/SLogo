@@ -31,10 +31,10 @@ public class Model {
      */
     public static final Dimension SIZE = new Dimension(1100, 700);
 
-    private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
 
     public static final String TITLE = "SLOGO";
 
+    private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
     private Map<Integer, Turtle> myTurtles;
     private List<Integer> myCurrentActivatedTurtles;
     private List<Integer> myFutureActivatedTurtles;

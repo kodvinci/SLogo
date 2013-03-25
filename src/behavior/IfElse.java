@@ -138,7 +138,9 @@ public class IfElse implements ICommand {
                 System.out.println(myFalseCommands.size());
             }
             if (model.getUserVariables().containsKey(myStringFalseCommands.get(myStringFalseCommands
+
                                                              .size() - 1)[1])) {
+
                 return Double.parseDouble(model.getUserVariables()
                         .get(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1]));
             }
@@ -153,6 +155,7 @@ public class IfElse implements ICommand {
             }
             if (model.getUserVariables().containsKey(myStringTrueCommands.get(myStringTrueCommands
                                                              .size() - 1)[1])) {
+
                 return Double.parseDouble(model.getUserVariables()
                         .get(myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1]));
             }
