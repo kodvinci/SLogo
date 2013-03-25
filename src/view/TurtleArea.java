@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.ImageIcon;
+
+import object.Stamp;
 import object.Trail;
 import object.Turtle;
 import util.Location;
@@ -48,6 +50,7 @@ public class TurtleArea extends Window {
     private Set<Integer> unpaintedTrails;
     private List<Turtle> lastEdited; 
     private List<Turtle> lastUndid; 
+    private List<Stamp> myStamps; 
     private java.awt.Image myBackgroundImage;
     private int penWidth=4;  
     private Map <Integer, Color> colorPalette; 
@@ -76,9 +79,11 @@ public class TurtleArea extends Window {
         unpaintedTrails = new HashSet<Integer>();
         isActive = new HashSet<Turtle>();
         lastEdited= new ArrayList<Turtle>(); 
-        lastUndid= new ArrayList<Turtle>(); 
+        lastUndid= new ArrayList<Turtle>();
+        myStamps= new ArrayList<Stamp>();
         isActive.add(myTurtles.get(FIRST_TURTLE));
         colorPalette=new HashMap<Integer,Color>(); 
+
         setVisible(true);
 
     }
@@ -92,7 +97,7 @@ public class TurtleArea extends Window {
     @Override
     public void paint (Graphics pen) {
         super.paintComponent(pen);
-        
+
         if (myBackgroundImage != null) {
             pen.drawImage(myBackgroundImage, 0, 0, null);
         }
@@ -100,6 +105,7 @@ public class TurtleArea extends Window {
         paintTurtle((Graphics2D) pen);
         paintTrails((Graphics2D) pen);
         paintGrid((Graphics2D) pen);
+        paintStamps((Graphics2D) pen);
 
         if (myTurtles.get(FIRST_TURTLE).getAngle() != 0.0) {
             rotateImage((Graphics2D) pen);
@@ -142,6 +148,16 @@ public class TurtleArea extends Window {
             if (!penIsDown) {
                 unpaintedTrails.add(myTrail.getTrails().size());
             }
+        }
+    }
+    
+    /*
+     * Paints all stamps
+     */
+    private void paintStamps (Graphics2D pen) {
+
+        for (Stamp s: myStamps){
+        	s.paint(pen);
         }
     }
 
@@ -206,10 +222,20 @@ public class TurtleArea extends Window {
         repaint();
     }
     
-    
-    public void addToColorPalette(){
-    	
+    /**
+     * Removes the background image and sets a new background color
+     * 
+     * @param colorIndex    The Color index for the background color
+     */
+    public void changeBackgroundColor(int colorIndex) {
+        resetBackgroundImage();
+        setBackgroundColor(colorIndex);
     }
+    
+    private void resetBackgroundImage() {
+        myBackgroundImage = null;
+    }
+    
     /**
      * 
      */
@@ -246,24 +272,25 @@ public class TurtleArea extends Window {
      * @param color
      */
     public void setTrailColor (int color) {
-        trailColor = new Color(color);
+        switch (color) {
+            case 1:
+                trailColor = Color.BLACK;
+                break;
+            case 2:
+                trailColor = Color.BLUE;
+                break;
+            case 3:
+                trailColor = Color.GREEN;
+                break;
+            case 4:
+                trailColor = Color.RED;
+                break;
+            case 5:
+                trailColor = Color.YELLOW;
+        }
         repaint();
     }
-
-    /**
-     * Removes the background image and sets a new background color
-     * 
-     * @param colorIndex    The Color index for the background color
-     */
-    public void changeBackgroundColor(int colorIndex) {
-        resetBackgroundImage();
-        setBackgroundColor(colorIndex);
-    }
     
-    private void resetBackgroundImage() {
-        myBackgroundImage = null;
-    }
-        
     public void undo(){
         Turtle toUndo=lastEdited.get(lastEdited.size()-1);
     	toUndo.undoMove();
@@ -294,4 +321,21 @@ public class TurtleArea extends Window {
     public int getCurentColorIndex(){
     	return currentColorIndex; 
     }
+    
+    /*
+     * Creates stamp
+     */
+    public void createStamp(Turtle t){
+    	myStamps.add(new Stamp(t));
+    	repaint();
+    }
+    /*
+     * Clears stamps
+     */
+    public void clearStamps(){
+    	myStamps.clear();
+    	repaint();
+    }
+    
+    
 }

@@ -11,6 +11,7 @@ import view.Canvas;
  * 
  * @author Richard Yang
  * @author Leonard
+ * @author Alan Ni
  */
 
 public class Turtle extends Animal {
@@ -27,6 +28,10 @@ public class Turtle extends Animal {
     private Trail undoneTrails; 
     private boolean myVisible;
     private String myTurtleName = "turtle.gif";
+    private static int myGlobalTurtleID = -1;
+    private int myTurtleID;
+    
+
     /**
      * Constructs turtle object
      * 
@@ -55,7 +60,7 @@ public class Turtle extends Animal {
      * initialize turtle at center
      */
     public void initialize () {
-        super.setCenter(new Location(Canvas.TURTLE_AREA_SIZE.width/2, Canvas.TURTLE_AREA_SIZE.height/2));
+        super.setCenter(new Location(0, 0));
     }
 
     /**
@@ -172,6 +177,9 @@ public class Turtle extends Animal {
         myTurtleName = image;
     }
     
+    /*
+     * Moves turtle back to previous location
+     */
     public void undoMove(){
         System.out.println(myTrail.getTrails().size());
     	if (myTrail.getTrails().size()>1){
@@ -183,6 +191,10 @@ public class Turtle extends Animal {
     	}
     }
     
+    
+    /*
+     * Moves turtle back to last undone location
+     */
     public void redoMove(){
     	if (undoneTrails.getTrails().size()>0){
 	    	Location lastUndoneTrail=undoneTrails.getTrails().get(undoneTrails.getTrails().size()-1);
@@ -190,5 +202,9 @@ public class Turtle extends Animal {
 	    	undoneTrails.removeTrail(lastUndoneTrail);
 	    	setCenter(lastUndoneTrail);
     	}
+    }
+    
+    public Pixmap getTurtleImage(){
+    	return TURTLE_IMAGE; 
     }
 }
