@@ -71,26 +71,26 @@ public class Controller {
      */
     public void processUserInput (String string) {
 
-        Map<Integer, Turtle> myTurtles = myModels.get(myModels.size()-1).getMyTurtles();
-        
+        Map<Integer, Turtle> myTurtles = myModels.get(myModels.size() - 1).getMyTurtles();
+
         for (Model m : myModels.values()) {
-           for(int i : m.getMyCurrentActivatedTurtles()) {
-               try {
-                  myInterpreter.process(m, i , string);
-               }
-               catch (Exception e) {
-//                   if(e.getMessage() != null) {
-//                       myModels.get(modelIndex).showMessage(e.getMessage());
-//                   } else {
-//                       myModels.get(modelIndex).showMessage(e.getClass().toString());
-//                   }
-                   e.printStackTrace();
-               }
-               m.replaceActivatedTurtles();
-           }
-            
+            for (int i : m.getMyCurrentActivatedTurtles()) {
+                try {
+                    myInterpreter.process(m, i, string);
+                }
+                catch (Exception e) {
+                    // if(e.getMessage() != null) {
+                    // myModels.get(modelIndex).showMessage(e.getMessage());
+                    // } else {
+                    // myModels.get(modelIndex).showMessage(e.getClass().toString());
+                    // }
+                    e.printStackTrace();
+                }
+                m.replaceActivatedTurtles();
+            }
+
         }
-        
+
         for (Turtle t : myTurtles.values()) {
             checkBounds(t);
         }
@@ -128,7 +128,7 @@ public class Controller {
      * Add a model
      */
     public void addModel () {
-        Model currentModel =new Model(this, myModels.size());
+        Model currentModel = new Model(this, myModels.size());
         myModels.put(currentModel.getID(), currentModel);
     }
 

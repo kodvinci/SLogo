@@ -2,6 +2,7 @@ package exceptions;
 
 import slogo.Controller;
 
+
 /**
  * Syntax exceptions when wrong commands are typed
  * 

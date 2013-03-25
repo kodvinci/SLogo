@@ -2,7 +2,6 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import javax.swing.JFrame;
@@ -52,7 +51,7 @@ public class Canvas {
     private DisplayArea myDisplayArea;
     private CommandArea myInputArea;
     private ToolBarArea myMenusArea;
-    
+
     /**
      * 
      * @param controller constructor
@@ -121,15 +120,15 @@ public class Canvas {
     public DisplayArea getDisplayArea () {
         return myDisplayArea;
     }
-    
+
     /**
      * 
-     * @return  area where the user types the input commands
+     * @return area where the user types the input commands
      */
     public CommandArea getCommandArea () {
         return myInputArea;
     }
-    
+
     public JFrame getFrame () {
         return myFrame;
     }

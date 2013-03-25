@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.ImageIcon;
-
 import object.Stamp;
 import object.Trail;
 import object.Turtle;
@@ -48,13 +47,13 @@ public class TurtleArea extends Window {
     private Map<Integer, Turtle> myTurtles;
     private Set<Turtle> isActive;
     private Set<Integer> unpaintedTrails;
-    private List<Turtle> lastEdited; 
-    private List<Turtle> lastUndid; 
-    private List<Stamp> myStamps; 
+    private List<Turtle> lastEdited;
+    private List<Turtle> lastUndid;
+    private List<Stamp> myStamps;
     private java.awt.Image myBackgroundImage;
-    private int penWidth=4;  
-    private Map <Integer, Color> colorPalette; 
-    private int currentColorIndex=0; 
+    private int penWidth = 4;
+    private Map<Integer, Color> colorPalette;
+    private int currentColorIndex = 0;
 
     /**
      * 
@@ -78,11 +77,11 @@ public class TurtleArea extends Window {
         myTrail = myTurtles.get(FIRST_TURTLE).getTrail();
         unpaintedTrails = new HashSet<Integer>();
         isActive = new HashSet<Turtle>();
-        lastEdited= new ArrayList<Turtle>(); 
-        lastUndid= new ArrayList<Turtle>();
-        myStamps= new ArrayList<Stamp>();
+        lastEdited = new ArrayList<Turtle>();
+        lastUndid = new ArrayList<Turtle>();
+        myStamps = new ArrayList<Stamp>();
         isActive.add(myTurtles.get(FIRST_TURTLE));
-        colorPalette=new HashMap<Integer,Color>(); 
+        colorPalette = new HashMap<Integer, Color>();
 
         setVisible(true);
 
@@ -144,20 +143,19 @@ public class TurtleArea extends Window {
             if (penIsDown) {
                 t.addTrail();
             }
-            
+
             if (!penIsDown) {
                 unpaintedTrails.add(myTrail.getTrails().size());
             }
         }
     }
-    
-    /*
+
+    /**
      * Paints all stamps
      */
     private void paintStamps (Graphics2D pen) {
-
-        for (Stamp s: myStamps){
-        	s.paint(pen);
+        for (Stamp s : myStamps) {
+            s.paint(pen);
         }
     }
 
@@ -193,7 +191,6 @@ public class TurtleArea extends Window {
     }
 
     private void paintGrid (Graphics2D pen) {
-
         if (myToggledOn) {
             pen.setColor(GRID_COLOR);
             pen.setStroke(new BasicStroke());
@@ -212,7 +209,6 @@ public class TurtleArea extends Window {
     }
 
     /**
-     * 
      * @param filename
      *        name of new background
      */
@@ -221,23 +217,23 @@ public class TurtleArea extends Window {
                 new ImageIcon(getClass().getResource(RESOURCE + filename)).getImage();
         repaint();
     }
-    
+
     /**
      * Removes the background image and sets a new background color
      * 
-     * @param colorIndex    The Color index for the background color
+     * @param colorIndex The Color index for the background color
      */
-    public void changeBackgroundColor(int colorIndex) {
+    public void changeBackgroundColor (int colorIndex) {
         resetBackgroundImage();
         setBackgroundColor(colorIndex);
     }
-    
-    private void resetBackgroundImage() {
+
+    private void resetBackgroundImage () {
         myBackgroundImage = null;
     }
-    
+
     /**
-     * 
+     * paints a dashed line
      */
     public void setDashed () {
         dashed = true;
@@ -290,52 +286,55 @@ public class TurtleArea extends Window {
         }
         repaint();
     }
-    
-    public void undo(){
-        Turtle toUndo=lastEdited.get(lastEdited.size()-1);
-    	toUndo.undoMove();
-    	lastUndid.add(toUndo);
-    	repaint();
+
+    public void undo () {
+        Turtle toUndo = lastEdited.get(lastEdited.size() - 1);
+        toUndo.undoMove();
+        lastUndid.add(toUndo);
+        repaint();
     }
-    public void redo(){
-    	Turtle toRedo=lastUndid.get(lastUndid.size()-1);
-    	toRedo.redoMove();
-    	lastEdited.add(toRedo);
-    	repaint();
+
+    public void redo () {
+        Turtle toRedo = lastUndid.get(lastUndid.size() - 1);
+        toRedo.redoMove();
+        lastEdited.add(toRedo);
+        repaint();
     }
-    public void editPenWidth(int newWidth){
-    	penWidth=newWidth;
-    	repaint(); 
+
+    public void editPenWidth (int newWidth) {
+        penWidth = newWidth;
+        repaint();
     }
-    
-    public void addToColorPalette (int index, float r, float g, float b){
-    	colorPalette.put (index, new Color(r, g, b));
-    	setPenColor(index);
+
+    public void addToColorPalette (int index, float r, float g, float b) {
+        colorPalette.put(index, new Color(r, g, b));
+        setPenColor(index);
     }
-    public void setPenColor(int index){
-    	trailColor= colorPalette.get(index);
-    	currentColorIndex=index;
-    	repaint();
+
+    public void setPenColor (int index) {
+        trailColor = colorPalette.get(index);
+        currentColorIndex = index;
+        repaint();
     }
-    
-    public int getCurentColorIndex(){
-    	return currentColorIndex; 
+
+    public int getCurentColorIndex () {
+        return currentColorIndex;
     }
-    
-    /*
+
+    /**
      * Creates stamp
      */
-    public void createStamp(Turtle t){
-    	myStamps.add(new Stamp(t));
-    	repaint();
+    public void createStamp (Turtle t) {
+        myStamps.add(new Stamp(t));
+        repaint();
     }
-    /*
+
+    /**
      * Clears stamps
      */
-    public void clearStamps(){
-    	myStamps.clear();
-    	repaint();
+    public void clearStamps () {
+        myStamps.clear();
+        repaint();
     }
-    
-    
+
 }

@@ -49,7 +49,7 @@ public class Parser {
      * 
      * @param commands commands
      * @return
-     * @throws Exception 
+     * @throws Exception
      * @throws NoSuchMethodException
      * 
      */
@@ -84,13 +84,13 @@ public class Parser {
     public List<String[]> addCommands (List<String> l, Model model) throws Exception {
         List<String[]> commandArray = new ArrayList<String[]>();
         for (int i = 0; i < l.size(); i++) {
-            
+
             if (model.getUserCommands().containsKey(l.get(i))) {
                 System.out.println("contains user command: " + l.get(i));
                 String[] userCommand = new String[1];
                 userCommand[0] = l.get(i).toUpperCase();
                 commandArray.add(userCommand);
-                
+
             }
             else if (myResources.containsKey(l.get(i))) {
                 ArrayList<String> temp = new ArrayList<String>();
@@ -107,7 +107,7 @@ public class Parser {
 
                 Field field = commandClass.getDeclaredField("PARAMETER_NUMBER");
                 int parameter = field.getInt(commandClass);
-                for (int j = 0; j < parameter +1 ; j++) {
+                for (int j = 0; j < parameter + 1; j++) {
                     temp.add(l.get(i + j));
                 }
                 String command[] = new String[temp.size()];
@@ -129,12 +129,12 @@ public class Parser {
      * @param str splited input commands
      * @param model model we want to operate
      * @return command
-     * @throws Exception 
+     * @throws Exception
      */
 
     public ICommand buildCommand (String[] str, Model model) throws Exception {
         if (model.getUserCommands().containsKey(str[0].toUpperCase())) {
-            return (ICommand) model.getUserCommands().get(str[0].toUpperCase());
+            return model.getUserCommands().get(str[0].toUpperCase());
         }
         else if (!myResources.containsKey(str[0].toUpperCase())) {
             throw new NoSuchCommandException();
@@ -176,7 +176,7 @@ public class Parser {
      * @param commands command strings
      * @param model mode we want to operate
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
 
     public List<ICommand> buildMultipleCommands (List<String[]> commands, Model model)
@@ -202,17 +202,19 @@ public class Parser {
         String[] subArray = new String[size - 1];
         System.out.println("subarray stage, User variable size: " + model.getUserVariables().size());
         for (int i = 0; i < size - 1; i++) {
-            if(str[i+1].charAt(0) == ':' && !str[i].toUpperCase().equals("SET")) {
-                if (!model.getUserVariables().containsKey(str[i+1])) {
-                    model.addVariable(str[i+1], 0+""); 
+            if (str[i + 1].charAt(0) == ':' && !str[i].toUpperCase().equals("SET")) {
+                if (!model.getUserVariables().containsKey(str[i + 1])) {
+                    model.addVariable(str[i + 1], 0 + "");
                     model.getUserVariables();
-                    System.out.println(str[i+1]);
+                    System.out.println(str[i + 1]);
                     System.out.println("have to create a variable");
-                    
-                } else {
+
+                }
+                else {
                     System.out.println("model contains user defined variable");
-                    System.out.println("subarray stage: the value of variable: " + model.getUserVariables().get(str[i + 1]));
-                    
+                    System.out.println("subarray stage: the value of variable: " +
+                                       model.getUserVariables().get(str[i + 1]));
+
                 }
                 subArray[i] = model.getUserVariables().get(str[i + 1]);
             }
@@ -231,28 +233,28 @@ public class Parser {
 
         myCommandList.addAll(buildMultipleCommands(split(parsedCommand, model), model));
     }
-    
+
     public String parseExtraSpaces (String command, Model model) {
         String delim = "[ ]+";
         String[] parsedCommandArray = command.split(delim);
         String parsedCommand = "";
-        for (int i = 0; i < parsedCommandArray.length; i++) {
-            parsedCommand += parsedCommandArray[i] + " ";
+        for (String element : parsedCommandArray) {
+            parsedCommand += element + " ";
         }
         System.out.println("command without extra spaces:" + parsedCommand);
         return parsedCommand;
     }
-    
-    public Pattern getNumPattern() {
+
+    public Pattern getNumPattern () {
         return myNumPattern;
     }
-    
-    public boolean judgeNumeric(String str) {
-        if(myNumPattern.matcher(str).matches()) return true;
+
+    public boolean judgeNumeric (String str) {
+        if (myNumPattern.matcher(str).matches()) { return true; }
         return false;
     }
-    
-    public Pattern getSpacePattern() {
+
+    public Pattern getSpacePattern () {
         return mySpacePattern;
     }
 

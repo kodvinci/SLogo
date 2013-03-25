@@ -30,7 +30,6 @@ public class IfElse implements ICommand {
     private double myValue;
     private double myFinalValue;
 
-
     /**
      * Constructs the command
      * 
@@ -40,11 +39,10 @@ public class IfElse implements ICommand {
      * @throws Exception
      */
     public void construct (String value, String firstBracket, String secondBracket,
-                                                      Model model) throws Exception {
+                           Model model) throws Exception {
 
-        if(!myParser.getNumPattern().matcher(value).matches()) {
-            throw new ParameterException("ParameterException");
-        }
+        if (!myParser.getNumPattern().matcher(value).matches()) { throw new ParameterException(
+                                                                                               "ParameterException"); }
         parse(value, firstBracket, secondBracket, model);
         // myStringTrueCommands = trueCommands;
         // myStringFalseCommands = falseCommands;
@@ -55,8 +53,9 @@ public class IfElse implements ICommand {
     }
 
     public void parse (String value, String firstBracket, String secondBracket, Model model)
-                                                                                          throws Exception {
-        if( !myParser.getNumPattern().matcher(value).matches()) throw new ParameterException("ParameterException");
+                                                                                            throws Exception {
+        if (!myParser.getNumPattern().matcher(value).matches()) { throw new ParameterException(
+                                                                                               "ParameterException"); }
         String firstBracketPruned = firstBracket.substring(1, firstBracket.length() - 1);
         String secondBracketPruned = secondBracket.substring(1, secondBracket.length() - 1);
 
@@ -114,7 +113,7 @@ public class IfElse implements ICommand {
      * 
      * @param model the model
      * @param turtleNumber the turtle
-     * @throws Exception 
+     * @throws Exception
      * 
      */
     @Override
@@ -130,7 +129,7 @@ public class IfElse implements ICommand {
      * @param turtleNumber the turtle
      * @param value the value
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     public double move (Model model, int turtleNumber, double value) throws Exception {
         if (value == 0) {
@@ -138,22 +137,28 @@ public class IfElse implements ICommand {
                 myFalseCommands.get(i).move(model, turtleNumber);
                 System.out.println(myFalseCommands.size());
             }
-            if (model.getUserVariables().containsKey(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1])) {
-                return Double.parseDouble(model.getUserVariables().get(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1]));
+            if (model.getUserVariables().containsKey(myStringFalseCommands.get(myStringFalseCommands
+                    .size() - 1)[1])) {
+                return Double.parseDouble(model.getUserVariables()
+                        .get(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1]));
             }
             else {
-                return Double.parseDouble(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1]);
+                return Double
+                        .parseDouble(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1]);
             }
         }
         else {
             for (int i = 0; i < myTrueCommands.size(); i++) {
                 myTrueCommands.get(i).move(model, turtleNumber);
             }
-            if (model.getUserVariables().containsKey(myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1])) {
-                return Double.parseDouble(model.getUserVariables().get(myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1]));
+            if (model.getUserVariables().containsKey(myStringTrueCommands.get(myStringTrueCommands
+                    .size() - 1)[1])) {
+                return Double.parseDouble(model.getUserVariables()
+                        .get(myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1]));
             }
             else {
-                return Double.parseDouble(myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1]);
+                return Double
+                        .parseDouble(myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1]);
             }
         }
 

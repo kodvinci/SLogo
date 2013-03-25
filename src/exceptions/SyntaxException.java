@@ -2,6 +2,7 @@ package exceptions;
 
 import slogo.Controller;
 
+
 /**
  * Syntax exceptions when wrong commands are typed
  * 
@@ -16,6 +17,7 @@ public class SyntaxException extends Exception {
      */
     private static final long serialVersionUID = 1L;
     private Controller myController;
+
     /**
      * Syntax exception
      */

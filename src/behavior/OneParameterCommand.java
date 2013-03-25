@@ -22,10 +22,9 @@ public abstract class OneParameterCommand implements ICommand {
 
     @Override
     public void initialize (String[] information, Model model) throws SyntaxException {
-        if (information.length != 1) { 
-            throw new ParameterException("ParameterException"); 
-        //} else if (!myNumPattern.matcher(information[0]).matches()) {
-            //throw new ParameterException("ParameterException");
+        if (information.length != 1) { throw new ParameterException("ParameterException");
+        // } else if (!myNumPattern.matcher(information[0]).matches()) {
+        // throw new ParameterException("ParameterException");
         }
         myValue = Double.parseDouble(information[0]);
     }

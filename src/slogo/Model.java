@@ -9,7 +9,6 @@ import object.Turtle;
 import view.DisplayArea;
 import behavior.ICommand;
 import exceptions.NoSuchVariableException;
-import exceptions.TurtleOutOfBoundaryException;
 
 
 /**
@@ -31,12 +30,9 @@ public class Model {
      * Default Frame size
      */
     public static final Dimension SIZE = new Dimension(1100, 700);
-    
-
-    private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
-    
     public static final String TITLE = "SLOGO";
 
+    private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
     private Map<Integer, Turtle> myTurtles;
     private List<Integer> myCurrentActivatedTurtles;
     private List<Integer> myFutureActivatedTurtles;
@@ -62,12 +58,12 @@ public class Model {
         myController = controller;
 
     }
-    
-    public int getID() {
+
+    public int getID () {
         return myModelID;
     }
-    
-    public Controller getController() {
+
+    public Controller getController () {
         return myController;
     }
 
@@ -89,12 +85,12 @@ public class Model {
         return myTurtles.get(index);
     }
 
-    public void addNewTurtle() {
+    public void addNewTurtle () {
         Turtle turtle = new Turtle();
-        myTurtles.put(myTurtleNumber ,  turtle);
-        myTurtleNumber ++;
+        myTurtles.put(myTurtleNumber, turtle);
+        myTurtleNumber++;
     }
-    
+
     /**
      * return list of turtles
      * 
@@ -143,14 +139,12 @@ public class Model {
         if (!myVariables.containsKey(name)) { throw new NoSuchVariableException(); }
         return Double.parseDouble(myVariables.get(name));
     }
-    
-    public void setVariableValue(String key, Double value) {
-        myVariables.put(key, value+"");
+
+    public void setVariableValue (String key, Double value) {
+        myVariables.put(key, value + "");
     }
-    
-    
-    
-    public Map<String, String> getUserVariables() {
+
+    public Map<String, String> getUserVariables () {
         return myVariables;
     }
 
@@ -160,26 +154,25 @@ public class Model {
     public void clearVariable () {
         myVariables.clear();
     }
-    
-    public void clearFutureActivatedTurtles() {
+
+    public void clearFutureActivatedTurtles () {
         myFutureActivatedTurtles.clear();
     }
-    
-    public void addFutureActivatedTurtles(int turtleIndex) {
+
+    public void addFutureActivatedTurtles (int turtleIndex) {
         myFutureActivatedTurtles.add(turtleIndex);
     }
 
     public List<Integer> getMyCurrentActivatedTurtles () {
         return myCurrentActivatedTurtles;
     }
-    public void replaceActivatedTurtles() {
+
+    public void replaceActivatedTurtles () {
         myCurrentActivatedTurtles = new ArrayList<Integer>(myFutureActivatedTurtles);
     }
-    
-    public void addCurrentActivatedTurtles(int turtleIndex) {
+
+    public void addCurrentActivatedTurtles (int turtleIndex) {
         myCurrentActivatedTurtles.add(turtleIndex);
     }
-    
-    
 
 }

@@ -5,7 +5,6 @@ import slogo.Model;
 import slogo.Parser;
 
 
-
 /**
  * Repeat command
  * 
@@ -55,9 +54,9 @@ public class Repeat implements ICommand {
     public double move (Model model, int turtleNumber) throws Exception {
         int count = 0;
         while (count < myValue) {
-            
+
             myBracketCommandsList = createCommandsList(myPrunedStringCommands, model);
-            
+
             for (int i = 0; i < myBracketCommandsList.size(); i++) {
                 System.out.println("Is repeat repeating? " + myValue);
                 myBracketCommandsList.get(i).move(model, turtleNumber);
@@ -65,8 +64,11 @@ public class Repeat implements ICommand {
             model.addVariable(":repcount", Integer.toString(count));
             count++;
         }
-        if (model.getUserVariables().containsKey(myListOfCommands.get(myListOfCommands.size() - 1)[1])) {
-            return Double.parseDouble(model.getUserVariables().get(myListOfCommands.get(myListOfCommands.size() - 1)[1]));
+        if (model.getUserVariables()
+                .containsKey(myListOfCommands.get(myListOfCommands.size() - 1)[1])) {
+            return Double.parseDouble(model.getUserVariables().get(myListOfCommands
+                    .get(myListOfCommands
+                            .size() - 1)[1]));
         }
         else {
             return Double.parseDouble(myListOfCommands.get(myListOfCommands.size() - 1)[1]);
