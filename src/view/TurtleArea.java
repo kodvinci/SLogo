@@ -222,6 +222,19 @@ public class TurtleArea extends Window {
         repaint();
     }
     
+    /**
+     * Removes the background image and sets a new background color
+     * 
+     * @param colorIndex    The Color index for the background color
+     */
+    public void changeBackgroundColor(int colorIndex) {
+        resetBackgroundImage();
+        setBackgroundColor(colorIndex);
+    }
+    
+    private void resetBackgroundImage() {
+        myBackgroundImage = null;
+    }
     
     /**
      * 
