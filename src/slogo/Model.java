@@ -165,6 +165,13 @@ public class Model {
         myFutureActivatedTurtles.clear();
     }
     
+    public void activatedAllTurtles() {
+        for(int i =0 ; i< myTurtleNumber ; i++) {
+            myFutureActivatedTurtles.add(i);
+        }        
+    }
+
+    
     public void addFutureActivatedTurtles(int turtleIndex) {
         myFutureActivatedTurtles.add(turtleIndex);
     }

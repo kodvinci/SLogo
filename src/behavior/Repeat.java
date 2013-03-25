@@ -38,7 +38,7 @@ public class Repeat implements ICommand {
                                                                      throws Exception {
         myValue = Integer.parseInt(value);
         myPrunedStringCommands = prune(bracket);
-        // myBracketCommandsList = createCommandsList(myPrunedStringCommands, model);
+        myBracketCommandsList = createCommandsList(myPrunedStringCommands, model);
 
     }
 
