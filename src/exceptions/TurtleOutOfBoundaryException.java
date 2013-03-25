@@ -2,7 +2,6 @@ package exceptions;
 
 public class TurtleOutOfBoundaryException extends SyntaxException {
 
-   
     /**
      * 
      */
@@ -11,7 +10,7 @@ public class TurtleOutOfBoundaryException extends SyntaxException {
     /**
      * Throws Parameter exception
      */
-    public TurtleOutOfBoundaryException() {
+    public TurtleOutOfBoundaryException () {
 
     }
 

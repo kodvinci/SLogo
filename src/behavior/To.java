@@ -60,19 +60,20 @@ public class To implements ICommand {
         String secondBracketPruned = secondBracket.substring(1, secondBracket.length() - 1);
         myVariables = splitFirstBracket(firstBracketPruned);
         myCommands = splitFirstBracket(secondBracketPruned);
-        
+
     }
-    
-    public String[] splitFirstBracket(String myFirstPrunedCommand) {
-        String[] myContent= myParser.getSpacePattern().split(myFirstPrunedCommand);
+
+    public String[] splitFirstBracket (String myFirstPrunedCommand) {
+        String[] myContent = myParser.getSpacePattern().split(myFirstPrunedCommand);
         List<String> buffer = new ArrayList<String>();
-        for(int i = 0 ; i<myContent.length ; i++) {
-            if(!myParser.getSpacePattern().matcher(myContent[i]).matches() && !myContent[i].equals("")) {
+        for (int i = 0; i < myContent.length; i++) {
+            if (!myParser.getSpacePattern().matcher(myContent[i]).matches() &&
+                !myContent[i].equals("")) {
                 buffer.add(myContent[i]);
             }
         }
         String[] myNewContent = new String[buffer.size()];
-        for(int i = 0 ; i<buffer.size() ; i++) {
+        for (int i = 0; i < buffer.size(); i++) {
             myNewContent[i] = buffer.get(i);
         }
         return myNewContent;
@@ -92,7 +93,7 @@ public class To implements ICommand {
      * 
      * @param variables variables
      * @param commands commands
-     * @throws Exception 
+     * @throws Exception
      */
     public void map (String[] variables, String[] commands, Model model)
                                                                         throws Exception {
@@ -116,7 +117,7 @@ public class To implements ICommand {
      * 
      * @param model the model
      * @param turtleNumber the turtle
-     * @throws Exception 
+     * @throws Exception
      */
     @Override
     public double move (Model model, int turtleNumber) throws Exception {

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javax.swing.JFileChooser;
@@ -40,6 +39,7 @@ public class Window extends JPanel {
     private Canvas myView;
     private ResourceBundle myResources;
     private Color myBackgroundColor = Color.WHITE;
+
     /**
      * 
      * @param controller
@@ -128,13 +128,13 @@ public class Window extends JPanel {
     public int getHeight () {
         return getSize().height;
     }
-    
+
     /**
      * 
      * @param colorIndex
-     *      The Color index for the background color
+     *        The Color index for the background color
      */
-    public void setBackgroundColor(int colorIndex) {
+    public void setBackgroundColor (int colorIndex) {
         myBackgroundColor = new Color(colorIndex);
         repaint();
     }

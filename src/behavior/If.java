@@ -7,7 +7,6 @@ import slogo.Parser;
 import exceptions.ParameterException;
 
 
-
 /**
  * if command
  * 
@@ -32,7 +31,8 @@ public class If implements ICommand {
     }
 
     public void construct (String value, String bracket, Model model) throws Exception {
-        if( !myParser.getNumPattern().matcher(value).matches()) throw new ParameterException("parameterException");
+        if (!myParser.getNumPattern().matcher(value).matches()) { throw new ParameterException(
+                                                                                               "parameterException"); }
         myStatement = Integer.parseInt(value);
         myPrunedStringCommands = prune(bracket);
         myCommands = createCommandsList(myPrunedStringCommands, model);
@@ -48,7 +48,6 @@ public class If implements ICommand {
         return myParser.buildMultipleCommands(myListOfCommands, model);
     }
 
-    
     @Override
     public double move (Model model, int turtleNumber) throws Exception {
         if (myStatement != 0) {
@@ -56,8 +55,11 @@ public class If implements ICommand {
                 command.move(model, turtleNumber);
             }
         }
-        if (model.getUserVariables().containsKey(myListOfCommands.get(myListOfCommands.size() - 1)[1])) {
-            return Double.parseDouble(model.getUserVariables().get(myListOfCommands.get(myListOfCommands.size() - 1)[1]));
+        if (model.getUserVariables()
+                .containsKey(myListOfCommands.get(myListOfCommands.size() - 1)[1])) {
+            return Double.parseDouble(model.getUserVariables().get(myListOfCommands
+                                                                           .get(myListOfCommands
+                                                                                   .size() - 1)[1]));
         }
         else {
             return Double.parseDouble(myListOfCommands.get(myListOfCommands.size() - 1)[1]);

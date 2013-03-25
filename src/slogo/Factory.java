@@ -1,6 +1,5 @@
 package slogo;
 
-import object.Turtle;
 
 
 /**
@@ -30,7 +29,8 @@ public class Factory {
         myController.getMyModels().get(model).addNewTurtle();
         myController.getMyModels().get(model).addCurrentActivatedTurtles(0);
         myController.getMyModels().get(model).addFutureActivatedTurtles(0);
-        System.out.println("turtle number : " + myController.getMyModels().get(model).getMyTurtles().size());
+        System.out.println("turtle number : " +
+                           myController.getMyModels().get(model).getMyTurtles().size());
     }
 
 }

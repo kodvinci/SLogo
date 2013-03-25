@@ -13,9 +13,7 @@ import exceptions.ParameterException;
  */
 public class Interpreter {
 
-  
     private Parser myParser;
-
 
     /**
      * Constructs an interpreter
@@ -30,7 +28,7 @@ public class Interpreter {
      * @param command command we want to parse
      * @param myCommandList command list after parsed
      * @param model model we want to operate
-     * @throws Exception 
+     * @throws Exception
      * @throws ParameterException
      */
 
@@ -46,7 +44,7 @@ public class Interpreter {
      * 
      * @param model the model
      * @param commands input of user
-     * @throws Exception 
+     * @throws Exception
      */
     public void process (Model model, int turtleNumber, String commands) throws Exception {
         List<ICommand> myCommandList = new ArrayList<ICommand>();

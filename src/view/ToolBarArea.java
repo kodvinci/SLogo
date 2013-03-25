@@ -19,11 +19,11 @@ import slogo.Controller;
 
 
 /**
-* Provides the tool bar area where menus can be added
-*
-* @author Leonard
-*
-*/
+ * Provides the tool bar area where menus can be added
+ * 
+ * @author Leonard
+ * 
+ */
 public class ToolBarArea extends JMenuBar {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
@@ -38,7 +38,7 @@ public class ToolBarArea extends JMenuBar {
     private ResourceBundle myColors;
     private String myBackgroundColor;
     private String myBackgroundImage;
-    
+
     ToolBarArea (Controller control) {
         myController = control;
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
@@ -57,8 +57,8 @@ public class ToolBarArea extends JMenuBar {
     }
 
     /**
-* make a file menu for opening and saving files
-*/
+     * make a file menu for opening and saving files
+     */
     private JMenu makeFileMenu () {
         JMenu result = new JMenu(myResources.getString("FileMenu"));
         result.add(new AbstractAction(myResources.getString("OpenCommand")) {
@@ -102,7 +102,7 @@ public class ToolBarArea extends JMenuBar {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-            	myController.getView().getTurtleArea().undo();
+                myController.getView().getTurtleArea().undo();
             }
         });
         result.add(new AbstractAction(myResources.getString("RedoCommand")) {
@@ -110,7 +110,7 @@ public class ToolBarArea extends JMenuBar {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-            	myController.getView().getTurtleArea().redo();
+                myController.getView().getTurtleArea().redo();
             }
         });
         result.add(new AbstractAction(myResources.getString("HelpCommand")) {
@@ -154,7 +154,8 @@ public class ToolBarArea extends JMenuBar {
                                       JOptionPane.ERROR_MESSAGE);
     }
 
-    private void echo (FileReader fileReader) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    private void echo (FileReader fileReader) throws NoSuchFieldException, SecurityException,
+                                             IllegalArgumentException, IllegalAccessException {
         try {
             BufferedReader input = new BufferedReader(fileReader);
             String line = input.readLine();
@@ -191,7 +192,7 @@ public class ToolBarArea extends JMenuBar {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                myController.getMyTurtle(0, 0 ).changeTurtleImage("turtle2.gif");
+                myController.getMyTurtle(0, 0).changeTurtleImage("turtle2.gif");
                 myController.getView().update();
             }
         });
@@ -202,28 +203,27 @@ public class ToolBarArea extends JMenuBar {
 
     private JMenu makeBackgroundMenu () {
         JMenu result = new JMenu(myResources.getString("BackgroundMenu"));
-        
+
         JMenu imageSubMenu = new JMenu(myResources.getString("BackgroundSubMenu"));
         myBackgroundImage = myBackgroundImages.getString("Brown");
         imageSubMenu.add(setBackgroundImage(myBackgroundImage));
-        
+
         myBackgroundImage = myBackgroundImages.getString("CarolinaBlue");
         imageSubMenu.add(setBackgroundImage(myBackgroundImage));
-        
+
         myBackgroundImage = myBackgroundImages.getString("DukeBlue");
         imageSubMenu.add(setBackgroundImage(myBackgroundImage));
-        
+
         myBackgroundImage = myBackgroundImages.getString("Green");
         imageSubMenu.add(setBackgroundImage(myBackgroundImage));
-        
+
         myBackgroundImage = myBackgroundImages.getString("Wooden");
         imageSubMenu.add(setBackgroundImage(myBackgroundImage));
-        
 
         JMenu colorSubMenu = new JMenu(myResources.getString("BackgroundColor"));
         myBackgroundColor = myBackgroundImages.getString("Color1");
         colorSubMenu.add(setBackgroundColor(myBackgroundColor));
-        
+
         myBackgroundColor = myBackgroundImages.getString("Color2");
         colorSubMenu.add(setBackgroundColor(myBackgroundColor));
 
@@ -235,13 +235,13 @@ public class ToolBarArea extends JMenuBar {
 
         myBackgroundColor = myBackgroundImages.getString("Color5");
         colorSubMenu.add(setBackgroundColor(myBackgroundColor));
-        
+
         result.add(imageSubMenu);
         result.add(colorSubMenu);
         return result;
     }
-    
-    private AbstractAction setBackgroundImage(String backgroundImage) {
+
+    private AbstractAction setBackgroundImage (String backgroundImage) {
         final String BACKGROUND_IMAGE = backgroundImage;
         AbstractAction action = new AbstractAction(backgroundImage) {
             private static final long serialVersionUID = 1L;
@@ -253,8 +253,8 @@ public class ToolBarArea extends JMenuBar {
         };
         return action;
     }
-    
-    private AbstractAction setBackgroundColor(String backgroundColor) {
+
+    private AbstractAction setBackgroundColor (String backgroundColor) {
         final int COLORINT = Integer.parseInt(backgroundColor);
         AbstractAction action = new AbstractAction(backgroundColor) {
             private static final long serialVersionUID = 1L;
@@ -271,7 +271,7 @@ public class ToolBarArea extends JMenuBar {
         JMenu result = new JMenu(myResources.getString("PenMenu"));
 
         JMenu subMenu = new JMenu(myResources.getString("PenProperties"));
-        JMenu colorMenu= new JMenu(myResources.getString("Colors"));
+        JMenu colorMenu = new JMenu(myResources.getString("Colors"));
         result.add(new AbstractAction(myResources.getString("UpCommand")) {
             private static final long serialVersionUID = 1L;
 
@@ -288,7 +288,7 @@ public class ToolBarArea extends JMenuBar {
                 myController.getView().getTurtleArea().penDown();
             }
         });
-        
+
         subMenu.add(new AbstractAction(myResources.getString("Dash")) {
             private static final long serialVersionUID = 1L;
 
@@ -306,13 +306,13 @@ public class ToolBarArea extends JMenuBar {
             }
         });
         colorMenu.add(new AbstractAction(myColors.getString("Black")) {
-                private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
-                @Override
-                public void actionPerformed (ActionEvent e) {
-                    myController.getView().getTurtleArea().setTrailColor(1);
-                }
-            });
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getView().getTurtleArea().setTrailColor(1);
+            }
+        });
         colorMenu.add(new AbstractAction(myColors.getString("Blue")) {
             private static final long serialVersionUID = 1L;
 
@@ -345,11 +345,11 @@ public class ToolBarArea extends JMenuBar {
                 myController.getView().getTurtleArea().setTrailColor(5);
             }
         });
-        
+
         result.add(colorMenu);
         result.add(subMenu);
         return result;
-    
+
     }
 
     private JMenu makeGridMenu () {

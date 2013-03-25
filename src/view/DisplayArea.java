@@ -1,13 +1,11 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.List;
 import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -86,7 +84,7 @@ public class DisplayArea extends Window {
 
         return new JScrollPane(myPrevCommands);
     }
-    
+
     private JComponent makeUserDefinedProceduresDisplay () {
         myUserDefinedVars = new JTextArea(HEIGHT_FIELD_SIZE, WIDTH_FIELD_SIZE_TWO);
         myUserDefinedVars.setEditable(false);
@@ -103,8 +101,8 @@ public class DisplayArea extends Window {
         String delim = "[ ]+";
         String[] parsedCommandArray = commands.split(delim);
         String parsedCommand = "";
-        for (int i = 0 ; i < parsedCommandArray.length; i++) {
-            parsedCommand += parsedCommandArray[i] + " ";
+        for (String element : parsedCommandArray) {
+            parsedCommand += element + " ";
         }
         myPrevCommands.append(parsedCommand.toUpperCase() + "\n");
         myPrevCommands.setCaretPosition(myPrevCommands.getText().length());
@@ -160,10 +158,14 @@ public class DisplayArea extends Window {
      *        Displays message in display area
      */
     public void showTurtleStatus () {
-        String xCoord = X_LABEL + myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getX());
-        String yCoord = Y_LABEL + myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getY());
-        String angle = ANGLE_LABEL + myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getAngle());
-        
+        String xCoord =
+                X_LABEL + myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getX());
+        String yCoord =
+                Y_LABEL + myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getY());
+        String angle =
+                ANGLE_LABEL +
+                        myTurtle.get(FIRST_TURTLE).toString(myTurtle.get(FIRST_TURTLE).getAngle());
+
         myTextArea.append(xCoord + "\n" + yCoord + "\n" + angle + "\n" + "\n");
         myTextArea.setCaretPosition(myTextArea.getText().length());
     }
@@ -178,7 +180,7 @@ public class DisplayArea extends Window {
         });
         return result;
     }
-    
+
     private JLabel labelText (String text) {
         return new JLabel(text);
     }

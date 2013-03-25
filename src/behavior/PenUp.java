@@ -3,7 +3,6 @@ package behavior;
 import slogo.Model;
 
 
-
 /**
  * 
  * @author Richard Yang
@@ -17,7 +16,7 @@ public class PenUp extends NoParameterCommand {
     @Override
     public double move (Model model, int turtleNumber) {
 
-        //model.getController().getView().getTurtleArea().penUp();
+        // model.getController().getView().getTurtleArea().penUp();
         return 0;
 
     }
