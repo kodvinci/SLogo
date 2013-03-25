@@ -106,7 +106,7 @@ public class DisplayArea extends Window {
         for (int i = 0 ; i < parsedCommandArray.length; i++) {
             parsedCommand += parsedCommandArray[i] + " ";
         }
-        myPrevCommands.append(parsedCommand + "\n");
+        myPrevCommands.append(parsedCommand.toUpperCase() + "\n");
         myPrevCommands.setCaretPosition(myPrevCommands.getText().length());
     }
 
