@@ -35,7 +35,9 @@ public class DisplayArea extends Window {
     private static final int HEIGHT_FIELD_SIZE = 10;
     private static final int WIDTH_FIELD_SIZE_TWO = 16;
     private Map<Integer, Turtle> myTurtle;
-    private MouseListener myMouseListener;
+    private MouseListener myMouseTlistener;
+    private MouseListener myMouseClistener;
+    private MouseListener myMouseUlistener;
     private JTextArea myTextArea;
     private JTextArea myPrevCommands;
     private JTextArea myUserDefinedVars;
@@ -73,14 +75,14 @@ public class DisplayArea extends Window {
     private JComponent makeDisplay () {
         myTextArea = new JTextArea(HEIGHT_FIELD_SIZE, WIDTH_FIELD_SIZE_TWO);
         myTextArea.setEditable(false);
-        myTextArea.addMouseListener(myMouseListener);
+        myTextArea.addMouseListener(myMouseTlistener);
         return new JScrollPane(myTextArea);
     }
 
     private JComponent makePreviousCommandsDisplay () {
         myPrevCommands = new JTextArea(HEIGHT_FIELD_SIZE, WIDTH_FIELD_SIZE_TWO);
         myPrevCommands.setEditable(false);
-        myPrevCommands.addMouseListener(myMouseListener);
+        myPrevCommands.addMouseListener(myMouseClistener);
 
         return new JScrollPane(myPrevCommands);
     }
@@ -88,7 +90,7 @@ public class DisplayArea extends Window {
     private JComponent makeUserDefinedProceduresDisplay () {
         myUserDefinedVars = new JTextArea(HEIGHT_FIELD_SIZE, WIDTH_FIELD_SIZE_TWO);
         myUserDefinedVars.setEditable(false);
-        myUserDefinedVars.addMouseListener(myMouseListener);
+        myUserDefinedVars.addMouseListener(myMouseUlistener);
 
         return new JScrollPane(myUserDefinedVars);
     }
@@ -108,28 +110,47 @@ public class DisplayArea extends Window {
         myPrevCommands.setCaretPosition(myPrevCommands.getText().length());
     }
 
-    private void prevCommandClicked (MouseEvent e) {
-        String[] input = myPrevCommands.getText().split("\n");
-
+    /**
+     * 
+     * @param commands      user-defined commands
+     */
+    public void showUserDefinedComs (String commands) {
+        String delim = "[ ]+";
+        String[] parsedCommandArray = commands.split(delim);
+        String parsedCommand = "";
+        for (String element : parsedCommandArray) {
+            parsedCommand += element + " ";
+        }
+        myUserDefinedVars.append(parsedCommand.toUpperCase() + "\n");
+        myUserDefinedVars.setCaretPosition(myUserDefinedVars.getText().length());
+    }
+    
+    private void reRunPreviousCommands (MouseEvent e, int mouseID) {
+        String[] input1 = myPrevCommands.getText().split("\n");
+        String[] input2 = myUserDefinedVars.getText().split("\n");
         try {
-            for (String prevComm : input) {
-                myController.processUserInput(prevComm.trim());
+            if(mouseID == 1) {
+                for (String prevComm : input1) {
+                    myController.processUserInput(prevComm.trim());
+                }
             }
-
+            if(mouseID == 2) {
+                for (String prevComm : input2) {
+                    myController.processUserInput(prevComm.trim());
+                }
+            }
         }
         catch (SecurityException | IllegalArgumentException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
     }
 
     private void makeListeners () {
 
-        myMouseListener = new MouseListener() {
+        myMouseTlistener = new MouseListener() {
             @Override
             public void mouseClicked (MouseEvent e) {
                 showTurtleStatus();
-                prevCommandClicked(e);
             }
 
             @Override
@@ -149,6 +170,51 @@ public class DisplayArea extends Window {
             }
         };
 
+        myMouseClistener = new MouseListener() {
+            @Override
+            public void mouseClicked (MouseEvent e) {
+                reRunPreviousCommands(e, 1);
+            }
+
+            @Override
+            public void mouseEntered (MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited (MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed (MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased (MouseEvent e) {
+            }
+        };
+        
+        myMouseUlistener = new MouseListener() {
+            @Override
+            public void mouseClicked (MouseEvent e) {
+                reRunPreviousCommands(e, 2);
+            }
+
+            @Override
+            public void mouseEntered (MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited (MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed (MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased (MouseEvent e) {
+            }
+        };
     }
 
     /**

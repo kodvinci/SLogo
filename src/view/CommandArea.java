@@ -62,12 +62,24 @@ public class CommandArea extends Window {
 
                 }
 
-                myController.getView().getDisplayArea().showprevCommands(myTextField.getText());
                 myController.getView().getDisplayArea().showTurtleStatus();
-
+                separateCommands(myTextField.getText());
                 myTextField.setText(EMPTY_STRING);
             }
+
         };
+    }
+
+    private void separateCommands (String text) {
+        String myText = text.toUpperCase();
+        if (myText.startsWith("REPEAT") | myText.startsWith("IF") | myText.startsWith("IFELSE") |
+            myText.startsWith("TO")) {
+            myController.getView().getDisplayArea().showUserDefinedComs(text);
+        }
+        else {
+            myController.getView().getDisplayArea().showprevCommands(myTextField.getText());
+        }
+        
     }
 
     /**
