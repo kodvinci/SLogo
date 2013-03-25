@@ -9,7 +9,8 @@ public class Stamp extends NoParameterCommand {
     
     public double move (Model model, int turtleNumber) {
         
-     // TO DO : call method in model to stamp on a turtle
+        model.getController().getView().getTurtleArea().createStamp
+                           (model.getController().getView().getTurtleArea().getTurtle(turtleNumber));
         return 0;
     }
 

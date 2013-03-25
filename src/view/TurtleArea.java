@@ -87,6 +87,14 @@ public class TurtleArea extends Window {
         setVisible(true);
 
     }
+    
+    public Map<Integer, Turtle> getMyTurtles() {
+        return myTurtles;
+    }
+    
+    public Turtle getTurtle(int index) {
+        return myTurtles.get(index);
+    }
 
     /**
      * Paints turtle and trail
@@ -318,7 +326,7 @@ public class TurtleArea extends Window {
     	repaint();
     }
     
-    public int getCurentColorIndex(){
+    public int getCurrentColorIndex(){
     	return currentColorIndex; 
     }
     
@@ -327,6 +335,7 @@ public class TurtleArea extends Window {
      */
     public void createStamp(Turtle t){
     	myStamps.add(new Stamp(t));
+    	System.out.println("stamp called");
     	repaint();
     }
     /*
@@ -334,6 +343,7 @@ public class TurtleArea extends Window {
      */
     public void clearStamps(){
     	myStamps.clear();
+    	System.out.println("clera stamps called");
     	repaint();
     }
     
