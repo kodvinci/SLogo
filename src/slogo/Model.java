@@ -32,14 +32,15 @@ public class Model {
      */
     public static final Dimension SIZE = new Dimension(1100, 700);
     
-    private static int myGlobalModelID = -1;
 
     private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
     
     public static final String TITLE = "SLOGO";
 
     private Map<Integer, Turtle> myTurtles;
-    private List<Integer> myActivatedTurtles;
+    private List<Integer> myCurrentActivatedTurtles;
+    private List<Integer> myFutureActivatedTurtles;
+    private int myTurtleNumber;
     private DisplayArea myDisplayArea;
     private Map<String, String> myVariables;
     private Controller myController;
@@ -54,11 +55,11 @@ public class Model {
     public Model (Controller controller, int id) {
 
         myTurtles = new HashMap<Integer, Turtle>();
-        myActivatedTurtles = new ArrayList<Integer>();
+        myCurrentActivatedTurtles = new ArrayList<Integer>();
+        myFutureActivatedTurtles = new ArrayList<Integer>();
+        myTurtleNumber = 0;
         myVariables = new HashMap<String, String>();
         myController = controller;
-        myGlobalModelID++;
-        myModelID = myGlobalModelID;
 
     }
     
@@ -88,6 +89,12 @@ public class Model {
         return myTurtles.get(index);
     }
 
+    public void addNewTurtle() {
+        Turtle turtle = new Turtle();
+        myTurtles.put(myTurtleNumber ,  turtle);
+        myTurtleNumber ++;
+    }
+    
     /**
      * return list of turtles
      * 
@@ -103,7 +110,7 @@ public class Model {
      * @param message the message
      */
     public void showMessage (String message) {
-        myDisplayArea.showTurtleStatus();
+        myController.showMessage(message);
     }
 
     /**
@@ -154,16 +161,23 @@ public class Model {
         myVariables.clear();
     }
     
-    public void clearActivatedTurtles() {
-        myActivatedTurtles.clear();
+    public void clearFutureActivatedTurtles() {
+        myFutureActivatedTurtles.clear();
     }
     
-    public void addActivatedTurtles(int turtleIndex) {
-        myActivatedTurtles.add(turtleIndex);
+    public void addFutureActivatedTurtles(int turtleIndex) {
+        myFutureActivatedTurtles.add(turtleIndex);
     }
 
-    public List<Integer> getMyActivatedTurtles () {
-        return myActivatedTurtles;
+    public List<Integer> getMyCurrentActivatedTurtles () {
+        return myCurrentActivatedTurtles;
+    }
+    public void replaceActivatedTurtles() {
+        myCurrentActivatedTurtles = new ArrayList<Integer>(myFutureActivatedTurtles);
+    }
+    
+    public void addCurrentActivatedTurtles(int turtleIndex) {
+        myCurrentActivatedTurtles.add(turtleIndex);
     }
     
     

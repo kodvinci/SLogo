@@ -129,5 +129,8 @@ public class Canvas {
     public CommandArea getCommandArea () {
         return myInputArea;
     }
-
+    
+    public JFrame getFrame () {
+        return myFrame;
+    }
 }

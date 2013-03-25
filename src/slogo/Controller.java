@@ -6,6 +6,7 @@ import java.util.Map;
 import object.Turtle;
 import util.Location;
 import view.Canvas;
+import view.MessageWindow;
 
 
 /**
@@ -29,6 +30,7 @@ public class Controller {
     private Interpreter myInterpreter;
     private Factory myFactory;
     private Canvas myView;
+    private MessageWindow myMessageWindow;
 
     /**
      * Initialize a model view controller
@@ -72,7 +74,7 @@ public class Controller {
         Map<Integer, Turtle> myTurtles = myModels.get(myModels.size()-1).getMyTurtles();
         
         for (Model m : myModels.values()) {
-           for(int i : m.getMyActivatedTurtles()) {
+           for(int i : m.getMyCurrentActivatedTurtles()) {
                try {
                   myInterpreter.process(m, i , string);
                }
@@ -84,6 +86,7 @@ public class Controller {
 //                   }
                    e.printStackTrace();
                }
+               m.replaceActivatedTurtles();
            }
             
         }
@@ -211,4 +214,7 @@ public class Controller {
         return myView;
     }
 
+    public void showMessage (String message) {
+        myMessageWindow = new MessageWindow(this, message);
+    }
 }

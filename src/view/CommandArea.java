@@ -59,8 +59,7 @@ public class CommandArea extends Window {
                     myController.processUserInput(myTextField.getText());
                 }
                 catch (SecurityException | IllegalArgumentException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
+                    
                 }
 
                 myController.getView().getDisplayArea().showprevCommands(myTextField.getText());

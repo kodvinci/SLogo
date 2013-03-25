@@ -43,8 +43,6 @@ public class Turtle extends Animal {
         myAngle = angle;
         myTrail = new Trail();
         undoneTrails=new Trail(); 
-        myGlobalTurtleID++;
-        myTurtleID = myGlobalTurtleID;
     }
 
     /**
@@ -56,10 +54,6 @@ public class Turtle extends Animal {
         myAngle = 0;
         myTrail = new Trail();
         undoneTrails= new Trail();
-    }
-    
-    public int getID() {
-        return myTurtleID;
     }
     
     /**
