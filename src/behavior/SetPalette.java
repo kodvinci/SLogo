@@ -23,5 +23,6 @@ public class SetPalette implements ICommand {
         myRedValue = Float.parseFloat(information[1]);
         myGreenValue = Float.parseFloat(information[2]);
         myBlueValue = Float.parseFloat(information[3]);
+        System.out.println("color index: " + myColorIndex + ", red value: " + myRedValue + ", green value");
     }
 }
