@@ -32,6 +32,9 @@ public class DisplayArea extends Window {
     private static final String X_LABEL = "x coordinate: ";
     private static final String Y_LABEL = "y coordinate: ";
     private static final String ANGLE_LABEL = "turtle angle: ";
+    private static final String ONE = "one";
+    private static final String TWO = "two";
+    private static final String THREE = "three";
     private static final int HEIGHT_FIELD_SIZE = 10;
     private static final int WIDTH_FIELD_SIZE_TWO = 16;
     private Map<Integer, Turtle> myTurtle;
@@ -61,11 +64,13 @@ public class DisplayArea extends Window {
 
         makeListeners();
         add(labelText("TURTLE STATUS "));
-        add(clearDisplayArea(), BorderLayout.NORTH);
+        add(clearDisplayArea(ONE), BorderLayout.NORTH);
         add(makeDisplay(), BorderLayout.CENTER);
-        add(labelText("PREVIOUS COMMANDS"));
+        add(labelText("PREV COMMANDS "));
+        add(clearDisplayArea(TWO), BorderLayout.NORTH);
         add(makePreviousCommandsDisplay(), BorderLayout.CENTER);
-        add(labelText("USER-DEFINED PROCEDURES"));
+        add(labelText("USER-DEF PROC "));
+        add(clearDisplayArea(THREE), BorderLayout.NORTH);
         add(makeUserDefinedProceduresDisplay(), BorderLayout.CENTER);
         setVisible(true);
         revalidate();
@@ -97,44 +102,44 @@ public class DisplayArea extends Window {
 
     /**
      * 
-     * @param commands previous commands
+     * @param commands
+     *        previous commands
      */
     public void showprevCommands (String commands) {
-        String delim = "[ ]+";
-        String[] parsedCommandArray = commands.split(delim);
-        String parsedCommand = "";
-        for (String element : parsedCommandArray) {
-            parsedCommand += element + " ";
-        }
-        myPrevCommands.append(parsedCommand.toUpperCase() + "\n");
+        myPrevCommands.append(sanitize(commands).toUpperCase() + "\n");
         myPrevCommands.setCaretPosition(myPrevCommands.getText().length());
     }
 
     /**
      * 
-     * @param commands      user-defined commands
+     * @param commands user-defined commands
      */
     public void showUserDefinedComs (String commands) {
+        String parsedCommand = sanitize(commands);
+        myUserDefinedVars.append(parsedCommand.toUpperCase() + "\n");
+        myUserDefinedVars.setCaretPosition(myUserDefinedVars.getText().length());
+    }
+
+    private String sanitize (String commands) {
         String delim = "[ ]+";
         String[] parsedCommandArray = commands.split(delim);
         String parsedCommand = "";
         for (String element : parsedCommandArray) {
             parsedCommand += element + " ";
         }
-        myUserDefinedVars.append(parsedCommand.toUpperCase() + "\n");
-        myUserDefinedVars.setCaretPosition(myUserDefinedVars.getText().length());
+        return parsedCommand;
     }
-    
+
     private void reRunPreviousCommands (MouseEvent e, int mouseID) {
         String[] input1 = myPrevCommands.getText().split("\n");
         String[] input2 = myUserDefinedVars.getText().split("\n");
         try {
-            if(mouseID == 1) {
+            if (mouseID == 1) {
                 for (String prevComm : input1) {
                     myController.processUserInput(prevComm.trim());
                 }
             }
-            if(mouseID == 2) {
+            else if (mouseID == 2) {
                 for (String prevComm : input2) {
                     myController.processUserInput(prevComm.trim());
                 }
@@ -192,7 +197,7 @@ public class DisplayArea extends Window {
             public void mouseReleased (MouseEvent e) {
             }
         };
-        
+
         myMouseUlistener = new MouseListener() {
             @Override
             public void mouseClicked (MouseEvent e) {
@@ -218,10 +223,7 @@ public class DisplayArea extends Window {
     }
 
     /**
-     * 
-     * @param message
-     *        message to be displayed
-     *        Displays message in display area
+     * Display the turtle's status
      */
     public void showTurtleStatus () {
         String xCoord =
@@ -236,12 +238,22 @@ public class DisplayArea extends Window {
         myTextArea.setCaretPosition(myTextArea.getText().length());
     }
 
-    private JButton clearDisplayArea () {
+    private JButton clearDisplayArea (String name) {
         JButton result = new JButton(getResourceBundle().getString("ClearCommand"));
+        result.setName(name);
         result.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                myTextArea.setText("");
+                JButton b = (JButton) e.getSource();
+                if (b.getName().equals(ONE)) {
+                    myTextArea.setText("");
+                }
+                else if (b.getName().equals(TWO)) {
+                    myPrevCommands.setText("");
+                }
+                else if (b.getName().equals(THREE)) {
+                    myUserDefinedVars.setText("");
+                }
             }
         });
         return result;

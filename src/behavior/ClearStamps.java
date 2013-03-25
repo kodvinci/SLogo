@@ -2,10 +2,12 @@ package behavior;
 
 import slogo.Model;
 
+
 /**
  * class used for create stamps on turtles
+ * 
  * @author Richard Yang, Jerry Li
- *
+ * 
  */
 
 public class ClearStamps extends NoParameterCommand {
@@ -17,7 +19,7 @@ public class ClearStamps extends NoParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) {
-       
+
         model.getController().getView().getTurtleArea().clearStamps();
         return 0;
     }

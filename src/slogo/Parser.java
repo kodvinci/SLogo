@@ -244,7 +244,7 @@ public class Parser {
         System.out.println("command without extra spaces:" + parsedCommand);
         return parsedCommand;
     }
-    
+
     /**
      * 
      * @param commandWithBracket
@@ -253,9 +253,9 @@ public class Parser {
     public String prune (String commandWithBracket) {
         return commandWithBracket.substring(1, commandWithBracket.length() - 1);
     }
-    
+
     /**
-     *    
+     * 
      * @param myCommand
      * @return
      */
@@ -275,7 +275,6 @@ public class Parser {
         }
         return myNewContent;
     }
-
 
     public Pattern getNumPattern () {
         return myNumPattern;

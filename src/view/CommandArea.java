@@ -59,7 +59,7 @@ public class CommandArea extends Window {
                     myController.processUserInput(myTextField.getText());
                 }
                 catch (SecurityException | IllegalArgumentException e1) {
-
+                    
                 }
 
                 myController.getView().getDisplayArea().showTurtleStatus();
@@ -79,7 +79,7 @@ public class CommandArea extends Window {
         else {
             myController.getView().getDisplayArea().showprevCommands(myTextField.getText());
         }
-        
+
     }
 
     /**

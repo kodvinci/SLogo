@@ -1,7 +1,5 @@
 package slogo;
 
-
-
 /**
  * 
  * @author Jerry

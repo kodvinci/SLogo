@@ -11,11 +11,10 @@ import slogo.Model;
 
 public class EqualP extends TwoParameterCommand {
 
-    
     /**
      * the parameter number of this ceratin command
      */
-   
+
     public static final int PARAMETER_NUMBER = 2;
 
     @Override

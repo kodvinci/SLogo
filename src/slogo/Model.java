@@ -31,7 +31,6 @@ public class Model {
      */
     public static final Dimension SIZE = new Dimension(1100, 700);
 
-
     public static final String TITLE = "SLOGO";
 
     private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();

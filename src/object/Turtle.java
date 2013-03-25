@@ -20,7 +20,7 @@ public class Turtle extends Animal {
      * Default dimension size
      */
     public static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
-    private static final String TURTLE = "turtle.gif"; 
+    private static final String TURTLE = "turtle.gif";
     private static final Pixmap TURTLE_IMAGE = new Pixmap(TURTLE);
     private double myAngle;
     private boolean myLeftTrail;
@@ -176,11 +176,10 @@ public class Turtle extends Animal {
         myTurtleName = image;
     }
 
-
     /*
-
-    /**
->>>>>>> 71f3ab082e100f8fb58c62cc5f71a9bd50bc0bb3
+     * 
+     * /**
+     * >>>>>>> 71f3ab082e100f8fb58c62cc5f71a9bd50bc0bb3
      * Moves turtle back to previous location
      */
     public void undoMove () {
@@ -195,9 +194,9 @@ public class Turtle extends Animal {
     }
 
     /*
-=======
-    /**
->>>>>>> 71f3ab082e100f8fb58c62cc5f71a9bd50bc0bb3
+     * =======
+     * /**
+     * >>>>>>> 71f3ab082e100f8fb58c62cc5f71a9bd50bc0bb3
      * Moves turtle back to last undone location
      */
     public void redoMove () {

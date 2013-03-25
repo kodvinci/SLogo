@@ -68,8 +68,8 @@ public class Repeat implements ICommand {
                 .containsKey(myListOfCommands.get(myListOfCommands.size() - 1)[1])) {
             return Double.parseDouble(model.getUserVariables().get(myListOfCommands
 
-                                                                           .get(myListOfCommands
-                                                                                   .size() - 1)[1]));
+                    .get(myListOfCommands
+                            .size() - 1)[1]));
         }
         else {
             return Double.parseDouble(myListOfCommands.get(myListOfCommands.size() - 1)[1]);

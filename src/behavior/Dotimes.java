@@ -1,13 +1,10 @@
 package behavior;
 
-
-
-import exceptions.ParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import slogo.Model;
 import slogo.Parser;
-
+import exceptions.ParameterException;
 
 
 /**
@@ -44,10 +41,9 @@ public class Dotimes extends Repeat {
         return 0;
     }
 
-    
-
     /**
      * construct the command list in second bracket
+     * 
      * @param secondBracket string in second bracket of dotimes command
      * @param model model we want to operate
      * @throws Exception several exceptions
@@ -61,7 +57,8 @@ public class Dotimes extends Repeat {
             model.setVariableValue(myVariable, tmp);
             myBracketCommandsList.addAll(
                     myParser.buildMultipleCommands(
-                                   myParser.split(mySecondPrunedCommand, model), model));
+                                                   myParser.split(mySecondPrunedCommand, model),
+                                                   model));
         }
         System.out.println(myBracketCommandsList.size());
 
@@ -69,16 +66,14 @@ public class Dotimes extends Repeat {
 
     @Override
     public void initialize (String[] information, Model model) throws Exception {
-        if (information.length != PARAMETER_NUMBER) { 
-            throw new ParameterException("parameter not match"); 
-        }
+        if (information.length != PARAMETER_NUMBER) { throw new ParameterException(
+                                                                                   "parameter not match"); }
         System.out.println("DOTimes Initialization Successful");
         myBracketCommandsList = new ArrayList<ICommand>();
         String[] mySplitedContent = myParser.splitBlanksInsideBracket(information[0]);
         if (mySplitedContent.length != PARAMETER_IN_FIRST_BRACKET ||
-            !myParser.judgeNumeric(mySplitedContent[1])) { 
-            throw new ParameterException("ParameterException");
-        }
+            !myParser.judgeNumeric(mySplitedContent[1])) { throw new ParameterException(
+                                                                                        "ParameterException"); }
         myVariable = mySplitedContent[0];
         myStartValue = 0;
         myEndValue = Integer.parseInt(mySplitedContent[1]);

@@ -9,10 +9,10 @@ public class Stamp extends NoParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) {
-   
+
         model.getController().getView().getTurtleArea().createStamp
-                           (model.getController().getView().getTurtleArea().getTurtle(turtleNumber));
-       return 0;
+                (model.getController().getView().getTurtleArea().getTurtle(turtleNumber));
+        return 0;
     }
 
 }
