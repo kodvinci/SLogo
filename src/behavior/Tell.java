@@ -9,8 +9,8 @@ import slogo.Parser;
 public class Tell implements ICommand {
    
     public static final int PARAMETER_NUMBER = 1; 
-    private List<Integer> myActivatedTurtles;
-    private Parser myParser = new Parser();
+    protected List<Integer> myActivatedTurtles;
+    protected Parser myParser = new Parser();
     
     @Override
     public double move (Model model, int turtleNumber) throws Exception {
@@ -26,7 +26,7 @@ public class Tell implements ICommand {
 
     @Override
     public void initialize (String[] information, Model model) throws Exception {
-        if(information.length != 1) throw new ParameterException("Parameter doesn't match");
+        if(information.length != PARAMETER_NUMBER) throw new ParameterException("Parameter doesn't match");
         myActivatedTurtles = new ArrayList<Integer>();
         String[] mySplitedContent = splitFirstBracket(prune(information[0]));
         for(String str:mySplitedContent) {
