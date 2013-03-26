@@ -275,48 +275,6 @@ public class ToolBarArea extends JMenuBar {
                 myController.getView().getTurtleArea().setSolid();
             }
         });
-        colorMenu.add(new AbstractAction(myColors.getString("Black")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getView().getTurtleArea().setTrailColor(1);
-            }
-        });
-        colorMenu.add(new AbstractAction(myColors.getString("Blue")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getView().getTurtleArea().setTrailColor(2);
-            }
-        });
-        colorMenu.add(new AbstractAction(myColors.getString("Green")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getView().getTurtleArea().setTrailColor(3);
-            }
-        });
-        colorMenu.add(new AbstractAction(myColors.getString("Red")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getView().getTurtleArea().setTrailColor(4);
-            }
-        });
-        colorMenu.add(new AbstractAction(myColors.getString("Yellow")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getView().getTurtleArea().setTrailColor(5);
-            }
-        });
-
-        result.add(colorMenu);
         result.add(subMenu);
         return result;
 
