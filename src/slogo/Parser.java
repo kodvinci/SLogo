@@ -1,14 +1,13 @@
 package slogo;
 
+import behavior.ICommand;
+import exceptions.NoSuchCommandException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
-import behavior.ICommand;
-import exceptions.NoSuchCommandException;
 
 
 /**
@@ -22,12 +21,16 @@ import exceptions.NoSuchCommandException;
  */
 public class Parser {
 
+
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+    
+    private ResourceBundle myResources;
 
     private Pattern myNumPattern;
     private Pattern myStrPattern;
     private Pattern mySpacePattern;
-    public ResourceBundle myResources;
+    
+    
 
     /**
      * constructor
@@ -41,19 +44,12 @@ public class Parser {
     }
 
     /**
-     * split the string
-     * 
-     * @param commands commands we want to split
-     * @return splited string
-     *         Splits commands
-     * 
-     * @param commands commands
+     * Splits String of spaces and brackets
+     * @param s         String
+     * @param model     model
      * @return
-     * @throws Exception
-     * @throws NoSuchMethodException
-     * 
+     * @throws Exception        exception
      */
-
     public List<String[]> split (String s, Model model) throws Exception {
         List<String> l = new LinkedList<String>();
         int depth = 0;
@@ -75,18 +71,21 @@ public class Parser {
         }
         l.add(sb.toString().toUpperCase());
 
-        for (String g : l) {
-            System.out.println("presplit: " + g);
-        }
         return addCommands(l, model);
     }
-
+    
+    /**
+     * creates list of commands and adds it
+     * @param l         string list
+     * @param model     model
+     * @return
+     * @throws Exception        exception
+     */
     public List<String[]> addCommands (List<String> l, Model model) throws Exception {
         List<String[]> commandArray = new ArrayList<String[]>();
         for (int i = 0; i < l.size(); i++) {
 
             if (model.getUserCommands().containsKey(l.get(i))) {
-                System.out.println("contains user command: " + l.get(i));
                 String[] userCommand = new String[1];
                 userCommand[0] = l.get(i).toUpperCase();
                 commandArray.add(userCommand);
@@ -99,7 +98,6 @@ public class Parser {
                 Class<?> commandClass = null;
                 try {
                     commandClass = Class.forName("behavior." + commandName);
-                    System.out.println("found class");
                 }
                 catch (ClassNotFoundException e) {
                     model.showMessage("class not found");
@@ -114,13 +112,19 @@ public class Parser {
                 temp.toArray(command);
                 commandArray.add(command);
             }
+            else {
+                determineException(l.get(i), model);
+                break;
+            }
 
         }
-        System.out.println("size of command array " + commandArray.size());
-        for (int i = 0; i < commandArray.size(); i++) {
-            System.out.println("User input: " + Arrays.toString(commandArray.get(i)));
-        }
+        
         return commandArray;
+    }
+    
+    public void determineException(String string, Model model) {
+        model.showMessage("\"" + string + "\"" + " is not a valid command");
+        
     }
 
     /**
@@ -146,11 +150,9 @@ public class Parser {
             Class<?> commandClass = null;
             try {
                 commandClass = Class.forName("behavior." + commandName);
-                System.out.println("class found");
             }
             catch (ClassNotFoundException e) {
-                System.out.println("class not found");
-                // model.showMessage("class not found");
+                model.showMessage("class not found");
             }
             Object o = null;
             try {
@@ -158,10 +160,7 @@ public class Parser {
 
             }
             catch (InstantiationException | IllegalAccessException e) {
-
-                // model.showMessage("illegal access");
-                System.out.print("cannot create a instance");
-
+                model.showMessage("illegal access");
             }
             ICommand myCommand = (ICommand) o;
             myCommand.initialize(subArray, model);
@@ -200,20 +199,11 @@ public class Parser {
     public String[] subStringArray (String[] str, Model model) {
         int size = str.length;
         String[] subArray = new String[size - 1];
-        System.out.println("subarray stage, User variable size: " + model.getUserVariables().size());
         for (int i = 0; i < size - 1; i++) {
             if (str[i + 1].charAt(0) == ':' && !str[i].toUpperCase().equals("SET")) {
                 if (!model.getUserVariables().containsKey(str[i + 1])) {
                     model.addVariable(str[i + 1], 0 + "");
                     model.getUserVariables();
-                    System.out.println(str[i + 1]);
-                    System.out.println("have to create a variable");
-
-                }
-                else {
-                    System.out.println("model contains user defined variable");
-                    System.out.println("subarray stage: the value of variable: " +
-                                       model.getUserVariables().get(str[i + 1]));
 
                 }
                 subArray[i] = model.getUserVariables().get(str[i + 1]);
@@ -222,15 +212,12 @@ public class Parser {
                 subArray[i] = str[i + 1];
             }
         }
-        System.out.println(Arrays.toString(subArray));
         return subArray;
     }
 
-    public void parse (String command, List<ICommand> myCommandList, Model model)
-                                                                                 throws Exception {
-        System.out.println("command with extra spaces: " + command);
+    public void parse (String command, List<ICommand> myCommandList, 
+                       Model model) throws Exception {
         String parsedCommand = parseExtraSpaces(command, model);
-
         myCommandList.addAll(buildMultipleCommands(split(parsedCommand, model), model));
     }
 
@@ -241,7 +228,6 @@ public class Parser {
         for (String element : parsedCommandArray) {
             parsedCommand += element + " ";
         }
-        System.out.println("command without extra spaces:" + parsedCommand);
         return parsedCommand;
     }
 
