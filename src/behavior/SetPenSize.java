@@ -2,13 +2,15 @@ package behavior;
 
 import slogo.Model;
 
+
 /**
  * Set pen size
+ * 
  * @author Jerry
- *
+ * 
  */
 public class SetPenSize extends OneParameterCommand {
-    
+
     /**
      * Number of parameters command takes
      */

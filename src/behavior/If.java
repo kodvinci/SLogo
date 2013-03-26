@@ -59,7 +59,7 @@ public class If implements ICommand {
      * @return
      * @throws Exception exceptions
      */
-    
+
     public List<ICommand> createCommandsList (String commands, Model model) throws Exception {
         myListOfCommands = myParser.split(myPrunedStringCommands, model);
         return myParser.buildMultipleCommands(myListOfCommands, model);

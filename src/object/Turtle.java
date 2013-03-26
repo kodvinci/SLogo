@@ -35,6 +35,7 @@ public class Turtle extends Animal {
     private Dimension myTurtleSize;
     private ResourceBundle myResources;
     private ResourceBundle mySizes;
+    private int myIndex;
 
     /**
      * Constructs turtle object
@@ -231,9 +232,18 @@ public class Turtle extends Animal {
     public void setTurtleShapeSize (int index) {
         String size = mySizes.getString(Integer.toString(index));
         if (size != null) {
+            myIndex = Integer.parseInt(size);
             String[] values = size.split(",");
             myTurtleSize = new Dimension(Integer.parseInt(values[0]), Integer.parseInt(values[1]));
             setSize(Integer.parseInt(values[0]), Integer.parseInt(values[1]));
         }
+    }
+
+    /**
+     * 
+     * @return the turtle's shape index
+     */
+    public int getTurtleShapeIndex () {
+        return myIndex;
     }
 }

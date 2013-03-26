@@ -35,7 +35,7 @@ public abstract class Animal {
      */
     public static final int UP_DIRECTION = 270;
 
-    private static final String RESOURCE_LOCATION = "/images/";
+    private static final String RL = "/images/";
     // state
     private Location myCenter;
     private Dimension mySize;
@@ -60,7 +60,7 @@ public abstract class Animal {
         myOriginalCenter = new Location(center);
         myOriginalSize = new Dimension(size);
         myOriginalView = new Pixmap(image);
-        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + image.getImageFileName())).getImage();
+        myImage = new ImageIcon(getClass().getResource(RL + image.getImageFileName())).getImage();
         reset();
 
         resetBounds();
@@ -191,8 +191,7 @@ public abstract class Animal {
     public void setView (Pixmap image) {
         if (image != null) {
             myOriginalView = new Pixmap(image);
-            myImage =
-                    new ImageIcon(getClass().getResource(RESOURCE_LOCATION + image.getImageFileName())).getImage();
+            myImage = new ImageIcon(getClass().getResource(RL + image.getImageFileName())).getImage();
             myView = image;
             resetBounds();
         }

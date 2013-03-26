@@ -86,10 +86,10 @@ public class TurtleArea extends Window {
         setVisible(true);
 
     }
-    
+
     /**
      * 
-     * @return  map of turtles
+     * @return map of turtles
      */
     public Map<Integer, Turtle> getTurtles () {
         return myTurtles;
@@ -97,9 +97,9 @@ public class TurtleArea extends Window {
 
     /**
      * 
-     * @param index     index of turtle
+     * @param index index of turtle
      * @return
-     *      turtle's index
+     *         turtle's index
      */
     public Turtle getTurtle (int index) {
         return myTurtles.get(index);

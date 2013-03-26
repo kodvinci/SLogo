@@ -5,12 +5,13 @@ import slogo.Model;
 
 /**
  * Set heading
+ * 
  * @author Richard Yang
  * 
  */
 
 public class SetHeading extends OneParameterCommand {
-    
+
     /**
      * Number of parameters command takes
      */

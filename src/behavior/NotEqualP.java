@@ -5,12 +5,13 @@ import slogo.Model;
 
 /**
  * Not equal command
+ * 
  * @author Richard Yang
  * 
  */
 
 public class NotEqualP extends TwoParameterCommand {
-    
+
     /**
      * Number of parameters command takes
      */

@@ -2,13 +2,15 @@ package behavior;
 
 import slogo.Model;
 
+
 /**
  * Set background color
+ * 
  * @author Jerry
- *
+ * 
  */
 public class SetBackground extends OneParameterCommand {
-    
+
     /**
      * Number of parameters command takes
      */

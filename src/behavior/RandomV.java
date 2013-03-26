@@ -6,12 +6,13 @@ import slogo.Model;
 
 /**
  * Get random number
+ * 
  * @author Richard Yang
  * 
  */
 
 public class RandomV extends OneParameterCommand {
-    
+
     /**
      * Number of parameters command takes
      */

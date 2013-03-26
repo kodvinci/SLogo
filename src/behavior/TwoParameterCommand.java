@@ -1,8 +1,8 @@
 package behavior;
 
-import exceptions.SyntaxException;
 import java.util.regex.Pattern;
 import slogo.Model;
+import exceptions.SyntaxException;
 
 
 /**

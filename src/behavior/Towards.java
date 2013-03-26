@@ -5,12 +5,13 @@ import slogo.Model;
 
 /**
  * Commands with two parameters
+ * 
  * @author Richard Yang
  * 
  */
 
 public class Towards extends TwoParameterCommand {
-    
+
     /**
      * Number of parameters command takes
      */

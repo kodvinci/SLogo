@@ -2,13 +2,15 @@ package behavior;
 
 import slogo.Model;
 
+
 /**
  * Return shape size of turtle
+ * 
  * @author Jerry
- *
+ * 
  */
 public class Shape extends NoParameterCommand {
-    
+
     /**
      * Number of parameters command takes
      */

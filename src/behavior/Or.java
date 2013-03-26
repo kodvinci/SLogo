@@ -1,17 +1,18 @@
 package behavior;
 
-import exceptions.SyntaxException;
 import slogo.Model;
+import exceptions.SyntaxException;
 
 
 /**
  * Or command
+ * 
  * @author Richard Yang
  * 
  */
 
 public class Or extends TwoParameterCommand {
-    
+
     /**
      * Number of parameters command takes
      */

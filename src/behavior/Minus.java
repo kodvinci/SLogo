@@ -5,12 +5,13 @@ import slogo.Model;
 
 /**
  * Minus command
+ * 
  * @author Richard Yang
  * 
  */
 
 public class Minus extends OneParameterCommand {
-    
+
     /**
      * Number of parameters command takes
      */

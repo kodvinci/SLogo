@@ -1,18 +1,20 @@
 package behavior;
 
-import exceptions.ParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import slogo.Model;
 import slogo.Parser;
+import exceptions.ParameterException;
+
 
 /**
  * Tell turtles
+ * 
  * @author jerrli2
- *
+ * 
  */
 public class Tell implements ICommand {
-    
+
     /**
      * Number of parameters command takes
      */
@@ -31,7 +33,7 @@ public class Tell implements ICommand {
         for (int i : myActivatedTurtles) {
             if (model.getMyTurtles().containsKey(i)) {
                 model.addFutureActivatedTurtles(i);
-            } 
+            }
             else {
                 model.addNewTurtle(i);
                 model.addFutureActivatedTurtles(i);
@@ -45,20 +47,16 @@ public class Tell implements ICommand {
 
     @Override
     public void initialize (String[] information, Model model) throws Exception {
-        if (information.length != PARAMETER_NUMBER) {
-            throw new ParameterException(PARAMETER_EXCEPTION_MESSAGE); 
-        }
+        if (information.length != PARAMETER_NUMBER) { throw new ParameterException(
+                                                                                   PARAMETER_EXCEPTION_MESSAGE); }
         myActivatedTurtles = new ArrayList<Integer>();
         String[] mySplitedContent = myParser.splitBlanksInsideBracket(information[0]);
         for (String str : mySplitedContent) {
-            if (!myParser.judgeNumeric(str)) { 
-                throw new ParameterException("Parameter doesn't match");
-            }
+            if (!myParser.judgeNumeric(str)) { throw new ParameterException(
+                                                                            "Parameter doesn't match"); }
             myActivatedTurtles.add(Integer.parseInt(str));
         }
         System.out.println("activated turtle number :" + myActivatedTurtles.size());
     }
-    
-    
-   
+
 }

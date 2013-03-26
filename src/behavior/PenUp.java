@@ -5,12 +5,13 @@ import slogo.Model;
 
 /**
  * Pull pen up
+ * 
  * @author Jerry
  * 
  */
 
 public class PenUp extends NoParameterCommand {
-    
+
     /**
      * Number of parameters command takes
      */

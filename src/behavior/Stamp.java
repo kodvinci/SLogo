@@ -2,13 +2,15 @@ package behavior;
 
 import slogo.Model;
 
+
 /**
  * Stamps turtle on display area
+ * 
  * @author Jerry
- *
+ * 
  */
 public class Stamp extends NoParameterCommand {
-    
+
     /**
      * Number of parameters command takes
      */

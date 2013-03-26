@@ -2,18 +2,20 @@ package behavior;
 
 import slogo.Model;
 
+
 /**
  * Set palette
+ * 
  * @author Jerry
- *
+ * 
  */
 public class SetPalette implements ICommand {
-    
+
     /**
      * Number of parameters command takes
      */
     public static final int PARAMETER_NUMBER = 4;
-    
+
     /**
      * Blue place number
      */
@@ -27,8 +29,8 @@ public class SetPalette implements ICommand {
     public double move (Model model, int turtleNumber) {
 
         model.getController().getView().getTurtleArea().addToColorPalette(myColorIndex,
-                                                                          myRedValue, 
-                                                                          myGreenValue, 
+                                                                          myRedValue,
+                                                                          myGreenValue,
                                                                           myBlueValue);
         return 0;
     }

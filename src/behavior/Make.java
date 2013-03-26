@@ -1,11 +1,9 @@
 package behavior;
 
-
-import exceptions.ParameterException;
-import exceptions.SyntaxException;
 import slogo.Model;
 import slogo.Parser;
-
+import exceptions.ParameterException;
+import exceptions.SyntaxException;
 
 
 /**
@@ -42,9 +40,8 @@ public class Make implements ICommand {
             System.out.println("this is the error");
             throw new SyntaxException("Syntax Error");
         }
-        else if (!myParser.getNumPattern().matcher(information[1]).matches()) { 
-            throw new ParameterException("Parameter Exception"); 
-        }
+        else if (!myParser.getNumPattern().matcher(information[1]).matches()) { throw new ParameterException(
+                                                                                                             "Parameter Exception"); }
 
         myVariableName = information[0];
         myValueString = information[1];

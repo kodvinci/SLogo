@@ -6,12 +6,13 @@ import view.Canvas;
 
 /**
  * Sets coordinates for turtle
+ * 
  * @author Richard Yang
  * 
  */
 
 public class SetXY extends TwoParameterCommand {
-    
+
     /**
      * Number of parameters command takes
      */

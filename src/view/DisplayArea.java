@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -100,7 +99,7 @@ public class DisplayArea extends Window {
 
         return new JScrollPane(myUserDefinedVars);
     }
-    
+
     /**
      * 
      * @param commands

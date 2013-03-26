@@ -5,12 +5,13 @@ import slogo.Model;
 
 /**
  * Not command
+ * 
  * @author Richard Yang
  * 
  */
 
 public class Not extends OneParameterCommand {
-    
+
     /**
      * Number of parameters command takes
      */

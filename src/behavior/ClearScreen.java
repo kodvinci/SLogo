@@ -16,7 +16,7 @@ public class ClearScreen extends Home {
     /**
      * the parameter number of this certain command
      */
-    
+
     public static final int PARAMETER_NUMBER = 0;
 
     @Override

@@ -6,12 +6,13 @@ import view.Canvas;
 
 /**
  * Get xcoordinate
+ * 
  * @author Richard Yang
  * 
  */
 
 public class Xcor extends NoParameterCommand {
-    
+
     /**
      * Number of parameters command takes
      */

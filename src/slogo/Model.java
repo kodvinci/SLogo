@@ -116,12 +116,12 @@ public class Model {
         myTurtles.put(myTurtleNumber, turtle);
         myTurtleNumber++;
     }
-    
+
     /**
      * 
-     * @param turtleNumber      id of turtle
+     * @param turtleNumber id of turtle
      */
-    public void addNewTurtle(int turtleNumber) {
+    public void addNewTurtle (int turtleNumber) {
         Turtle turtle = new Turtle();
         myTurtles.put(turtleNumber, turtle);
         myTurtleNumber++;

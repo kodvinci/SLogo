@@ -5,12 +5,13 @@ import slogo.Model;
 
 /**
  * Get remainder of two parameters
+ * 
  * @author Richard Yang
  * 
  */
 
 public class Remainder extends TwoParameterCommand {
-    
+
     /**
      * Number of parameters command takes
      */

@@ -1,8 +1,8 @@
 package behavior;
 
+import slogo.Model;
 import exceptions.ParameterException;
 import exceptions.SyntaxException;
-import slogo.Model;
 
 
 /**
@@ -22,9 +22,7 @@ public abstract class OneParameterCommand implements ICommand {
 
     @Override
     public void initialize (String[] information, Model model) throws SyntaxException {
-        if (information.length != 1) { 
-            throw new ParameterException("ParameterException");
-        }
+        if (information.length != 1) { throw new ParameterException("ParameterException"); }
         myValue = Double.parseDouble(information[0]);
     }
 

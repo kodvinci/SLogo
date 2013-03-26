@@ -5,12 +5,13 @@ import slogo.Model;
 
 /**
  * Commands with two parameters
+ * 
  * @author Richard Yang
  * 
  */
 
 public class Sum extends TwoParameterCommand {
-    
+
     /**
      * Number of parameters command takes
      */

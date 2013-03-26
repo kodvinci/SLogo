@@ -5,12 +5,13 @@ import slogo.Model;
 
 /**
  * Turn right
+ * 
  * @author Richard Yang
  * 
  */
 
 public class Right extends Left {
-    
+
     /**
      * Number of parameters command takes
      */

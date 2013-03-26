@@ -35,7 +35,8 @@ public class ToolBarArea extends JMenuBar {
     private ResourceBundle myResources;
     private ResourceBundle myTurtles;
     private ResourceBundle myBackgroundImages;
-    private String[] backgroundImageList={"Brown", "CarolinaBlue", "DukeBlue", "Wooden", "Green" };
+    private String[] backgroundImageList =
+    { "Brown", "CarolinaBlue", "DukeBlue", "Wooden", "Green" };
 
     ToolBarArea (Controller control) {
         myController = control;
@@ -62,11 +63,9 @@ public class ToolBarArea extends JMenuBar {
         createRedoCommand(result);
         createHelpCommand(result);
         createQuitCommand(result);
-        
-       
-        
+
         result.add(new JSeparator());
-        
+
         return result;
     }
 
@@ -180,17 +179,19 @@ public class ToolBarArea extends JMenuBar {
 
         JMenu imageSubMenu = new JMenu(myResources.getString("BackgroundSubMenu"));
         JMenu colorSubMenu = new JMenu(myResources.getString("BackgroundColor"));
-        for (int i=0; i<backgroundImageList.length; i++){
-        	imageSubMenu.add(setBackgroundImage(myBackgroundImages.getString(backgroundImageList[i])));
-        	int colorNum= i+1; 
-        	colorSubMenu.add(setBackgroundColor(myBackgroundImages.getString("Color"+Integer.toString(colorNum))));
+        for (int i = 0; i < backgroundImageList.length; i++) {
+            imageSubMenu
+                    .add(setBackgroundImage(myBackgroundImages.getString(backgroundImageList[i])));
+            int colorNum = i + 1;
+            colorSubMenu
+                    .add(setBackgroundColor(myBackgroundImages.getString("Color" +
+                                                                         Integer.toString(colorNum))));
         }
         result.add(imageSubMenu);
         result.add(colorSubMenu);
         return result;
     }
-    
-    
+
     private AbstractAction setBackgroundImage (String backgroundImage) {
         final String BACKGROUND_IMAGE = backgroundImage;
         AbstractAction action = new AbstractAction(backgroundImage) {
@@ -234,13 +235,12 @@ public class ToolBarArea extends JMenuBar {
     private JMenu makeGridMenu () {
         JMenu result = new JMenu(myResources.getString("GridMenu"));
         createOnCommand(result);
-        createOffCommand(result);    
+        createOffCommand(result);
         return result;
     }
-    
-    
-    private void createDashCommand(JMenu subMenu){
-    	subMenu.add(new AbstractAction(myResources.getString("Dash")) {
+
+    private void createDashCommand (JMenu subMenu) {
+        subMenu.add(new AbstractAction(myResources.getString("Dash")) {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -249,9 +249,9 @@ public class ToolBarArea extends JMenuBar {
             }
         });
     }
-    
-    private void createSolidCommand(JMenu subMenu){
-    	subMenu.add(new AbstractAction(myResources.getString("Solid")) {
+
+    private void createSolidCommand (JMenu subMenu) {
+        subMenu.add(new AbstractAction(myResources.getString("Solid")) {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -260,8 +260,9 @@ public class ToolBarArea extends JMenuBar {
             }
         });
     }
-    private void createDownCommand(JMenu result){
-    	result.add(new AbstractAction(myResources.getString("DownCommand")) {
+
+    private void createDownCommand (JMenu result) {
+        result.add(new AbstractAction(myResources.getString("DownCommand")) {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -270,8 +271,9 @@ public class ToolBarArea extends JMenuBar {
             }
         });
     }
-    private void createUpCommand(JMenu result){
-    	result.add(new AbstractAction(myResources.getString("UpCommand")) {
+
+    private void createUpCommand (JMenu result) {
+        result.add(new AbstractAction(myResources.getString("UpCommand")) {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -280,8 +282,9 @@ public class ToolBarArea extends JMenuBar {
             }
         });
     }
-    private void createOnCommand(JMenu result){
-    	result.add(new AbstractAction(myResources.getString("OnCommand")) {
+
+    private void createOnCommand (JMenu result) {
+        result.add(new AbstractAction(myResources.getString("OnCommand")) {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -290,9 +293,9 @@ public class ToolBarArea extends JMenuBar {
             }
         });
     }
-    
-    private void createOffCommand(JMenu result){
-    	result.add(new AbstractAction(myResources.getString("OffCommand")) {
+
+    private void createOffCommand (JMenu result) {
+        result.add(new AbstractAction(myResources.getString("OffCommand")) {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -301,8 +304,9 @@ public class ToolBarArea extends JMenuBar {
             }
         });
     }
-    private void createSaveCommand(JMenu result){
-    	result.add(new AbstractAction(myResources.getString("SaveCommand")) {
+
+    private void createSaveCommand (JMenu result) {
+        result.add(new AbstractAction(myResources.getString("SaveCommand")) {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -316,9 +320,9 @@ public class ToolBarArea extends JMenuBar {
             }
         });
     }
-    
-    private void createOpenCommand(JMenu result){
-    	result.add(new AbstractAction(myResources.getString("OpenCommand")) {
+
+    private void createOpenCommand (JMenu result) {
+        result.add(new AbstractAction(myResources.getString("OpenCommand")) {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -342,9 +346,9 @@ public class ToolBarArea extends JMenuBar {
             }
         });
     }
-    
-    private void createUndoCommand(JMenu result){
-    	result.add(new AbstractAction(myResources.getString("UndoCommand")) {
+
+    private void createUndoCommand (JMenu result) {
+        result.add(new AbstractAction(myResources.getString("UndoCommand")) {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -353,26 +357,27 @@ public class ToolBarArea extends JMenuBar {
             }
         });
     }
-    
-    private void createRedoCommand(JMenu result){
-    	 result.add(new AbstractAction(myResources.getString("RedoCommand")) {
-             private static final long serialVersionUID = 1L;
 
-             @Override
-             public void actionPerformed (ActionEvent e) {
-                 myController.getView().getTurtleArea().redo();
-             }
-         });
+    private void createRedoCommand (JMenu result) {
+        result.add(new AbstractAction(myResources.getString("RedoCommand")) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getView().getTurtleArea().redo();
+            }
+        });
     }
-    private void createHelpCommand(JMenu result){
-    	result.add(new AbstractAction(myResources.getString("HelpCommand")) {
+
+    private void createHelpCommand (JMenu result) {
+        result.add(new AbstractAction(myResources.getString("HelpCommand")) {
 
             private static final long serialVersionUID = 1L;
 
             @Override
             public void actionPerformed (ActionEvent e) {
                 String htmlPath =
-                        "https://www.cs.duke.edu/courses/cps108/compsci308/cps108/spring13/assign/03_slogo/commands.php"; 
+                        "https://www.cs.duke.edu/courses/cps108/compsci308/cps108/spring13/assign/03_slogo/commands.php";
 
                 try {
                     java.awt.Desktop.getDesktop().browse(java.net.URI.create(htmlPath));
@@ -383,9 +388,9 @@ public class ToolBarArea extends JMenuBar {
             }
         });
     }
-    
-    private void createQuitCommand(JMenu result){
-    	result.add(new AbstractAction(myResources.getString("QuitCommand")) {
+
+    private void createQuitCommand (JMenu result) {
+        result.add(new AbstractAction(myResources.getString("QuitCommand")) {
             private static final long serialVersionUID = 1L;
 
             @Override
