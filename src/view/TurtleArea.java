@@ -98,9 +98,9 @@ public class TurtleArea extends Window {
     /**
      * 
      * @param index
-     * 	Index of turtle you are searching for
+     *        Index of turtle you are searching for
      * @return
-     * 	Returns requested Turtle based on index
+     *         Returns requested Turtle based on index
      */
     public Turtle getMyTurtle (int index) {
         return myTurtles.get(index);
@@ -134,11 +134,10 @@ public class TurtleArea extends Window {
     }
 
     /**
+     * Paints rotated image
      * 
      * @param pen
-     * 	pen for painting
-     * 
-     * 		Paints rotated image
+     *        pen for painting
      */
     private void rotateImage (Graphics2D pen) {
         for (Turtle t : myTurtles.values()) {
@@ -220,7 +219,6 @@ public class TurtleArea extends Window {
     /**
      * 
      * Paints grid for every interval of 100
-     * 		
      */
     private void paintGrid (Graphics2D pen) {
         if (myToggledOn) {
@@ -271,7 +269,7 @@ public class TurtleArea extends Window {
         dashed = true;
         repaint();
     }
-    
+
     /**
      * sets pen to paint solid lines for trails
      */
@@ -311,7 +309,8 @@ public class TurtleArea extends Window {
     }
 
     /**
-     * Undoes previous move and removes it from list of lastEdited locations and adds it to list of undone locations
+     * Undoes previous move and removes it from list of lastEdited
+     * locations and adds it to list of undone locations
      */
     public void undo () {
         Turtle toUndo = lastEdited.get(lastEdited.size() - 1);
@@ -321,7 +320,8 @@ public class TurtleArea extends Window {
     }
 
     /**
-     * Redoes previous move and removes it from list of undone locations and puts in lastEdited locations
+     * Redoes previous move and removes it from list of undone
+     * locations and puts in lastEdited locations
      */
     public void redo () {
         Turtle toRedo = lastUndid.get(lastUndid.size() - 1);
@@ -333,7 +333,7 @@ public class TurtleArea extends Window {
     /**
      * 
      * @param newWidth
-     * Sets pen width to newWidth
+     *        Sets pen width to newWidth
      */
     public void editPenWidth (int newWidth) {
         penWidth = newWidth;
@@ -343,13 +343,13 @@ public class TurtleArea extends Window {
     /**
      * 
      * @param index
-     * 		Index that correlates to color value, created by user command
+     *        Index that correlates to color value, created by user command
      * @param r
-     * 		red color value
+     *        red color value
      * @param g
-     * 		green color value
+     *        green color value
      * @param b
-     * 		blue color value
+     *        blue color value
      */
     public void addToColorPalette (int index, float r, float g, float b) {
         colorPalette.put(index, new Color(r, g, b));
@@ -359,15 +359,16 @@ public class TurtleArea extends Window {
     /**
      * 
      * @param index
-     * returns color based on index set by user 
+     *        returns color based on index set by user
      */
     public void setPenColor (int index) {
-    	if (colorPalette.containsKey(index)){
-	        trailColor = colorPalette.get(index);
-	        currentColorIndex = index;
-	        repaint();
-    	}
+        if (colorPalette.containsKey(index)) {
+            trailColor = colorPalette.get(index);
+            currentColorIndex = index;
+            repaint();
+        }
     }
+
     /**
      * return the current color index
      */
@@ -378,9 +379,9 @@ public class TurtleArea extends Window {
     /**
      * 
      * @param t
-     * 		Turtle to create a stamp of 
+     *        Turtle to create a stamp of
      * 
-     * Creates a stamp of the turtle 
+     *        Creates a stamp of the turtle
      */
     public void createStamp (Turtle t) {
         myStamps.add(new Stamp(t));

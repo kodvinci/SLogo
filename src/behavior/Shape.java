@@ -19,7 +19,6 @@ public class Shape extends NoParameterCommand {
     @Override
     public double move (Model model, int turtleNumber) {
 
-        
         return 0;
     }
 

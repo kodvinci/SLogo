@@ -30,7 +30,7 @@ public class ToolBarArea extends JMenuBar {
     private static final String USER_DIR = "user.dir";
     private static final Color TOOLBARCOLOR = Color.GREEN;
     private static final long serialVersionUID = 1L;
-    private static final int NUM_SIZES=5; 
+    private static final int NUM_SIZES = 5;
     private Controller myController;
     private JFileChooser myChooser;
     private ResourceBundle myResources;
@@ -121,8 +121,8 @@ public class ToolBarArea extends JMenuBar {
             }
         });
         JMenu subMenu2 = new JMenu(myResources.getString("TurtleSubMenu2"));
-        for (int i=0; i<NUM_SIZES; i++){
-        	subMenu2.add(setTurtleSize(myTurtles.getString(Integer.toString(i+1)), i+1));
+        for (int i = 0; i < NUM_SIZES; i++) {
+            subMenu2.add(setTurtleSize(myTurtles.getString(Integer.toString(i + 1)), i + 1));
         }
         result.add(subMenu);
         result.add(subMenu2);
@@ -161,14 +161,14 @@ public class ToolBarArea extends JMenuBar {
     }
 
     private AbstractAction setTurtleSize (String sizeNumber, int size) {
-        final int RELATIVE_SIZE = size; 
+        final int RELATIVE_SIZE = size;
         AbstractAction action = new AbstractAction(sizeNumber) {
             private static final long serialVersionUID = 1L;
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                myController.getMyTurtle(0,0).setTurtleShapeSize(RELATIVE_SIZE);
-                myController.getView().update(); 
+                myController.getMyTurtle(0, 0).setTurtleShapeSize(RELATIVE_SIZE);
+                myController.getView().update();
             }
         };
         return action;

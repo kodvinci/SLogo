@@ -232,7 +232,7 @@ public class Turtle extends Animal {
     public void setTurtleShapeSize (int index) {
         String size = mySizes.getString(Integer.toString(index));
         if (size != null) {
-            myIndex = Integer.parseInt(size);
+            myIndex = index;
             String[] values = size.split(",");
             myTurtleSize = new Dimension(Integer.parseInt(values[0]), Integer.parseInt(values[1]));
             setSize(Integer.parseInt(values[0]), Integer.parseInt(values[1]));
