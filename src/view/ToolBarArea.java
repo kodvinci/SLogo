@@ -28,6 +28,8 @@ public class ToolBarArea extends JMenuBar {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private static final String USER_DIR = "user.dir";
+    private static final String HELP_URL =
+            "https://www.cs.duke.edu/courses/cps108/compsci308/cps108/spring13/assign/03_slogo/commands.php";
     private static final Color TOOLBARCOLOR = Color.GREEN;
     private static final long serialVersionUID = 1L;
     private static final int NUM_SIZES = 5;
@@ -35,7 +37,7 @@ public class ToolBarArea extends JMenuBar {
     private JFileChooser myChooser;
     private ResourceBundle myResources;
     private ResourceBundle myTurtles;
-    private ResourceBundle myBackgroundImages;
+    private ResourceBundle myBI;
     private String[] backgroundImageList =
     { "Brown", "CarolinaBlue", "DukeBlue", "Wooden", "Green" };
 
@@ -43,7 +45,7 @@ public class ToolBarArea extends JMenuBar {
         myController = control;
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
-        myBackgroundImages = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Background");
+        myBI = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Background");
         myTurtles = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Turtles");
         setBackground(TOOLBARCOLOR);
         this.add(makeFileMenu());
@@ -135,12 +137,10 @@ public class ToolBarArea extends JMenuBar {
         JMenu imageSubMenu = new JMenu(myResources.getString("BackgroundSubMenu"));
         JMenu colorSubMenu = new JMenu(myResources.getString("BackgroundColor"));
         for (int i = 0; i < backgroundImageList.length; i++) {
-            imageSubMenu
-                    .add(setBackgroundImage(myBackgroundImages.getString(backgroundImageList[i])));
+            imageSubMenu.add(setBackgroundImage(myBI.getString(backgroundImageList[i])));
             int colorNum = i + 1;
             colorSubMenu
-                    .add(setBackgroundColor(myBackgroundImages.getString("Color" +
-                                                                         Integer.toString(colorNum))));
+                    .add(setBackgroundColor(myBI.getString("Color" + Integer.toString(colorNum))));
         }
         result.add(imageSubMenu);
         result.add(colorSubMenu);
@@ -304,8 +304,7 @@ public class ToolBarArea extends JMenuBar {
                         }
                         catch (NoSuchFieldException | SecurityException | IllegalArgumentException
                                 | IllegalAccessException e1) {
-                            // TODO Auto-generated catch block
-                            e1.printStackTrace();
+                            myController.showMessage(e1.getMessage());
                         }
                     }
                 }
@@ -345,14 +344,12 @@ public class ToolBarArea extends JMenuBar {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                String htmlPath =
-                        "https://www.cs.duke.edu/courses/cps108/compsci308/cps108/spring13/assign/03_slogo/commands.php";
-
+                String htmlPath = HELP_URL;
                 try {
                     java.awt.Desktop.getDesktop().browse(java.net.URI.create(htmlPath));
                 }
                 catch (IOException e1) {
-                    e1.printStackTrace();
+                    myController.showMessage(e1.getMessage());
                 }
             }
         });

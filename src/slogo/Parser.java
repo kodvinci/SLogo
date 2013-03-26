@@ -1,13 +1,13 @@
 package slogo;
 
-import behavior.ICommand;
-import exceptions.NoSuchCommandException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+import behavior.ICommand;
+import exceptions.NoSuchCommandException;
 
 
 /**
@@ -21,16 +21,13 @@ import java.util.regex.Pattern;
  */
 public class Parser {
 
-
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
-    
+
     private ResourceBundle myResources;
 
     private Pattern myNumPattern;
     private Pattern myStrPattern;
     private Pattern mySpacePattern;
-    
-    
 
     /**
      * constructor
@@ -45,10 +42,11 @@ public class Parser {
 
     /**
      * Splits String of spaces and brackets
-     * @param s         String
-     * @param model     model
+     * 
+     * @param s String
+     * @param model model
      * @return
-     * @throws Exception        exception
+     * @throws Exception exception
      */
     public List<String[]> split (String s, Model model) throws Exception {
         List<String> l = new LinkedList<String>();
@@ -73,13 +71,14 @@ public class Parser {
 
         return addCommands(l, model);
     }
-    
+
     /**
      * creates list of commands and adds it
-     * @param l         string list
-     * @param model     model
+     * 
+     * @param l string list
+     * @param model model
      * @return
-     * @throws Exception        exception
+     * @throws Exception exception
      */
     public List<String[]> addCommands (List<String> l, Model model) throws Exception {
         List<String[]> commandArray = new ArrayList<String[]>();
@@ -118,13 +117,13 @@ public class Parser {
             }
 
         }
-        
+
         return commandArray;
     }
-    
-    public void determineException(String string, Model model) {
+
+    public void determineException (String string, Model model) {
         model.showMessage("\"" + string + "\"" + " is not a valid command");
-        
+
     }
 
     /**
@@ -215,7 +214,7 @@ public class Parser {
         return subArray;
     }
 
-    public void parse (String command, List<ICommand> myCommandList, 
+    public void parse (String command, List<ICommand> myCommandList,
                        Model model) throws Exception {
         String parsedCommand = parseExtraSpaces(command, model);
         myCommandList.addAll(buildMultipleCommands(split(parsedCommand, model), model));

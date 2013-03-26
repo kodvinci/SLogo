@@ -46,7 +46,7 @@ public class Turtle extends Animal {
     public Turtle (Location myLocation, double angle) {
         super(TURTLE_IMAGE, myLocation, TURTLESIZE);
         myAngle = angle;
-        setProperties(); 
+        setProperties();
     }
 
     /**
@@ -59,7 +59,7 @@ public class Turtle extends Animal {
         setProperties();
     }
 
-    private void setProperties() {
+    private void setProperties () {
         myTrail = new Trail();
         undoneTrails = new Trail();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
@@ -67,7 +67,7 @@ public class Turtle extends Animal {
         myTurtleSize = TURTLESIZE;
         myIndex = 2;
     }
-    
+
     /**
      * initialize turtle at center
      */
