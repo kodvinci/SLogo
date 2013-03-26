@@ -12,7 +12,7 @@ import slogo.Model;
 public class Difference extends TwoParameterCommand {
 
     /**
-     * the parameter number of this ceratin command
+     * the parameter number of this certain command
      */
     public static final int PARAMETER_NUMBER = 2;
 

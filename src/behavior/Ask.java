@@ -1,10 +1,10 @@
 package behavior;
 
+import exceptions.ParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import slogo.Model;
 import slogo.Parser;
-import exceptions.ParameterException;
 
 
 /**
@@ -18,7 +18,7 @@ import exceptions.ParameterException;
 public class Ask implements ICommand {
 
     /**
-     * the parameter number of this ceratin command
+     * the parameter number of this certain command
      */
 
     public static final int PARAMETER_NUMBER = 2;
@@ -48,13 +48,15 @@ public class Ask implements ICommand {
 
     @Override
     public void initialize (String[] information, Model model) throws Exception {
-        if (information.length != PARAMETER_NUMBER) { throw new ParameterException(
-                                                                                   "Parameter doesn't match for ask command:length"); }
+        if (information.length != PARAMETER_NUMBER) { 
+            throw new ParameterException("Parameter doesn't match for ask command:length"); 
+        }
         myActivatedTurtles = new ArrayList<Integer>();
         String[] mySplitedContent = myParser.splitBlanksInsideBracket(information[0]);
         for (String str : mySplitedContent) {
-            if (!myParser.judgeNumeric(str)) { throw new ParameterException(
-                                                                            "Parameter doesn't match for ASK: not numeric"); }
+            if (!myParser.judgeNumeric(str)) { 
+                throw new ParameterException("Parameter doesn't match for ASK: not numeric"); 
+            }
             myActivatedTurtles.add(Integer.parseInt(str));
         }
         System.out.println("activated turtle number :" + myActivatedTurtles.size());
