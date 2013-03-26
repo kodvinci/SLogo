@@ -20,11 +20,13 @@ import java.util.regex.Pattern;
 public class Parser {
     
     private static final String PACKAGE_NAME = "behavior.";
-    private static final String CLASS_NOT_FOUND = "Class not found";
+    private static final String CLASS_NOT_FOUND = "Class not found, no such command";
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     
-    private static final int SETPALETTE_PARAMETER = 5;
+    private static final int FOUR_PARAMETER_ITERATOR = 5;
+    
+    private static final int TWO_PARAMETER_ITERATOR = 3;
 
     private ResourceBundle myResources;
 
@@ -140,7 +142,18 @@ public class Parser {
             else if (myResources.containsKey(string.get(i).toUpperCase()) || 
                 model.getUserCommands().containsKey(string.get(i).toUpperCase())) {
                 if (string.get(i).toUpperCase().equals("SETPALETTE")) {
-                    i += SETPALETTE_PARAMETER;
+                    i += FOUR_PARAMETER_ITERATOR;
+                }
+                else if (string.get(i).toUpperCase().equals("SET") || 
+                        string.get(i).toUpperCase().equals("TOWARDS") ||
+                        string.get(i).toUpperCase().equals("GOTO") ||
+                        string.get(i).toUpperCase().equals("SUM") ||
+                        string.get(i).toUpperCase().equals("DIFFERENCE") ||
+                        string.get(i).toUpperCase().equals("PRODUCT") ||
+                        string.get(i).toUpperCase().equals("QUOTIENT") ||
+                        string.get(i).toUpperCase().equals("REMAINDER")) {
+                    
+                    i += TWO_PARAMETER_ITERATOR;
                 }
                 else {
                     commandName.add(string.get(i));

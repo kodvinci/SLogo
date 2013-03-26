@@ -161,7 +161,16 @@ public class Controller {
     public Model getModel (Model model) {
         return myModels.get(model.getID());
     }
-
+    
+    /**
+     * get model based on index
+     * @param index     index
+     * @return
+     */
+    public Model getModel(int index) {
+        return myModels.get(index);
+    }
+    
     /**
      * Return the list of models
      * 

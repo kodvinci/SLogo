@@ -43,8 +43,9 @@ public class If implements ICommand {
      * @throws Exception exception
      */
     public void construct (String value, String bracket, Model model) throws Exception {
-        if (!myParser.getNumPattern().matcher(value).matches()) { throw new ParameterException(
-                                                                                               "parameterException"); }
+        if (!myParser.getNumPattern().matcher(value).matches()) { 
+            throw new ParameterException("not valid parameter, must be number");
+        }
         myStatement = Integer.parseInt(value);
         myPrunedStringCommands = myParser.prune(bracket);
         myCommands = createCommandsList(myPrunedStringCommands, model);

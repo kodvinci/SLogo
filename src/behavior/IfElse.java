@@ -40,8 +40,9 @@ public class IfElse implements ICommand {
     public void construct (String value, String firstBracket, String secondBracket,
                            Model model) throws Exception {
 
-        if (!myParser.getNumPattern().matcher(value).matches()) { throw new ParameterException(
-                                                                                               myParameterExceptionMessage); }
+        if (!myParser.getNumPattern().matcher(value).matches()) { 
+            throw new ParameterException(myParameterExceptionMessage);
+        }
         parse(value, firstBracket, secondBracket, model);
         myCommands = new ArrayList<ICommand>();
 
@@ -60,8 +61,9 @@ public class IfElse implements ICommand {
     public void parse (String value, String firstBracket, String secondBracket,
                        Model model) throws Exception {
 
-        if (!myParser.getNumPattern().matcher(value).matches()) { throw new ParameterException(
-                                                                                               "ParameterException"); }
+        if (!myParser.getNumPattern().matcher(value).matches()) { 
+            throw new ParameterException("Not valid command"); 
+        }
         String firstBracketPruned = myParser.prune(firstBracket);
         String secondBracketPruned = myParser.prune(secondBracket);
         myStringTrueCommands = myParser.split(firstBracketPruned, model);
