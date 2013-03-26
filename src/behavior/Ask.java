@@ -43,7 +43,6 @@ public class Ask implements ICommand {
         }
 
         return last;
-
     }
 
     @Override

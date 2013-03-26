@@ -1,8 +1,6 @@
 package behavior;
 
 import slogo.Model;
-
-
 /**
  * 
  * @author Richard Yang

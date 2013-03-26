@@ -116,6 +116,12 @@ public class Model {
         myTurtles.put(myTurtleNumber, turtle);
         myTurtleNumber++;
     }
+    
+    public void addNewTurtle(int turtleNumber) {
+        Turtle turtle = new Turtle();
+        myTurtles.put(turtleNumber, turtle);
+        myTurtleNumber ++;
+    }
 
     /**
      * return list of turtles
