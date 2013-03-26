@@ -60,9 +60,7 @@ public abstract class Animal {
         myOriginalCenter = new Location(center);
         myOriginalSize = new Dimension(size);
         myOriginalView = new Pixmap(image);
-        myImage =
-                new ImageIcon(getClass().getResource(RESOURCE_LOCATION + image.getImageFileName()))
-                        .getImage();
+        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + image.getImageFileName())).getImage();
         reset();
 
         resetBounds();

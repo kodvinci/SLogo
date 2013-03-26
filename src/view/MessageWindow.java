@@ -12,7 +12,13 @@ import slogo.Controller;
 public class MessageWindow {
 
     private Controller myController;
-
+    /**
+     * 
+     * @param controller
+     *      controller
+     * @param s
+     *      message
+     */
     public MessageWindow (Controller controller, String s) {
         myController = controller;
         makeDialogueBox(s);
