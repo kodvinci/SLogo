@@ -11,6 +11,9 @@ import slogo.Model;
 
 public class LessP extends TwoParameterCommand {
 
+    /**
+     * the parameter number of this certain command
+     */
     public static final int PARAMETER_NUMBER = 2;
 
     @Override

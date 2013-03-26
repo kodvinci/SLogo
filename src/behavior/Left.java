@@ -11,6 +11,9 @@ import slogo.Model;
 
 public class Left extends OneParameterCommand {
 
+    /**
+     * the parameter number of this certain command
+     */
     public static final int PARAMETER_NUMBER = 1;
 
     @Override

@@ -4,8 +4,6 @@ import exceptions.ParameterException;
 import java.util.ArrayList;
 import slogo.Model;
 
-
-
 /**
  * 
  * @author Richard Yang

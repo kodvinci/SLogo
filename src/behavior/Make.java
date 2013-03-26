@@ -1,9 +1,11 @@
 package behavior;
 
-import slogo.Model;
-import slogo.Parser;
+
 import exceptions.ParameterException;
 import exceptions.SyntaxException;
+import slogo.Model;
+import slogo.Parser;
+
 
 
 /**
@@ -15,6 +17,9 @@ import exceptions.SyntaxException;
 
 public class Make implements ICommand {
 
+    /**
+     * the parameter number of this certain command
+     */
     public static final int PARAMETER_NUMBER = 2;
 
     private Parser myParser = new Parser();
