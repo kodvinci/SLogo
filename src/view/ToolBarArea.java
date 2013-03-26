@@ -30,6 +30,7 @@ public class ToolBarArea extends JMenuBar {
     private static final String USER_DIR = "user.dir";
     private static final Color TOOLBARCOLOR = Color.GREEN;
     private static final long serialVersionUID = 1L;
+    private static final int NUM_SIZES=5; 
     private Controller myController;
     private JFileChooser myChooser;
     private ResourceBundle myResources;
@@ -121,55 +122,9 @@ public class ToolBarArea extends JMenuBar {
             }
         });
         JMenu subMenu2 = new JMenu(myResources.getString("TurtleSubMenu2"));
-        subMenu2.add(new AbstractAction(myTurtles.getString("1")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getMyTurtle(0, 0).setTurtleShapeSize(1);
-                myController.getView().update();
-            }
-        });
-
-        subMenu2.add(new AbstractAction(myTurtles.getString("2")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getMyTurtle(0, 0).setTurtleShapeSize(2);
-                myController.getView().update();
-            }
-        });
-
-        subMenu2.add(new AbstractAction(myTurtles.getString("3")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getMyTurtle(0, 0).setTurtleShapeSize(3);
-                myController.getView().update();
-            }
-        });
-
-        subMenu2.add(new AbstractAction(myTurtles.getString("4")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getMyTurtle(0, 0).setTurtleShapeSize(4);
-                myController.getView().update();
-            }
-        });
-
-        subMenu2.add(new AbstractAction(myTurtles.getString("5")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getMyTurtle(0, 0).setTurtleShapeSize(5);
-                myController.getView().update();
-            }
-        });
+        for (int i=0; i<NUM_SIZES; i++){
+        	subMenu2.add(setTurtleSize(myTurtles.getString(Integer.toString(i+1)), i+1));
+        }
         result.add(subMenu);
         result.add(subMenu2);
         return result;
@@ -199,6 +154,20 @@ public class ToolBarArea extends JMenuBar {
             @Override
             public void actionPerformed (ActionEvent e) {
                 myController.getView().getTurtleArea().changeBackgroundImage(BACKGROUND_IMAGE);
+            }
+        };
+        return action;
+    }
+
+    private AbstractAction setTurtleSize (String sizeNumber, int size) {
+        final int RELATIVE_SIZE = size; 
+        AbstractAction action = new AbstractAction(sizeNumber) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getMyTurtle(0,0).setTurtleShapeSize(RELATIVE_SIZE);
+                myController.getView().update(); 
             }
         };
         return action;
