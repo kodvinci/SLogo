@@ -2,9 +2,16 @@ package behavior;
 
 import slogo.Model;
 
-
+/**
+ * Get pen color
+ * @author Jerry
+ *
+ */
 public class PenColor extends NoParameterCommand {
-
+    
+    /**
+     * Number of parameters command takes
+     */
     public static final int PARAMETER_NUMBER = 0;
 
     @Override
