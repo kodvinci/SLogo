@@ -48,10 +48,7 @@ public class Interpreter {
         List<ICommand> myCommandList = new ArrayList<ICommand>();
 
         parse(commands, myCommandList, model);
-        // System.out.println(myCommandList.size());
         for (ICommand ic : myCommandList) {
-
-            // System.out.println("list size :" + myCommandList.size());
             ic.move(model, turtleNumber);
         }
 
