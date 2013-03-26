@@ -4,7 +4,7 @@ import slogo.Model;
 
 
 /**
- * 
+ * Get remainder of two parameteers
  * @author Richard Yang
  * 
  */
