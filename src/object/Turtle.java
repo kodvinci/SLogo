@@ -189,12 +189,10 @@ public class Turtle extends Animal {
      * Moves turtle back to previous location
      */
     public void undoMove () {
-        System.out.println(myTrail.getTrails().size());
         if (myTrail.getTrails().size() > 1) {
             Location lastTrail = myTrail.getTrails().get(myTrail.getTrails().size() - 1);
             myUndoneTrails.addTrail(lastTrail);
             myTrail.removeTrail(lastTrail);
-            System.out.println(myTrail.getTrails().get(myTrail.getTrails().size() - 1));
             setCenter(myTrail.getTrails().get(myTrail.getTrails().size() - 1));
         }
     }
@@ -227,7 +225,6 @@ public class Turtle extends Animal {
      * @param index index of shape in resource file
      */
     public void setTurtleShapeSize (int index) {
-        System.out.println("turlte size");
         String size = mySizes.getString(Integer.toString(index));
         if (size != null) {
             myIndex = index;

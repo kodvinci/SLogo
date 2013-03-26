@@ -23,6 +23,8 @@ public class Parser {
     private static final String CLASS_NOT_FOUND = "Class not found";
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+    
+    private static final int SETPALETTE_PARAMETER = 5;
 
     private ResourceBundle myResources;
 
@@ -136,9 +138,14 @@ public class Parser {
                 i++;
             }
             else if (myResources.containsKey(string.get(i).toUpperCase()) || 
-                    model.getUserCommands().containsKey(string.get(i).toUpperCase())) {
-                commandName.add(string.get(i));
-                i++;
+                model.getUserCommands().containsKey(string.get(i).toUpperCase())) {
+                if (string.get(i).toUpperCase().equals("SETPALETTE")) {
+                    i += SETPALETTE_PARAMETER;
+                }
+                else {
+                    commandName.add(string.get(i));
+                    i++;
+                }
             }
             else if (commandName.size() == 0){
                 model.showMessage("\"" + string.get(i) + "\"" + " is not a command");

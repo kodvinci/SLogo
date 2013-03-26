@@ -20,6 +20,12 @@ public class SetPalette implements ICommand {
      * Blue place number
      */
     private static final int BLUE_PLACE = 3;
+    
+    /**
+     * rgb factor
+     */
+    private static final int RGB_FACTOR = 256;
+    
     private int myColorIndex;
     private float myRedValue;
     private float myGreenValue;
@@ -37,12 +43,9 @@ public class SetPalette implements ICommand {
 
     @Override
     public void initialize (String[] information, Model model) {
-        System.out.println("setpallete initiazlied");
-        myColorIndex = Integer.parseInt(information[0]);
-        myRedValue = Float.parseFloat(information[1]);
-        myGreenValue = Float.parseFloat(information[2]);
-        myBlueValue = Float.parseFloat(information[BLUE_PLACE]);
-        System.out.println("color index: " + myColorIndex + ", red value: " + myRedValue +
-                           ", green value");
+        myColorIndex = Integer.parseInt(information[0]) / RGB_FACTOR;
+        myRedValue = Float.parseFloat(information[1]) / RGB_FACTOR;
+        myGreenValue = Float.parseFloat(information[2]) / RGB_FACTOR;
+        myBlueValue = Float.parseFloat(information[BLUE_PLACE]) / RGB_FACTOR;
     }
 }
