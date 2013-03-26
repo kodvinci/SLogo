@@ -24,8 +24,9 @@ public class For extends Dotimes {
 
     @Override
     public void initialize (String[] information, Model model) throws Exception {
-        if (information.length != PARAMETER_NUMBER) { throw new ParameterException(
-                                                                                   "parameter not match"); }
+        if (information.length != PARAMETER_NUMBER) { 
+            throw new ParameterException("parameter not match");
+        }
         System.out.println("DOTimes Initialization Successful");
         myBracketCommandsList = new ArrayList<ICommand>();
         String[] mySplitedContent = myParser.splitBlanksInsideBracket(information[0]);
