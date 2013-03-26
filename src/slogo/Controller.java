@@ -106,8 +106,8 @@ public class Controller {
     public static void checkBounds (Turtle t) {
         double x = t.getX();
         double y = t.getY();
-        double xMargin = Turtle.DEFAULT_SIZE.getWidth() / 2;
-        double yMargin = Turtle.DEFAULT_SIZE.getHeight() / 2;
+        double xMargin = Turtle.TURTLESIZE.getWidth() / 2;
+        double yMargin = Turtle.TURTLESIZE.getHeight() / 2;
         if (x > TURTLE_AREA_SIZE.getWidth() - xMargin) {
             x = TURTLE_AREA_SIZE.getWidth() - xMargin;
         }

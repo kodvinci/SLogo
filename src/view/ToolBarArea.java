@@ -196,8 +196,59 @@ public class ToolBarArea extends JMenuBar {
                 myController.getView().update();
             }
         });
+        JMenu subMenu2 = new JMenu(myResources.getString("TurtleSubMenu2"));
+        subMenu2.add(new AbstractAction(myTurtles.getString("1")) {
+            private static final long serialVersionUID = 1L;
 
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getMyTurtle(0, 0).setTurtleShapeSize(1);
+                myController.getView().update();
+            }
+        });
+        
+        subMenu2.add(new AbstractAction(myTurtles.getString("2")) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getMyTurtle(0, 0).setTurtleShapeSize(2);
+                myController.getView().update();
+            }
+        });
+        
+        subMenu2.add(new AbstractAction(myTurtles.getString("3")) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getMyTurtle(0, 0).setTurtleShapeSize(3);
+                myController.getView().update();
+            }
+        });
+        
+        subMenu2.add(new AbstractAction(myTurtles.getString("4")) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getMyTurtle(0, 0).setTurtleShapeSize(4);
+                myController.getView().update();
+            }
+        });
+        
+        subMenu2.add(new AbstractAction(myTurtles.getString("5")) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.getMyTurtle(0, 0).setTurtleShapeSize(5);
+                myController.getView().update();
+            }
+        });
+        
         result.add(subMenu);
+        result.add(subMenu2);
         return result;
     }
 
