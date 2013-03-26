@@ -89,7 +89,7 @@ public class TurtleArea extends Window {
 
     /**
      * 
-     * @return map of turtles
+     * Return map of turtles
      */
     public Map<Integer, Turtle> getMyTurtles () {
         return myTurtles;
@@ -97,9 +97,10 @@ public class TurtleArea extends Window {
 
     /**
      * 
-     * @param index index of turtle
+     * @param index
+     * 	Index of turtle you are searching for
      * @return
-     *         turtle's index
+     * 	Returns requested Turtle based on index
      */
     public Turtle getMyTurtle (int index) {
         return myTurtles.get(index);
@@ -132,6 +133,13 @@ public class TurtleArea extends Window {
         pen.dispose();
     }
 
+    /**
+     * 
+     * @param pen
+     * 	pen for painting
+     * 
+     * 		Paints rotated image
+     */
     private void rotateImage (Graphics2D pen) {
         for (Turtle t : myTurtles.values()) {
             t.paint(pen, t.getCenter(), t.getSize(), t.getAngle());
@@ -209,6 +217,11 @@ public class TurtleArea extends Window {
         }
     }
 
+    /**
+     * 
+     * Paints grid for every interval of 100
+     * 		
+     */
     private void paintGrid (Graphics2D pen) {
         if (myToggledOn) {
             pen.setColor(GRID_COLOR);
@@ -252,36 +265,54 @@ public class TurtleArea extends Window {
     }
 
     /**
-     * paints a dashed line
+     * sets pen to paint dashed lines for trails
      */
     public void setDashed () {
         dashed = true;
         repaint();
     }
-
+    
+    /**
+     * sets pen to paint solid lines for trails
+     */
     public void setSolid () {
         dashed = false;
         repaint();
     }
 
+    /**
+     * Tells pen not to paint grid
+     */
     public void toggleGridOff () {
         toggledOn = false;
         repaint();
     }
 
+    /**
+     * Tells pen to paint grid
+     */
     public void toggleGridOn () {
         toggledOn = true;
         repaint();
     }
 
+    /**
+     * Sets the pen to leave a trail
+     */
     public void penDown () {
         penIsDown = true;
     }
 
+    /**
+     * Sets the pen not to leave a trail
+     */
     public void penUp () {
         penIsDown = false;
     }
 
+    /**
+     * Undoes previous move and removes it from list of lastEdited locations and adds it to list of undone locations
+     */
     public void undo () {
         Turtle toUndo = lastEdited.get(lastEdited.size() - 1);
         toUndo.undoMove();
@@ -289,6 +320,9 @@ public class TurtleArea extends Window {
         repaint();
     }
 
+    /**
+     * Redoes previous move and removes it from list of undone locations and puts in lastEdited locations
+     */
     public void redo () {
         Turtle toRedo = lastUndid.get(lastUndid.size() - 1);
         toRedo.redoMove();
@@ -296,26 +330,58 @@ public class TurtleArea extends Window {
         repaint();
     }
 
+    /**
+     * 
+     * @param newWidth
+     * Sets pen width to newWidth
+     */
     public void editPenWidth (int newWidth) {
         penWidth = newWidth;
         repaint();
     }
 
+    /**
+     * 
+     * @param index
+     * 		Index that correlates to color value, created by user command
+     * @param r
+     * 		red color value
+     * @param g
+     * 		green color value
+     * @param b
+     * 		blue color value
+     */
     public void addToColorPalette (int index, float r, float g, float b) {
         colorPalette.put(index, new Color(r, g, b));
         setPenColor(index);
     }
 
+    /**
+     * 
+     * @param index
+     * returns color based on index set by user 
+     */
     public void setPenColor (int index) {
-        trailColor = colorPalette.get(index);
-        currentColorIndex = index;
-        repaint();
+    	if (colorPalette.containsKey(index)){
+	        trailColor = colorPalette.get(index);
+	        currentColorIndex = index;
+	        repaint();
+    	}
     }
-
+    /**
+     * return the current color index
+     */
     public int getCurrentColorIndex () {
         return currentColorIndex;
     }
 
+    /**
+     * 
+     * @param t
+     * 		Turtle to create a stamp of 
+     * 
+     * Creates a stamp of the turtle 
+     */
     public void createStamp (Turtle t) {
         myStamps.add(new Stamp(t));
         repaint();
