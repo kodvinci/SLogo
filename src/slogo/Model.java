@@ -1,5 +1,7 @@
 package slogo;
 
+import behavior.ICommand;
+import exceptions.NoSuchVariableException;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 import object.Turtle;
 import view.DisplayArea;
-import behavior.ICommand;
-import exceptions.NoSuchVariableException;
 
 
 /**
@@ -30,7 +30,10 @@ public class Model {
      * Default Frame size
      */
     public static final Dimension SIZE = new Dimension(1100, 700);
-
+    
+    /**
+     * Title of program
+     */
     public static final String TITLE = "SLOGO";
 
     private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
@@ -38,7 +41,6 @@ public class Model {
     private List<Integer> myCurrentActivatedTurtles;
     private List<Integer> myFutureActivatedTurtles;
     private int myTurtleNumber;
-    private DisplayArea myDisplayArea;
     private Map<String, String> myVariables;
     private Controller myController;
     private int myModelID;
@@ -59,11 +61,19 @@ public class Model {
         myController = controller;
 
     }
-
+    
+    /**
+     * Get model id
+     * @return
+     */
     public int getID () {
         return myModelID;
     }
-
+    
+    /**
+     * get controller
+     * @return
+     */
     public Controller getController () {
         return myController;
     }

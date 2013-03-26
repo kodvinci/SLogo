@@ -12,7 +12,10 @@ import slogo.Parser;
  * 
  */
 public class Repeat implements ICommand {
-
+    
+    /**
+     * Number of parameters command takes
+     */
     public static final int PARAMETER_NUMBER = 2;
 
     private Parser myParser = new Parser();
@@ -21,34 +24,33 @@ public class Repeat implements ICommand {
     private List<String[]> myListOfCommands;
     private List<ICommand> myBracketCommandsList;
 
+    
     /**
-     * constructor for repeat
-     * 
-     * @param subCommands command string
-     * @param time run how many times
-     * @param model model we want to operate
-     * @throws Exception
-     * */
-    public Repeat () {
-
-    }
-
-    public void construct (String value, String bracket, Model model)
-                                                                     throws Exception {
+     * Construct commands from bracket 
+     * @param value             repeat number
+     * @param bracket           commands in bracket
+     * @param model             model
+     * @throws Exception        exception
+     */
+    public void construct (String value, String bracket, Model model) throws Exception {
         myValue = Integer.parseInt(value);
-        myPrunedStringCommands = prune(bracket);
+        myPrunedStringCommands = myParser.prune(bracket);
         myBracketCommandsList = createCommandsList(myPrunedStringCommands, model);
 
     }
-
+    
+    /**
+     * Creates list of commands
+     * @param commands  commands
+     * @param model     model
+     * @return
+     * @throws Exception        exception
+     */
     public List<ICommand> createCommandsList (String commands, Model model) throws Exception {
         myListOfCommands = myParser.split(myPrunedStringCommands, model);
         return myParser.buildMultipleCommands(myListOfCommands, model);
     }
 
-    public String prune (String bracket) {
-        return bracket.substring(1, bracket.length() - 1);
-    }
 
     @Override
     public double move (Model model, int turtleNumber) throws Exception {

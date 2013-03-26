@@ -1,11 +1,10 @@
 package behavior;
 
+import exceptions.NoSuchCommandException;
 import java.util.ArrayList;
 import java.util.List;
 import slogo.Model;
 import slogo.Parser;
-import exceptions.NoSuchCommandException;
-import exceptions.SyntaxException;
 
 
 /**
@@ -15,36 +14,37 @@ import exceptions.SyntaxException;
  * 
  */
 public class To implements ICommand {
-
+    
+    /**
+     * Number of parameters command takes
+     */
     public static final int PARAMETER_NUMBER = 3;
     private List<ICommand> myCommandList = new ArrayList<ICommand>();
     private String[] myVariables;
     private String[] myCommands;
     private String myName;
     private Parser myParser = new Parser();
-
+    
     /**
-     * Initializes TO command
-     * 
-     * @param name name
-     * @param variables variables
-     * @param commands commands
-     * @throws NoSuchCommandException No command exception
-     * @throws SyntaxException Wrong syntax exception
+     * Construct commands from bracketed variables and commands
+     * @param value             name of command
+     * @param firstBracket      variables
+     * @param secondBracket     commands
+     * @param model             model
+     * @throws Exception        Exception
      */
+    public void construct (String value, String firstBracket, String secondBracket, 
+                           Model model) throws Exception {
 
-    public To () {
-
-    }
-
-    public void construct (String value, String firstBracket, String secondBracket, Model model)
-                                                                                                throws Exception {
-
-        parse(value, firstBracket, secondBracket);
-        map(myVariables, myCommands, model);
+        parse(firstBracket, secondBracket);
+        mapParameterToCommand(myVariables, myCommands, model);
         model.addUserCommands(value, this);
     }
-
+    
+    /**
+     * Checks to see if there are same number of variables and commands
+     * @return
+     */
     public int checkLegal () {
         if (myVariables.length == myCommands.length) {
             return 1;
@@ -53,31 +53,22 @@ public class To implements ICommand {
             return 0;
         }
     }
+    
+    /**
+     * Parse extra spaces and brackets
+     * @param firstBracket      variables
+     * @param secondBracket     commands
+     */
+    public void parse (String firstBracket, String secondBracket) {
 
-    public void parse (String value, String firstBracket, String secondBracket) {
-
-        String firstBracketPruned = firstBracket.substring(1, firstBracket.length() - 1);
-        String secondBracketPruned = secondBracket.substring(1, secondBracket.length() - 1);
-        myVariables = splitFirstBracket(firstBracketPruned);
-        myCommands = splitFirstBracket(secondBracketPruned);
+        //String firstBracketPruned = firstBracket.substring(1, firstBracket.length() - 1);
+        //String secondBracketPruned = secondBracket.substring(1, secondBracket.length() - 1);
+        myVariables = myParser.splitBlanksInsideBracket(firstBracket);
+        myCommands = myParser.splitBlanksInsideBracket(secondBracket);
 
     }
 
-    public String[] splitFirstBracket (String myFirstPrunedCommand) {
-        String[] myContent = myParser.getSpacePattern().split(myFirstPrunedCommand);
-        List<String> buffer = new ArrayList<String>();
-        for (int i = 0; i < myContent.length; i++) {
-            if (!myParser.getSpacePattern().matcher(myContent[i]).matches() &&
-                !myContent[i].equals("")) {
-                buffer.add(myContent[i]);
-            }
-        }
-        String[] myNewContent = new String[buffer.size()];
-        for (int i = 0; i < buffer.size(); i++) {
-            myNewContent[i] = buffer.get(i);
-        }
-        return myNewContent;
-    }
+    
 
     /**
      * return name
@@ -89,14 +80,14 @@ public class To implements ICommand {
     }
 
     /**
-     * Maps stuff in brackets to respective lists
-     * 
-     * @param variables variables
-     * @param commands commands
-     * @throws Exception
+     * Maps variable to command, creating the command and adding it to a list
+     * @param variables         variables
+     * @param commands          commands
+     * @param model             model
+     * @throws Exception        exception
      */
-    public void map (String[] variables, String[] commands, Model model)
-                                                                        throws Exception {
+    public void mapParameterToCommand (String[] variables, String[] commands, 
+                                       Model model) throws Exception {
         if (checkLegal() == 0) { throw new NoSuchCommandException(); }
         for (int i = 0; i < commands.length; i++) {
             String command = commands[i];
@@ -104,7 +95,7 @@ public class To implements ICommand {
             String variable = variables[i];
             // System.out.println(Arrays.toString(variable));
 
-            String[] str = { command, variable };
+            String[] str = {command, variable};
             ICommand myCommand = myParser.buildCommand(str, model);
             myCommandList.add(myCommand);
             model.addVariable(":TO" + Integer.toString(i), variable);
@@ -115,9 +106,9 @@ public class To implements ICommand {
     /**
      * Move
      * 
-     * @param model the model
-     * @param turtleNumber the turtle
-     * @throws Exception
+     * @param model          the model
+     * @param turtleNumber   the turtle
+     * @throws Exception     exception
      */
     @Override
     public double move (Model model, int turtleNumber) throws Exception {

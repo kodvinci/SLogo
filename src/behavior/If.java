@@ -1,10 +1,10 @@
 package behavior;
 
+import exceptions.ParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import slogo.Model;
 import slogo.Parser;
-import exceptions.ParameterException;
 
 
 /**
@@ -14,7 +14,10 @@ import exceptions.ParameterException;
  * 
  */
 public class If implements ICommand {
-
+    
+    /**
+     * Number of parameters commands take
+     */
     public static final int PARAMETER_NUMBER = 2;
     private List<ICommand> myCommands = new ArrayList<ICommand>();
     private Parser myParser = new Parser();
@@ -22,27 +25,39 @@ public class If implements ICommand {
     private String myPrunedStringCommands;
     private List<String[]> myListOfCommands;
 
-    public If () {
-
-    }
-
+    /**
+     * Returns parameter number
+     * @return
+     */
     public static int getParameterNumber () {
         return PARAMETER_NUMBER;
     }
-
+    
+    /**
+     * Construct commands from bracket
+     * @param value     value
+     * @param bracket   commands in bracket
+     * @param model     model
+     * @throws Exception        exception
+     */
     public void construct (String value, String bracket, Model model) throws Exception {
-        if (!myParser.getNumPattern().matcher(value).matches()) { throw new ParameterException(
-                                                                                               "parameterException"); }
+        if (!myParser.getNumPattern().matcher(value).matches()) { 
+            throw new ParameterException("parameterException"); 
+        }
         myStatement = Integer.parseInt(value);
-        myPrunedStringCommands = prune(bracket);
+        myPrunedStringCommands = myParser.prune(bracket);
         myCommands = createCommandsList(myPrunedStringCommands, model);
 
     }
 
-    public String prune (String bracket) {
-        return bracket.substring(1, bracket.length() - 1);
-    }
-
+  
+    /**
+     * create list of commands
+     * @param commands  commands in bracket
+     * @param model     model
+     * @return
+     * @throws Exception exceptions
+     */
     public List<ICommand> createCommandsList (String commands, Model model) throws Exception {
         myListOfCommands = myParser.split(myPrunedStringCommands, model);
         return myParser.buildMultipleCommands(myListOfCommands, model);

@@ -1,13 +1,10 @@
 package behavior;
 
+import exceptions.ParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import slogo.Model;
 import slogo.Parser;
-import exceptions.NoSuchCommandException;
-import exceptions.NoSuchVariableException;
-import exceptions.ParameterException;
-import exceptions.SyntaxException;
 
 
 /**
@@ -22,48 +19,54 @@ public class IfElse implements ICommand {
      * Resources for commands
      */
     public static final int PARAMETER_NUMBER = 3;
+    
     private List<String[]> myStringTrueCommands;
     private List<String[]> myStringFalseCommands;
-    private List<ICommand> myTrueCommands;
-    private List<ICommand> myFalseCommands;
+    private List<ICommand> myCommands;
     private Parser myParser = new Parser();
-    private double myValue;
+    private int myValue;
     private double myFinalValue;
+    private String myParameterExceptionMessage = "Parameter Exception";
 
     /**
-     * Constructs the command
-     * 
-     * @param trueCommands commands in true bracket
-     * @param falseCommands commands in false bracket
-     * @param value value
-     * @throws Exception
+     * Constructs false commands and true commands
+     * @param value             value after IFELSE 
+     * @param firstBracket      true commands
+     * @param secondBracket     false commands
+     * @param model             model
+     * @throws Exception        exception
      */
     public void construct (String value, String firstBracket, String secondBracket,
                            Model model) throws Exception {
 
-        if (!myParser.getNumPattern().matcher(value).matches()) { throw new ParameterException(
-                                                                                               "ParameterException"); }
+        if (!myParser.getNumPattern().matcher(value).matches()) { 
+            throw new ParameterException(myParameterExceptionMessage); 
+        }
         parse(value, firstBracket, secondBracket, model);
-        // myStringTrueCommands = trueCommands;
-        // myStringFalseCommands = falseCommands;
-        myTrueCommands = new ArrayList<ICommand>();
-        myFalseCommands = new ArrayList<ICommand>();
+        myCommands = new ArrayList<ICommand>();
 
-        map(myStringTrueCommands, myStringFalseCommands, model);
+        mapTrueCommandsAndFalseCommands(myStringTrueCommands, myStringFalseCommands, model, myValue);
     }
-
-    public void parse (String value, String firstBracket, String secondBracket, Model model)
-                                                                                            throws Exception {
-        if (!myParser.getNumPattern().matcher(value).matches()) { throw new ParameterException(
-                                                                                               "ParameterException"); }
-        String firstBracketPruned = firstBracket.substring(1, firstBracket.length() - 1);
-        String secondBracketPruned = secondBracket.substring(1, secondBracket.length() - 1);
-
-        // System.out.println("first without brackets " + firstBracketPruned);
-        // System.out.println("second without brackets " + secondBracketPruned);
+    
+    /**
+     * Get rid of extra brackets and spaces
+     * @param value             value after IFELSE
+     * @param firstBracket      true commands
+     * @param secondBracket     false commands
+     * @param model             model
+     * @throws Exception        Exception
+     */
+    public void parse (String value, String firstBracket, String secondBracket, 
+                       Model model) throws Exception {
+        
+        if (!myParser.getNumPattern().matcher(value).matches()) { 
+            throw new ParameterException("ParameterException"); 
+        }
+        String firstBracketPruned = myParser.prune(firstBracket);
+        String secondBracketPruned = myParser.prune(secondBracket);
         myStringTrueCommands = myParser.split(firstBracketPruned, model);
         myStringFalseCommands = myParser.split(secondBracketPruned, model);
-        myValue = Double.parseDouble(value);
+        myValue = Integer.parseInt(value);
 
     }
 
@@ -77,33 +80,34 @@ public class IfElse implements ICommand {
     }
 
     /**
-     * Map to respective lists
-     * 
-     * @param trueCommands true commands
-     * @param falseCommands false commands
-     * @throws Exception
+     * Build commands and put them in respective list
+     * @param trueCommands      true commands
+     * @param falseCommands     false commands
+     * @param model             model
+     * @param value             value
+     * @throws Exception        Exception
      */
-    public void map (List<String[]> trueCommands, List<String[]> falseCommands, Model model)
-                                                                                            throws Exception {
-        myTrueCommands = buildCommands(trueCommands, model);
-        myFalseCommands = buildCommands(falseCommands, model);
+    public void mapTrueCommandsAndFalseCommands (List<String[]> trueCommands, 
+                                                 List<String[]> falseCommands, 
+                                                 Model model, int value) throws Exception {
+
+        if (value == 1) {  
+            myCommands = buildCommands(trueCommands, model);
+        }
+        else if (value == 0) {
+            myCommands = buildCommands(falseCommands, model);
+        }
     }
 
     /**
-     * Build ICommands from list of string commands
-     * 
-     * @param commands commands
-     * @return
-     * @throws NoSuchCommandException
-     * @throws SyntaxException
-     * @throws NoSuchVariableException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
-     * @throws NoSuchFieldException
+     * build commands from list
+     * @param commands  commands
+     * @param model     model
+     * @return  
+     * @throws Exception        exception
      */
-    public List<ICommand> buildCommands (List<String[]> commands, Model model)
-                                                                              throws Exception {
+    public List<ICommand> buildCommands (List<String[]> commands, 
+                                         Model model) throws Exception {
         List<ICommand> theCommands = myParser.buildMultipleCommands(commands, model);
         return theCommands;
     }
@@ -113,7 +117,7 @@ public class IfElse implements ICommand {
      * 
      * @param model the model
      * @param turtleNumber the turtle
-     * @throws Exception
+     * @throws Exception        exception
      * 
      */
     @Override
@@ -129,41 +133,24 @@ public class IfElse implements ICommand {
      * @param turtleNumber the turtle
      * @param value the value
      * @return
-     * @throws Exception
+     * @throws Exception        exception
      */
     public double move (Model model, int turtleNumber, double value) throws Exception {
-        if (value == 0) {
-            for (int i = 0; i < myFalseCommands.size(); i++) {
-                myFalseCommands.get(i).move(model, turtleNumber);
-                System.out.println(myFalseCommands.size());
-            }
-            if (model.getUserVariables().containsKey(myStringFalseCommands.get(myStringFalseCommands
 
-                    .size() - 1)[1])) {
+        for (int i = 0; i < myCommands.size(); i++) {
+            myCommands.get(i).move(model, turtleNumber);
+        }
+        if (model.getUserVariables().containsKey(myStringTrueCommands.get
+                                                 (myStringTrueCommands.size() - 1)[1])) {
 
-                return Double.parseDouble(model.getUserVariables()
-                        .get(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1]));
-            }
-            else {
-                return Double
-                        .parseDouble(myStringFalseCommands.get(myStringFalseCommands.size() - 1)[1]);
-            }
+            return Double.parseDouble(model.getUserVariables().get
+                                      (myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1]));
         }
         else {
-            for (int i = 0; i < myTrueCommands.size(); i++) {
-                myTrueCommands.get(i).move(model, turtleNumber);
-            }
-            if (model.getUserVariables().containsKey(myStringTrueCommands.get(myStringTrueCommands
-                    .size() - 1)[1])) {
-
-                return Double.parseDouble(model.getUserVariables()
-                        .get(myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1]));
-            }
-            else {
-                return Double
-                        .parseDouble(myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1]);
-            }
+            return Double.parseDouble(myStringTrueCommands.get(myStringTrueCommands.size()
+                                                          - 1)[1]);
         }
+
 
     }
 
