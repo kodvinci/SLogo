@@ -63,7 +63,7 @@ public class Turtle extends Animal {
         undoneTrails = new Trail();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
         mySizes = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Turtles");
-        System.out.println("Constructed");
+        myTurtleSize = TURTLESIZE;
     }
 
     /**

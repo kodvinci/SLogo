@@ -20,7 +20,7 @@ public class SetShape extends OneParameterCommand {
     public double move (Model model, int turtleNumber) {
         
         int index = (int) getMyValue();
-        model.getController().getView().getTurtleArea().getTurtle
+        model.getController().getView().getTurtleArea().getMyTurtle
             (turtleNumber).setTurtleShapeSize(index);
         return index;
     }

@@ -257,6 +257,9 @@ public abstract class Animal {
         // rotate area about this shape
         pen.rotate(-angle);
         // draw as usual (i.e., rotated)
+        if (size == null ){
+            System.out.println("Null");
+        }
         pen.drawImage(myImage, -size.width / 2, -size.height / 2, size.width, size.height, null);
         // restore graphics area to its old state, so our changes have no lasting effects
         pen.setTransform(old);
