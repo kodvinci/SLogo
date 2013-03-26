@@ -26,34 +26,35 @@ import util.Location;
  * 
  */
 public class TurtleArea extends Window {
+
     /**
      * 
      */
     public static final int NO_KEY_PRESSED = -1;
-
+    private static final int LIMIT = 9;
+    private static final int PENWIDTH = 4;
     private static final String RESOURCE = "/images/background/";
     private static final long serialVersionUID = 1L;
     private static final int FIRST_TURTLE = 0;
     private static final int GRID_VALUE = 100;
-    private Color trailColor = Color.BLACK;
     private static final Color GRID_COLOR = Color.BLACK;
     private static final int GRID_LABEL_OFFSET = 20;
     private boolean myToggledOn = true;
-    private boolean toggledOn = true;
-    private boolean dashed = true;
-    private boolean penIsDown = true;
+    private boolean myDashed = true;
+    private boolean myPenIsDown = true;
+    private Color myTrailColor = Color.BLACK;
     private Trail myTrail;
     private Canvas myView;
     private Map<Integer, Turtle> myTurtles;
-    private Set<Turtle> isActive;
-    private Set<Integer> unpaintedTrails;
-    private List<Turtle> lastEdited;
-    private List<Turtle> lastUndid;
+    private Set<Turtle> myIsActive;
+    private Set<Integer> myUnpaintedTrails;
+    private List<Turtle> myLastEdited;
+    private List<Turtle> myLastUndid;
     private List<Stamp> myStamps;
     private java.awt.Image myBackgroundImage;
-    private int penWidth = 4;
-    private Map<Integer, Color> colorPalette;
-    private int currentColorIndex = 0;
+    private int myPenWidth = PENWIDTH;
+    private Map<Integer, Color> myColorPalette;
+    private int myCurrentColorIndex = 0;
 
     /**
      * 
@@ -75,13 +76,13 @@ public class TurtleArea extends Window {
         myView = canvas;
         myTurtles = myTurtle;
         myTrail = myTurtles.get(FIRST_TURTLE).getTrail();
-        unpaintedTrails = new HashSet<Integer>();
-        isActive = new HashSet<Turtle>();
-        lastEdited = new ArrayList<Turtle>();
-        lastUndid = new ArrayList<Turtle>();
+        myUnpaintedTrails = new HashSet<Integer>();
+        myIsActive = new HashSet<Turtle>();
+        myLastEdited = new ArrayList<Turtle>();
+        myLastUndid = new ArrayList<Turtle>();
         myStamps = new ArrayList<Stamp>();
-        isActive.add(myTurtles.get(FIRST_TURTLE));
-        colorPalette = new HashMap<Integer, Color>();
+        myIsActive.add(myTurtles.get(FIRST_TURTLE));
+        myColorPalette = new HashMap<Integer, Color>();
 
         setVisible(true);
 
@@ -160,17 +161,17 @@ public class TurtleArea extends Window {
     private void paintTurtle (Graphics2D pen) {
 
         for (Turtle t : myTurtles.values()) {
-            if (isActive.contains(t)) {
-                t.changeTurtleImage("turtle2.gif");
-            }
+//            if (myIsActive.contains(t)) {
+//                t.changeTurtleImage("turtle2.gif");
+//            }
             t.paint(pen);
-            lastEdited.add(t);
-            if (penIsDown) {
+            myLastEdited.add(t);
+            if (myPenIsDown) {
                 t.addTrail();
             }
 
-            if (!penIsDown) {
-                unpaintedTrails.add(myTrail.getTrails().size());
+            if (!myPenIsDown) {
+                myUnpaintedTrails.add(myTrail.getTrails().size());
             }
         }
     }
@@ -190,16 +191,16 @@ public class TurtleArea extends Window {
      * Paints all trails that the turtle has traveled
      */
     private void paintTrails (Graphics2D pen) {
-        pen.setColor(trailColor);
-        if (dashed) {
+        pen.setColor(myTrailColor);
+        if (myDashed) {
             Stroke drawingStroke =
-                    new BasicStroke(penWidth, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0,
-                                    new float[] { 9 }, 0);
+                    new BasicStroke(myPenWidth, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0,
+                                    new float[] {LIMIT}, 0);
             pen.setStroke(drawingStroke);
         }
         // Sets to default stroke
         else {
-            pen.setStroke(new BasicStroke(penWidth));
+            pen.setStroke(new BasicStroke(myPenWidth));
         }
         List<Location> trails = myTrail.getTrails();
         if (!(trails.isEmpty())) {
@@ -207,7 +208,7 @@ public class TurtleArea extends Window {
             Location newLocation;
             for (int i = 1; i < trails.size(); i++) {
                 newLocation = trails.get(i);
-                if (!unpaintedTrails.contains(i)) {
+                if (!myUnpaintedTrails.contains(i)) {
                     pen.drawLine((int) prevLocation.getX(), (int) prevLocation.getY(),
                                  (int) newLocation.getX(), (int) newLocation.getY());
                 }
@@ -224,7 +225,7 @@ public class TurtleArea extends Window {
         if (myToggledOn) {
             pen.setColor(GRID_COLOR);
             pen.setStroke(new BasicStroke());
-            if (toggledOn) {
+            if (myToggledOn) {
                 for (int i = 0; i < getWidth(); i += GRID_VALUE) {
                     pen.drawLine(i, 0, i, getHeight());
                     pen.drawString(Integer.toString(i), i, GRID_LABEL_OFFSET);
@@ -266,7 +267,7 @@ public class TurtleArea extends Window {
      * sets pen to paint dashed lines for trails
      */
     public void setDashed () {
-        dashed = true;
+        myDashed = true;
         repaint();
     }
 
@@ -274,7 +275,7 @@ public class TurtleArea extends Window {
      * sets pen to paint solid lines for trails
      */
     public void setSolid () {
-        dashed = false;
+        myDashed = false;
         repaint();
     }
 
@@ -282,7 +283,7 @@ public class TurtleArea extends Window {
      * Tells pen not to paint grid
      */
     public void toggleGridOff () {
-        toggledOn = false;
+        myToggledOn = false;
         repaint();
     }
 
@@ -290,7 +291,7 @@ public class TurtleArea extends Window {
      * Tells pen to paint grid
      */
     public void toggleGridOn () {
-        toggledOn = true;
+        myToggledOn = true;
         repaint();
     }
 
@@ -298,14 +299,14 @@ public class TurtleArea extends Window {
      * Sets the pen to leave a trail
      */
     public void penDown () {
-        penIsDown = true;
+        myPenIsDown = true;
     }
 
     /**
      * Sets the pen not to leave a trail
      */
     public void penUp () {
-        penIsDown = false;
+        myPenIsDown = false;
     }
 
     /**
@@ -313,9 +314,9 @@ public class TurtleArea extends Window {
      * locations and adds it to list of undone locations
      */
     public void undo () {
-        Turtle toUndo = lastEdited.get(lastEdited.size() - 1);
+        Turtle toUndo = myLastEdited.get(myLastEdited.size() - 1);
         toUndo.undoMove();
-        lastUndid.add(toUndo);
+        myLastUndid.add(toUndo);
         repaint();
     }
 
@@ -324,9 +325,9 @@ public class TurtleArea extends Window {
      * locations and puts in lastEdited locations
      */
     public void redo () {
-        Turtle toRedo = lastUndid.get(lastUndid.size() - 1);
+        Turtle toRedo = myLastUndid.get(myLastUndid.size() - 1);
         toRedo.redoMove();
-        lastEdited.add(toRedo);
+        myLastEdited.add(toRedo);
         repaint();
     }
 
@@ -336,7 +337,7 @@ public class TurtleArea extends Window {
      *        Sets pen width to newWidth
      */
     public void editPenWidth (int newWidth) {
-        penWidth = newWidth;
+        myPenWidth = newWidth;
         repaint();
     }
 
@@ -352,7 +353,7 @@ public class TurtleArea extends Window {
      *        blue color value
      */
     public void addToColorPalette (int index, float r, float g, float b) {
-        colorPalette.put(index, new Color(r, g, b));
+        myColorPalette.put(index, new Color(r, g, b));
         setPenColor(index);
     }
 
@@ -362,9 +363,9 @@ public class TurtleArea extends Window {
      *        returns color based on index set by user
      */
     public void setPenColor (int index) {
-        if (colorPalette.containsKey(index)) {
-            trailColor = colorPalette.get(index);
-            currentColorIndex = index;
+        if (myColorPalette.containsKey(index)) {
+            myTrailColor = myColorPalette.get(index);
+            myCurrentColorIndex = index;
             repaint();
         }
     }
@@ -373,7 +374,7 @@ public class TurtleArea extends Window {
      * return the current color index
      */
     public int getCurrentColorIndex () {
-        return currentColorIndex;
+        return myCurrentColorIndex;
     }
 
     /**

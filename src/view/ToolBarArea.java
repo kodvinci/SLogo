@@ -28,8 +28,7 @@ public class ToolBarArea extends JMenuBar {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private static final String USER_DIR = "user.dir";
-    private static final String HELP_URL =
-            "https://www.cs.duke.edu/courses/cps108/compsci308/cps108/spring13/assign/03_slogo/commands.php";
+    private static final String HELP_URL = "https://www.cs.duke.edu/courses/cps108/compsci308/cps108/spring13/assign/03_slogo/commands.php";
     private static final Color TOOLBARCOLOR = Color.GREEN;
     private static final long serialVersionUID = 1L;
     private static final int NUM_SIZES = 5;
@@ -38,8 +37,8 @@ public class ToolBarArea extends JMenuBar {
     private ResourceBundle myResources;
     private ResourceBundle myTurtles;
     private ResourceBundle myBI;
-    private String[] backgroundImageList =
-    { "Brown", "CarolinaBlue", "DukeBlue", "Wooden", "Green" };
+    private String[] myBackgroundImageList =
+    {"Brown", "CarolinaBlue", "DukeBlue", "Wooden", "Green"};
 
     ToolBarArea (Controller control) {
         myController = control;
@@ -136,8 +135,8 @@ public class ToolBarArea extends JMenuBar {
 
         JMenu imageSubMenu = new JMenu(myResources.getString("BackgroundSubMenu"));
         JMenu colorSubMenu = new JMenu(myResources.getString("BackgroundColor"));
-        for (int i = 0; i < backgroundImageList.length; i++) {
-            imageSubMenu.add(setBackgroundImage(myBI.getString(backgroundImageList[i])));
+        for (int i = 0; i < myBackgroundImageList.length; i++) {
+            imageSubMenu.add(setBackgroundImage(myBI.getString(myBackgroundImageList[i])));
             int colorNum = i + 1;
             colorSubMenu
                     .add(setBackgroundColor(myBI.getString("Color" + Integer.toString(colorNum))));
