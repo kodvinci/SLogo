@@ -1,14 +1,13 @@
 package slogo;
 
+import behavior.ICommand;
+import exceptions.NoSuchVariableException;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import object.Turtle;
-import view.DisplayArea;
-import behavior.ICommand;
-import exceptions.NoSuchVariableException;
 
 
 /**
@@ -30,7 +29,10 @@ public class Model {
      * Default Frame size
      */
     public static final Dimension SIZE = new Dimension(1100, 700);
-
+    
+    /**
+     * Title of program
+     */
     public static final String TITLE = "SLOGO";
 
     private Map<String, ICommand> myUserToCommands = new HashMap<String, ICommand>();
@@ -38,7 +40,6 @@ public class Model {
     private List<Integer> myCurrentActivatedTurtles;
     private List<Integer> myFutureActivatedTurtles;
     private int myTurtleNumber;
-    private DisplayArea myDisplayArea;
     private Map<String, String> myVariables;
     private Controller myController;
     private int myModelID;
@@ -59,19 +60,36 @@ public class Model {
         myController = controller;
 
     }
-
+    
+    /**
+     * Get model id
+     * @return
+     */
     public int getID () {
         return myModelID;
     }
-
+    
+    /**
+     * get controller
+     * @return
+     */
     public Controller getController () {
         return myController;
     }
-
+    
+    /**
+     * add user defined commands
+     * @param string    String
+     * @param command   commands
+     */
     public void addUserCommands (String string, ICommand command) {
         myUserToCommands.put(string, command);
     }
-
+    
+    /**
+     * return user command map
+     * @return
+     */
     public Map<String, ICommand> getUserCommands () {
         return myUserToCommands;
     }
@@ -85,7 +103,10 @@ public class Model {
     public Turtle getMyTurtle (int index) {
         return myTurtles.get(index);
     }
-
+    
+    /**
+     * adds a new turtle
+     */
     public void addNewTurtle () {
         Turtle turtle = new Turtle();
         myTurtles.put(myTurtleNumber, turtle);
@@ -140,11 +161,20 @@ public class Model {
         if (!myVariables.containsKey(name)) { throw new NoSuchVariableException(); }
         return Double.parseDouble(myVariables.get(name));
     }
-
+    
+    /**
+     * set variable value
+     * @param key       string key
+     * @param value     value
+     */
     public void setVariableValue (String key, Double value) {
         myVariables.put(key, value + "");
     }
-
+    
+    /**
+     * get usre variables
+     * @return
+     */
     public Map<String, String> getUserVariables () {
         return myVariables;
     }
@@ -155,29 +185,50 @@ public class Model {
     public void clearVariable () {
         myVariables.clear();
     }
-
+    
+    /**
+     * clear future activiated turtles
+     */
     public void clearFutureActivatedTurtles () {
         myFutureActivatedTurtles.clear();
     }
-
+    
+    /**
+     * activated turtles
+     */
     public void activatedAllTurtles () {
         for (int i = 0; i < myTurtleNumber; i++) {
             myFutureActivatedTurtles.add(i);
         }
     }
-
+    
+    /**
+     * add future activated turtles
+     * @param turtleIndex       turtle index
+     */
     public void addFutureActivatedTurtles (int turtleIndex) {
         myFutureActivatedTurtles.add(turtleIndex);
     }
-
+    
+    /**
+     * get current activated turtles
+     * @return
+     */
     public List<Integer> getMyCurrentActivatedTurtles () {
         return myCurrentActivatedTurtles;
     }
-
+    
+    /**
+     * replace activated turltes
+     */
     public void replaceActivatedTurtles () {
         myCurrentActivatedTurtles = new ArrayList<Integer>(myFutureActivatedTurtles);
     }
-
+    
+    /**
+     * add current activated turtles
+     * @param turtleIndex turlte index
+     */
     public void addCurrentActivatedTurtles (int turtleIndex) {
         myCurrentActivatedTurtles.add(turtleIndex);
     }

@@ -9,6 +9,7 @@ import view.Canvas;
 import view.MessageWindow;
 
 
+
 /**
  * 
  * @author Richard Yang & Jerry Li
@@ -63,11 +64,8 @@ public class Controller {
     }
 
     /**
-     * Process user input
-     * 
-     * @param seq sequence
-     * @param string string
-     * 
+     * process user input
+     * @param string    string
      */
     public void processUserInput (String string) {
 
@@ -76,6 +74,7 @@ public class Controller {
         for (Model m : myModels.values()) {
             for (int i : m.getMyCurrentActivatedTurtles()) {
                 try {
+                    System.out.println("turtle number : " + i);
                     myInterpreter.process(m, i, string);
                 }
                 catch (Exception e) {
@@ -160,10 +159,9 @@ public class Controller {
     }
 
     /**
-     * Return a model at an inex
-     * 
-     * @param seq the index
-     * @return the model
+     * Return a model
+     * @param model     model
+     * @return
      */
     public Model getModel (Model model) {
         return myModels.get(model.getID());
@@ -188,8 +186,9 @@ public class Controller {
     }
 
     /**
-     * return turtle
-     * 
+     * Return a turtle
+     * @param modelIndex        index of model
+     * @param turtleIndex       index of turtle
      * @return
      */
     public Turtle getMyTurtle (int modelIndex, int turtleIndex) {
@@ -197,8 +196,8 @@ public class Controller {
     }
 
     /**
-     * Returns list of turtles
-     * 
+     * Return turtle list
+     * @param modelIndex        the model index
      * @return
      */
     public Map<Integer, Turtle> getMyTurtles (int modelIndex) {
@@ -213,7 +212,11 @@ public class Controller {
     public Canvas getView () {
         return myView;
     }
-
+    
+    /**
+     * Shows a message
+     * @param message   message
+     */
     public void showMessage (String message) {
         myMessageWindow = new MessageWindow(this, message);
     }

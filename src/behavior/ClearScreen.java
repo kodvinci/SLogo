@@ -14,7 +14,7 @@ import view.Canvas;
 public class ClearScreen extends Home {
 
     /**
-     * the parameter number of this ceratin command
+     * the parameter number of this certain command
      */
     public static final int PARAMETER_NUMBER = 0;
 
@@ -22,7 +22,7 @@ public class ClearScreen extends Home {
     public double move (Model model, int turtleNumber) {
 
         model.getMyTurtle(turtleNumber).clearTrail();
-        model.getMyTurtle(turtleNumber).initialize();
+        super.move(model, turtleNumber);
         return Math.sqrt(Math.pow(model.getMyTurtle(turtleNumber).getX() -
                                   Canvas.TURTLE_AREA_SIZE.getWidth() / 2, 2) +
                          Math.pow(model.getMyTurtle(turtleNumber).getY() -

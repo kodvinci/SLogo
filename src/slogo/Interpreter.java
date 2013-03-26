@@ -1,9 +1,8 @@
 package slogo;
 
+import behavior.ICommand;
 import java.util.ArrayList;
 import java.util.List;
-import behavior.ICommand;
-import exceptions.ParameterException;
 
 
 /**
@@ -23,28 +22,25 @@ public class Interpreter {
     }
 
     /**
-     * parse user input
-     * 
-     * @param command command we want to parse
-     * @param myCommandList command list after parsed
-     * @param model model we want to operate
-     * @throws Exception
-     * @throws ParameterException
+     * parse commands  
+     * @param command           user input
+     * @param myCommandList     list of commands
+     * @param model             model
+     * @throws Exception        exception
      */
-
-    public void parse (String command, List<ICommand> myCommandList, Model model)
-                                                                                 throws Exception {
+    public void parse (String command, List<ICommand> myCommandList, 
+                       Model model) throws Exception {
 
         myParser.parse(command, myCommandList, model);
 
     }
 
     /**
-     * this method can finish the process of input commands.
-     * 
-     * @param model the model
-     * @param commands input of user
-     * @throws Exception
+     * process user input
+     * @param model             model
+     * @param turtleNumber      turtle number
+     * @param commands          commands
+     * @throws Exception        exception
      */
     public void process (Model model, int turtleNumber, String commands) throws Exception {
         List<ICommand> myCommandList = new ArrayList<ICommand>();

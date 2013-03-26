@@ -35,19 +35,14 @@ public class ToolBarArea extends JMenuBar {
     private ResourceBundle myResources;
     private ResourceBundle myTurtles;
     private ResourceBundle myBackgroundImages;
-    private ResourceBundle myColors;
-    private String myBackgroundColor;
-    private String myBackgroundImage;
+    private String[] backgroundImageList={"Brown", "CarolinaBlue", "DukeBlue", "Wooden", "Green" };
 
     ToolBarArea (Controller control) {
         myController = control;
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
         myBackgroundImages = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Background");
-
-        myColors = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Colors");
         myTurtles = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Turtles");
-
         setBackground(TOOLBARCOLOR);
         this.add(makeFileMenu());
         this.add(makeTurtleMenu());
@@ -120,11 +115,7 @@ public class ToolBarArea extends JMenuBar {
             @Override
             public void actionPerformed (ActionEvent e) {
                 String htmlPath =
-                        "https://www.cs.duke.edu/courses/cps108/compsci308/cps108/spring13/assign/03_slogo/commands.php"; // path
-                                                                                                                          // to
-                                                                                                                          // your
-                                                                                                                          // new
-                                                                                                                          // file
+                        "https://www.cs.duke.edu/courses/cps108/compsci308/cps108/spring13/assign/03_slogo/commands.php"; 
 
                 try {
                     java.awt.Desktop.getDesktop().browse(java.net.URI.create(htmlPath));
@@ -256,42 +247,18 @@ public class ToolBarArea extends JMenuBar {
         JMenu result = new JMenu(myResources.getString("BackgroundMenu"));
 
         JMenu imageSubMenu = new JMenu(myResources.getString("BackgroundSubMenu"));
-        myBackgroundImage = myBackgroundImages.getString("Brown");
-        imageSubMenu.add(setBackgroundImage(myBackgroundImage));
-
-        myBackgroundImage = myBackgroundImages.getString("CarolinaBlue");
-        imageSubMenu.add(setBackgroundImage(myBackgroundImage));
-
-        myBackgroundImage = myBackgroundImages.getString("DukeBlue");
-        imageSubMenu.add(setBackgroundImage(myBackgroundImage));
-
-        myBackgroundImage = myBackgroundImages.getString("Green");
-        imageSubMenu.add(setBackgroundImage(myBackgroundImage));
-
-        myBackgroundImage = myBackgroundImages.getString("Wooden");
-        imageSubMenu.add(setBackgroundImage(myBackgroundImage));
-
         JMenu colorSubMenu = new JMenu(myResources.getString("BackgroundColor"));
-        myBackgroundColor = myBackgroundImages.getString("Color1");
-        colorSubMenu.add(setBackgroundColor(myBackgroundColor));
-
-        myBackgroundColor = myBackgroundImages.getString("Color2");
-        colorSubMenu.add(setBackgroundColor(myBackgroundColor));
-
-        myBackgroundColor = myBackgroundImages.getString("Color3");
-        colorSubMenu.add(setBackgroundColor(myBackgroundColor));
-
-        myBackgroundColor = myBackgroundImages.getString("Color4");
-        colorSubMenu.add(setBackgroundColor(myBackgroundColor));
-
-        myBackgroundColor = myBackgroundImages.getString("Color5");
-        colorSubMenu.add(setBackgroundColor(myBackgroundColor));
-
+        for (int i=0; i<backgroundImageList.length; i++){
+        	imageSubMenu.add(setBackgroundImage(myBackgroundImages.getString(backgroundImageList[i])));
+        	int colorNum= i+1; 
+        	colorSubMenu.add(setBackgroundColor(myBackgroundImages.getString("Color"+Integer.toString(colorNum))));
+        }
         result.add(imageSubMenu);
         result.add(colorSubMenu);
         return result;
     }
-
+    
+    
     private AbstractAction setBackgroundImage (String backgroundImage) {
         final String BACKGROUND_IMAGE = backgroundImage;
         AbstractAction action = new AbstractAction(backgroundImage) {
@@ -322,7 +289,6 @@ public class ToolBarArea extends JMenuBar {
         JMenu result = new JMenu(myResources.getString("PenMenu"));
 
         JMenu subMenu = new JMenu(myResources.getString("PenProperties"));
-        JMenu colorMenu = new JMenu(myResources.getString("Colors"));
         result.add(new AbstractAction(myResources.getString("UpCommand")) {
             private static final long serialVersionUID = 1L;
 
@@ -356,48 +322,6 @@ public class ToolBarArea extends JMenuBar {
                 myController.getView().getTurtleArea().setSolid();
             }
         });
-        colorMenu.add(new AbstractAction(myColors.getString("Black")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getView().getTurtleArea().setTrailColor(1);
-            }
-        });
-        colorMenu.add(new AbstractAction(myColors.getString("Blue")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getView().getTurtleArea().setTrailColor(2);
-            }
-        });
-        colorMenu.add(new AbstractAction(myColors.getString("Green")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getView().getTurtleArea().setTrailColor(3);
-            }
-        });
-        colorMenu.add(new AbstractAction(myColors.getString("Red")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getView().getTurtleArea().setTrailColor(4);
-            }
-        });
-        colorMenu.add(new AbstractAction(myColors.getString("Yellow")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myController.getView().getTurtleArea().setTrailColor(5);
-            }
-        });
-
-        result.add(colorMenu);
         result.add(subMenu);
         return result;
 
