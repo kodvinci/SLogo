@@ -12,7 +12,7 @@ import slogo.Parser;
  * 
  */
 public class Repeat implements ICommand {
-    
+
     /**
      * Number of parameters command takes
      */
@@ -24,13 +24,13 @@ public class Repeat implements ICommand {
     private List<String[]> myListOfCommands;
     private List<ICommand> myBracketCommandsList;
 
-    
     /**
-     * Construct commands from bracket 
-     * @param value             repeat number
-     * @param bracket           commands in bracket
-     * @param model             model
-     * @throws Exception        exception
+     * Construct commands from bracket
+     * 
+     * @param value repeat number
+     * @param bracket commands in bracket
+     * @param model model
+     * @throws Exception exception
      */
     public void construct (String value, String bracket, Model model) throws Exception {
         myValue = Integer.parseInt(value);
@@ -38,19 +38,19 @@ public class Repeat implements ICommand {
         myBracketCommandsList = createCommandsList(myPrunedStringCommands, model);
 
     }
-    
+
     /**
      * Creates list of commands
-     * @param commands  commands
-     * @param model     model
+     * 
+     * @param commands commands
+     * @param model model
      * @return
-     * @throws Exception        exception
+     * @throws Exception exception
      */
     public List<ICommand> createCommandsList (String commands, Model model) throws Exception {
         myListOfCommands = myParser.split(myPrunedStringCommands, model);
         return myParser.buildMultipleCommands(myListOfCommands, model);
     }
-
 
     @Override
     public double move (Model model, int turtleNumber) throws Exception {

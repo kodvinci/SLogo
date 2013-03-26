@@ -1,10 +1,10 @@
 package behavior;
 
-import exceptions.ParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import slogo.Model;
 import slogo.Parser;
+import exceptions.ParameterException;
 
 
 /**
@@ -19,7 +19,7 @@ public class IfElse implements ICommand {
      * Resources for commands
      */
     public static final int PARAMETER_NUMBER = 3;
-    
+
     private List<String[]> myStringTrueCommands;
     private List<String[]> myStringFalseCommands;
     private List<ICommand> myCommands;
@@ -30,38 +30,38 @@ public class IfElse implements ICommand {
 
     /**
      * Constructs false commands and true commands
-     * @param value             value after IFELSE 
-     * @param firstBracket      true commands
-     * @param secondBracket     false commands
-     * @param model             model
-     * @throws Exception        exception
+     * 
+     * @param value value after IFELSE
+     * @param firstBracket true commands
+     * @param secondBracket false commands
+     * @param model model
+     * @throws Exception exception
      */
     public void construct (String value, String firstBracket, String secondBracket,
                            Model model) throws Exception {
 
-        if (!myParser.getNumPattern().matcher(value).matches()) { 
-            throw new ParameterException(myParameterExceptionMessage); 
-        }
+        if (!myParser.getNumPattern().matcher(value).matches()) { throw new ParameterException(
+                                                                                               myParameterExceptionMessage); }
         parse(value, firstBracket, secondBracket, model);
         myCommands = new ArrayList<ICommand>();
 
         mapTrueCommandsAndFalseCommands(myStringTrueCommands, myStringFalseCommands, model, myValue);
     }
-    
+
     /**
      * Get rid of extra brackets and spaces
-     * @param value             value after IFELSE
-     * @param firstBracket      true commands
-     * @param secondBracket     false commands
-     * @param model             model
-     * @throws Exception        Exception
+     * 
+     * @param value value after IFELSE
+     * @param firstBracket true commands
+     * @param secondBracket false commands
+     * @param model model
+     * @throws Exception Exception
      */
-    public void parse (String value, String firstBracket, String secondBracket, 
+    public void parse (String value, String firstBracket, String secondBracket,
                        Model model) throws Exception {
-        
-        if (!myParser.getNumPattern().matcher(value).matches()) { 
-            throw new ParameterException("ParameterException"); 
-        }
+
+        if (!myParser.getNumPattern().matcher(value).matches()) { throw new ParameterException(
+                                                                                               "ParameterException"); }
         String firstBracketPruned = myParser.prune(firstBracket);
         String secondBracketPruned = myParser.prune(secondBracket);
         myStringTrueCommands = myParser.split(firstBracketPruned, model);
@@ -81,17 +81,18 @@ public class IfElse implements ICommand {
 
     /**
      * Build commands and put them in respective list
-     * @param trueCommands      true commands
-     * @param falseCommands     false commands
-     * @param model             model
-     * @param value             value
-     * @throws Exception        Exception
+     * 
+     * @param trueCommands true commands
+     * @param falseCommands false commands
+     * @param model model
+     * @param value value
+     * @throws Exception Exception
      */
-    public void mapTrueCommandsAndFalseCommands (List<String[]> trueCommands, 
-                                                 List<String[]> falseCommands, 
+    public void mapTrueCommandsAndFalseCommands (List<String[]> trueCommands,
+                                                 List<String[]> falseCommands,
                                                  Model model, int value) throws Exception {
 
-        if (value == 1) {  
+        if (value == 1) {
             myCommands = buildCommands(trueCommands, model);
         }
         else if (value == 0) {
@@ -101,12 +102,13 @@ public class IfElse implements ICommand {
 
     /**
      * build commands from list
-     * @param commands  commands
-     * @param model     model
-     * @return  
-     * @throws Exception        exception
+     * 
+     * @param commands commands
+     * @param model model
+     * @return
+     * @throws Exception exception
      */
-    public List<ICommand> buildCommands (List<String[]> commands, 
+    public List<ICommand> buildCommands (List<String[]> commands,
                                          Model model) throws Exception {
         List<ICommand> theCommands = myParser.buildMultipleCommands(commands, model);
         return theCommands;
@@ -117,7 +119,7 @@ public class IfElse implements ICommand {
      * 
      * @param model the model
      * @param turtleNumber the turtle
-     * @throws Exception        exception
+     * @throws Exception exception
      * 
      */
     @Override
@@ -133,7 +135,7 @@ public class IfElse implements ICommand {
      * @param turtleNumber the turtle
      * @param value the value
      * @return
-     * @throws Exception        exception
+     * @throws Exception exception
      */
     public double move (Model model, int turtleNumber, double value) throws Exception {
 
@@ -141,16 +143,15 @@ public class IfElse implements ICommand {
             myCommands.get(i).move(model, turtleNumber);
         }
         if (model.getUserVariables().containsKey(myStringTrueCommands.get
-                                                 (myStringTrueCommands.size() - 1)[1])) {
+                (myStringTrueCommands.size() - 1)[1])) {
 
             return Double.parseDouble(model.getUserVariables().get
-                                      (myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1]));
+                    (myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1]));
         }
         else {
             return Double.parseDouble(myStringTrueCommands.get(myStringTrueCommands.size()
-                                                          - 1)[1]);
+                    - 1)[1]);
         }
-
 
     }
 

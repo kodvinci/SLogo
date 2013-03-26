@@ -1,8 +1,8 @@
 package slogo;
 
-import behavior.ICommand;
 import java.util.ArrayList;
 import java.util.List;
+import behavior.ICommand;
 
 
 /**
@@ -22,13 +22,14 @@ public class Interpreter {
     }
 
     /**
-     * parse commands  
-     * @param command           user input
-     * @param myCommandList     list of commands
-     * @param model             model
-     * @throws Exception        exception
+     * parse commands
+     * 
+     * @param command user input
+     * @param myCommandList list of commands
+     * @param model model
+     * @throws Exception exception
      */
-    public void parse (String command, List<ICommand> myCommandList, 
+    public void parse (String command, List<ICommand> myCommandList,
                        Model model) throws Exception {
 
         myParser.parse(command, myCommandList, model);
@@ -37,10 +38,11 @@ public class Interpreter {
 
     /**
      * process user input
-     * @param model             model
-     * @param turtleNumber      turtle number
-     * @param commands          commands
-     * @throws Exception        exception
+     * 
+     * @param model model
+     * @param turtleNumber turtle number
+     * @param commands commands
+     * @throws Exception exception
      */
     public void process (Model model, int turtleNumber, String commands) throws Exception {
         List<ICommand> myCommandList = new ArrayList<ICommand>();

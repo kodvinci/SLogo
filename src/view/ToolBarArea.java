@@ -35,7 +35,8 @@ public class ToolBarArea extends JMenuBar {
     private ResourceBundle myResources;
     private ResourceBundle myTurtles;
     private ResourceBundle myBackgroundImages;
-    private String[] backgroundImageList={"Brown", "CarolinaBlue", "DukeBlue", "Wooden", "Green" };
+    private String[] backgroundImageList =
+            { "Brown", "CarolinaBlue", "DukeBlue", "Wooden", "Green" };
 
     ToolBarArea (Controller control) {
         myController = control;
@@ -115,7 +116,7 @@ public class ToolBarArea extends JMenuBar {
             @Override
             public void actionPerformed (ActionEvent e) {
                 String htmlPath =
-                        "https://www.cs.duke.edu/courses/cps108/compsci308/cps108/spring13/assign/03_slogo/commands.php"; 
+                        "https://www.cs.duke.edu/courses/cps108/compsci308/cps108/spring13/assign/03_slogo/commands.php";
 
                 try {
                     java.awt.Desktop.getDesktop().browse(java.net.URI.create(htmlPath));
@@ -197,7 +198,7 @@ public class ToolBarArea extends JMenuBar {
                 myController.getView().update();
             }
         });
-        
+
         subMenu2.add(new AbstractAction(myTurtles.getString("2")) {
             private static final long serialVersionUID = 1L;
 
@@ -207,7 +208,7 @@ public class ToolBarArea extends JMenuBar {
                 myController.getView().update();
             }
         });
-        
+
         subMenu2.add(new AbstractAction(myTurtles.getString("3")) {
             private static final long serialVersionUID = 1L;
 
@@ -217,7 +218,7 @@ public class ToolBarArea extends JMenuBar {
                 myController.getView().update();
             }
         });
-        
+
         subMenu2.add(new AbstractAction(myTurtles.getString("4")) {
             private static final long serialVersionUID = 1L;
 
@@ -227,7 +228,7 @@ public class ToolBarArea extends JMenuBar {
                 myController.getView().update();
             }
         });
-        
+
         subMenu2.add(new AbstractAction(myTurtles.getString("5")) {
             private static final long serialVersionUID = 1L;
 
@@ -237,7 +238,7 @@ public class ToolBarArea extends JMenuBar {
                 myController.getView().update();
             }
         });
-        
+
         result.add(subMenu);
         result.add(subMenu2);
         return result;
@@ -248,17 +249,19 @@ public class ToolBarArea extends JMenuBar {
 
         JMenu imageSubMenu = new JMenu(myResources.getString("BackgroundSubMenu"));
         JMenu colorSubMenu = new JMenu(myResources.getString("BackgroundColor"));
-        for (int i=0; i<backgroundImageList.length; i++){
-        	imageSubMenu.add(setBackgroundImage(myBackgroundImages.getString(backgroundImageList[i])));
-        	int colorNum= i+1; 
-        	colorSubMenu.add(setBackgroundColor(myBackgroundImages.getString("Color"+Integer.toString(colorNum))));
+        for (int i = 0; i < backgroundImageList.length; i++) {
+            imageSubMenu
+                    .add(setBackgroundImage(myBackgroundImages.getString(backgroundImageList[i])));
+            int colorNum = i + 1;
+            colorSubMenu
+                    .add(setBackgroundColor(myBackgroundImages.getString("Color" +
+                                                                         Integer.toString(colorNum))));
         }
         result.add(imageSubMenu);
         result.add(colorSubMenu);
         return result;
     }
-    
-    
+
     private AbstractAction setBackgroundImage (String backgroundImage) {
         final String BACKGROUND_IMAGE = backgroundImage;
         AbstractAction action = new AbstractAction(backgroundImage) {

@@ -1,10 +1,10 @@
 package behavior;
 
-import exceptions.NoSuchCommandException;
 import java.util.ArrayList;
 import java.util.List;
 import slogo.Model;
 import slogo.Parser;
+import exceptions.NoSuchCommandException;
 
 
 /**
@@ -14,7 +14,7 @@ import slogo.Parser;
  * 
  */
 public class To implements ICommand {
-    
+
     /**
      * Number of parameters command takes
      */
@@ -24,25 +24,27 @@ public class To implements ICommand {
     private String[] myCommands;
     private String myName;
     private Parser myParser = new Parser();
-    
+
     /**
      * Construct commands from bracketed variables and commands
-     * @param value             name of command
-     * @param firstBracket      variables
-     * @param secondBracket     commands
-     * @param model             model
-     * @throws Exception        Exception
+     * 
+     * @param value name of command
+     * @param firstBracket variables
+     * @param secondBracket commands
+     * @param model model
+     * @throws Exception Exception
      */
-    public void construct (String value, String firstBracket, String secondBracket, 
+    public void construct (String value, String firstBracket, String secondBracket,
                            Model model) throws Exception {
 
         parse(firstBracket, secondBracket);
         mapParameterToCommand(myVariables, myCommands, model);
         model.addUserCommands(value, this);
     }
-    
+
     /**
      * Checks to see if there are same number of variables and commands
+     * 
      * @return
      */
     public int checkLegal () {
@@ -53,22 +55,21 @@ public class To implements ICommand {
             return 0;
         }
     }
-    
+
     /**
      * Parse extra spaces and brackets
-     * @param firstBracket      variables
-     * @param secondBracket     commands
+     * 
+     * @param firstBracket variables
+     * @param secondBracket commands
      */
     public void parse (String firstBracket, String secondBracket) {
 
-        //String firstBracketPruned = firstBracket.substring(1, firstBracket.length() - 1);
-        //String secondBracketPruned = secondBracket.substring(1, secondBracket.length() - 1);
+        // String firstBracketPruned = firstBracket.substring(1, firstBracket.length() - 1);
+        // String secondBracketPruned = secondBracket.substring(1, secondBracket.length() - 1);
         myVariables = myParser.splitBlanksInsideBracket(firstBracket);
         myCommands = myParser.splitBlanksInsideBracket(secondBracket);
 
     }
-
-    
 
     /**
      * return name
@@ -81,12 +82,13 @@ public class To implements ICommand {
 
     /**
      * Maps variable to command, creating the command and adding it to a list
-     * @param variables         variables
-     * @param commands          commands
-     * @param model             model
-     * @throws Exception        exception
+     * 
+     * @param variables variables
+     * @param commands commands
+     * @param model model
+     * @throws Exception exception
      */
-    public void mapParameterToCommand (String[] variables, String[] commands, 
+    public void mapParameterToCommand (String[] variables, String[] commands,
                                        Model model) throws Exception {
         if (checkLegal() == 0) { throw new NoSuchCommandException(); }
         for (int i = 0; i < commands.length; i++) {
@@ -95,7 +97,7 @@ public class To implements ICommand {
             String variable = variables[i];
             // System.out.println(Arrays.toString(variable));
 
-            String[] str = {command, variable};
+            String[] str = { command, variable };
             ICommand myCommand = myParser.buildCommand(str, model);
             myCommandList.add(myCommand);
             model.addVariable(":TO" + Integer.toString(i), variable);
@@ -106,9 +108,9 @@ public class To implements ICommand {
     /**
      * Move
      * 
-     * @param model          the model
-     * @param turtleNumber   the turtle
-     * @throws Exception     exception
+     * @param model the model
+     * @param turtleNumber the turtle
+     * @throws Exception exception
      */
     @Override
     public double move (Model model, int turtleNumber) throws Exception {

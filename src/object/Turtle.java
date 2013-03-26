@@ -35,7 +35,7 @@ public class Turtle extends Animal {
     private Dimension myTurtleSize;
     private ResourceBundle myResources;
     private ResourceBundle mySizes;
-    
+
     /**
      * Constructs turtle object
      * 
@@ -48,7 +48,7 @@ public class Turtle extends Animal {
         myAngle = angle;
         myTrail = new Trail();
         undoneTrails = new Trail();
-        
+
     }
 
     /**
@@ -214,21 +214,21 @@ public class Turtle extends Animal {
             setCenter(lastUndoneTrail);
         }
     }
-    
+
     /**
      * 
      * @return
-     *      turtle image
+     *         turtle image
      */
     public Pixmap getTurtleImage () {
         return TURTLE_IMAGE;
     }
-    
+
     /**
      * 
-     * @param index     index of shape in resource file
+     * @param index index of shape in resource file
      */
-    public void setTurtleShapeSize(int index) {
+    public void setTurtleShapeSize (int index) {
         String size = mySizes.getString(Integer.toString(index));
         if (size != null) {
             String[] values = size.split(",");
