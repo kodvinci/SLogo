@@ -63,10 +63,10 @@ public class ToolBarArea extends JMenuBar {
         createOpenCommand(result);
         createUndoCommand(result);
         createRedoCommand(result);
+        result.add(new JSeparator());
         createHelpCommand(result);
         createQuitCommand(result);
 
-        result.add(new JSeparator());
 
         return result;
     }
