@@ -272,29 +272,6 @@ public class TurtleArea extends Window {
         penIsDown = false;
     }
 
-    /**
-     * 
-     * @param color
-     */
-    public void setTrailColor (int color) {
-        switch (color) {
-            case 1:
-                trailColor = Color.BLACK;
-                break;
-            case 2:
-                trailColor = Color.BLUE;
-                break;
-            case 3:
-                trailColor = Color.GREEN;
-                break;
-            case 4:
-                trailColor = Color.RED;
-                break;
-            case 5:
-                trailColor = Color.YELLOW;
-        }
-        repaint();
-    }
 
     public void undo () {
         Turtle toUndo = lastEdited.get(lastEdited.size() - 1);

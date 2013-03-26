@@ -35,7 +35,6 @@ public class ToolBarArea extends JMenuBar {
     private ResourceBundle myResources;
     private ResourceBundle myTurtles;
     private ResourceBundle myBackgroundImages;
-    private ResourceBundle myColors;
     private String[] backgroundImageList={"Brown", "CarolinaBlue", "DukeBlue", "Wooden", "Green" };
 
     ToolBarArea (Controller control) {
@@ -43,8 +42,6 @@ public class ToolBarArea extends JMenuBar {
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
         myBackgroundImages = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Background");
-
-        myColors = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Colors");
         myTurtles = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Turtles");
         setBackground(TOOLBARCOLOR);
         this.add(makeFileMenu());
@@ -241,7 +238,6 @@ public class ToolBarArea extends JMenuBar {
         JMenu result = new JMenu(myResources.getString("PenMenu"));
 
         JMenu subMenu = new JMenu(myResources.getString("PenProperties"));
-        JMenu colorMenu = new JMenu(myResources.getString("Colors"));
         result.add(new AbstractAction(myResources.getString("UpCommand")) {
             private static final long serialVersionUID = 1L;
 
