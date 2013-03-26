@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
  * http://en.wikipedia.org/wiki/Sprite_(computer_graphics)
  * 
  * @author Robert C. Duvall, Richard Yang
+ * @author Leonard
  */
 public abstract class Animal {
     // canonical directions for a collision
@@ -62,7 +63,6 @@ public abstract class Animal {
         myOriginalView = new Pixmap(image);
         myImage = new ImageIcon(getClass().getResource(RL + image.getImageFileName())).getImage();
         reset();
-
         resetBounds();
     }
 
