@@ -227,6 +227,7 @@ public class Turtle extends Animal {
      * @param index index of shape in resource file
      */
     public void setTurtleShapeSize (int index) {
+        System.out.println("turlte size");
         String size = mySizes.getString(Integer.toString(index));
         if (size != null) {
             myIndex = index;

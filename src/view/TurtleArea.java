@@ -104,6 +104,7 @@ public class TurtleArea extends Window {
      *         Returns requested Turtle based on index
      */
     public Turtle getMyTurtle (int index) {
+        System.out.println("test");
         return myTurtles.get(index);
     }
 
