@@ -35,6 +35,8 @@ Extended original design to allow nested and implemented reflection that makes	 
 Alan and Leonard- View
 	Both-
 		Creation of Command Area, Display Area, Canvas, ToolBarArea, TurtleArea and Window
+		
+		
 	Leonard- Creation of Message Window, Saving and Loading functionalities, Changing turtle and background functionalities, clickable commands and procedures and variables
 
 	Alan- Pen functionalities, painting trails, grid painting and toggling, creation of color palette, undo and redo functionality, creation of stamps and their functionality, Help functionality
