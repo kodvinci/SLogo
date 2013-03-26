@@ -16,9 +16,11 @@ public class SetShape extends OneParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) {
-
-        // TO DO : call method in model to change shape
-        return 0;
+        
+        int index = (int) getMyValue();
+        model.getController().getView().getTurtleArea().getTurtle
+            (turtleNumber).setTurtleShapeSize(index);
+        return index;
     }
 
 }
