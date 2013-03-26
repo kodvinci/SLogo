@@ -60,7 +60,6 @@ public class Repeat implements ICommand {
             myBracketCommandsList = createCommandsList(myPrunedStringCommands, model);
 
             for (int i = 0; i < myBracketCommandsList.size(); i++) {
-                System.out.println("Is repeat repeating? " + myValue);
                 myBracketCommandsList.get(i).move(model, turtleNumber);
             }
             model.addVariable(":repcount", Integer.toString(count));
@@ -80,7 +79,6 @@ public class Repeat implements ICommand {
 
     @Override
     public void initialize (String[] information, Model model) throws Exception {
-        System.out.println("REPEAT Initialization Successful");
         construct(information[0], information[1], model);
     }
 

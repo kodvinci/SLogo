@@ -63,11 +63,10 @@ public class To implements ICommand {
      * @param secondBracket commands
      */
     public void parse (String firstBracket, String secondBracket) {
-
-        // String firstBracketPruned = firstBracket.substring(1, firstBracket.length() - 1);
-        // String secondBracketPruned = secondBracket.substring(1, secondBracket.length() - 1);
+        
         myVariables = myParser.splitBlanksInsideBracket(firstBracket);
         myCommands = myParser.splitBlanksInsideBracket(secondBracket);
+        
 
     }
 
@@ -93,15 +92,11 @@ public class To implements ICommand {
         if (checkLegal() == 0) { throw new NoSuchCommandException(); }
         for (int i = 0; i < commands.length; i++) {
             String command = commands[i];
-            // System.out.println(Arrays.toString(command));
             String variable = variables[i];
-            // System.out.println(Arrays.toString(variable));
-
             String[] str = { command, variable };
             ICommand myCommand = myParser.buildCommand(str, model);
             myCommandList.add(myCommand);
             model.addVariable(":TO" + Integer.toString(i), variable);
-            // System.out.println(myCommandList.size());
         }
     }
 
@@ -123,8 +118,6 @@ public class To implements ICommand {
 
     @Override
     public void initialize (String[] information, Model model) throws Exception {
-        System.out.println("initialize successful");
-        System.out.println("subarray size" + information.length);
         construct(information[0], information[1], information[2], model);
     }
 

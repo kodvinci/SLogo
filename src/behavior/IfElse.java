@@ -144,7 +144,6 @@ public class IfElse implements ICommand {
         }
         if (model.getUserVariables().containsKey(myStringTrueCommands.get
                 (myStringTrueCommands.size() - 1)[1])) {
-
             return Double.parseDouble(model.getUserVariables().get
                     (myStringTrueCommands.get(myStringTrueCommands.size() - 1)[1]));
         }
@@ -157,8 +156,6 @@ public class IfElse implements ICommand {
 
     @Override
     public void initialize (String[] information, Model model) throws Exception {
-        System.out.println("initialize successful");
-        System.out.println("subarray size" + information.length);
         construct(information[0], information[1], information[2], model);
     }
 

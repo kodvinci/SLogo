@@ -14,9 +14,7 @@ import java.util.regex.Pattern;
  * parse the command
  * 
  * @author Richard Yang
- *         Parses input
- * 
- * @author Richard, Jerry
+ 
  * 
  */
 public class Parser {
@@ -137,7 +135,8 @@ public class Parser {
                 string.get(i).charAt(0) == '[') {
                 i++;
             }
-            else if (myResources.containsKey(string.get(i).toUpperCase())) {
+            else if (myResources.containsKey(string.get(i).toUpperCase()) || 
+                    model.getUserCommands().containsKey(string.get(i).toUpperCase())) {
                 commandName.add(string.get(i));
                 i++;
             }

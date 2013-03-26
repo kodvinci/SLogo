@@ -85,7 +85,6 @@ public class If implements ICommand {
 
     @Override
     public void initialize (String[] information, Model model) throws Exception {
-        System.out.println("IF initialization successful");
         construct(information[0], information[1], model);
     }
 
