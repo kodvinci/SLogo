@@ -76,6 +76,7 @@ public class Controller {
         for (Model m : myModels.values()) {
             for (int i : m.getMyCurrentActivatedTurtles()) {
                 try {
+                    System.out.println("turtle number : " + i);
                     myInterpreter.process(m, i, string);
                 }
                 catch (Exception e) {
