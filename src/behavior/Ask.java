@@ -1,10 +1,10 @@
 package behavior;
 
 import java.util.ArrayList;
+import exceptions.ParameterException;
 import java.util.List;
 import slogo.Model;
 import slogo.Parser;
-import exceptions.ParameterException;
 
 
 /**

@@ -21,7 +21,7 @@ public class SetShape extends OneParameterCommand {
 
         int index = (int) getMyValue();
         model.getController().getView().getTurtleArea().getMyTurtle
-                (turtleNumber).setTurtleShapeSize(index);
+        (turtleNumber).setTurtleShapeSize(index);
         return index;
     }
 

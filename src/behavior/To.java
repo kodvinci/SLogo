@@ -1,10 +1,10 @@
 package behavior;
 
+import exceptions.NoSuchCommandException;
 import java.util.ArrayList;
 import java.util.List;
 import slogo.Model;
 import slogo.Parser;
-import exceptions.NoSuchCommandException;
 
 
 /**

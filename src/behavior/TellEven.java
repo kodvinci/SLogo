@@ -1,8 +1,8 @@
 package behavior;
 
+import exceptions.ParameterException;
 import java.util.ArrayList;
 import slogo.Model;
-import exceptions.ParameterException;
 
 
 /**
@@ -20,8 +20,9 @@ public class TellEven extends Tell {
 
     @Override
     public void initialize (String[] information, Model model) throws Exception {
-        if (information.length != PARAMETER_NUMBER) { throw new ParameterException(
-                                                                                   "Parameter doesn't match"); }
+        if (information.length != PARAMETER_NUMBER) { 
+            throw new ParameterException("Parameter doesn't match"); 
+        }
         myActivatedTurtles = new ArrayList<Integer>();
         int turtleNumber = model.getMyTurtles().size();
         for (int i = 0; i < turtleNumber; i++) {

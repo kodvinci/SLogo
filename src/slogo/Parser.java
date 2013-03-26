@@ -132,7 +132,7 @@ public class Parser {
         int i = 0;
         while (i < string.size()) {
             if (string.get(i).equals(" ") || string.get(i).equals("") ||
-                string.get(i).charAt(0) == '[') {
+                    string.get(i).charAt(0) == '[') {
                 i++;
             }
             else if (myResources.containsKey(string.get(i).toUpperCase()) || 
@@ -148,9 +148,9 @@ public class Parser {
                 commandName.clear();
                 i++;
             }
-         }       
-            
-     }
+        }       
+
+    }
 
 
     /**
