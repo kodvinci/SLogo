@@ -1,13 +1,13 @@
 package slogo;
 
-import behavior.ICommand;
-import exceptions.NoSuchCommandException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+import behavior.ICommand;
+import exceptions.NoSuchCommandException;
 
 
 /**
@@ -20,18 +20,20 @@ import java.util.regex.Pattern;
  * 
  */
 public class Parser {
+<<<<<<< HEAD
     
     private static final String PACKAGE_NAME = "behavior.";
     private static final String CLASS_NOT_FOUND = "Class not found";
+=======
+
+>>>>>>> f3f2bb1cc72c2ad20a2e9711b795189ef4b7aa6c
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
-    
+
     private ResourceBundle myResources;
 
     private Pattern myNumPattern;
     private Pattern myStrPattern;
     private Pattern mySpacePattern;
-    
-    
 
     /**
      * constructor
@@ -46,10 +48,11 @@ public class Parser {
 
     /**
      * Splits String of spaces and brackets
-     * @param s         String
-     * @param model     model
+     * 
+     * @param s String
+     * @param model model
      * @return
-     * @throws Exception        exception
+     * @throws Exception exception
      */
     public List<String[]> split (String s, Model model) throws Exception {
         List<String> l = new LinkedList<String>();
@@ -74,13 +77,14 @@ public class Parser {
 
         return addCommands(l, model);
     }
-    
+
     /**
      * creates list of commands and adds it
-     * @param l         string list
-     * @param model     model
+     * 
+     * @param l string list
+     * @param model model
      * @return
-     * @throws Exception        exception
+     * @throws Exception exception
      */
     public List<String[]> addCommands (List<String> l, Model model) throws Exception {
         determineException(l, model);
@@ -118,9 +122,10 @@ public class Parser {
           
             i++;
         }
-        
+
         return commandArray;
     }
+
     
     /**
      * determine exceptions
@@ -144,9 +149,10 @@ public class Parser {
                 commandName.clear();
                 i++;
             }
+        }       
             
         }
-    }
+
 
     /**
      * build a command through string we got
@@ -234,6 +240,7 @@ public class Parser {
         }
         return subArray;
     }
+<<<<<<< HEAD
     
     /**
      * Parse user string input
@@ -243,6 +250,10 @@ public class Parser {
      * @throws Exception        exception
      */
     public void parse (String command, List<ICommand> myCommandList, 
+=======
+
+    public void parse (String command, List<ICommand> myCommandList,
+>>>>>>> f3f2bb1cc72c2ad20a2e9711b795189ef4b7aa6c
                        Model model) throws Exception {
         String parsedCommand = parseExtraSpaces(command, model);
         myCommandList.addAll(buildMultipleCommands(split(parsedCommand, model), model));

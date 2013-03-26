@@ -24,17 +24,17 @@ public class Turtle extends Animal {
     private static final String TURTLE = "turtle.gif";
     private static final Pixmap TURTLE_IMAGE = new Pixmap(TURTLE);
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+    private static int myGlobalTurtleID = -1;
     private double myAngle;
     private boolean myLeftTrail;
-    private Trail myTrail;
-    private Trail undoneTrails;
     private boolean myVisible;
-    private String myTurtleName = "turtle.gif";
-    private static int myGlobalTurtleID = -1;
     private int myTurtleID;
+    private String myTurtleName = TURTLE;
     private Dimension myTurtleSize;
     private ResourceBundle myResources;
     private ResourceBundle mySizes;
+    private Trail myTrail;
+    private Trail undoneTrails;
     private int myIndex;
 
     /**
@@ -45,11 +45,8 @@ public class Turtle extends Animal {
      */
     public Turtle (Location myLocation, double angle) {
         super(TURTLE_IMAGE, myLocation, TURTLESIZE);
-        myTurtleSize = TURTLESIZE;
         myAngle = angle;
-        myTrail = new Trail();
-        undoneTrails = new Trail();
-
+        setProperties();
     }
 
     /**
@@ -59,11 +56,16 @@ public class Turtle extends Animal {
         super(TURTLE_IMAGE, new Location(Canvas.TURTLE_AREA_SIZE.width / 2,
                                          Canvas.TURTLE_AREA_SIZE.height / 2), TURTLESIZE);
         myAngle = 0;
+        setProperties();
+    }
+
+    private void setProperties () {
         myTrail = new Trail();
         undoneTrails = new Trail();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
         mySizes = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Turtles");
         myTurtleSize = TURTLESIZE;
+        myIndex = 2;
     }
 
     /**

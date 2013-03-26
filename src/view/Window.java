@@ -33,10 +33,8 @@ public class Window extends JPanel {
     private static final int X_INDEX = 0;
     private static final int Y_INDEX = 0;
 
-    private JFileChooser myChooser;
     private Controller myController;
     private Map<Integer, Turtle> myTurtle;
-    private Canvas myView;
     private ResourceBundle myResources;
     private Color myBackgroundColor = Color.WHITE;
 
@@ -50,7 +48,7 @@ public class Window extends JPanel {
         myController = controller;
         myTurtle = myController.getMyTurtles(0);
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
-        myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
+        new JFileChooser(System.getProperties().getProperty(USER_DIR));
     }
 
     /**
@@ -78,7 +76,6 @@ public class Window extends JPanel {
     public Window (Dimension size, String language, Canvas canvas) {
         initWindowProperties(size);
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
-        myView = canvas;
     }
 
     /**
