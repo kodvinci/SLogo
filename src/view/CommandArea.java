@@ -59,7 +59,6 @@ public class CommandArea extends Window {
                     myController.processUserInput(myTextField.getText());
                 }
                 catch (SecurityException | IllegalArgumentException e1) {
-                    // ignore run time exceptions
                     myController.showMessage(e1.getMessage());
                 }
 
@@ -73,8 +72,7 @@ public class CommandArea extends Window {
 
     private void separateCommands (String text) {
         String myText = text.toUpperCase();
-        if (myText.startsWith("REPEAT") | myText.startsWith("IF") | myText.startsWith("IFELSE") |
-            myText.startsWith("TO")) {
+        if (myText.startsWith("TO")) {
             myController.getView().getDisplayArea().showUserDefinedComs(text);
         }
         else {
