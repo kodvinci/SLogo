@@ -77,12 +77,7 @@ public class Controller {
                     myInterpreter.process(m, i, string);
                 }
                 catch (Exception e) {
-                    // if(e.getMessage() != null) {
-                    // myModels.get(modelIndex).showMessage(e.getMessage());
-                    // } else {
-                    // myModels.get(modelIndex).showMessage(e.getClass().toString());
-                    // }
-                    e.printStackTrace();
+                    showMessage(e.getMessage());
                 }
                 m.replaceActivatedTurtles();
             }
