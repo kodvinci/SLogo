@@ -13,3 +13,12 @@ Team 5
 5. Rex Ying - Mentor
 
 Started on: Feb 20th 2013
+
+Finished: March 25 2013
+
+https://github.com/th365thli/SLogo.git
+
+Files used to start project (files containing main): Main.java in default package
+
+Resource packages: images, images.background, resources
+

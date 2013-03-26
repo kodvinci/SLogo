@@ -20,8 +20,9 @@ import java.util.regex.Pattern;
  * 
  */
 public class Parser {
-
-
+    
+    private static final String PACKAGE_NAME = "behavior.";
+    private static final String CLASS_NOT_FOUND = "Class not found";
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     
     private ResourceBundle myResources;
@@ -82,9 +83,10 @@ public class Parser {
      * @throws Exception        exception
      */
     public List<String[]> addCommands (List<String> l, Model model) throws Exception {
+        determineException(l, model);
         List<String[]> commandArray = new ArrayList<String[]>();
-        for (int i = 0; i < l.size(); i++) {
-
+        int i = 0;
+        while (i < l.size()) {
             if (model.getUserCommands().containsKey(l.get(i))) {
                 String[] userCommand = new String[1];
                 userCommand[0] = l.get(i).toUpperCase();
@@ -97,10 +99,10 @@ public class Parser {
 
                 Class<?> commandClass = null;
                 try {
-                    commandClass = Class.forName("behavior." + commandName);
+                    commandClass = Class.forName(PACKAGE_NAME + commandName);
                 }
                 catch (ClassNotFoundException e) {
-                    model.showMessage("class not found");
+                    model.showMessage(CLASS_NOT_FOUND);
                 }
 
                 Field field = commandClass.getDeclaredField("PARAMETER_NUMBER");
@@ -108,23 +110,42 @@ public class Parser {
                 for (int j = 0; j < parameter + 1; j++) {
                     temp.add(l.get(i + j));
                 }
+                i = i + parameter + 1;
                 String command[] = new String[temp.size()];
                 temp.toArray(command);
                 commandArray.add(command);
             }
-            else {
-                determineException(l.get(i), model);
-                break;
-            }
-
+          
+            i++;
         }
         
         return commandArray;
     }
     
-    public void determineException(String string, Model model) {
-        model.showMessage("\"" + string + "\"" + " is not a valid command");
-        
+    /**
+     * determine exceptions
+     */
+    public void determineException(List<String> string, Model model) {
+        List<String> commandName = new ArrayList<String>();
+        int i = 0;
+        while (i < string.size()) {
+            if (string.get(i).equals(" ") || string.get(i).equals("") || string.get(i).charAt(0) == '[') {
+                i++;
+            }
+            else if (myResources.containsKey(string.get(i).toUpperCase())) {
+                commandName.add(string.get(i));
+                i++;
+            }
+            else if (commandName.size() == 0){
+                model.showMessage("\"" + string.get(i) + "\"" + " is not a command");
+                return;
+            }
+            else {
+                commandName.clear();
+                i++;
+            }
+            
+        }
     }
 
     /**
@@ -133,7 +154,7 @@ public class Parser {
      * @param str splited input commands
      * @param model model we want to operate
      * @return command
-     * @throws Exception
+     * @throws Exception        exception
      */
 
     public ICommand buildCommand (String[] str, Model model) throws Exception {
@@ -152,7 +173,7 @@ public class Parser {
                 commandClass = Class.forName("behavior." + commandName);
             }
             catch (ClassNotFoundException e) {
-                model.showMessage("class not found");
+                model.showMessage(CLASS_NOT_FOUND);
             }
             Object o = null;
             try {
@@ -171,15 +192,13 @@ public class Parser {
 
     /**
      * build multiple commands
-     * 
-     * @param commands command strings
-     * @param model mode we want to operate
-     * @return
-     * @throws Exception
+     * @param commands  commands
+     * @param model     model
+     * @return  
+     * @throws Exception        exception
      */
-
-    public List<ICommand> buildMultipleCommands (List<String[]> commands, Model model)
-                                                                                      throws Exception {
+    public List<ICommand> buildMultipleCommands (List<String[]> commands, 
+                                                 Model model) throws Exception {
         if (commands == null) { return null; }
 
         List<ICommand> myCommandList = new ArrayList<ICommand>();
@@ -195,6 +214,7 @@ public class Parser {
      * delete first element of a string
      * 
      * @param str input string
+     * @param model     model
      */
     public String[] subStringArray (String[] str, Model model) {
         int size = str.length;
@@ -214,13 +234,26 @@ public class Parser {
         }
         return subArray;
     }
-
+    
+    /**
+     * Parse user string input
+     * @param command           commands
+     * @param myCommandList     command list
+     * @param model             model
+     * @throws Exception        exception
+     */
     public void parse (String command, List<ICommand> myCommandList, 
                        Model model) throws Exception {
         String parsedCommand = parseExtraSpaces(command, model);
         myCommandList.addAll(buildMultipleCommands(split(parsedCommand, model), model));
     }
-
+    
+    /**
+     * parse extra spaces
+     * @param command   command
+     * @param model     model
+     * @return
+     */
     public String parseExtraSpaces (String command, Model model) {
         String delim = "[ ]+";
         String[] parsedCommandArray = command.split(delim);
@@ -232,8 +265,8 @@ public class Parser {
     }
 
     /**
-     * 
-     * @param commandWithBracket
+     * Parse out brackets
+     * @param commandWithBracket        commands in bracket
      * @return
      */
     public String prune (String commandWithBracket) {
@@ -241,8 +274,8 @@ public class Parser {
     }
 
     /**
-     * 
-     * @param myCommand
+     * Split blanks in bracket
+     * @param myCommand command
      * @return
      */
     public String[] splitBlanksInsideBracket (String myCommand) {
@@ -261,16 +294,29 @@ public class Parser {
         }
         return myNewContent;
     }
-
+    
+    /**
+     * get number pattern
+     * @return
+     */
     public Pattern getNumPattern () {
         return myNumPattern;
     }
-
+    
+    /**
+     * check if numeric
+     * @param str       string
+     * @return
+     */
     public boolean judgeNumeric (String str) {
         if (myNumPattern.matcher(str).matches()) { return true; }
         return false;
     }
-
+    
+    /**
+     * get space pattern
+     * @return
+     */
     public Pattern getSpacePattern () {
         return mySpacePattern;
     }
