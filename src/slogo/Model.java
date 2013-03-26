@@ -220,7 +220,10 @@ public class Model {
      * @param turtleIndex turtle index
      */
     public void addFutureActivatedTurtles (int turtleIndex) {
-        myFutureActivatedTurtles.add(turtleIndex);
+        if( !myFutureActivatedTurtles.contains(turtleIndex)) {
+            myFutureActivatedTurtles.add(turtleIndex);    
+        }
+        
     }
 
     /**
