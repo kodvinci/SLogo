@@ -128,7 +128,10 @@ public class Canvas {
     public CommandArea getCommandArea () {
         return myInputArea;
     }
-
+    
+    /**
+     * @return the view's Jframe
+     */
     public JFrame getFrame () {
         return myFrame;
     }

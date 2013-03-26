@@ -194,9 +194,7 @@ public abstract class Animal {
         if (image != null) {
             myOriginalView = new Pixmap(image);
             myImage =
-                    new ImageIcon(getClass().getResource(RESOURCE_LOCATION +
-                                                         image.getImageFileName()))
-                            .getImage();
+                    new ImageIcon(getClass().getResource(RESOURCE_LOCATION + image.getImageFileName())).getImage();
             myView = image;
             resetBounds();
         }

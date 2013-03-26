@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Map;
@@ -38,9 +39,9 @@ public class DisplayArea extends Window {
     private static final int HEIGHT_FIELD_SIZE = 10;
     private static final int WIDTH_FIELD_SIZE_TWO = 16;
     private Map<Integer, Turtle> myTurtle;
-    private MouseListener myMouseTlistener;
-    private MouseListener myMouseClistener;
-    private MouseListener myMouseUlistener;
+    private MouseAdapter myMouseTlistener;
+    private MouseAdapter myMouseClistener;
+    private MouseAdapter myMouseUlistener;
     private JTextArea myTextArea;
     private JTextArea myPrevCommands;
     private JTextArea myUserDefinedVars;
@@ -99,7 +100,7 @@ public class DisplayArea extends Window {
 
         return new JScrollPane(myUserDefinedVars);
     }
-
+    
     /**
      * 
      * @param commands
@@ -146,78 +147,28 @@ public class DisplayArea extends Window {
             }
         }
         catch (SecurityException | IllegalArgumentException e1) {
-            e1.printStackTrace();
+            myController.showMessage(e1.getMessage());
         }
     }
 
     private void makeListeners () {
-
-        myMouseTlistener = new MouseListener() {
+        myMouseTlistener = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
                 showTurtleStatus();
             }
-
-            @Override
-            public void mouseEntered (MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited (MouseEvent e) {
-            }
-
-            @Override
-            public void mousePressed (MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased (MouseEvent e) {
-            }
         };
-
-        myMouseClistener = new MouseListener() {
+        myMouseClistener = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
                 reRunPreviousCommands(e, 1);
             }
-
-            @Override
-            public void mouseEntered (MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited (MouseEvent e) {
-            }
-
-            @Override
-            public void mousePressed (MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased (MouseEvent e) {
-            }
         };
 
-        myMouseUlistener = new MouseListener() {
+        myMouseUlistener = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
                 reRunPreviousCommands(e, 2);
-            }
-
-            @Override
-            public void mouseEntered (MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited (MouseEvent e) {
-            }
-
-            @Override
-            public void mousePressed (MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased (MouseEvent e) {
             }
         };
     }
