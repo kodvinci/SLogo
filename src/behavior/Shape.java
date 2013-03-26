@@ -18,8 +18,9 @@ public class Shape extends NoParameterCommand {
 
     @Override
     public double move (Model model, int turtleNumber) {
-
-        return 0;
+        
+        return model.getController().getView().getTurtleArea().getMyTurtle
+                (turtleNumber).getTurtleShapeIndex();
     }
 
 }

@@ -34,7 +34,6 @@ public class Forward extends OneParameterCommand {
                              currentY + (-1 * getMyValue()) *
                                      Math.cos(angleInDegrees));
         model.getMyTurtle(turtleNumber).setCenter(newLocation);
-        System.out.println("final value of back: " + getMyValue());
         return getMyValue();
 
     }
