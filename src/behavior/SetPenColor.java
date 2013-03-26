@@ -10,7 +10,7 @@ public class SetPenColor extends OneParameterCommand {
     @Override
     public double move (Model model, int turtleNumber) {
 
-        model.getController().getView().getTurtleArea().setTrailColor((int) getMyValue());
+        model.getController().getView().getTurtleArea().setPenColor((int) getMyValue());
         return 0;
     }
 }

@@ -1,11 +1,10 @@
 package behavior;
 
-import exceptions.ParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import slogo.Model;
 import slogo.Parser;
-
+import exceptions.ParameterException;
 
 
 /**
@@ -67,16 +66,14 @@ public class Dotimes extends Repeat {
 
     @Override
     public void initialize (String[] information, Model model) throws Exception {
-        if (information.length != PARAMETER_NUMBER) { 
-            throw new ParameterException("parameter not match"); 
-        }
+        if (information.length != PARAMETER_NUMBER) { throw new ParameterException(
+                                                                                   "parameter not match"); }
         System.out.println("DOTimes Initialization Successful");
         myBracketCommandsList = new ArrayList<ICommand>();
         String[] mySplitedContent = myParser.splitBlanksInsideBracket(information[0]);
         if (mySplitedContent.length != PARAMETER_IN_FIRST_BRACKET ||
-            !myParser.judgeNumeric(mySplitedContent[1])) { 
-            throw new ParameterException("ParameterException"); 
-        }
+            !myParser.judgeNumeric(mySplitedContent[1])) { throw new ParameterException(
+                                                                                        "ParameterException"); }
         myVariable = mySplitedContent[0];
         myStartValue = 0;
         myEndValue = Integer.parseInt(mySplitedContent[1]);

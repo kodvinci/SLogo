@@ -1,6 +1,7 @@
 package object;
 
 import java.awt.Dimension;
+import java.util.ResourceBundle;
 import util.Animal;
 import util.Location;
 import util.Pixmap;
@@ -19,9 +20,10 @@ public class Turtle extends Animal {
     /**
      * Default dimension size
      */
-    public static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
+    public static final Dimension TURTLESIZE = new Dimension(50, 50);
     private static final String TURTLE = "turtle.gif";
     private static final Pixmap TURTLE_IMAGE = new Pixmap(TURTLE);
+    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private double myAngle;
     private boolean myLeftTrail;
     private Trail myTrail;
@@ -30,6 +32,9 @@ public class Turtle extends Animal {
     private String myTurtleName = "turtle.gif";
     private static int myGlobalTurtleID = -1;
     private int myTurtleID;
+    private Dimension myTurtleSize;
+    private ResourceBundle myResources;
+    private ResourceBundle mySizes;
 
     /**
      * Constructs turtle object
@@ -38,10 +43,12 @@ public class Turtle extends Animal {
      * @param angle myAngle
      */
     public Turtle (Location myLocation, double angle) {
-        super(TURTLE_IMAGE, myLocation, DEFAULT_SIZE);
+        super(TURTLE_IMAGE, myLocation, TURTLESIZE);
+        myTurtleSize = TURTLESIZE;
         myAngle = angle;
         myTrail = new Trail();
         undoneTrails = new Trail();
+
     }
 
     /**
@@ -49,10 +56,13 @@ public class Turtle extends Animal {
      */
     public Turtle () {
         super(TURTLE_IMAGE, new Location(Canvas.TURTLE_AREA_SIZE.width / 2,
-                                         Canvas.TURTLE_AREA_SIZE.height / 2), DEFAULT_SIZE);
+                                         Canvas.TURTLE_AREA_SIZE.height / 2), TURTLESIZE);
         myAngle = 0;
         myTrail = new Trail();
         undoneTrails = new Trail();
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
+        mySizes = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Turtles");
+        System.out.println("Constructed");
     }
 
     /**
@@ -164,7 +174,7 @@ public class Turtle extends Animal {
      * @return size of Image
      */
     public Dimension getSize () {
-        return DEFAULT_SIZE;
+        return myTurtleSize;
     }
 
     /**
@@ -176,10 +186,8 @@ public class Turtle extends Animal {
         myTurtleName = image;
     }
 
-    /*
+    /**
      * 
-     * /**
-     * >>>>>>> 71f3ab082e100f8fb58c62cc5f71a9bd50bc0bb3
      * Moves turtle back to previous location
      */
     public void undoMove () {
@@ -193,10 +201,8 @@ public class Turtle extends Animal {
         }
     }
 
-    /*
-     * =======
-     * /**
-     * >>>>>>> 71f3ab082e100f8fb58c62cc5f71a9bd50bc0bb3
+    /**
+     * 
      * Moves turtle back to last undone location
      */
     public void redoMove () {
@@ -209,7 +215,25 @@ public class Turtle extends Animal {
         }
     }
 
+    /**
+     * 
+     * @return
+     *         turtle image
+     */
     public Pixmap getTurtleImage () {
         return TURTLE_IMAGE;
+    }
+
+    /**
+     * 
+     * @param index index of shape in resource file
+     */
+    public void setTurtleShapeSize (int index) {
+        String size = mySizes.getString(Integer.toString(index));
+        if (size != null) {
+            String[] values = size.split(",");
+            myTurtleSize = new Dimension(Integer.parseInt(values[0]), Integer.parseInt(values[1]));
+            setSize(Integer.parseInt(values[0]), Integer.parseInt(values[1]));
+        }
     }
 }

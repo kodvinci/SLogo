@@ -9,7 +9,6 @@ import view.Canvas;
 import view.MessageWindow;
 
 
-
 /**
  * 
  * @author Richard Yang & Jerry Li
@@ -65,7 +64,8 @@ public class Controller {
 
     /**
      * process user input
-     * @param string    string
+     * 
+     * @param string string
      */
     public void processUserInput (String string) {
 
@@ -105,8 +105,8 @@ public class Controller {
     public static void checkBounds (Turtle t) {
         double x = t.getX();
         double y = t.getY();
-        double xMargin = Turtle.DEFAULT_SIZE.getWidth() / 2;
-        double yMargin = Turtle.DEFAULT_SIZE.getHeight() / 2;
+        double xMargin = Turtle.TURTLESIZE.getWidth() / 2;
+        double yMargin = Turtle.TURTLESIZE.getHeight() / 2;
         if (x > TURTLE_AREA_SIZE.getWidth() - xMargin) {
             x = TURTLE_AREA_SIZE.getWidth() - xMargin;
         }
@@ -160,7 +160,8 @@ public class Controller {
 
     /**
      * Return a model
-     * @param model     model
+     * 
+     * @param model model
      * @return
      */
     public Model getModel (Model model) {
@@ -187,8 +188,9 @@ public class Controller {
 
     /**
      * Return a turtle
-     * @param modelIndex        index of model
-     * @param turtleIndex       index of turtle
+     * 
+     * @param modelIndex index of model
+     * @param turtleIndex index of turtle
      * @return
      */
     public Turtle getMyTurtle (int modelIndex, int turtleIndex) {
@@ -197,7 +199,8 @@ public class Controller {
 
     /**
      * Return turtle list
-     * @param modelIndex        the model index
+     * 
+     * @param modelIndex the model index
      * @return
      */
     public Map<Integer, Turtle> getMyTurtles (int modelIndex) {
@@ -212,10 +215,11 @@ public class Controller {
     public Canvas getView () {
         return myView;
     }
-    
+
     /**
      * Shows a message
-     * @param message   message
+     * 
+     * @param message message
      */
     public void showMessage (String message) {
         myMessageWindow = new MessageWindow(this, message);

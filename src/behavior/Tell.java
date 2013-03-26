@@ -18,7 +18,13 @@ public class Tell implements ICommand {
         model.clearFutureActivatedTurtles();
         int last = 0;
         for (int i : myActivatedTurtles) {
-            model.addFutureActivatedTurtles(i);
+            if( model.getMyTurtles().containsKey(i) ) {
+                model.addFutureActivatedTurtles(i);
+            } else {
+                model.addNewTurtle(i);
+                model.addFutureActivatedTurtles(i);
+                System.out.println("turtle doesn't exist, have to create : " + i );
+            }
             System.out.println("turtle activated:" + i);
             last = i;
         }
@@ -27,13 +33,15 @@ public class Tell implements ICommand {
 
     @Override
     public void initialize (String[] information, Model model) throws Exception {
-        if (information.length != PARAMETER_NUMBER) { throw new ParameterException(
-                                                                                   "Parameter doesn't match"); }
+        if (information.length != PARAMETER_NUMBER) {
+            throw new ParameterException("Parameter doesn't match"); 
+        }
         myActivatedTurtles = new ArrayList<Integer>();
         String[] mySplitedContent = splitFirstBracket(prune(information[0]));
         for (String str : mySplitedContent) {
-            if (!myParser.judgeNumeric(str)) { throw new ParameterException(
-                                                                            "Parameter doesn't match"); }
+            if (!myParser.judgeNumeric(str)) { 
+                throw new ParameterException("Parameter doesn't match");
+            }
             myActivatedTurtles.add(Integer.parseInt(str));
         }
         System.out.println("activated turtle number :" + myActivatedTurtles.size());

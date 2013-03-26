@@ -272,7 +272,6 @@ public class TurtleArea extends Window {
         penIsDown = false;
     }
 
-
     public void undo () {
         Turtle toUndo = lastEdited.get(lastEdited.size() - 1);
         toUndo.undoMove();

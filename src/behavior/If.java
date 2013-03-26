@@ -1,10 +1,10 @@
 package behavior;
 
-import exceptions.ParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import slogo.Model;
 import slogo.Parser;
+import exceptions.ParameterException;
 
 
 /**
@@ -14,7 +14,7 @@ import slogo.Parser;
  * 
  */
 public class If implements ICommand {
-    
+
     /**
      * Number of parameters commands take
      */
@@ -27,34 +27,35 @@ public class If implements ICommand {
 
     /**
      * Returns parameter number
+     * 
      * @return
      */
     public static int getParameterNumber () {
         return PARAMETER_NUMBER;
     }
-    
+
     /**
      * Construct commands from bracket
-     * @param value     value
-     * @param bracket   commands in bracket
-     * @param model     model
-     * @throws Exception        exception
+     * 
+     * @param value value
+     * @param bracket commands in bracket
+     * @param model model
+     * @throws Exception exception
      */
     public void construct (String value, String bracket, Model model) throws Exception {
-        if (!myParser.getNumPattern().matcher(value).matches()) { 
-            throw new ParameterException("parameterException"); 
-        }
+        if (!myParser.getNumPattern().matcher(value).matches()) { throw new ParameterException(
+                                                                                               "parameterException"); }
         myStatement = Integer.parseInt(value);
         myPrunedStringCommands = myParser.prune(bracket);
         myCommands = createCommandsList(myPrunedStringCommands, model);
 
     }
 
-  
     /**
      * create list of commands
-     * @param commands  commands in bracket
-     * @param model     model
+     * 
+     * @param commands commands in bracket
+     * @param model model
      * @return
      * @throws Exception exceptions
      */
