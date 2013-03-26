@@ -1,10 +1,10 @@
 package behavior;
 
+import exceptions.NoSuchCommandException;
 import java.util.ArrayList;
 import java.util.List;
 import slogo.Model;
 import slogo.Parser;
-import exceptions.NoSuchCommandException;
 
 
 /**
@@ -97,7 +97,7 @@ public class To implements ICommand {
             String variable = variables[i];
             // System.out.println(Arrays.toString(variable));
 
-            String[] str = { command, variable };
+            String[] str = {command, variable};
             ICommand myCommand = myParser.buildCommand(str, model);
             myCommandList.add(myCommand);
             model.addVariable(":TO" + Integer.toString(i), variable);

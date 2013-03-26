@@ -37,6 +37,7 @@ public class Ask implements ICommand {
             model.addFutureActivatedTurtles(i);
             for (ICommand ic : myCommands) {
                 ic.move(model, i);
+                System.out.println("COMMAND EXECUTED");
             }
             System.out.println("turtle activated:" + i);
             last = i;
@@ -59,6 +60,7 @@ public class Ask implements ICommand {
         System.out.println("activated turtle number :" + myActivatedTurtles.size());
         String myPrunedStringCommand = myParser.prune(information[1]);
         myCommands = createCommandsList(myPrunedStringCommand, model);
+        System.out.println("number of commands in ask : " + myCommands.size());
 
     }
 

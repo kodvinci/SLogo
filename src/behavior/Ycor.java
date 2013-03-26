@@ -5,13 +5,16 @@ import view.Canvas;
 
 
 /**
- * 
- * @author Richard Yang
+ * return Y coordinate
+ * @author Jerry
  * 
  */
 
 public class Ycor extends NoParameterCommand {
-
+    
+    /**
+     * Number of parameters command takes
+     */
     public static final int PARAMETER_NUMBER = 0;
 
     @Override
