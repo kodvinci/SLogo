@@ -24,17 +24,13 @@ public class Turtle extends Animal {
     private static final String TURTLE = "turtle.gif";
     private static final Pixmap TURTLE_IMAGE = new Pixmap(TURTLE);
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
-    private static int myGlobalTurtleID = -1;
     private double myAngle;
     private boolean myLeftTrail;
     private boolean myVisible;
-    private int myTurtleID;
-    private String myTurtleName = TURTLE;
     private Dimension myTurtleSize;
-    private ResourceBundle myResources;
     private ResourceBundle mySizes;
     private Trail myTrail;
-    private Trail undoneTrails;
+    private Trail myUndoneTrails;
     private int myIndex;
 
     /**
@@ -61,8 +57,8 @@ public class Turtle extends Animal {
 
     private void setProperties () {
         myTrail = new Trail();
-        undoneTrails = new Trail();
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
+        myUndoneTrails = new Trail();
+        ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
         mySizes = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Turtles");
         myTurtleSize = TURTLESIZE;
         myIndex = 2;
@@ -186,7 +182,6 @@ public class Turtle extends Animal {
      */
     public void changeTurtleImage (String image) {
         setView(new Pixmap(image));
-        myTurtleName = image;
     }
 
     /**
@@ -197,7 +192,7 @@ public class Turtle extends Animal {
         System.out.println(myTrail.getTrails().size());
         if (myTrail.getTrails().size() > 1) {
             Location lastTrail = myTrail.getTrails().get(myTrail.getTrails().size() - 1);
-            undoneTrails.addTrail(lastTrail);
+            myUndoneTrails.addTrail(lastTrail);
             myTrail.removeTrail(lastTrail);
             System.out.println(myTrail.getTrails().get(myTrail.getTrails().size() - 1));
             setCenter(myTrail.getTrails().get(myTrail.getTrails().size() - 1));
@@ -209,11 +204,11 @@ public class Turtle extends Animal {
      * Moves turtle back to last undone location
      */
     public void redoMove () {
-        if (undoneTrails.getTrails().size() > 0) {
+        if (myUndoneTrails.getTrails().size() > 0) {
             Location lastUndoneTrail =
-                    undoneTrails.getTrails().get(undoneTrails.getTrails().size() - 1);
+                    myUndoneTrails.getTrails().get(myUndoneTrails.getTrails().size() - 1);
             myTrail.addTrail(lastUndoneTrail);
-            undoneTrails.removeTrail(lastUndoneTrail);
+            myUndoneTrails.removeTrail(lastUndoneTrail);
             setCenter(lastUndoneTrail);
         }
     }
